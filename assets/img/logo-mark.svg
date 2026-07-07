@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 64" fill="none" role="img" aria-label="Biomi">
+  <!-- Leaf / sprout flourish -->
+  <path d="M24 3c-7.5 6.8-9.2 16.2-4.6 24.4C25.2 21.6 27 12 24 3Z" fill="currentColor"/>
+  <path d="M24 3c7.5 6.8 9.2 16.2 4.6 24.4C22.8 21.6 21 12 24 3Z" fill="currentColor" opacity=".55"/>
+  <!-- Stylised B body -->
+  <path d="M16 24v37" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="M16 26c8-2 17 1 17 9 0 6-5 8.5-10 8.5" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+  <path d="M16 43c9-1 19 1.5 19 9.5 0 6.5-6 8.5-12 8.5" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+</svg>

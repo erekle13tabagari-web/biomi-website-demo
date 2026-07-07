@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biomi — Heating, Cooling & Ventilation</title>
+<meta name="description" content="Biomi — complete engineering solutions for heating, cooling, ventilation and water-supply systems.">
+<link rel="icon" href="assets/img/logomark-ink.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a class="brand" href="index-en.html" aria-label="Biomi — Home">
+      <img class="brand__logo" src="assets/img/logo-eng.svg" alt="Biomi">
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav__item"><a class="nav__link" href="index-en.html">Home</a></div>
+      <div class="nav__item">
+        <a class="nav__link" href="#about">About
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown">
+          <a href="about-en.html">About the company</a>
+          <a href="#news">News</a>
+          <a href="#news">Blog</a>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#services">Services</a></div>
+      <div class="nav__item">
+        <a class="nav__link" href="#products">Products
+          <svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="dropdown prod-menu">
+          <div class="prod-menu__chapter">
+            <button class="prod-menu__btn" type="button">Heating &amp; Cooling
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="prod-menu__panel">
+              <a href="products/vrf-vrv-en.html">VRF / VRV system</a>
+              <a href="#products">Stationary heating boiler</a>
+              <a href="#products">Chiller</a>
+              <a href="#products">Heat pump</a>
+              <a href="#products">Multi-zone system</a>
+              <a href="#products">Wall-boiler cascade system</a>
+            </div>
+          </div>
+          <div class="prod-menu__chapter">
+            <button class="prod-menu__btn" type="button">Ventilation
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="prod-menu__panel">
+              <a href="#products">Recuperator</a>
+              <a href="#products">Air handling unit (AHU)</a>
+              <a href="#products">Pool ventilation system</a>
+              <a href="#products">ROOFTOP</a>
+              <a href="#products">Smoke &amp; fire ventilation</a>
+            </div>
+          </div>
+          <div class="prod-menu__chapter">
+            <button class="prod-menu__btn" type="button">Water Supply
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="prod-menu__panel">
+              <a href="#products">Water backflow system</a>
+              <a href="#products">Hot-water system</a>
+              <a href="#products">Water-pressure system</a>
+              <a href="#products">Drainage system</a>
+              <a href="#products">Sewerage system</a>
+              <a href="#products">Pool system</a>
+              <a href="#products">Storm-drain system</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#projects">Projects</a></div>
+      <div class="nav__item"><a class="nav__link" href="#contact">Contact</a></div>
+    </nav>
+
+    <div class="nav__tools">
+      <div class="lang" role="group" aria-label="Language">
+        <a href="index.html">GEO</a>
+        <a class="is-active" href="index-en.html">ENG</a>
+      </div>
+      <button class="icon-btn" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO (infinite image carousel) ===================== -->
+<section class="hero" id="hero" aria-label="Main banner">
+  <div class="container hero__head">
+    <span class="tag"></span>
+    <h1>HEATING &amp; COOLING, VENTILATION, WATER SUPPLY</h1>
+  </div>
+  <div class="hero__viewport">
+    <div class="hero__track">
+      <!-- set 1 -->
+      <div class="hero__card" style="background-image:url('assets/img/prod-heating.jpg')"><span class="hero__card-label">Heating</span></div>
+      <div class="hero__card" style="background-image:url('assets/img/hero-3.jpg')"><span class="hero__card-label">Cooling</span></div>
+      <div class="hero__card" style="background-image:url('assets/img/prod-vent.jpg')"><span class="hero__card-label">Ventilation</span></div>
+      <div class="hero__card" style="background-image:url('assets/img/prod-water.jpg')"><span class="hero__card-label">Water supply</span></div>
+      <!-- set 2 — duplicate for a seamless infinite loop -->
+      <div class="hero__card" style="background-image:url('assets/img/prod-heating.jpg')" aria-hidden="true"><span class="hero__card-label">Heating</span></div>
+      <div class="hero__card" style="background-image:url('assets/img/hero-3.jpg')" aria-hidden="true"><span class="hero__card-label">Cooling</span></div>
+      <div class="hero__card" style="background-image:url('assets/img/prod-vent.jpg')" aria-hidden="true"><span class="hero__card-label">Ventilation</span></div>
+      <div class="hero__card" style="background-image:url('assets/img/prod-water.jpg')" aria-hidden="true"><span class="hero__card-label">Water supply</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="section" id="about">
+  <div class="container about">
+    <div class="about__text reveal">
+      <span class="eyebrow">About us</span>
+      <h2>The engineering of how a space works</h2>
+      <p>Biomi Holding JSC is an engineering holding that unites heating, cooling, ventilation and water-supply into one complete, integrated system.</p>
+      <p>Biomi is a balanced ecosystem: air, temperature and water are interconnected elements that together create a unified, efficient and stable environment. We build energy-efficient systems that work seamlessly — with maximum precision and efficiency.</p>
+      <div class="stats">
+        <div class="stat"><b>20</b><span>years of experience</span></div>
+        <div class="stat"><b>250<i>+</i></b><span>completed projects</span></div>
+      </div>
+      <div class="about__cta"><a class="btn btn--outline" href="about-en.html">More about us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="about__visual reveal">
+      <img src="assets/img/about-us.webp" alt="Biomi — engineering holding">
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEWS ===================== -->
+<section class="section section--soft" id="news">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow">News</span>
+      <h2>Latest news and blog</h2>
+      <p>Projects, technologies and expertise — from the Biomi team.</p>
+    </div>
+    <div class="news-grid">
+      <article class="news reveal">
+        <div class="news__img"><img src="assets/img/about.avif" alt=""></div>
+        <div class="news__body">
+          <span class="news__cat">Project</span>
+          <h3>Deploying a VRF system in a multi-functional center</h3>
+          <div class="news__foot">
+            <a class="link-more" href="news/vrf-project-en.html">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <button class="news__share" type="button" aria-label="Share" title="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
+          </div>
+        </div>
+      </article>
+      <article class="news reveal">
+        <div class="news__img"><img src="assets/img/prod-vent.jpg" alt=""></div>
+        <div class="news__body">
+          <span class="news__cat">Blog</span>
+          <h3>How to choose a heat pump for energy efficiency</h3>
+          <div class="news__foot">
+            <a class="link-more" href="#news">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <button class="news__share" type="button" aria-label="Share" title="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
+          </div>
+        </div>
+      </article>
+      <article class="news reveal">
+        <div class="news__img"><img src="assets/img/prod-water.jpg" alt=""></div>
+        <div class="news__body">
+          <span class="news__cat">News</span>
+          <h3>Biomi introduces new ventilation solutions</h3>
+          <div class="news__foot">
+            <a class="link-more" href="#news">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <button class="news__share" type="button" aria-label="Share" title="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES (process) ===================== -->
+<section class="section section--dark" id="services">
+  <div class="container">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Services</span>
+      <h2>Full cycle — from a single team</h2>
+      <p>We work at every stage of the project and take responsibility for the final result.</p>
+    </div>
+    <div class="ring-wrap reveal">
+      <div class="ring">
+        <div class="ring__hint" aria-hidden="true">
+          <span class="ring__hint-ripple"></span>
+          <svg class="ring__hint-hand" viewBox="0 0 24 24" fill="#fff" stroke="#1b1b33" stroke-width="1.1" stroke-linejoin="round">
+            <path d="M9.5 12.5V6.2a1.7 1.7 0 0 1 3.4 0v5.1"/>
+            <path d="M12.9 11.3V4.6a1.7 1.7 0 0 1 3.4 0v7"/>
+            <path d="M16.3 8.4a1.7 1.7 0 0 1 3.4 0v6.1a6.5 6.5 0 0 1-6.5 6.5h-1.6a6.5 6.5 0 0 1-5.7-3.4l-2.2-3.9a1.7 1.7 0 0 1 2.8-1.9l1.4 1.6V9.4a1.7 1.7 0 0 1 3.4 0v3.1"/>
+          </svg>
+        </div>
+        <div class="ring__center"><img class="ring__logomark" src="assets/img/logomark-white.svg" alt="Biomi"></div>
+        <div class="ring__node" style="--a:0deg" data-title="Strategy &amp; concept" data-desc="Requirements analysis and the design of the optimal approach.">
+          <div class="node__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18h6M10 21h4"/><path d="M12 2a7 7 0 0 0-4 12.6c.6.5 1 1.3 1 2.1v.3h6v-.3c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg></div>
+          <span class="node__label">Strategy</span>
+        </div>
+        <div class="ring__node" style="--a:45deg" data-title="Engineering design" data-desc="Detailed design and full technical documentation.">
+          <div class="node__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="5" r="2"/><path d="M12 7v3M8.5 21 12 11l3.5 10M10 17h4"/></svg></div>
+          <span class="node__label">Design</span>
+        </div>
+        <div class="ring__node" style="--a:90deg" data-title="Technology selection" data-desc="Selecting equipment from leading brands.">
+          <div class="node__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h8M16 6h4M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="14" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></div>
+          <span class="node__label">Technology</span>
+        </div>
+        <div class="ring__node" style="--a:135deg" data-title="Supply &amp; logistics" data-desc="On-time delivery and inventory management.">
+          <div class="node__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 7h12v9H2zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg></div>
+          <span class="node__label">Logistics</span>
+        </div>
+        <div class="ring__node" style="--a:180deg" data-title="Installation" data-desc="Qualified installation to quality standards.">
+          <div class="node__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.7 2.7-2.3-.6-.6-2.3 2.6-2.2z"/></svg></div>
+          <span class="node__label">Installation</span>
+        </div>
+        <div class="ring__node" style="--a:225deg" data-title="Commissioning &amp; calibration" data-desc="System testing and precise setup.">
+          <div class="node__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 15a8 8 0 0 1 16 0"/><path d="M12 15l4-4"/><path d="M3 19h18"/></svg></div>
+          <span class="node__label">Calibration</span>
+        </div>
+        <div class="ring__node" style="--a:270deg" data-title="24/7 service" data-desc="Continuous technical support and maintenance.">
+          <div class="node__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+          <span class="node__label">24/7 service</span>
+        </div>
+        <div class="ring__node" style="--a:315deg" data-title="Technical support" data-desc="Scheduled inspections and long-term cooperation.">
+          <div class="node__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><path d="M5 13a2 2 0 0 1 2 2v2a2 2 0 0 1-4 0v-2a2 2 0 0 1 2-2ZM19 13a2 2 0 0 0-2 2v2a2 2 0 0 0 4 0v-2a2 2 0 0 0-2-2Z"/><path d="M19 18a4 4 0 0 1-4 3.5h-3"/></svg></div>
+          <span class="node__label">Support</span>
+        </div>
+      </div>
+      <div class="ring__detail" aria-live="polite">
+        <span class="ring__detail-tag"></span>
+        <h3 class="ring__detail-title"></h3>
+        <p class="ring__detail-desc"></p>
+      </div>
+    </div>
+    <div class="services__cta reveal">
+      <p>Need an <span>individual solution</span> for your facility?</p>
+      <a class="btn btn--gold" href="#contact">Request a consultation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRODUCTS ===================== -->
+<section class="section" id="products">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow">Products</span>
+      <h2>Three directions — one standard</h2>
+      <p>Heating &amp; cooling, ventilation and water supply with professional equipment.</p>
+    </div>
+    <div class="prod-grid">
+      <a class="prod prod--heating reveal" href="#products">
+        <span class="prod__img"></span>
+        <span class="prod__body">
+          <h3>Heating &amp; Cooling</h3>
+          <ul><li data-href="products/vrf-vrv-en.html" role="link" tabindex="0">VRF / VRV</li><li>Chiller</li><li>Heat pump</li><li>Heating boiler</li></ul>
+          <span class="link-more">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
+      <a class="prod prod--vent reveal" href="#products">
+        <span class="prod__img"></span>
+        <span class="prod__body">
+          <h3>Ventilation</h3>
+          <ul><li>Recuperator</li><li>AHU</li><li>ROOFTOP</li><li>Fire ventilation</li></ul>
+          <span class="link-more">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
+      <a class="prod prod--water reveal" href="#products">
+        <span class="prod__img"></span>
+        <span class="prod__body">
+          <h3>Water Supply</h3>
+          <ul><li>Hot water</li><li>Pressure system</li><li>Sewerage</li><li>Pool</li></ul>
+          <span class="link-more">Details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section class="section section--soft" id="projects">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow">Projects</span>
+      <h2>Our work</h2>
+      <p>Completed facilities whose comfort is powered by our systems.</p>
+    </div>
+    <div class="proj-grid">
+      <a class="proj proj--1 reveal" href="#projects">
+        <span class="proj__img"></span>
+        <span class="proj__info">
+          <span class="proj__meta"><span>Commercial</span><h3>ORO</h3></span>
+          <span class="proj__logo"><img src="assets/img/clients/oro.svg" alt="ORO"></span>
+        </span>
+      </a>
+      <a class="proj proj--2 reveal" href="#projects">
+        <span class="proj__img"></span>
+        <span class="proj__info">
+          <span class="proj__meta"><span>Residential</span><h3>Chateau</h3></span>
+          <span class="proj__logo"><img src="assets/img/clients/chateau.svg" alt="Chateau"></span>
+        </span>
+      </a>
+      <a class="proj proj--3 reveal" href="#projects">
+        <span class="proj__img"></span>
+        <span class="proj__info">
+          <span class="proj__meta"><span>Educational</span><h3>SDSU</h3></span>
+          <span class="proj__logo"><img src="assets/img/clients/sdsu.svg" alt="SDSU"></span>
+        </span>
+      </a>
+      <a class="proj proj--4 reveal" href="#projects">
+        <span class="proj__img"></span>
+        <span class="proj__info">
+          <span class="proj__meta"><span>Educational</span><h3>Agricultural University</h3></span>
+          <span class="proj__logo"><img src="assets/img/clients/agrarian.png" alt="Agricultural University"></span>
+        </span>
+      </a>
+      <a class="proj proj--5 reveal" href="#projects">
+        <span class="proj__img"></span>
+        <span class="proj__info">
+          <span class="proj__meta"><span>Banking</span><h3>Pasha Bank</h3></span>
+          <span class="proj__logo"><img src="assets/img/clients/pasha.svg" alt="Pasha Bank"></span>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="section" id="contact">
+  <div class="container contact">
+    <div class="contact__intro reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>Ready to start your project?</h2>
+      <p>Fill in the form and upload your documentation — our engineers will get back to you shortly.</p>
+      <ul class="contact__details">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg><a href="tel:+995322151115">+995 322 15 11 15</a></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg><a href="mailto:info@biomi.ge">info@biomi.ge</a></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>124 Akaki Beliashvili St, Tbilisi</span></li>
+      </ul>
+      <a class="contact__map" href="https://www.google.com/maps/search/?api=1&query=41.7855299%2C44.7798332"
+         target="_blank" rel="noopener" aria-label="View location on Google Maps">
+        <iframe title="Biomi location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=41.7855299,44.7798332&z=16&output=embed"></iframe>
+        <span class="footer__map-pin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          View on map
+        </span>
+      </a>
+    </div>
+
+    <form class="contact__form reveal" id="contactForm" novalidate>
+      <div class="field">
+        <label for="cfName">Full name</label>
+        <input id="cfName" type="text" name="fullname" autocomplete="name" placeholder="First and last name" required>
+      </div>
+      <div class="field">
+        <label for="cfEmail">Email</label>
+        <input id="cfEmail" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="cfCompany">Company</label>
+          <input id="cfCompany" type="text" name="company" autocomplete="organization" placeholder="Company name">
+        </div>
+        <div class="field">
+          <label for="cfPhone">Phone number</label>
+          <input id="cfPhone" type="tel" name="phone" autocomplete="tel" placeholder="+995 5xx xx xx xx" required>
+        </div>
+      </div>
+      <div class="field">
+        <label>Documentation (PDF)</label>
+        <label class="filedrop" for="cfFiles">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 16V4m0 0L8 8m4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          <span class="filedrop__text"><b>Choose a file</b> or drop it here</span>
+          <span class="filedrop__hint">PDF · max. 10MB per file</span>
+          <input id="cfFiles" type="file" name="files" accept=".pdf,application/pdf" multiple hidden>
+        </label>
+        <div class="filelist" id="cfFileList"></div>
+      </div>
+      <p class="form-msg" id="cfMsg" hidden></p>
+      <div class="form-actions">
+        <button type="submit" class="btn btn--gold">
+          Send
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="deco deco--ring1"><img src="assets/img/brand-ring-blue.svg" alt=""></div>
+  <div class="deco deco--ring2"><img src="assets/img/brand-ring-purple.svg" alt=""></div>
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="index-en.html"><img class="brand__logo" src="assets/img/logo-eng.svg" alt="Biomi"></a>
+        <p class="footer__about">Complete engineering solutions for heating, cooling, ventilation and water-supply systems.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.5 2.9h-2.3v7A10 10 0 0 0 22 12Z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9V9Z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a2.6 2.6 0 0 0-1.8-1.8C19 4.8 12 4.8 12 4.8s-7 0-8.8.4A2.6 2.6 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a2.6 2.6 0 0 0 1.8 1.8c1.8.4 8.8.4 8.8.4s7 0 8.8-.4A2.6 2.6 0 0 0 22.6 17c.4-1.6.4-5 .4-5ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__mapcol">
+        <h4>Location</h4>
+        <!-- Location: 124 Akaki Beliashvili St, Tbilisi -->
+        <a class="footer__map" href="https://www.google.com/maps/search/?api=1&query=41.7855299%2C44.7798332"
+           target="_blank" rel="noopener" aria-label="View location on Google Maps">
+          <iframe title="Biomi location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=41.7855299,44.7798332&z=16&output=embed"></iframe>
+          <span class="footer__map-pin">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            View on map
+          </span>
+        </a>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <nav class="footer__links">
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#products">Products</a>
+          <a href="#projects">Projects</a>
+          <a href="#news">News</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <nav class="footer__links">
+          <a href="#products">Heating &amp; Cooling</a>
+          <a href="#products">Ventilation</a>
+          <a href="#products">Water Supply</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="footer__contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>124 Akaki Beliashvili St, Tbilisi</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg><a href="tel:+995322151115">+995 322 15 11 15</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg><a href="mailto:info@biomi.ge">info@biomi.ge</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Biomi Holding. All rights reserved.</span>
+      <span>Made with ❤︎</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== FLOATING CHAT ===================== -->
+<div class="fab">
+  <a class="fab__ms" href="https://m.me/biomi" target="_blank" rel="noopener" aria-label="Messenger">
+    <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.3 2 2 6.2 2 11.7c0 2.9 1.2 5.4 3.1 7.1.2.2.3.4.3.6l.1 1.7c0 .5.6.9 1.1.7l1.9-.8c.2-.1.3-.1.5 0 .9.3 1.9.4 2.9.4 5.7 0 10-4.2 10-9.7S17.7 2 12 2Zm6 7.5-2.9 4.7c-.5.7-1.5.9-2.2.4l-2.3-1.7c-.2-.2-.5-.2-.7 0l-3.1 2.4c-.4.3-.9-.2-.7-.6l2.9-4.7c.5-.7 1.5-.9 2.2-.4l2.3 1.7c.2.2.5.2.7 0l3.1-2.4c.4-.3.9.2.7.6Z"/></svg>
+  </a>
+  <a class="fab__li" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9V9Z"/></svg>
+  </a>
+  <a class="fab__yt" href="#" target="_blank" rel="noopener" aria-label="YouTube">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.4-.4-5a2.6 2.6 0 0 0-1.8-1.8C19 4.8 12 4.8 12 4.8s-7 0-8.8.4A2.6 2.6 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a2.6 2.6 0 0 0 1.8 1.8c1.8.4 8.8.4 8.8.4s7 0 8.8-.4A2.6 2.6 0 0 0 22.6 17c.4-1.6.4-5 .4-5ZM10 15.5v-7l6 3.5-6 3.5Z"/></svg>
+  </a>
+  <a class="fab__ig" href="#" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
+  </a>
+  <a class="fab__ph" href="tel:+995322151115" aria-label="Call">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
+  </a>
+  <button class="fab__top" id="toTop" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 15 6-6 6 6"/></svg>
+  </button>
+</div>
+
+<!-- ===================== MOBILE DRAWER ===================== -->
+<div class="drawer" id="drawer">
+  <div class="drawer__scrim" data-close></div>
+  <aside class="drawer__panel" role="dialog" aria-label="Menu">
+    <div class="drawer__head">
+      <a class="brand" href="index-en.html"><img class="brand__logo" src="assets/img/logo-eng.svg" alt="Biomi"></a>
+      <button class="drawer__close" data-close type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <ul class="m-nav">
+      <li><a href="index-en.html" data-close>Home</a></li>
+      <li class="m-acc">
+        <button class="m-acc__btn" type="button">About
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="m-acc__panel"><a href="about-en.html" data-close>About the company</a><a href="#news" data-close>News</a><a href="#news" data-close>Blog</a></div>
+      </li>
+      <li><a href="#services" data-close>Services</a></li>
+      <li class="m-acc">
+        <button class="m-acc__btn" type="button">Products
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="m-acc__panel">
+          <div class="m-acc__group">Heating &amp; Cooling</div>
+          <a href="products/vrf-vrv-en.html" data-close>VRF / VRV system</a>
+          <a href="#products" data-close>Chiller</a>
+          <a href="#products" data-close>Heat pump</a>
+          <div class="m-acc__group">Ventilation</div>
+          <a href="#products" data-close>Recuperator</a>
+          <a href="#products" data-close>AHU</a>
+          <a href="#products" data-close>ROOFTOP</a>
+          <div class="m-acc__group">Water Supply</div>
+          <a href="#products" data-close>Hot-water system</a>
+          <a href="#products" data-close>Sewerage</a>
+          <a href="#products" data-close>Pool system</a>
+        </div>
+      </li>
+      <li><a href="#projects" data-close>Projects</a></li>
+      <li><a href="#contact" data-close>Contact</a></li>
+    </ul>
+    <div class="drawer__foot">
+      <div class="drawer__langs">
+        <a href="index.html">GEO</a>
+        <a class="is-active" href="index-en.html">ENG</a>
+      </div>
+      <a class="btn btn--primary" href="#contact" data-close style="justify-content:center">Contact us</a>
+    </div>
+  </aside>
+</div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
