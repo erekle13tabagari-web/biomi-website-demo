@@ -140,6 +140,14 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
 .prod-menu__panel a{display:block;padding:9px 13px 9px 22px;border-radius:8px;color:var(--ink);
   font-size:14.5px;transition:.18s}
 .prod-menu__panel a:hover{background:var(--bg-soft);color:var(--gold-600)}
+/* nested brand submenu under VRF/VRV */
+.prod-sub__btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  padding:9px 13px 9px 22px;font-size:14.5px;color:var(--ink);text-align:left;border-radius:8px;transition:.18s}
+.prod-sub__btn:hover{background:var(--bg-soft);color:var(--gold-600)}
+.prod-sub__btn svg{width:13px;height:13px;flex:none;opacity:.6;transition:transform .3s}
+.prod-sub.open .prod-sub__btn svg{transform:rotate(180deg)}
+.prod-sub__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
+.prod-menu__panel .prod-sub__panel a{padding-left:38px}
 
 /* tools */
 .nav__tools{display:flex;align-items:center;gap:8px;margin-left:6px}
@@ -448,13 +456,16 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
   color:#fff;box-shadow:var(--shadow-md);transition:transform .25s}
 .fab a:hover,.fab button:hover{transform:scale(1.08)}
 .fab svg{width:27px;height:27px}
-.fab__ms{background:linear-gradient(45deg,#0099ff,#a033ff,#ff5280,#ff7061)}
-.fab__li{background:#0a66c2}
-.fab__yt{background:#ff0000}
-.fab__ig{background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)}
+.fab__ms{background:#0249f7}
 .fab__ph{background:#0249f7}
 .fab__ph svg{color:#fff}
 .fab .fab__top{background:#0249f7;color:#fff;opacity:0;visibility:hidden;transform:translateY(10px)}
+/* social capsule: 3 symbols in one pill, super-blue glyphs */
+.fab__social{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px;
+  background:#fff;border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow-md)}
+.fab .fab__social a{width:42px;height:42px;background:transparent;color:var(--gold);box-shadow:none}
+.fab .fab__social a:hover{background:var(--bg-soft);transform:none}
+.fab__social svg{width:23px;height:23px}
 .fab .fab__top svg{width:22px;height:22px}
 .fab .fab__top.show{opacity:1;visibility:visible;transform:none}
 
@@ -479,6 +490,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
 .m-acc.open .m-acc__btn svg{transform:rotate(180deg)}
 .m-acc__panel{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
 .m-acc__panel a{padding:11px 16px;font-size:15px;color:var(--muted)}
+.m-acc__panel a.m-sub{padding-left:34px;font-size:14px;opacity:.85}
 .m-acc__group{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);
   padding:12px 16px 4px;font-weight:700}
 .drawer__foot{margin-top:auto;padding-top:24px;display:flex;flex-direction:column;gap:14px}
@@ -548,6 +560,75 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
 .pfeat p{font-size:14.5px;color:var(--muted)}
 .usecases{display:flex;flex-wrap:wrap;gap:10px}
 .usecases li{background:#fff;border:1px solid var(--line);padding:9px 18px;border-radius:999px;font-size:14.5px}
+/* partner-logo infinite marquee */
+.logos{position:relative;overflow:hidden;margin:6px 0 26px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.logos__track{display:flex;align-items:center;gap:60px;width:max-content;
+  animation:logos-scroll 32s linear infinite}
+.logos:hover .logos__track{animation-play-state:paused}
+.logos img{flex:0 0 auto;height:30px;width:auto;object-fit:contain;
+  opacity:.62;filter:grayscale(1);transition:opacity .25s,filter .25s}
+.logos img:hover{opacity:1;filter:none}
+@keyframes logos-scroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.logos__track{animation:none}}
+/* brand page hero logo */
+.brand-hero__logo{height:42px;width:auto;max-width:240px;display:block;margin:6px 0 16px}
+
+/* ---- Samsung brand page: DVM/CAC/FJM subsection tabs (fold out on the right) ---- */
+.subtabs{display:grid;grid-template-columns:220px 1fr;gap:30px;align-items:start}
+.subtabs__list{display:flex;flex-direction:column;gap:10px}
+.subtabs__btn{position:relative;text-align:left;padding:16px 18px;border:1px solid var(--line);
+  border-radius:12px;background:#fff;font-weight:600;font-size:15.5px;color:var(--ink);
+  transition:.2s;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.subtabs__btn small{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:3px}
+.subtabs__btn:hover{border-color:var(--gold-200)}
+.subtabs__btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
+.subtabs__btn.active small{color:rgba(255,255,255,.85)}
+.subtabs__btn svg{width:16px;height:16px;flex:none;opacity:.7}
+.subtabs__panel{display:none;animation:foldin .35s var(--ease)}
+.subtabs__panel.active{display:block}
+@keyframes foldin{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+@media (max-width:760px){
+  .subtabs{grid-template-columns:1fr;gap:18px}
+  .subtabs__list{flex-direction:row;overflow-x:auto;padding-bottom:4px}
+  .subtabs__btn{flex:0 0 auto;justify-content:center}
+  .subtabs__btn small{display:none}
+}
+
+/* ---- product cards (inside a subsection) ---- */
+.pcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.pcard{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;transition:.25s;text-decoration:none;color:inherit}
+.pcard:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--gold-200)}
+.pcard__img{aspect-ratio:1/1;background:#f6f8fb;display:grid;place-items:center;padding:14px}
+.pcard__img img{max-width:100%;max-height:100%;object-fit:contain}
+.pcard__body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.pcard__body h4{font-size:16px}
+.pcard__model{font-size:13px;color:var(--muted);font-family:monospace;letter-spacing:.02em}
+.pcard__price{margin-top:auto;font-size:18px;font-weight:600;color:var(--gold-600)}
+.pcard__price small{font-size:12px;font-weight:400;color:var(--muted)}
+.subsoon{background:var(--bg-soft);border:1px dashed var(--cream);border-radius:var(--radius);
+  padding:34px;text-align:center;color:var(--muted)}
+
+/* ---- product detail page ---- */
+.pprice{display:inline-flex;flex-direction:column;gap:3px;background:var(--bg-soft);
+  border:1px solid var(--cream);border-radius:14px;padding:14px 22px;margin:4px 0 20px}
+.pprice b{font-size:27px;color:var(--gold-600);line-height:1}
+.pprice span{font-size:12.5px;color:var(--muted)}
+.pgallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.pgallery img{width:100%;height:190px;object-fit:cover;border-radius:var(--radius);
+  border:1px solid var(--line);background:#fff}
+.spec-table{width:100%;border-collapse:collapse;font-size:15px;background:#fff;
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.spec-table th,.spec-table td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line)}
+.spec-table th{width:44%;font-weight:500;color:var(--muted)}
+.spec-table td{font-weight:500;color:var(--ink)}
+.spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:0}
+.pfeat-row{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center;margin:26px 0}
+.pfeat-row:nth-child(even) .pfeat-row__img{order:2}
+.pfeat-row__img img{width:100%;border-radius:var(--radius);border:1px solid var(--line);display:block}
+@media (max-width:760px){.pfeat-row{grid-template-columns:1fr;gap:16px}.pfeat-row:nth-child(even) .pfeat-row__img{order:0}}
 @media (max-width:920px){
   .phero{grid-template-columns:1fr;gap:36px}
   .pfeat-grid{grid-template-columns:1fr 1fr}
@@ -615,7 +696,9 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
   .contact__form{padding:24px}
   .fab{right:14px;bottom:14px;gap:9px}
   .fab a,.fab button{width:44px;height:44px}
+  .fab .fab__social a{width:38px;height:38px}
   .fab svg{width:23px;height:23px}
+  .fab__social svg{width:20px;height:20px}
   .fab .fab__top svg{width:19px;height:19px}
 }
 @media (prefers-reduced-motion:reduce){

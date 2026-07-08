@@ -23,6 +23,30 @@
     });
   })();
 
+  /* ---- Floating buttons: group socials into one capsule; order below it:
+         messenger, phone (call CTA), back-to-top ---- */
+  (function () {
+    var fab = document.querySelector('.fab');
+    if (!fab) return;
+    var li = fab.querySelector('.fab__li'),
+        ig = fab.querySelector('.fab__ig'),
+        yt = fab.querySelector('.fab__yt'),
+        ms = fab.querySelector('.fab__ms'),
+        ph = fab.querySelector('.fab__ph'),
+        top = fab.querySelector('.fab__top');
+    if (li && ig && yt) {
+      var cap = document.createElement('div');
+      cap.className = 'fab__social';
+      cap.appendChild(li);   // LinkedIn
+      cap.appendChild(ig);   // Instagram
+      cap.appendChild(yt);   // YouTube
+      fab.insertBefore(cap, fab.firstChild);
+    }
+    if (ms) fab.appendChild(ms);   // Messenger (blue, like the call button)
+    if (ph) fab.appendChild(ph);   // Phone — call CTA
+    if (top) fab.appendChild(top); // Back to top
+  })();
+
   var header = document.getElementById('header');
   var toTop  = document.getElementById('toTop');
   /* ---- Header shadow/shrink on scroll + back-to-top ---- */
@@ -118,6 +142,35 @@
           ch.classList.add('open');
           panel.style.maxHeight = panel.scrollHeight + 'px';
         }
+      });
+    });
+  });
+
+  /* ---- Nested brand submenu inside products dropdown (VRF/VRV) ---- */
+  document.querySelectorAll('.prod-sub').forEach(function (sub) {
+    var btn = sub.querySelector('.prod-sub__btn');
+    var panel = sub.querySelector('.prod-sub__panel');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var chap = sub.closest('.prod-menu__panel');
+      var chapH = chap ? chap.scrollHeight : 0;   // current height (sub in its old state)
+      var subH = panel.scrollHeight;              // sub content height
+      var open = sub.classList.toggle('open');
+      panel.style.maxHeight = open ? subH + 'px' : '0';
+      // grow/shrink the enclosing chapter panel so nothing gets clipped
+      if (chap) chap.style.maxHeight = (chapH + (open ? subH : -subH)) + 'px';
+    });
+  });
+
+  /* ---- Subsection tabs (Samsung: DVM / CAC / FJM) ---- */
+  document.querySelectorAll('.subtabs').forEach(function (tabs) {
+    var btns = tabs.querySelectorAll('.subtabs__btn');
+    var panels = tabs.querySelectorAll('.subtabs__panel');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-tab');
+        btns.forEach(function (b) { b.classList.toggle('active', b === btn); });
+        panels.forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-panel') === key); });
       });
     });
   });
