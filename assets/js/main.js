@@ -40,7 +40,7 @@
       cap.appendChild(li);   // LinkedIn
       var fb = document.createElement('a');   // Facebook (after LinkedIn)
       fb.className = 'fab__fb';
-      fb.href = '#';
+      fb.href = 'https://www.facebook.com/p/Biomi-Holding-ბიომი-ჰოლდინგი-61579642613208/';
       fb.target = '_blank';
       fb.rel = 'noopener';
       fb.setAttribute('aria-label', 'Facebook');
@@ -177,32 +177,60 @@
     });
   });
 
-  /* ---- Image lightbox (article galleries) ---- */
+  /* ---- Image lightbox with prev/next (grouped per gallery) ---- */
   (function () {
-    var imgs = document.querySelectorAll('[data-lightbox]');
-    if (!imgs.length) return;
+    var all = Array.prototype.slice.call(document.querySelectorAll('[data-lightbox]'));
+    if (!all.length) return;
+    // group images by their container so arrows cycle within one gallery
+    var groups = [];
+    all.forEach(function (im) {
+      var parent = im.parentElement;
+      var g = null;
+      for (var i = 0; i < groups.length; i++) { if (groups[i].parent === parent) { g = groups[i]; break; } }
+      if (!g) { g = { parent: parent, items: [] }; groups.push(g); }
+      g.items.push(im);
+    });
+
     var lb = document.createElement('div');
     lb.className = 'lightbox';
     lb.innerHTML =
-      '<button class="lightbox__close" type="button" aria-label="დახურვა">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
-      '</button><img alt="">';
+      '<button class="lightbox__close" type="button" aria-label="დახურვა"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
+      '<button class="lightbox__nav lightbox__prev" type="button" aria-label="წინა"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 6-6 6 6 6"/></svg></button>' +
+      '<img alt="">' +
+      '<button class="lightbox__nav lightbox__next" type="button" aria-label="შემდეგი"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>';
     document.body.appendChild(lb);
     var lbImg = lb.querySelector('img');
-    function open(src, alt) {
-      lbImg.src = src; lbImg.alt = alt || '';
-      lb.classList.add('open'); document.body.style.overflow = 'hidden';
+    var prevBtn = lb.querySelector('.lightbox__prev');
+    var nextBtn = lb.querySelector('.lightbox__next');
+    var group = null, index = 0;
+
+    function render() {
+      var im = group.items[index];
+      lbImg.src = im.getAttribute('data-full') || im.src;
+      lbImg.alt = im.alt || '';
+      var multi = group.items.length > 1;
+      prevBtn.style.display = nextBtn.style.display = multi ? '' : 'none';
     }
+    function step(d) { index = (index + d + group.items.length) % group.items.length; render(); }
+    function open(g, i) { group = g; index = i; render(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
     function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
-    imgs.forEach(function (im) {
-      im.style.cursor = 'zoom-in';
-      im.addEventListener('click', function () { open(im.getAttribute('data-full') || im.src, im.alt); });
+
+    groups.forEach(function (g) {
+      g.items.forEach(function (im, i) {
+        im.style.cursor = 'zoom-in';
+        im.addEventListener('click', function () { open(g, i); });
+      });
     });
+    prevBtn.addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+    nextBtn.addEventListener('click', function (e) { e.stopPropagation(); step(1); });
     lb.addEventListener('click', function (e) {
       if (e.target === lb || e.target.closest('.lightbox__close')) close();
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && lb.classList.contains('open')) close();
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') step(-1);
+      else if (e.key === 'ArrowRight') step(1);
     });
   })();
 

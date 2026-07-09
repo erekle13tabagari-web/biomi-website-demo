@@ -1,15 +1,31 @@
-fonts/
-New brandbook and materials/
-stock images/
-backup - rebrand v1 (before design polish)/
-backup - rebrand v2 (design polish)/
-svg/
-.claude/
-Launch Biomi Website.html
-Biomi - Brand Book.pdf
-Biomi logo ENG.svg
-Biomi logo GEO.svg
-biomi_LAYOUT.pdf
-design element 1.svg
-design element 2.svg
-Pictograms/
+# ============================================================
+#  Biomi website — ignore source / working material.
+#  The deployed site is only: *.html, assets/, fonts/, launch.html
+# ============================================================
+
+# Raw product / brand source folders (images already live in assets/)
+/concrete product page/
+/stock images/
+/partner logoes/
+/New brandbook and materials/
+/Pictograms/
+/svg/
+
+# Old snapshots
+/backup - rebrand v1 (before design polish)/
+/backup - rebrand v2 (design polish)/
+
+# Brand documents / source PDFs (not served by the site)
+*.pdf
+
+# Saved-webpage dumps (can embed third-party API keys)
+*_files/
+*.download
+
+# Local dev tooling
+/.claude/
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini

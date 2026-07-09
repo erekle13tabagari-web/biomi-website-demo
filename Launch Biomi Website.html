@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ბიომი — გაშვება</title>
+<!-- fallback: if JS is off, go to the site after 3s -->
+<noscript><meta http-equiv="refresh" content="3; url=index.html"></noscript>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{min-height:100vh;display:grid;place-items:center;
+    font-family:"Segoe UI",system-ui,sans-serif;color:#fff;
+    background:radial-gradient(120% 90% at 80% 0%,#26274a,#1b1b33 60%,#121226)}
+  .card{text-align:center;padding:48px 40px}
+  .logo{width:230px;max-width:70vw;filter:brightness(0) invert(1);margin:0 auto 26px}
+  h1{font-size:15px;letter-spacing:.32em;text-transform:uppercase;
+    color:rgba(255,255,255,.55);font-weight:500;margin-bottom:36px}
+  .btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+    background:#0249f7;color:#fff;
+    font-size:17px;font-weight:600;padding:15px 34px;border-radius:8px;
+    box-shadow:0 10px 30px rgba(2,73,247,.4);transition:transform .2s,box-shadow .2s,background .2s}
+  .btn:hover{transform:translateY(-2px);background:#0238be;box-shadow:0 14px 36px rgba(2,73,247,.55)}
+  .btn svg{width:18px;height:18px}
+  .hint{margin-top:22px;font-size:13px;color:rgba(255,255,255,.4)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="logo" src="assets/img/logo-geo.svg" alt="ბიომი">
+    <h1>HVAC &amp; წყალმომარაგება</h1>
+    <a class="btn" href="index.html" id="go">
+      საიტის გახსნა
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <p class="hint">იხსნება ავტომატურად…</p>
+  </div>
+  <script>
+    // Auto-launch after a short splash; the button works anytime.
+    setTimeout(function(){ window.location.href = 'index.html'; }, 1800);
+  </script>
+</body>
+</html>

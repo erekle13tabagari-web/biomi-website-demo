@@ -615,6 +615,18 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
   border:none;transition:background .2s}
 .lightbox__close:hover{background:rgba(255,255,255,.28)}
 .lightbox__close svg{width:22px;height:22px}
+.lightbox__nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;
+  border-radius:50%;background:rgba(255,255,255,.14);color:#fff;border:none;display:grid;
+  place-items:center;cursor:pointer;transition:background .2s;z-index:2}
+.lightbox__nav:hover{background:rgba(255,255,255,.3)}
+.lightbox__prev{left:20px}
+.lightbox__next{right:20px}
+.lightbox__nav svg{width:26px;height:26px}
+@media (max-width:620px){
+  .lightbox__nav{width:42px;height:42px}
+  .lightbox__prev{left:8px}
+  .lightbox__next{right:8px}
+}
 
 /* ---- product cards (inside a subsection) ---- */
 .pcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
