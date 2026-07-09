@@ -38,9 +38,24 @@
       var cap = document.createElement('div');
       cap.className = 'fab__social';
       cap.appendChild(li);   // LinkedIn
+      var fb = document.createElement('a');   // Facebook (after LinkedIn)
+      fb.className = 'fab__fb';
+      fb.href = '#';
+      fb.target = '_blank';
+      fb.rel = 'noopener';
+      fb.setAttribute('aria-label', 'Facebook');
+      fb.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.5 2.9h-2.3v7A10 10 0 0 0 22 12Z"/></svg>';
+      cap.appendChild(fb);   // Facebook
       cap.appendChild(ig);   // Instagram
       cap.appendChild(yt);   // YouTube
       fab.insertBefore(cap, fab.firstChild);
+      // hide the social capsule once the footer scrolls into view
+      var footer = document.querySelector('.footer');
+      if (footer && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          cap.classList.toggle('is-hidden', entries[0].isIntersecting);
+        }, { threshold: 0 }).observe(footer);
+      }
     }
     if (ms) fab.appendChild(ms);   // Messenger (blue, like the call button)
     if (ph) fab.appendChild(ph);   // Phone — call CTA
@@ -161,6 +176,35 @@
       if (chap) chap.style.maxHeight = (chapH + (open ? subH : -subH)) + 'px';
     });
   });
+
+  /* ---- Image lightbox (article galleries) ---- */
+  (function () {
+    var imgs = document.querySelectorAll('[data-lightbox]');
+    if (!imgs.length) return;
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML =
+      '<button class="lightbox__close" type="button" aria-label="დახურვა">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+      '</button><img alt="">';
+    document.body.appendChild(lb);
+    var lbImg = lb.querySelector('img');
+    function open(src, alt) {
+      lbImg.src = src; lbImg.alt = alt || '';
+      lb.classList.add('open'); document.body.style.overflow = 'hidden';
+    }
+    function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    imgs.forEach(function (im) {
+      im.style.cursor = 'zoom-in';
+      im.addEventListener('click', function () { open(im.getAttribute('data-full') || im.src, im.alt); });
+    });
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb || e.target.closest('.lightbox__close')) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lb.classList.contains('open')) close();
+    });
+  })();
 
   /* ---- Subsection tabs (Samsung: DVM / CAC / FJM) ---- */
   document.querySelectorAll('.subtabs').forEach(function (tabs) {

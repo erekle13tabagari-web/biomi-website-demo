@@ -460,9 +460,13 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
 .fab__ph{background:#0249f7}
 .fab__ph svg{color:#fff}
 .fab .fab__top{background:#0249f7;color:#fff;opacity:0;visibility:hidden;transform:translateY(10px)}
-/* social capsule: 3 symbols in one pill, super-blue glyphs */
+/* social capsule: 3 symbols in one frosted-glass pill, super-blue glyphs */
 .fab__social{display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px;
-  background:#fff;border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow-md)}
+  background:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.6);border-radius:999px;
+  box-shadow:0 6px 22px rgba(27,27,51,.14);
+  backdrop-filter:blur(12px) saturate(1.7);-webkit-backdrop-filter:blur(12px) saturate(1.7);
+  transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s}
+.fab__social.is-hidden{opacity:0;visibility:hidden;transform:translateX(20px) scale(.92);pointer-events:none}
 .fab .fab__social a{width:42px;height:42px;background:transparent;color:var(--gold);box-shadow:none}
 .fab .fab__social a:hover{background:var(--bg-soft);transform:none}
 .fab__social svg{width:23px;height:23px}
@@ -575,26 +579,42 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
 /* brand page hero logo */
 .brand-hero__logo{height:42px;width:auto;max-width:240px;display:block;margin:6px 0 16px}
 
-/* ---- Samsung brand page: DVM/CAC/FJM subsection tabs (fold out on the right) ---- */
-.subtabs{display:grid;grid-template-columns:220px 1fr;gap:30px;align-items:start}
-.subtabs__list{display:flex;flex-direction:column;gap:10px}
-.subtabs__btn{position:relative;text-align:left;padding:16px 18px;border:1px solid var(--line);
+/* ---- Samsung brand page: DVM/CAC/FJM subsection tabs (horizontal) ---- */
+.subtabs{display:block}
+.subtabs__list{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+.subtabs__btn{flex:1 1 180px;position:relative;text-align:left;padding:15px 18px;border:1px solid var(--line);
   border-radius:12px;background:#fff;font-weight:600;font-size:15.5px;color:var(--ink);
   transition:.2s;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .subtabs__btn small{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:3px}
 .subtabs__btn:hover{border-color:var(--gold-200)}
 .subtabs__btn.active{background:var(--gold);border-color:var(--gold);color:#fff}
 .subtabs__btn.active small{color:rgba(255,255,255,.85)}
-.subtabs__btn svg{width:16px;height:16px;flex:none;opacity:.7}
+.subtabs__btn svg{width:16px;height:16px;flex:none;opacity:.7;transition:transform .25s}
+.subtabs__btn.active svg{transform:rotate(90deg)}
 .subtabs__panel{display:none;animation:foldin .35s var(--ease)}
 .subtabs__panel.active{display:block}
-@keyframes foldin{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
-@media (max-width:760px){
-  .subtabs{grid-template-columns:1fr;gap:18px}
-  .subtabs__list{flex-direction:row;overflow-x:auto;padding-bottom:4px}
-  .subtabs__btn{flex:0 0 auto;justify-content:center}
+@keyframes foldin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (max-width:620px){
+  .subtabs__list{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+  .subtabs__btn{flex:0 0 auto}
   .subtabs__btn small{display:none}
 }
+
+/* ---- article image gallery + lightbox ---- */
+.gallery{display:flex;gap:12px;margin:14px 0 8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.gallery img{flex:0 0 auto;height:88px;width:132px;object-fit:cover;border-radius:10px;
+  border:1px solid var(--line);cursor:zoom-in;transition:transform .2s,box-shadow .2s}
+.gallery img:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:var(--gold-200)}
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(15,15,30,.92);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;visibility:hidden;transition:opacity .25s}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox img{max-width:92vw;max-height:88vh;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.lightbox__close{position:absolute;top:20px;right:24px;width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.15);color:#fff;display:grid;place-items:center;cursor:pointer;
+  border:none;transition:background .2s}
+.lightbox__close:hover{background:rgba(255,255,255,.28)}
+.lightbox__close svg{width:22px;height:22px}
 
 /* ---- product cards (inside a subsection) ---- */
 .pcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
