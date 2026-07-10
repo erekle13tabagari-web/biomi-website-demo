@@ -41,3 +41,26 @@ assets/
 - ცალკე გვერდები: ჩვენ შესახებ, სერვისები, პროდუქტის კატეგორიები/ერთეულები, პროექტები, კონტაქტი
 - ინგლისური ვერსია (ENG toggle ამჟამად placeholder-ია)
 - სიახლეების/ბლოგის რეალური კონტენტი
+
+## გამოქვეყნება / Publishing
+
+**ეს საქაღალდე არის ერთადერთი წყარო (single source of truth).**
+რედაქტირება მხოლოდ აქ — `C:\Users\tabo\Desktop\biomi website test`
+
+საიტის გასაახლებლად ორჯერ დააჭირეთ:
+
+    Update Website.bat
+
+ის ავტომატურად: commit → push → GitHub Pages (ცოცხლდება ~1 წუთში).
+
+> ძველი `biomi-website-demo` საქაღალდე აღარ გამოიყენება — ის მხოლოდ სარეზერვო ასლია.
+
+---
+
+**English.** This folder *is* the git repo — the single source of truth.
+Double-click `Update Website.bat` to commit and push; the site goes live on
+GitHub Pages about a minute later. The old `biomi-website-demo` folder is a
+backup only and must not be edited.
+
+Source material (`concrete product page/`, `stock images/`, `referances/`,
+brandbook PDFs, backups) stays local — it is git-ignored and never published.
