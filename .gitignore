@@ -17,6 +17,7 @@
 
 # Brand documents / source PDFs (not served by the site)
 *.pdf
+!assets/downloads/*.pdf
 
 # Saved-webpage dumps (can embed third-party API keys)
 *_files/
@@ -29,3 +30,9 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Design reference images (source material)
+/referances/
+
+# Local publish button
+*.bat

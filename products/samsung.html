@@ -105,150 +105,82 @@
   </div>
 </header>
 
-<!-- ===================== BRAND HERO ===================== -->
+<!-- ===================== BRAND LISTING ===================== -->
 <section class="page-hero">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="../index.html">მთავარი</a><span class="sep">/</span>
       <a href="../index.html#products">პროდუქტი</a><span class="sep">/</span>
-      <a href="vrf-vrv.html">VRF / VRV სისტემა</a><span class="sep">/</span>
+      <a href="vrf-vrv.html">VRF / VRV</a><span class="sep">/</span>
       <b>Samsung</b>
     </nav>
-    <div class="phero">
-      <div class="reveal">
-        <span class="eyebrow">VRF / VRV — ბრენდი</span>
-        <img class="brand-hero__logo" src="../assets/img/partners/samsung.svg" alt="Samsung">
-        <h1>Samsung — DVM S</h1>
-        <p class="phero__lead">Samsung-ის DVM S სერია აერთიანებს კომპაქტურ დიზაინს, მაღალ ეფექტურობასა და ჭკვიან მართვას. კორეული ტექნოლოგია, რომელიც ოპტიმალურია სწრაფი მონტაჟისა და მოქნილი კონფიგურაციისთვის. ბიომი უზრუნველყოფს შერჩევას, მიწოდებას, მონტაჟსა და გარანტიულ სერვისს.</p>
-        <div class="phero__cta">
-          <a class="btn btn--gold" href="../index.html#contact">მოითხოვეთ კონსულტაცია
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn btn--outline" href="vrf-vrv.html">VRF / VRV მიმოხილვა</a>
-        </div>
-      </div>
-      <div class="phero__img reveal">
-        <img src="../assets/img/products/samsung-hero.jpg" alt="Samsung DVM 360° კასეტური რესტორნის ინტერიერში">
-      </div>
-    </div>
+    <img class="brand-hero__logo" src="../assets/img/partners/samsung.svg" alt="Samsung" style="margin:6px 0 22px">
   </div>
 </section>
 
-<!-- ===================== PRODUCT SERIES (DVM / CAC / FJM) ===================== -->
-<section class="section">
-  <div class="container">
-    <div class="section__head reveal">
-      <span class="eyebrow">პროდუქტის სერიები</span>
-      <h2>Samsung — სამი მიმართულება</h2>
-      <p>აირჩიეთ სერია და იხილეთ პროდუქტები.</p>
+<section class="section" style="padding-top:0">
+  <div class="container" data-plist>
+    <div class="cattabs">
+      <button class="active" type="button" data-cat="all">ყველა</button>
+      <button type="button" data-cat="dvm">DVM</button>
+      <button type="button" data-cat="cac">CAC</button>
+      <button type="button" data-cat="fjm">FJM</button>
     </div>
-    <div class="subtabs reveal">
-      <div class="subtabs__list">
-        <button class="subtabs__btn active" type="button" data-tab="dvm">
-          <span>DVM<small>VRF სისტემები</small></span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
-        </button>
-        <button class="subtabs__btn" type="button" data-tab="cac">
-          <span>CAC<small>კომერციული კონდიცირება</small></span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
-        </button>
-        <button class="subtabs__btn" type="button" data-tab="fjm">
-          <span>FJM<small>მულტი-სპლიტ სისტემა</small></span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
-        </button>
-      </div>
-      <div>
-        <div class="subtabs__panel active" data-panel="dvm">
-          <div class="pcard-grid">
-            <a class="pcard" href="samsung-dvm-360.html">
-              <span class="pcard__img"><img src="../assets/img/products/samsung-dvm-360/front.avif" alt="Samsung DVM S 360° კასეტური"></span>
-              <span class="pcard__body">
-                <h4>DVM S 360° კასეტური</h4>
-                <span class="pcard__model">AM071KN4DEH/TK</span>
-              </span>
-            </a>
+    <div class="plist">
+      <aside class="pfilter">
+        <div class="pfilter__search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" placeholder="ძებნა...">
+        </div>
+        <div class="pfilter__head"><span>ფილტრი</span><a data-clear>გასუფთავება</a></div>
+        <div class="pfilter__group">
+          <h4>ტიპი <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
+          <div class="pfilter__opts">
+            <label><input type="checkbox" name="type" value="cassette">კასეტური</label>
+            <label><input type="checkbox" name="type" value="duct">არხული</label>
           </div>
         </div>
-        <div class="subtabs__panel" data-panel="cac">
-          <div class="pcard-grid">
-            <a class="pcard" href="samsung-cac-duct.html">
-              <span class="pcard__img"><img src="../assets/img/products/samsung-cac-duct/main.avif" alt="Samsung CAC არხული"></span>
-              <span class="pcard__body">
-                <h4>არხული შიდა ბლოკი</h4>
-                <span class="pcard__model">AC071BNMDEH</span>
-              </span>
-            </a>
+        <div class="pfilter__group">
+          <h4>მაცივარაგენტი <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
+          <div class="pfilter__opts">
+            <label><input type="checkbox" name="ref" value="r410a">R410A</label>
           </div>
         </div>
-        <div class="subtabs__panel" data-panel="fjm">
-          <div class="pcard-grid">
-            <a class="pcard" href="samsung-fjm-windfree.html">
-              <span class="pcard__img"><img src="../assets/img/products/samsung-fjm-windfree/main.avif" alt="Samsung FJM WindFree"></span>
-              <span class="pcard__body">
-                <h4>WindFree 1-დინებიანი კასეტური</h4>
-                <span class="pcard__model">AJ026TN1DKH</span>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </aside>
 
-<!-- ===================== FEATURES ===================== -->
-<section class="section section--soft">
-  <div class="container">
-    <div class="section__head reveal">
-      <span class="eyebrow">უპირატესობები</span>
-      <h2>რატომ Samsung</h2>
-      <p>ტექნოლოგია, რომელიც აერთიანებს ეფექტურობას, კომპაქტურობასა და ჭკვიან მართვას.</p>
-    </div>
-    <div class="pfeat-grid">
-      <div class="pfeat reveal">
-        <div class="pfeat__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.2 2.2M16.2 16.2l2.2 2.2M5.6 18.4l2.2-2.2M16.2 7.8l2.2-2.2"/><circle cx="12" cy="12" r="3.5"/></svg></div>
-        <h3>Digital Inverter</h3>
-        <p>Scroll-კომპრესორის ჭკვიანი მართვა — სტაბილური ტემპერატურა და დაბალი ენერგოხარჯი.</p>
+      <div class="pgrid">
+        <a class="pcard" href="samsung-dvm-360.html" data-cat="dvm" data-name="DVM S 360 კასეტური AM071KN4DEH" data-type="cassette" data-ref="r410a">
+          <span class="pcard__badge">შიდა ბლოკი</span>
+          <span class="pcard__img"><img src="../assets/img/products/samsung-dvm-360/front.avif" alt="DVM S 360°"></span>
+          <span class="pcard__body">
+            <h4>DVM S 360° კასეტური</h4>
+            <span class="pcard__sub">AM071KN4DEH/TK</span>
+            <span class="pcard__cap">სიმძლავრე: <b>7.1 kW</b></span>
+            <span class="btn btn--gold">პროდუქტის ნახვა</span>
+          </span>
+        </a>
+        <a class="pcard" href="samsung-cac-duct.html" data-cat="cac" data-name="CAC არხული AC071BNMDEH duct" data-type="duct" data-ref="r410a">
+          <span class="pcard__badge">შიდა ბლოკი</span>
+          <span class="pcard__img"><img src="../assets/img/products/samsung-cac-duct/main.avif" alt="CAC არხული"></span>
+          <span class="pcard__body">
+            <h4>არხული (Slim Duct)</h4>
+            <span class="pcard__sub">AC071BNMDEH</span>
+            <span class="pcard__cap">სიმძლავრე: <b>7.1–14 kW</b></span>
+            <span class="btn btn--gold">პროდუქტის ნახვა</span>
+          </span>
+        </a>
+        <a class="pcard" href="samsung-fjm-windfree.html" data-cat="fjm" data-name="FJM WindFree კასეტური AJ026TN1DKH" data-type="cassette" data-ref="r410a">
+          <span class="pcard__badge">შიდა ბლოკი</span>
+          <span class="pcard__img"><img src="../assets/img/products/samsung-fjm-windfree/main.avif" alt="FJM WindFree"></span>
+          <span class="pcard__body">
+            <h4>WindFree 1-დინებიანი კასეტური</h4>
+            <span class="pcard__sub">AJ026TN1DKH</span>
+            <span class="pcard__cap">სიმძლავრე: <b>2.6 kW</b></span>
+            <span class="btn btn--gold">პროდუქტის ნახვა</span>
+          </span>
+        </a>
+        <div class="pgrid__empty" style="display:none">პროდუქტი ვერ მოიძებნა.</div>
       </div>
-      <div class="pfeat reveal">
-        <div class="pfeat__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4zM4 7l8 4m0 0 8-4"/></svg></div>
-        <h3>კომპაქტური გარე ბლოკი</h3>
-        <p>ინდუსტრიაში ერთ-ერთი ყველაზე მცირე კვადრატულობა — ეკონომია სახურავის ფართობზე.</p>
-      </div>
-      <div class="pfeat reveal">
-        <div class="pfeat__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 4.5 13H11l-1 9L18.5 11H12l1-9z"/></svg></div>
-        <h3>მაღალი ეფექტურობა</h3>
-        <p>ოპტიმიზებული სითბოგადამცემი და ნაკადის კონტროლი — მაღალი SEER ნებისმიერ სეზონზე.</p>
-      </div>
-      <div class="pfeat reveal">
-        <div class="pfeat__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
-        <h3>SmartThings მართვა</h3>
-        <p>დისტანციური კონტროლი და მონიტორინგი აპლიკაციითა და BMS ინტეგრაციით.</p>
-      </div>
-      <div class="pfeat reveal">
-        <div class="pfeat__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7"/></svg></div>
-        <h3>მშვიდი მუშაობა</h3>
-        <p>დაბალი ხმაურის რეჟიმი — კომფორტი სასტუმროებსა და საცხოვრებელ სივრცეებში.</p>
-      </div>
-      <div class="pfeat reveal">
-        <div class="pfeat__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="9"/></svg></div>
-        <h3>მოქნილი მონტაჟი</h3>
-        <p>მილების დიდი დასაშვები სიგრძე და მარტივი მონტაჟი — სწრაფი გაშვება ობიექტზე.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== CTA ===================== -->
-<section class="section">
-  <div class="container">
-    <div class="section__head center reveal" style="margin-bottom:28px">
-      <span class="eyebrow">დაგვიკავშირდით</span>
-      <h2>დაინტერესებული ხართ Samsung-ის სისტემით?</h2>
-      <p>ჩვენი ინჟინრები შეარჩევენ ოპტიმალურ კონფიგურაციას თქვენი ობიექტისთვის და მოგამზადებენ ხარჯთაღრიცხვას.</p>
-    </div>
-    <div class="reveal" style="text-align:center">
-      <a class="btn btn--gold" href="../index.html#contact">მოითხოვეთ შეთავაზება
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 </section>
