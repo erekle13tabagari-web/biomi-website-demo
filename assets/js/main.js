@@ -362,8 +362,7 @@
     nodes.forEach(function (n) {
       n.addEventListener('click', function (e) {
         e.stopPropagation();
-        if (n.classList.contains('is-active')) unfocus();
-        else focusNode(n);
+        focusNode(n);   // clicking a node always focuses it; only clicking off resets
       });
     });
     var center = ring.querySelector('.ring__center');

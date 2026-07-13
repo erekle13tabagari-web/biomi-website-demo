@@ -733,6 +733,37 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
   .fab__social svg{width:20px;height:20px}
   .fab .fab__top svg{width:19px;height:19px}
 }
+/* ---- Mobile presentation polish: shorter footer · smaller UI · centred ring ---- */
+@media (max-width:600px){
+  body{font-size:15px}
+  .section{padding:46px 0}
+  .section__head{margin-bottom:28px}
+  .section__head p{font-size:15.5px}
+
+  /* hero: slightly smaller cards + label */
+  .hero__card{flex:0 0 78vw;margin-right:14px}
+  .hero__card-label{padding:32px 16px 13px;font-size:19px}
+
+  /* services ring: compact, centred, tidy labels */
+  .ring{width:min(310px,84vw);--r:clamp(90px,28vw,116px);--size:56px;margin:8px auto 24px}
+  .node__badge svg{width:46%;height:46%}
+  .node__label{font-size:10px;top:calc(100% + 3px);max-width:78px;
+    white-space:normal;line-height:1.15;text-align:center}
+  .ring__center{width:33vw}
+  .ring__logomark{height:15vw}
+  .ring__detail-title{font-size:19px}
+  .ring__detail-desc{font-size:14px}
+  .services__cta{margin-top:30px}
+  .services__cta p{font-size:16.5px}
+
+  /* footer: much shorter */
+  .footer{padding:40px 0 18px}
+  .footer__grid{gap:24px}
+  .footer__map{min-height:0;height:150px}
+  .footer h4{margin-bottom:6px}
+  .footer__about{font-size:13.5px}
+  .footer__bottom{margin-top:24px;padding-top:16px;font-size:12.5px}
+}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
