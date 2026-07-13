@@ -867,3 +867,9 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
   .pfilter{border:1px solid var(--line);border-radius:var(--radius);padding:16px}
   .pdetail{grid-template-columns:1fr;gap:24px}
 }
+
+/* ---- Responsive YouTube embed (about page · news article) ---- */
+.video-embed{position:relative;width:100%;aspect-ratio:16/9;margin:26px 0;border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-sm);background:#000}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-h{font-size:23px;margin:36px 0 14px}
