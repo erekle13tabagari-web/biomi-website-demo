@@ -197,23 +197,35 @@
       '<button class="lightbox__close" type="button" aria-label="დახურვა"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
       '<button class="lightbox__nav lightbox__prev" type="button" aria-label="წინა"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 6-6 6 6 6"/></svg></button>' +
       '<img alt="">' +
+      '<iframe class="lightbox__frame" style="display:none" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' +
       '<button class="lightbox__nav lightbox__next" type="button" aria-label="შემდეგი"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>';
     document.body.appendChild(lb);
     var lbImg = lb.querySelector('img');
+    var frame = lb.querySelector('.lightbox__frame');
     var prevBtn = lb.querySelector('.lightbox__prev');
     var nextBtn = lb.querySelector('.lightbox__next');
     var group = null, index = 0;
 
     function render() {
       var im = group.items[index];
-      lbImg.src = im.getAttribute('data-full') || im.src;
-      lbImg.alt = im.alt || '';
+      var vid = im.getAttribute('data-video');
+      if (vid) {
+        lbImg.style.display = 'none';
+        frame.style.display = '';
+        frame.src = 'https://www.youtube-nocookie.com/embed/' + vid + '?autoplay=1&rel=0';
+      } else {
+        frame.src = '';
+        frame.style.display = 'none';
+        lbImg.style.display = '';
+        lbImg.src = im.getAttribute('data-full') || im.src;
+        lbImg.alt = im.alt || '';
+      }
       var multi = group.items.length > 1;
       prevBtn.style.display = nextBtn.style.display = multi ? '' : 'none';
     }
     function step(d) { index = (index + d + group.items.length) % group.items.length; render(); }
     function open(g, i) { group = g; index = i; render(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+    function close() { frame.src = ''; lb.classList.remove('open'); document.body.style.overflow = ''; }
 
     groups.forEach(function (g) {
       g.items.forEach(function (im, i) {
@@ -233,6 +245,21 @@
       else if (e.key === 'ArrowRight') step(1);
     });
   })();
+
+  /* ---- Video facade: poster + play button, loads the player only on click ---- */
+  document.querySelectorAll('.video-facade[data-video]').forEach(function (f) {
+    f.addEventListener('click', function () {
+      var id = f.getAttribute('data-video');
+      var ifr = document.createElement('iframe');
+      ifr.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      ifr.title = f.getAttribute('aria-label') || 'YouTube video';
+      ifr.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      ifr.setAttribute('allowfullscreen', '');
+      ifr.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      ifr.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
+      f.replaceWith(ifr);
+    });
+  });
 
   /* ---- Subsection tabs (Samsung: DVM / CAC / FJM) ---- */
   document.querySelectorAll('.subtabs').forEach(function (tabs) {
