@@ -3,10 +3,31 @@
    Visual language: minimal · white · photo-driven
    Palette : Biomi Original #1B1B33 · Super Blue #0249F7 · Felamushi #85519A
              Felamushi tints · Extra White · logo renders in Biomi Original
-   Type    : Noto Sans + Noto Sans Georgian (Latin + Georgian, incl. Mtavruli caps)
+   Type    : Futura 100 + Futura 100 GEO (Latin + Georgian, incl. Mtavruli caps)
    ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+Georgian:wght@300;400;500;600;700&display=swap');
+/* Futura 100 — variable fonts, served locally from /fonts.
+   One file per script covers every weight (Light→Bold), so the whole site
+   needs two downloads instead of eight static OTFs.
+   The Georgian face is scoped by unicode-range, so English-only pages
+   never download it. Oblique files exist in /fonts but are not wired up —
+   the design uses no italics. */
+@font-face{
+  font-family:"Futura 100";
+  src:url('../../fonts/Futura%20100/Variable/Futura100-VF-Upright.ttf') format('truetype-variations');
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+/* Declared after the Latin face so Georgian codepoints resolve here. */
+@font-face{
+  font-family:"Futura 100";
+  src:url('../../fonts/Futura%20100%20Georgian/Variable/Futura100-GEO-VF-Upright.ttf') format('truetype-variations');
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+  unicode-range:U+10A0-10FF,U+1C90-1CBF,U+2D00-2D2F;
+}
 
 :root{
   /* brand: Biomi Original (ink) — legacy var names kept so layout rules stay untouched */
@@ -32,7 +53,7 @@
   --shadow-sm:0 1px 2px rgba(27,27,51,.05), 0 6px 18px rgba(27,27,51,.06);
   --shadow-md:0 18px 44px rgba(27,27,51,.14);
 
-  --ff:"Noto Sans","Noto Sans Georgian",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --ff:"Futura 100",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   --header-h:78px;
   --ease:cubic-bezier(.22,.61,.36,1);
 }

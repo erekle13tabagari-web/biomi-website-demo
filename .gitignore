@@ -36,3 +36,10 @@ desktop.ini
 
 # Local publish button
 *.bat
+
+# Futura source cuts — the site only serves the two Upright variable files,
+# which are committed. Static OTFs and the oblique cuts stay local (~10 MB).
+/fonts/Futura 100/OTF/
+/fonts/Futura 100 Georgian/OTF/
+/fonts/Futura 100/Variable/*Oblique*
+/fonts/Futura 100 Georgian/Variable/*Oblique*
