@@ -153,7 +153,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .prod-menu__chapter:last-child{border-bottom:0}
 .prod-menu__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
   padding:12px 13px;font-size:14.5px;font-weight:600;letter-spacing:.02em;color:var(--purple);
-  text-align:left;border-radius:8px;transition:background .2s}
+  text-align:left;border-radius:8px;transition:background .2s;text-transform:uppercase}
 .prod-menu__btn:hover{background:var(--bg-soft)}
 .prod-menu__btn svg{width:15px;height:15px;flex:none;opacity:.65;transition:transform .3s}
 .prod-menu__chapter.open .prod-menu__btn svg{transform:rotate(180deg)}
@@ -214,6 +214,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   box-shadow:var(--shadow-sm)}
 .hero__card-label{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:46px 22px 18px;
   color:#fff;font-size:clamp(20px,2.4vw,28px);font-weight:700;letter-spacing:-.01em;
+  text-transform:uppercase;
   background:linear-gradient(180deg,transparent,rgba(27,27,51,.78))}
 
 /* =========================================================================
@@ -509,8 +510,9 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .drawer__close{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;color:var(--navy)}
 .drawer__close:hover{background:var(--bg-soft)}
 .m-nav>li{border-bottom:1px solid var(--line)}
+/* mobile menu matches the uppercase desktop nav (.nav__link) */
 .m-nav a,.m-acc__btn{display:flex;align-items:center;justify-content:space-between;width:100%;
-  padding:15px 4px;font-size:17px;color:var(--navy);text-align:left}
+  padding:15px 4px;font-size:17px;color:var(--navy);text-align:left;text-transform:uppercase}
 .m-acc__btn svg{width:18px;height:18px;transition:transform .3s}
 .m-acc.open .m-acc__btn svg{transform:rotate(180deg)}
 .m-acc__panel{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
