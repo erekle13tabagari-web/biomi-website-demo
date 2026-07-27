@@ -2,20 +2,29 @@
 (function () {
   'use strict';
 
-  /* ---- Georgian caps (Mtavruli) for nav + every heading ---- */
+  /* ---- Georgian caps (Mtavruli) wherever CSS asks for uppercase ---- */
   /* CSS text-transform:uppercase handles Latin but does nothing for Georgian, so
-     convert Mkhedruli text nodes to Mtavruli (U+10D0–U+10FF -> +0xBC0). Runs on all
-     headings so titles read as caps in both scripts; aria-label keeps the readable
-     (Mkhedruli) text for screen readers. Already-Mtavruli source is left untouched
-     (the range matches only Mkhedruli), and Latin-only titles are handled by CSS. */
+     Mkhedruli text nodes are converted to Mtavruli (U+10D0–U+10FF -> +0xBC0).
+     Rather than keep a hand-written selector list in sync with the stylesheet,
+     this reads the computed style: anything CSS renders uppercase (headings,
+     .eyebrow kickers, .news__cat chips, nav links, tags) gets Georgian caps too.
+     Style a new element uppercase in CSS and it is covered automatically.
+     aria-label keeps the readable Mkhedruli text for screen readers. The regex
+     matches only Mkhedruli, so already-Mtavruli source and re-runs are no-ops. */
   (function () {
     function toMtavruli(s) {
       return s.replace(/[ა-ჿ]/g, function (c) {
         return String.fromCodePoint(c.codePointAt(0) + 0xBC0);
       });
     }
-    var sel = '.nav__link, h1, h2, h3, h4';
-    document.querySelectorAll(sel).forEach(function (el) {
+    function isUpper(el) {
+      return el && el.nodeType === 1 && getComputedStyle(el).textTransform === 'uppercase';
+    }
+    document.querySelectorAll('*').forEach(function (el) {
+      if (!isUpper(el)) return;
+      // text-transform inherits, so let the outermost uppercase element handle
+      // its subtree in one pass instead of converting each descendant again.
+      if (isUpper(el.parentElement)) return;
       if (el.dataset.caps) return;
       el.dataset.caps = '1';
       if (!el.getAttribute('aria-label')) el.setAttribute('aria-label', el.textContent.trim());
