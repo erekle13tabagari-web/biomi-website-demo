@@ -2,16 +2,19 @@
 (function () {
   'use strict';
 
-  /* ---- Georgian caps (Mtavruli) for nav + section titles ---- */
-  /* CSS text-transform:uppercase does nothing for Georgian, so convert Mkhedruli
-     text nodes to Mtavruli (U+10D0–U+10FF -> +0xBC0); keep readable aria-label. */
+  /* ---- Georgian caps (Mtavruli) for nav + every heading ---- */
+  /* CSS text-transform:uppercase handles Latin but does nothing for Georgian, so
+     convert Mkhedruli text nodes to Mtavruli (U+10D0–U+10FF -> +0xBC0). Runs on all
+     headings so titles read as caps in both scripts; aria-label keeps the readable
+     (Mkhedruli) text for screen readers. Already-Mtavruli source is left untouched
+     (the range matches only Mkhedruli), and Latin-only titles are handled by CSS. */
   (function () {
     function toMtavruli(s) {
       return s.replace(/[ა-ჿ]/g, function (c) {
         return String.fromCodePoint(c.codePointAt(0) + 0xBC0);
       });
     }
-    var sel = '.nav__link, .section__head h2, .about__text h2, .contact__intro h2';
+    var sel = '.nav__link, h1, h2, h3, h4';
     document.querySelectorAll(sel).forEach(function (el) {
       if (el.dataset.caps) return;
       el.dataset.caps = '1';
@@ -422,7 +425,9 @@
       e.preventDefault(); e.stopPropagation();
       var card = btn.closest('.news');
       var h3 = card && card.querySelector('h3');
-      var title = h3 ? h3.textContent.trim() : document.title;
+      // headings are converted to Mtavruli for display; aria-label keeps the
+      // readable Mkhedruli original, which is what we want to share.
+      var title = h3 ? (h3.getAttribute('aria-label') || h3.textContent).trim() : document.title;
       var url = location.href;
       if (navigator.share) {
         navigator.share({ title: title, text: title, url: url }).catch(function () {});

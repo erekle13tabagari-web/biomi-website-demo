@@ -69,7 +69,7 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 ul{list-style:none}
-h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
+h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transform:uppercase}
 :focus-visible{outline:2px solid var(--gold-600);outline-offset:3px;border-radius:4px}
 
 /* ---- Layout helpers ---------------------------------------------------- */
@@ -177,7 +177,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em}
 .lang button,.lang a{padding:6px 12px;color:var(--muted);transition:.2s;cursor:pointer}
 .lang button.is-active,.lang a.is-active{background:var(--gold);color:#fff}
 /* Latin caps for EN pages (no-op on Georgian, which is capped via JS Mtavruli) */
-.nav__link,.section__head h2,.about__text h2,.contact__intro h2{text-transform:uppercase}
+.nav__link{text-transform:uppercase}
 .icon-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;color:var(--navy);transition:background .2s}
 .icon-btn:hover{background:var(--bg-soft)}
 .icon-btn svg{width:20px;height:20px}
