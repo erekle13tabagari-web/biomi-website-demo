@@ -12,11 +12,9 @@
      aria-label keeps the readable Mkhedruli text for screen readers. The regex
      matches only Mkhedruli, so already-Mtavruli source and re-runs are no-ops. */
   (function () {
-    function toMtavruli(s) {
-      return s.replace(/[ა-ჿ]/g, function (c) {
-        return String.fromCodePoint(c.codePointAt(0) + 0xBC0);
-      });
-    }
+    // Mkhedruli (lowercase) OR Mtavruli (caps) -- some titles are authored in
+    // Mtavruli already, and those still need the CSS transform switched off.
+    var GEORGIAN = /[ა-ჿᲐ-Ჿ]/;
     function isUpper(el) {
       return el && el.nodeType === 1 && getComputedStyle(el).textTransform === 'uppercase';
     }
@@ -26,12 +24,22 @@
       // its subtree in one pass instead of converting each descendant again.
       if (isUpper(el.parentElement)) return;
       if (el.dataset.caps) return;
-      el.dataset.caps = '1';
-      if (!el.getAttribute('aria-label')) el.setAttribute('aria-label', el.textContent.trim());
+
       var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
       var nodes = [], n;
       while ((n = walker.nextNode())) nodes.push(n);
-      nodes.forEach(function (t) { t.nodeValue = toMtavruli(t.nodeValue); });
+      // Latin-only elements are left to CSS, so caps still work with JS disabled.
+      if (!nodes.some(function (t) { return GEORGIAN.test(t.nodeValue); })) return;
+
+      el.dataset.caps = '1';
+      if (!el.getAttribute('aria-label')) el.setAttribute('aria-label', el.textContent.trim());
+      // toUpperCase does the Unicode mapping for both scripts: Mkhedruli -> Mtavruli
+      // and Latin -> caps, leaving text that is already Mtavruli untouched.
+      nodes.forEach(function (t) { t.nodeValue = t.nodeValue.toUpperCase(); });
+      // Critical: CSS text-transform:uppercase maps Mtavruli *back down* to
+      // Mkhedruli, silently undoing the conversion. Now that this element's text
+      // is already cased, switch the CSS transform off so it cannot reverse it.
+      el.style.textTransform = 'none';
     });
   })();
 
