@@ -181,10 +181,13 @@
     });
   });
 
-  /* ---- Nested brand submenu inside products dropdown (VRF/VRV) ---- */
+  /* ---- Nested brand submenu inside products dropdown (VRF/VRV) ----
+     The label itself is a plain link to the VRF/VRV page (matching the mobile
+     menu), so only the chevron toggles the brand list open. */
   document.querySelectorAll('.prod-sub').forEach(function (sub) {
-    var btn = sub.querySelector('.prod-sub__btn');
+    var btn = sub.querySelector('.prod-sub__toggle');
     var panel = sub.querySelector('.prod-sub__panel');
+    if (!btn || !panel) return;
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       var chap = sub.closest('.prod-menu__panel');
@@ -192,6 +195,7 @@
       var subH = panel.scrollHeight;              // sub content height
       var open = sub.classList.toggle('open');
       panel.style.maxHeight = open ? subH + 'px' : '0';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       // grow/shrink the enclosing chapter panel so nothing gets clipped
       if (chap) chap.style.maxHeight = (chapH + (open ? subH : -subH)) + 'px';
     });

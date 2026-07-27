@@ -161,12 +161,19 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .prod-menu__panel a{display:block;padding:9px 13px 9px 22px;border-radius:8px;color:var(--ink);
   font-size:14.5px;transition:.18s}
 .prod-menu__panel a:hover{background:var(--bg-soft);color:var(--gold-600)}
-/* nested brand submenu under VRF/VRV */
-.prod-sub__btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
-  padding:9px 13px 9px 22px;font-size:14.5px;color:var(--ink);text-align:left;border-radius:8px;transition:.18s}
-.prod-sub__btn:hover{background:var(--bg-soft);color:var(--gold-600)}
-.prod-sub__btn svg{width:13px;height:13px;flex:none;opacity:.6;transition:transform .3s}
-.prod-sub.open .prod-sub__btn svg{transform:rotate(180deg)}
+/* nested brand submenu under VRF/VRV
+   The label is a link to the VRF/VRV page (same as the mobile menu); the
+   chevron beside it is a separate button that expands the brand list. */
+.prod-sub__head{display:flex;align-items:center;border-radius:8px;transition:.18s}
+.prod-sub__head:hover{background:var(--bg-soft)}
+.prod-sub__head:hover .prod-sub__btn{color:var(--gold-600)}
+.prod-sub__btn{flex:1;display:block;
+  padding:9px 4px 9px 22px;font-size:14.5px;color:var(--ink);text-align:left;transition:.18s}
+.prod-sub__toggle{display:grid;place-items:center;flex:none;align-self:stretch;
+  padding:0 13px;color:inherit;border-radius:8px}
+.prod-sub__toggle svg{width:13px;height:13px;flex:none;opacity:.6;transition:transform .3s}
+.prod-sub__toggle:hover svg{opacity:1}
+.prod-sub.open .prod-sub__toggle svg{transform:rotate(180deg)}
 .prod-sub__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
 .prod-menu__panel .prod-sub__panel a{padding-left:38px}
 
