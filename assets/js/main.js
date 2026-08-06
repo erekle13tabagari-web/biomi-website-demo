@@ -202,9 +202,15 @@
   });
 
   /* ---- Image lightbox with prev/next (grouped per gallery) ---- */
+  /* Product pages drive this from their .pgal gallery rather than [data-lightbox]
+     markup: those thumbs already own a click handler that swaps the main image,
+     so tagging them would double-bind. The gallery lives in a *separate*
+     top-level IIFE further down this file and shares no scope with this one, so
+     the two talk over a 'biomi:lightbox' document event rather than a variable. */
   (function () {
     var all = Array.prototype.slice.call(document.querySelectorAll('[data-lightbox]'));
-    if (!all.length) return;
+    // still build it when a page has no [data-lightbox] but does have a gallery
+    if (!all.length && !document.querySelector('.pgal__main img')) return;
     // group images by their container so arrows cycle within one gallery
     var groups = [];
     all.forEach(function (im) {
@@ -228,7 +234,7 @@
     var frame = lb.querySelector('.lightbox__frame');
     var prevBtn = lb.querySelector('.lightbox__prev');
     var nextBtn = lb.querySelector('.lightbox__next');
-    var group = null, index = 0;
+    var group = null, index = 0, onClose = null;
 
     function render() {
       var im = group.items[index];
@@ -249,7 +255,20 @@
     }
     function step(d) { index = (index + d + group.items.length) % group.items.length; render(); }
     function open(g, i) { group = g; index = i; render(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function close() { frame.src = ''; lb.classList.remove('open'); document.body.style.overflow = ''; }
+    function close() {
+      frame.src = ''; lb.classList.remove('open'); document.body.style.overflow = '';
+      // let the caller sync to whichever slide you left on
+      if (onClose) { var cb = onClose; onClose = null; cb(index); }
+    }
+
+    /* Open an arbitrary image list on request — detail: {items, index, onClose}.
+       Used by the .pgal product gallery, which cannot reach `open` directly. */
+    document.addEventListener('biomi:lightbox', function (e) {
+      var d = e.detail || {};
+      if (!d.items || !d.items.length) return;
+      onClose = typeof d.onClose === 'function' ? d.onClose : null;
+      open({ parent: null, items: d.items }, d.index || 0);
+    });
 
     groups.forEach(function (g) {
       g.items.forEach(function (im, i) {
@@ -541,6 +560,27 @@
     var p = gal.querySelector('.pgal__prev'), nx = gal.querySelector('.pgal__next');
     if (p) p.addEventListener('click', function () { show(i - 1); });
     if (nx) nx.addEventListener('click', function () { show(i + 1); });
+
+    /* Click (or Enter/Space on) the big image to view the gallery full-screen.
+       Reuses the shared lightbox, so arrows / Esc / backdrop-close come free, and
+       on close the gallery jumps to whichever slide you ended on. The .pgal arrows
+       are siblings of this <img>, so they never trigger it. */
+    if (document.querySelector('.lightbox')) {   // lightbox module initialised
+      main.style.cursor = 'zoom-in';
+      main.setAttribute('role', 'button');
+      main.setAttribute('tabindex', '0');
+      main.setAttribute('aria-label', main.getAttribute('data-zoom-label') ||
+        ((document.documentElement.lang || 'ka').slice(0, 2) === 'en' ? 'Enlarge image' : 'სურათის გადიდება'));
+      var zoom = function () {
+        document.dispatchEvent(new CustomEvent('biomi:lightbox', {
+          detail: { items: thumbs, index: i, onClose: show }
+        }));
+      };
+      main.addEventListener('click', zoom);
+      main.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); zoom(); }
+      });
+    }
     show(0);
   });
 
