@@ -845,9 +845,15 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .pcard__badge{align-self:flex-start;margin:14px 0 0 14px;background:var(--navy);color:#fff;font-size:11px;
   font-weight:600;padding:5px 11px;border-radius:999px}
 .pcard__sub{font-size:12.5px;color:var(--muted);font-family:monospace}
-.pcard__cap{font-size:13.5px;color:var(--muted)}
+/* padding, not margin: the button below uses margin-top:auto to bottom-align, so
+   this is what keeps a 12px floor (6px here + the 6px flex gap) above it on
+   cards whose title wraps and leaves no slack. */
+.pcard__cap{font-size:13.5px;color:var(--muted);padding-bottom:6px}
 .pcard__cap b{color:var(--ink)}
-.pcard .btn{margin-top:12px;justify-content:center;width:100%;font-size:14px;padding:11px}
+/* auto, not a fixed margin: cards are equal height (grid stretch) and .pcard__body
+   is flex:1, so this pins the button to the bottom and keeps buttons aligned
+   across a row even when a title wraps to two lines. */
+.pcard .btn{margin-top:auto;justify-content:center;width:100%;font-size:14px;padding:11px}
 
 .pdetail{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:start;margin-bottom:20px}
 .pgal__main{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
