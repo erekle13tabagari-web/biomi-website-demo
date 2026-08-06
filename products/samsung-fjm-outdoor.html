@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ka">
 <head>
 <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 <link rel="icon" href="../assets/img/logomark-ink.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="../assets/css/style.css?v=202608061038">
+<link rel="stylesheet" href="../assets/css/style.css?v=202608061127">
 </head>
 <body>
 
@@ -122,11 +122,11 @@
           <img src="../assets/img/products/samsung-fjm-outdoor/main.avif" alt="FJM უნივერსალური გარე ბლოკი">
           <button class="pgal__arrow pgal__next" type="button" aria-label="შემდეგი"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
         </div>
+        <!-- Rebuilt by the capacity chips below; this is the 5.0 kW set. -->
         <div class="pgal__thumbs">
-          <img src="../assets/img/products/samsung-fjm-outdoor/main.avif" alt="ხედი">
-          <img src="../assets/img/products/samsung-fjm-outdoor/g1.avif" alt="უკანა ხედი">
-          <img src="../assets/img/products/samsung-fjm-outdoor/g2.avif" alt="10 kW მოდელი (AJ100TXJ5KH)">
-          <img src="../assets/img/products/samsung-fjm-outdoor/g3.avif" alt="14 kW მოდელი (AJ140TXJ5KH)">
+          <img src="../assets/img/products/samsung-fjm-outdoor/main.avif" alt="AJ050TXJ2KH-EA">
+          <img src="../assets/img/products/samsung-fjm-outdoor/aj050-2.avif" alt="AJ050TXJ2KH-EA — 2">
+          <img src="../assets/img/products/samsung-fjm-outdoor/aj050-3.avif" alt="AJ050TXJ2KH-EA — 3">
         </div>
       </div>
       <div class="pbuy reveal">
@@ -134,9 +134,18 @@
         <h1>უნივერსალური გარე ბლოკი</h1>
         <div class="pbuy__tag">FJM · R410A · გარე ბლოკი</div>
         <div class="pbuy__label">სიმძლავრე</div>
-        <div class="chipset"><button class="chip active" type="button">5.0 kW</button><button class="chip" type="button">6.8 kW</button><button class="chip" type="button">8.0 kW</button><button class="chip" type="button">10.0 kW</button><button class="chip" type="button">14.0 kW</button></div>
+        <!-- Each capacity IS a model, so picking one swaps the code, the gallery,
+             the spec cells and the port count. AJ068 and AJ080 share Samsung's
+             photo set, so they point at the same files. -->
+        <div class="chipset" data-modelswitch data-imgbase="../assets/img/products/samsung-fjm-outdoor/">
+          <button class="chip active" type="button" data-model="AJ050TXJ2KH-EA" data-alt="AJ050TXJ2KH-EA" data-imgs="main.avif,aj050-2.avif,aj050-3.avif" data-cool="5.0 kW" data-heat="5.7 kW" data-ports="2">5.0 kW</button>
+          <button class="chip" type="button" data-model="AJ068TXJ3KH-EA" data-alt="AJ068TXJ3KH-EA" data-imgs="aj068-1.avif,aj068-2.avif,aj068-3.jpeg,aj068-4.jpeg,aj068-5.jpeg" data-cool="6.8 kW" data-heat="8.0 kW" data-ports="3">6.8 kW</button>
+          <button class="chip" type="button" data-model="AJ080TXJ4KH-EA" data-alt="AJ080TXJ4KH-EA" data-imgs="aj068-1.avif,aj068-2.avif,aj068-3.jpeg,aj068-4.jpeg,aj068-5.jpeg" data-cool="8.0 kW" data-heat="9.0 kW" data-ports="4">8.0 kW</button>
+          <button class="chip" type="button" data-model="AJ100TXJ5KH-EA" data-alt="AJ100TXJ5KH-EA" data-imgs="aj100-1.avif,aj100-2.avif,aj100-3.jpeg" data-cool="10.0 kW" data-heat="12.0 kW" data-ports="5">10.0 kW</button>
+          <button class="chip" type="button" data-model="AJ140TXJ5KH-EA" data-alt="AJ140TXJ5KH-EA" data-imgs="aj140-1.avif,aj140-2.avif,aj140-3.jpeg,aj140-4.jpeg" data-cool="14.0 kW" data-heat="15.0 kW" data-ports="5">14.0 kW</button>
+        </div>
         <div class="pbuy__label">შიდა ბლოკების რაოდენობა</div>
-        <div class="chipset"><button class="chip active" type="button">2</button><button class="chip" type="button">3</button><button class="chip" type="button">4</button><button class="chip" type="button">5</button></div>
+        <div class="chipset" data-portset><button class="chip active" type="button">2</button><button class="chip" type="button">3</button><button class="chip" type="button">4</button><button class="chip" type="button">5</button></div>
         <a class="btn btn--gold" href="../index.html#contact">მოითხოვეთ შეთავაზება
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
@@ -157,11 +166,12 @@
       </div>
       <div class="ptabs__panel active" data-panel="specs">
         <table class="spec-table" style="max-width:640px">
-          <tr><th>მოდელი</th><td>AJ050TXJ2KH-EA</td></tr>
+          <tr><th>მოდელი</th><td data-spec="model">AJ050TXJ2KH-EA</td></tr>
           <tr><th>ტიპი</th><td>FJM — უნივერსალური გარე ბლოკი (მულტისპლიტ)</td></tr>
-          <tr><th>გაგრილება</th><td>5.0 kW (ასევე 6.8 / 8.0 / 10.0 / 14.0 kW — AJ068TXJ3KH / AJ080TXJ4KH / AJ100TXJ5KH / AJ140TXJ5KH)</td></tr>
-          <tr><th>გათბობა</th><td>5.7 kW</td></tr>
-          <tr><th>შიდა ბლოკები</th><td>2 პორტი (მოდელის მიხედვით 2–5)</td></tr>
+          <tr><th>გაგრილება</th><td data-spec="cool">5.0 kW</td></tr>
+          <tr><th>გათბობა</th><td data-spec="heat">5.7 kW</td></tr>
+          <tr><th>შიდა ბლოკები</th><td data-spec="ports">2</td></tr>
+          <tr><th>მოდელების რიგი</th><td>AJ050TXJ2KH 5.0 · AJ068TXJ3KH 6.8 · AJ080TXJ4KH 8.0 · AJ100TXJ5KH 10.0 · AJ140TXJ5KH 14.0 kW</td></tr>
           <tr><th>მაცივარაგენტი</th><td>R410A</td></tr>
           <tr><th>კომპრესორი</th><td>Twin BLDC, ინვერტორული</td></tr>
           <tr><th>ზომები (10 kW მოდელი)</th><td>940 × 998 × 330 მმ</td></tr>
@@ -225,7 +235,7 @@
       <table>
         <!-- Each column uses that model's own product shot, confirmed by matching
              the asset against the per-model folders in the FJM source library. -->
-        <thead><tr><th></th><th><img src="../assets/img/products/samsung-fjm-outdoor/main.avif" alt="">5.0 kW</th><th><img src="../assets/img/products/samsung-fjm-outdoor/g2.avif" alt="">10.0 kW</th><th><img src="../assets/img/products/samsung-fjm-outdoor/g3.avif" alt="">14.0 kW</th></tr></thead>
+        <thead><tr><th></th><th><img src="../assets/img/products/samsung-fjm-outdoor/main.avif" alt="">5.0 kW</th><th><img src="../assets/img/products/samsung-fjm-outdoor/aj100-1.avif" alt="">10.0 kW</th><th><img src="../assets/img/products/samsung-fjm-outdoor/aj140-1.avif" alt="">14.0 kW</th></tr></thead>
         <tbody>
           <tr><th>მოდელი</th><td class="is-this">AJ050TXJ2KH</td><td>AJ100TXJ5KH</td><td>AJ140TXJ5KH</td></tr>
           <tr><th>გაგრილება</th><td>5.0 kW</td><td>10.0 kW</td><td>14.0 kW</td></tr>
@@ -374,6 +384,6 @@
   </aside>
 </div>
 
-<script src="../assets/js/main.js?v=202608061038"></script>
+<script src="../assets/js/main.js?v=202608061127"></script>
 </body>
 </html>

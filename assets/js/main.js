@@ -547,16 +547,27 @@
 
   document.querySelectorAll('.pgal').forEach(function (gal) {
     var main = gal.querySelector('.pgal__main img');
-    var thumbs = Array.prototype.slice.call(gal.querySelectorAll('.pgal__thumbs img'));
-    if (!main || !thumbs.length) return;
+    var wrap = gal.querySelector('.pgal__thumbs');
+    if (!main || !wrap || !wrap.querySelector('img')) return;
     var i = 0;
+    /* Read the thumbs live rather than caching them: the capacity chips on some
+       product pages swap the whole set when you pick a different model. */
+    function thumbs() { return Array.prototype.slice.call(wrap.querySelectorAll('img')); }
     function show(n) {
-      i = (n + thumbs.length) % thumbs.length;
-      main.src = thumbs[i].getAttribute('data-full') || thumbs[i].src;
-      main.alt = thumbs[i].alt;
-      thumbs.forEach(function (t, k) { t.classList.toggle('active', k === i); });
+      var t = thumbs();
+      if (!t.length) return;
+      i = (n + t.length) % t.length;
+      main.src = t[i].getAttribute('data-full') || t[i].src;
+      main.alt = t[i].alt;
+      t.forEach(function (x, k) { x.classList.toggle('active', k === i); });
     }
-    thumbs.forEach(function (t, k) { t.addEventListener('click', function () { show(k); }); });
+    // delegated, so rebuilt thumbnails stay clickable without re-binding
+    wrap.addEventListener('click', function (e) {
+      var img = e.target && e.target.closest ? e.target.closest('img') : null;
+      if (!img || !wrap.contains(img)) return;
+      show(thumbs().indexOf(img));
+    });
+    gal.__showSlide = show;   // used by the model switcher after it swaps the set
     var p = gal.querySelector('.pgal__prev'), nx = gal.querySelector('.pgal__next');
     if (p) p.addEventListener('click', function () { show(i - 1); });
     if (nx) nx.addEventListener('click', function () { show(i + 1); });
@@ -573,7 +584,7 @@
         ((document.documentElement.lang || 'ka').slice(0, 2) === 'en' ? 'Enlarge image' : 'სურათის გადიდება'));
       var zoom = function () {
         document.dispatchEvent(new CustomEvent('biomi:lightbox', {
-          detail: { items: thumbs, index: i, onClose: show }
+          detail: { items: thumbs(), index: i, onClose: show }
         }));
       };
       main.addEventListener('click', zoom);
@@ -596,8 +607,61 @@
     });
   });
 
+  /* ---- Capacity chips ----
+     Plain chipsets just move the .active highlight. A chipset marked
+     [data-modelswitch] additionally drives the page: picking a capacity is
+     picking a model, so it swaps the model code, the gallery images, the
+     matching spec-table cells, and the port-count chips. Everything it needs
+     travels on the chip itself, so pages opt in purely through markup. */
   document.querySelectorAll('.chipset').forEach(function (set) {
-    var chips = set.querySelectorAll('.chip');
-    chips.forEach(function (c) { c.addEventListener('click', function () { chips.forEach(function (x) { x.classList.remove('active'); }); c.classList.add('active'); }); });
+    var chips = Array.prototype.slice.call(set.querySelectorAll('.chip'));
+    var isSwitch = set.hasAttribute('data-modelswitch');
+    var base = set.getAttribute('data-imgbase') || '';
+    var detail = set.closest('.pdetail') || document;
+    var gal = detail.querySelector('.pgal');
+    var wrap = gal && gal.querySelector('.pgal__thumbs');
+
+    function applyModel(c) {
+      var model = c.getAttribute('data-model');
+      if (!model) return;
+
+      var codeEl = detail.querySelector('.pbuy__model');
+      if (codeEl) codeEl.textContent = model;
+
+      // rebuild the thumbnail strip for this model, then reset to its first shot
+      var imgs = (c.getAttribute('data-imgs') || '').split(',').filter(Boolean);
+      if (wrap && imgs.length) {
+        var label = c.getAttribute('data-alt') || model;
+        wrap.innerHTML = imgs.map(function (src, k) {
+          return '<img src="' + base + src.trim() + '" alt="' + label +
+                 (k ? ' — ' + (k + 1) : '') + '">';
+        }).join('');
+        if (gal.__showSlide) gal.__showSlide(0);
+      }
+
+      // spec rows tagged data-spec="model|cool|heat|ports"
+      ['model', 'cool', 'heat', 'ports'].forEach(function (key) {
+        var v = key === 'model' ? model : c.getAttribute('data-' + key);
+        var cell = document.querySelector('[data-spec="' + key + '"]');
+        if (cell && v) cell.textContent = v;
+      });
+
+      // keep the port-count chips in step with the chosen model
+      var ports = c.getAttribute('data-ports');
+      var portSet = document.querySelector('[data-portset]');
+      if (ports && portSet) {
+        portSet.querySelectorAll('.chip').forEach(function (pc) {
+          pc.classList.toggle('active', pc.textContent.trim() === ports);
+        });
+      }
+    }
+
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        chips.forEach(function (x) { x.classList.remove('active'); });
+        c.classList.add('active');
+        if (isSwitch) applyModel(c);
+      });
+    });
   });
 })();
