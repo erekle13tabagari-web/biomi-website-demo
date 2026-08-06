@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ka">
 <head>
 <meta charset="UTF-8">
@@ -134,7 +134,10 @@
         <h1>WindFree 1-დინებიანი კასეტური</h1>
         <div class="pbuy__tag">FJM · R410A · შიდა ბლოკი</div>
         <div class="pbuy__label">სიმძლავრე</div>
-        <div class="chipset"><button class="chip active" type="button">2.6 kW</button><button class="chip" type="button">3.5 kW</button></div>
+        <div class="chipset" data-modelswitch>
+          <button class="chip active" type="button" data-model="AJ026TN1DKH" data-cool="2.6 kW" data-heat="2.9 kW">2.6 kW</button>
+          <button class="chip" type="button" data-model="AJ035TN1DKH" data-cool="3.5 kW" data-heat="3.8 kW">3.5 kW</button>
+        </div>
         <div class="pbuy__label">კვება</div>
         <div class="chipset"><button class="chip active" type="button">1 ფაზა</button></div>
         <a class="btn btn--gold" href="../index.html#contact">მოითხოვეთ შეთავაზება
@@ -156,9 +159,11 @@
       </div>
       <div class="ptabs__panel active" data-panel="specs">
         <table class="spec-table" style="max-width:640px">
-          <tr><th>მოდელი</th><td>AJ026TN1DKH</td></tr>
+          <tr><th>მოდელი</th><td data-spec="model">AJ026TN1DKH</td></tr>
           <tr><th>ტიპი</th><td>FJM — 1-დინებიანი კასეტური, WindFree</td></tr>
-          <tr><th>გაგრილება</th><td>2.6 kW (ასევე 3.5 kW — AJ035TN1DKH)</td></tr>
+          <tr><th>გაგრილება</th><td data-spec="cool">2.6 kW</td></tr>
+          <tr><th>გათბობა</th><td data-spec="heat">2.9 kW</td></tr>
+          <tr><th>მოდელების რიგი</th><td>AJ026TN1DKH 2.6 · AJ035TN1DKH 3.5 kW</td></tr>
           <tr><th>კვება</th><td>1 ფაზა, 220–240 V, 50 Hz</td></tr>
           <tr><th>მაცივარაგენტი</th><td>R410A</td></tr>
           <tr><th>მართვა</th><td>SmartThings · სადენიანი/უსადენო · BMS</td></tr>

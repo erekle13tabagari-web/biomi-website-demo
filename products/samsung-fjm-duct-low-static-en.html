@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -122,11 +122,9 @@
           <img src="../assets/img/products/samsung-fjm-duct-low-static/main.avif" alt="FJM Duct — low static pressure">
           <button class="pgal__arrow pgal__next" type="button" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>
         </div>
+        <!-- Rebuilt by the capacity chips below; this is the AJ026 set. -->
         <div class="pgal__thumbs">
-          <img src="../assets/img/products/samsung-fjm-duct-low-static/main.avif" alt="View">
-          <img src="../assets/img/products/samsung-fjm-duct-low-static/g1.avif" alt="View 2">
-          <img src="../assets/img/products/samsung-fjm-duct-low-static/g2.avif" alt="View 3">
-          <img src="../assets/img/products/samsung-fjm-duct-low-static/g3.avif" alt="Detail">
+          <img src="../assets/img/products/samsung-fjm-duct-low-static/main.avif" alt="AJ026TNLPKH-EA">
         </div>
       </div>
       <div class="pbuy reveal">
@@ -134,7 +132,14 @@
         <h1>Duct — Low Static Pressure</h1>
         <div class="pbuy__tag">FJM · R410A · Indoor unit</div>
         <div class="pbuy__label">Capacity</div>
-        <div class="chipset"><button class="chip active" type="button">2.6 kW</button><button class="chip" type="button">3.5 kW</button><button class="chip" type="button">5.2 kW</button><button class="chip" type="button">7.1 kW</button></div>
+        <!-- Each capacity is a distinct model. AJ026 and AJ035 share Samsung's
+             photo, so those two chips point at the same file. -->
+        <div class="chipset" data-modelswitch data-imgbase="../assets/img/products/samsung-fjm-duct-low-static/">
+          <button class="chip active" type="button" data-model="AJ026TNLPKH-EA" data-alt="AJ026TNLPKH-EA" data-imgs="main.avif" data-cool="2.6 kW" data-heat="2.9 kW">2.6 kW</button>
+          <button class="chip" type="button" data-model="AJ035TNLPKH-EA" data-alt="AJ035TNLPKH-EA" data-imgs="main.avif" data-cool="3.5 kW" data-heat="3.8 kW">3.5 kW</button>
+          <button class="chip" type="button" data-model="AJ052TNLPKH-EA" data-alt="AJ052TNLPKH-EA" data-imgs="aj052-1.avif" data-cool="5.2 kW" data-heat="5.6 kW">5.2 kW</button>
+          <button class="chip" type="button" data-model="AJ071TNLPKH-EA" data-alt="AJ071TNLPKH-EA" data-imgs="aj071-1.avif,aj071-2.avif,aj071-3.avif,aj071-4.avif" data-cool="7.1 kW" data-heat="8.0 kW">7.1 kW</button>
+        </div>
         <div class="pbuy__label">Power supply</div>
         <div class="chipset"><button class="chip active" type="button">1 phase</button></div>
         <a class="btn btn--gold" href="../index-en.html#contact">Request a quote
@@ -157,10 +162,11 @@
       </div>
       <div class="ptabs__panel active" data-panel="specs">
         <table class="spec-table" style="max-width:640px">
-          <tr><th>Model</th><td>AJ026TNLPKH-EA</td></tr>
+          <tr><th>Model</th><td data-spec="model">AJ026TNLPKH-EA</td></tr>
           <tr><th>Type</th><td>FJM — duct, low static pressure</td></tr>
-          <tr><th>Cooling</th><td>2.6 kW (also 3.5 / 5.2 / 7.1 kW — AJ035/052/071TNLPKH)</td></tr>
-          <tr><th>Heating</th><td>2.9 kW</td></tr>
+          <tr><th>Cooling</th><td data-spec="cool">2.6 kW</td></tr>
+          <tr><th>Heating</th><td data-spec="heat">2.9 kW</td></tr>
+          <tr><th>Model range</th><td>AJ026TNLPKH 2.6 · AJ035TNLPKH 3.5 · AJ052TNLPKH 5.2 · AJ071TNLPKH 7.1 kW</td></tr>
           <tr><th>Power supply</th><td>1 phase, 220–240 V, 50 Hz</td></tr>
           <tr><th>Refrigerant</th><td>R410A (GWP 2,088)</td></tr>
           <tr><th>Dimensions (W×H×D)</th><td>700 × 199 × 440 mm</td></tr>

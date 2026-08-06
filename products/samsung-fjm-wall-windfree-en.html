@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -133,7 +133,13 @@
         <h1>Wall-mounted WindFree™ (AJF600E)</h1>
         <div class="pbuy__tag">FJM · R410A · Indoor unit</div>
         <div class="pbuy__label">Capacity</div>
-        <div class="chipset"><button class="chip" type="button">2.0 kW</button><button class="chip" type="button">2.5 kW</button><button class="chip active" type="button">3.5 kW</button><button class="chip" type="button">5.0 kW</button><button class="chip" type="button">6.5 kW</button></div>
+        <div class="chipset" data-modelswitch>
+          <button class="chip" type="button" data-model="AJ020TNAPKH-EA" data-cool="2.0 kW" data-heat="2.2 kW">2.0 kW</button>
+          <button class="chip" type="button" data-model="AJ025TNAPKH-EA" data-cool="2.5 kW" data-heat="3.2 kW">2.5 kW</button>
+          <button class="chip active" type="button" data-model="AJ035TNAPKH-EA" data-cool="3.5 kW" data-heat="4.0 kW">3.5 kW</button>
+          <button class="chip" type="button" data-model="AJ050TNAPKH-EA" data-cool="5.0 kW" data-heat="6.0 kW">5.0 kW</button>
+          <button class="chip" type="button" data-model="AJ068TNAPKH-EA" data-cool="6.5 kW" data-heat="7.4 kW">6.5 kW</button>
+        </div>
         <div class="pbuy__label">Power supply</div>
         <div class="chipset"><button class="chip active" type="button">1 phase</button></div>
         <a class="btn btn--gold" href="../index-en.html#contact">Request a quote
@@ -156,10 +162,11 @@
       </div>
       <div class="ptabs__panel active" data-panel="specs">
         <table class="spec-table" style="max-width:640px">
-          <tr><th>Model</th><td>AJ035TNAPKH-EA</td></tr>
+          <tr><th>Model</th><td data-spec="model">AJ035TNAPKH-EA</td></tr>
           <tr><th>Type</th><td>FJM — wall-mounted, WindFree™ Premium Plus (AJF600E)</td></tr>
-          <tr><th>Cooling</th><td>3.5 kW (also 2.0 / 2.5 / 5.0 / 6.5 kW — AJ020/025/050/068TNAPKH)</td></tr>
-          <tr><th>Heating</th><td>4.0 kW</td></tr>
+          <tr><th>Cooling</th><td data-spec="cool">3.5 kW</td></tr>
+          <tr><th>Heating</th><td data-spec="heat">4.0 kW</td></tr>
+          <tr><th>Model range</th><td>AJ020TNAPKH 2.0 · AJ025TNAPKH 2.5 · AJ035TNAPKH 3.5 · AJ050TNAPKH 5.0 · AJ068TNAPKH 6.5 kW</td></tr>
           <tr><th>Power supply</th><td>1 phase, 220–240 V, 50/60 Hz</td></tr>
           <tr><th>Refrigerant</th><td>R410A</td></tr>
           <tr><th>Dimensions (W×H×D)</th><td>889 × 299 × 215 mm</td></tr>

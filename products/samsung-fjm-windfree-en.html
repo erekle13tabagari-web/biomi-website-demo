@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -134,7 +134,10 @@
         <h1>WindFree 1-Way Cassette</h1>
         <div class="pbuy__tag">FJM · R410A · Indoor unit</div>
         <div class="pbuy__label">Available capacity</div>
-        <div class="chipset"><button class="chip active" type="button">2.6 kW</button><button class="chip" type="button">3.5 kW</button></div>
+        <div class="chipset" data-modelswitch>
+          <button class="chip active" type="button" data-model="AJ026TN1DKH" data-cool="2.6 kW" data-heat="2.9 kW">2.6 kW</button>
+          <button class="chip" type="button" data-model="AJ035TN1DKH" data-cool="3.5 kW" data-heat="3.8 kW">3.5 kW</button>
+        </div>
         <div class="pbuy__label">Available power</div>
         <div class="chipset"><button class="chip active" type="button">1 Phase</button></div>
         <a class="btn btn--gold" href="../index-en.html#contact">Request a quote
@@ -156,9 +159,11 @@
       </div>
       <div class="ptabs__panel active" data-panel="specs">
         <table class="spec-table" style="max-width:640px">
-          <tr><th>Model</th><td>AJ026TN1DKH</td></tr>
+          <tr><th>Model</th><td data-spec="model">AJ026TN1DKH</td></tr>
           <tr><th>Type</th><td>FJM — 1-Way Cassette, WindFree</td></tr>
-          <tr><th>Cooling</th><td>2.6 kW (also 3.5 kW — AJ035TN1DKH)</td></tr>
+          <tr><th>Cooling</th><td data-spec="cool">2.6 kW</td></tr>
+          <tr><th>Heating</th><td data-spec="heat">2.9 kW</td></tr>
+          <tr><th>Model range</th><td>AJ026TN1DKH 2.6 · AJ035TN1DKH 3.5 kW</td></tr>
           <tr><th>Power supply</th><td>1 phase, 220–240 V, 50 Hz</td></tr>
           <tr><th>Refrigerant</th><td>R410A</td></tr>
           <tr><th>Control</th><td>SmartThings · wired/wireless · BMS</td></tr>
