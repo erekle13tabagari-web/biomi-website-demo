@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 <link rel="icon" href="../assets/img/logomark-ink.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="../assets/css/style.css?v=202608041557">
+<link rel="stylesheet" href="../assets/css/style.css?v=202608061551">
 </head>
 <body>
 
@@ -133,9 +133,12 @@
         <div class="pbuy__model">AJ026TN1DKH</div>
         <h1>WindFree 1-Way Cassette</h1>
         <div class="pbuy__tag">FJM · R410A · Indoor unit</div>
-        <div class="pbuy__label">Available capacity</div>
-        <div class="chipset"><button class="chip active" type="button">2.6 kW</button><button class="chip" type="button">3.5 kW</button></div>
-        <div class="pbuy__label">Available power</div>
+        <div class="pbuy__label">Capacity</div>
+        <div class="chipset" data-modelswitch>
+          <button class="chip active" type="button" data-model="AJ026TN1DKH" data-cool="2.6 kW" data-heat="2.9 kW">2.6 kW</button>
+          <button class="chip" type="button" data-model="AJ035TN1DKH" data-cool="3.5 kW" data-heat="3.8 kW">3.5 kW</button>
+        </div>
+        <div class="pbuy__label">Power supply</div>
         <div class="chipset"><button class="chip active" type="button">1 Phase</button></div>
         <a class="btn btn--gold" href="../index-en.html#contact">Request a quote
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -148,24 +151,26 @@
   <div class="container">
     <div class="ptabs reveal">
       <div class="ptabs__nav">
-        <button class="active" type="button" data-tab="desc">Description</button>
-        <button type="button" data-tab="specs">Specifications</button>
-        <button type="button" data-tab="cert">Certifications</button>
-        <button type="button" data-tab="dl">Downloads</button>
-        <button type="button" data-tab="energy">Energy label</button>
+        <button class="active" type="button" data-tab="specs">Specifications</button>
+        <button type="button" data-tab="desc">Description</button>
+        <button type="button" data-tab="cert">Certificates</button>
+        <button type="button" data-tab="dl">Documentation</button>
+        <button type="button" data-tab="energy">Energy class</button>
       </div>
-      <div class="ptabs__panel active" data-panel="desc">
-        <p style="max-width:640px;color:var(--muted)">A 1-way cassette with WindFree™ technology — air disperses through thousands of micro-holes, without the feel of a direct cold draught.</p>
-      </div>
-      <div class="ptabs__panel" data-panel="specs">
+      <div class="ptabs__panel active" data-panel="specs">
         <table class="spec-table" style="max-width:640px">
-          <tr><th>Model</th><td>AJ026TN1DKH</td></tr>
+          <tr><th>Model</th><td data-spec="model">AJ026TN1DKH</td></tr>
           <tr><th>Type</th><td>FJM — 1-Way Cassette, WindFree</td></tr>
-          <tr><th>Cooling</th><td>2.6 kW (also 3.5 kW — AJ035TN1DKH)</td></tr>
+          <tr><th>Cooling</th><td data-spec="cool">2.6 kW</td></tr>
+          <tr><th>Heating</th><td data-spec="heat">2.9 kW</td></tr>
+          <tr><th>Model range</th><td>AJ026TN1DKH 2.6 · AJ035TN1DKH 3.5 kW</td></tr>
           <tr><th>Power supply</th><td>1 phase, 220–240 V, 50 Hz</td></tr>
           <tr><th>Refrigerant</th><td>R410A</td></tr>
           <tr><th>Control</th><td>SmartThings · wired/wireless · BMS</td></tr>
         </table>
+      </div>
+      <div class="ptabs__panel" data-panel="desc">
+        <p style="max-width:640px;color:var(--muted)">A 1-way cassette with WindFree™ technology — air disperses through thousands of micro-holes, without the feel of a direct cold draught.</p>
       </div>
       <div class="ptabs__panel" data-panel="cert"><p style="color:var(--muted)">CE · RoHS · ISO 9001. Full certification available on request.</p></div>
       <div class="ptabs__panel" data-panel="dl">
@@ -178,7 +183,7 @@
 
 <section class="section section--soft">
   <div class="container">
-    <div class="section__head reveal"><span class="eyebrow">Similar products</span><h2>Other Samsung series</h2></div>
+    <div class="section__head reveal"><span class="eyebrow">Related products</span><h2>Other Samsung series</h2></div>
     <div class="pcard-grid reveal">
       <a class="pcard" href="samsung-dvm-360-en.html"><span class="pcard__img"><img src="../assets/img/products/samsung-dvm-360/front.avif" alt="DVM S 360°"></span><span class="pcard__body"><h4>DVM S 360° Cassette</h4><span class="pcard__model">AM071KN4DEH/TK</span></span></a>
       <a class="pcard" href="samsung-cac-duct-en.html"><span class="pcard__img"><img src="../assets/img/products/samsung-cac-duct/main.avif" alt="CAC Ducted"></span><span class="pcard__body"><h4>Ducted (Slim Duct)</h4><span class="pcard__model">AC071BNMDEH</span></span></a>
@@ -188,16 +193,17 @@
 
 <section class="section">
   <div class="container">
-    <div class="section__head reveal"><span class="eyebrow">Compare</span><h2>Compare products</h2></div>
+    <div class="section__head reveal"><span class="eyebrow">Comparison</span><h2>FJM series comparison</h2></div>
     <div class="compare reveal">
       <table>
-        <thead><tr><th></th><th><img src="../assets/img/products/samsung-dvm-360/front.avif" alt="">DVM S 360°</th><th><img src="../assets/img/products/samsung-cac-duct/main.avif" alt="">CAC Ducted</th><th><img src="../assets/img/products/samsung-fjm-windfree/main.avif" alt="">FJM WindFree</th></tr></thead>
+        <thead><tr><th></th><th><img src="../assets/img/products/samsung-fjm-windfree/main.avif" alt="">1-Way Cassette</th><th><img src="../assets/img/products/samsung-fjm-duct-low-static/main.avif" alt="">Duct</th><th><img src="../assets/img/products/samsung-fjm-wall-windfree/main.avif" alt="">Wall WindFree</th></tr></thead>
         <tbody>
-          <tr><th>Model</th><td>AM071KN4DEH</td><td>AC071BNMDEH</td><td class="is-this">AJ026TN1DKH</td></tr>
-          <tr><th>Type</th><td>360° Cassette</td><td>Ducted</td><td>1-Way Cassette</td></tr>
-          <tr><th>Cooling</th><td>7.1 kW</td><td>7.1–14 kW</td><td>2.6 kW</td></tr>
+          <tr><th>Model</th><td class="is-this">AJ026TN1DKH</td><td>AJ026TNLPKH</td><td>AJ035TNAPKH</td></tr>
+          <tr><th>Type</th><td>1-way cassette</td><td>Duct</td><td>Wall-mounted</td></tr>
+          <tr><th>Cooling</th><td>2.6–3.5 kW</td><td>2.6–7.1 kW</td><td>2.0–6.5 kW</td></tr>
+          <tr><th>WindFree™</th><td>Yes</td><td>—</td><td>Yes</td></tr>
           <tr><th>Refrigerant</th><td>R410A</td><td>R410A</td><td>R410A</td></tr>
-          <tr><th></th><td><a class="link-more" href="samsung-dvm-360-en.html">View</a></td><td><a class="link-more" href="samsung-cac-duct-en.html">View</a></td><td><a class="link-more" href="samsung-fjm-windfree-en.html">View</a></td></tr>
+          <tr><th></th><td><a class="link-more" href="samsung-fjm-windfree-en.html">View</a></td><td><a class="link-more" href="samsung-fjm-duct-low-static-en.html">View</a></td><td><a class="link-more" href="samsung-fjm-wall-windfree-en.html">View</a></td></tr>
         </tbody>
       </table>
     </div>
@@ -339,6 +345,6 @@
   </aside>
 </div>
 
-<script src="../assets/js/main.js?v=202608041557"></script>
+<script src="../assets/js/main.js?v=202608061551"></script>
 </body>
 </html>

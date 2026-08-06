@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 <link rel="icon" href="../assets/img/logomark-ink.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="../assets/css/style.css?v=202608041557">
+<link rel="stylesheet" href="../assets/css/style.css?v=202608061551">
 </head>
 <body>
 
@@ -133,9 +133,14 @@
         <div class="pbuy__model">AC071BNMDEH</div>
         <h1>Ducted (Slim Duct)</h1>
         <div class="pbuy__tag">VRF · R410A · Indoor unit</div>
-        <div class="pbuy__label">Available capacity</div>
-        <div class="chipset"><button class="chip active" type="button">7.1 kW</button><button class="chip" type="button">10 kW</button><button class="chip" type="button">12 kW</button><button class="chip" type="button">14 kW</button></div>
-        <div class="pbuy__label">Available power</div>
+        <div class="pbuy__label">Capacity</div>
+        <div class="chipset" data-modelswitch>
+          <button class="chip active" type="button" data-model="AC071BNMDEH" data-cool="6.8 kW" data-heat="8.0 kW">6.8 kW</button>
+          <button class="chip" type="button" data-model="AC100BNMDEH" data-cool="10.0 kW" data-heat="11.2 kW">10.0 kW</button>
+          <button class="chip" type="button" data-model="AC120BNMDEH" data-cool="12.1 kW" data-heat="14.0 kW">12.1 kW</button>
+          <button class="chip" type="button" data-model="AC140BNMDEH" data-cool="13.4 kW" data-heat="15.5 kW">13.4 kW</button>
+        </div>
+        <div class="pbuy__label">Power supply</div>
         <div class="chipset"><button class="chip active" type="button">1 Phase</button></div>
         <a class="btn btn--gold" href="../index-en.html#contact">Request a quote
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -148,24 +153,26 @@
   <div class="container">
     <div class="ptabs reveal">
       <div class="ptabs__nav">
-        <button class="active" type="button" data-tab="desc">Description</button>
-        <button type="button" data-tab="specs">Specifications</button>
-        <button type="button" data-tab="cert">Certifications</button>
-        <button type="button" data-tab="dl">Downloads</button>
-        <button type="button" data-tab="energy">Energy label</button>
+        <button class="active" type="button" data-tab="specs">Specifications</button>
+        <button type="button" data-tab="desc">Description</button>
+        <button type="button" data-tab="cert">Certificates</button>
+        <button type="button" data-tab="dl">Documentation</button>
+        <button type="button" data-tab="energy">Energy class</button>
       </div>
-      <div class="ptabs__panel active" data-panel="desc">
-        <p style="max-width:640px;color:var(--muted)">A concealed ceiling ducted indoor unit — blends invisibly into the interior and distributes air through ducts to several spaces.</p>
-      </div>
-      <div class="ptabs__panel" data-panel="specs">
+      <div class="ptabs__panel active" data-panel="specs">
         <table class="spec-table" style="max-width:640px">
-          <tr><th>Model</th><td>AC071BNMDEH</td></tr>
+          <tr><th>Model</th><td data-spec="model">AC071BNMDEH</td></tr>
           <tr><th>Type</th><td>CAC — Ducted (Slim Duct)</td></tr>
-          <tr><th>Cooling</th><td>7.1 kW (series 7.1–14 kW)</td></tr>
+          <tr><th>Cooling</th><td data-spec="cool">6.8 kW</td></tr>
+          <tr><th>Heating</th><td data-spec="heat">8.0 kW</td></tr>
+          <tr><th>Model range</th><td>AC071BNMDEH 6.8 · AC100BNMDEH 10.0 · AC120BNMDEH 12.1 · AC140BNMDEH 13.4 kW</td></tr>
           <tr><th>Power supply</th><td>1 phase, 220–240 V, 50 Hz</td></tr>
           <tr><th>Refrigerant</th><td>R410A</td></tr>
           <tr><th>Control</th><td>Wired/wireless · BMS</td></tr>
         </table>
+      </div>
+      <div class="ptabs__panel" data-panel="desc">
+        <p style="max-width:640px;color:var(--muted)">A concealed ceiling ducted indoor unit — blends invisibly into the interior and distributes air through ducts to several spaces.</p>
       </div>
       <div class="ptabs__panel" data-panel="cert"><p style="color:var(--muted)">CE · RoHS · ISO 9001. Full certification available on request.</p></div>
       <div class="ptabs__panel" data-panel="dl">
@@ -178,7 +185,7 @@
 
 <section class="section section--soft">
   <div class="container">
-    <div class="section__head reveal"><span class="eyebrow">Similar products</span><h2>Other Samsung series</h2></div>
+    <div class="section__head reveal"><span class="eyebrow">Related products</span><h2>Other Samsung series</h2></div>
     <div class="pcard-grid reveal">
       <a class="pcard" href="samsung-dvm-360-en.html"><span class="pcard__img"><img src="../assets/img/products/samsung-dvm-360/front.avif" alt="DVM S 360°"></span><span class="pcard__body"><h4>DVM S 360° Cassette</h4><span class="pcard__model">AM071KN4DEH/TK</span></span></a>
       <a class="pcard" href="samsung-fjm-windfree-en.html"><span class="pcard__img"><img src="../assets/img/products/samsung-fjm-windfree/main.avif" alt="FJM WindFree"></span><span class="pcard__body"><h4>WindFree 1-Way Cassette</h4><span class="pcard__model">AJ026TN1DKH</span></span></a>
@@ -188,14 +195,14 @@
 
 <section class="section">
   <div class="container">
-    <div class="section__head reveal"><span class="eyebrow">Compare</span><h2>Compare products</h2></div>
+    <div class="section__head reveal"><span class="eyebrow">Comparison</span><h2>Compare products</h2></div>
     <div class="compare reveal">
       <table>
         <thead><tr><th></th><th><img src="../assets/img/products/samsung-dvm-360/front.avif" alt="">DVM S 360°</th><th><img src="../assets/img/products/samsung-cac-duct/main.avif" alt="">CAC Ducted</th><th><img src="../assets/img/products/samsung-fjm-windfree/main.avif" alt="">FJM WindFree</th></tr></thead>
         <tbody>
           <tr><th>Model</th><td>AM071KN4DEH</td><td class="is-this">AC071BNMDEH</td><td>AJ026TN1DKH</td></tr>
           <tr><th>Type</th><td>360° Cassette</td><td>Ducted</td><td>1-Way Cassette</td></tr>
-          <tr><th>Cooling</th><td>7.1 kW</td><td>7.1–14 kW</td><td>2.6 kW</td></tr>
+          <tr><th>Cooling</th><td>7.1–11.2 kW</td><td>6.8–13.4 kW</td><td>2.6–3.5 kW</td></tr>
           <tr><th>Refrigerant</th><td>R410A</td><td>R410A</td><td>R410A</td></tr>
           <tr><th></th><td><a class="link-more" href="samsung-dvm-360-en.html">View</a></td><td><a class="link-more" href="samsung-cac-duct-en.html">View</a></td><td><a class="link-more" href="samsung-fjm-windfree-en.html">View</a></td></tr>
         </tbody>
@@ -339,6 +346,6 @@
   </aside>
 </div>
 
-<script src="../assets/js/main.js?v=202608041557"></script>
+<script src="../assets/js/main.js?v=202608061551"></script>
 </body>
 </html>

@@ -202,9 +202,15 @@
   });
 
   /* ---- Image lightbox with prev/next (grouped per gallery) ---- */
+  /* Product pages drive this from their .pgal gallery rather than [data-lightbox]
+     markup: those thumbs already own a click handler that swaps the main image,
+     so tagging them would double-bind. The gallery lives in a *separate*
+     top-level IIFE further down this file and shares no scope with this one, so
+     the two talk over a 'biomi:lightbox' document event rather than a variable. */
   (function () {
     var all = Array.prototype.slice.call(document.querySelectorAll('[data-lightbox]'));
-    if (!all.length) return;
+    // still build it when a page has no [data-lightbox] but does have a gallery
+    if (!all.length && !document.querySelector('.pgal__main img')) return;
     // group images by their container so arrows cycle within one gallery
     var groups = [];
     all.forEach(function (im) {
@@ -228,7 +234,7 @@
     var frame = lb.querySelector('.lightbox__frame');
     var prevBtn = lb.querySelector('.lightbox__prev');
     var nextBtn = lb.querySelector('.lightbox__next');
-    var group = null, index = 0;
+    var group = null, index = 0, onClose = null;
 
     function render() {
       var im = group.items[index];
@@ -249,7 +255,20 @@
     }
     function step(d) { index = (index + d + group.items.length) % group.items.length; render(); }
     function open(g, i) { group = g; index = i; render(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function close() { frame.src = ''; lb.classList.remove('open'); document.body.style.overflow = ''; }
+    function close() {
+      frame.src = ''; lb.classList.remove('open'); document.body.style.overflow = '';
+      // let the caller sync to whichever slide you left on
+      if (onClose) { var cb = onClose; onClose = null; cb(index); }
+    }
+
+    /* Open an arbitrary image list on request — detail: {items, index, onClose}.
+       Used by the .pgal product gallery, which cannot reach `open` directly. */
+    document.addEventListener('biomi:lightbox', function (e) {
+      var d = e.detail || {};
+      if (!d.items || !d.items.length) return;
+      onClose = typeof d.onClose === 'function' ? d.onClose : null;
+      open({ parent: null, items: d.items }, d.index || 0);
+    });
 
     groups.forEach(function (g) {
       g.items.forEach(function (im, i) {
@@ -528,19 +547,51 @@
 
   document.querySelectorAll('.pgal').forEach(function (gal) {
     var main = gal.querySelector('.pgal__main img');
-    var thumbs = Array.prototype.slice.call(gal.querySelectorAll('.pgal__thumbs img'));
-    if (!main || !thumbs.length) return;
+    var wrap = gal.querySelector('.pgal__thumbs');
+    if (!main || !wrap || !wrap.querySelector('img')) return;
     var i = 0;
+    /* Read the thumbs live rather than caching them: the capacity chips on some
+       product pages swap the whole set when you pick a different model. */
+    function thumbs() { return Array.prototype.slice.call(wrap.querySelectorAll('img')); }
     function show(n) {
-      i = (n + thumbs.length) % thumbs.length;
-      main.src = thumbs[i].getAttribute('data-full') || thumbs[i].src;
-      main.alt = thumbs[i].alt;
-      thumbs.forEach(function (t, k) { t.classList.toggle('active', k === i); });
+      var t = thumbs();
+      if (!t.length) return;
+      i = (n + t.length) % t.length;
+      main.src = t[i].getAttribute('data-full') || t[i].src;
+      main.alt = t[i].alt;
+      t.forEach(function (x, k) { x.classList.toggle('active', k === i); });
     }
-    thumbs.forEach(function (t, k) { t.addEventListener('click', function () { show(k); }); });
+    // delegated, so rebuilt thumbnails stay clickable without re-binding
+    wrap.addEventListener('click', function (e) {
+      var img = e.target && e.target.closest ? e.target.closest('img') : null;
+      if (!img || !wrap.contains(img)) return;
+      show(thumbs().indexOf(img));
+    });
+    gal.__showSlide = show;   // used by the model switcher after it swaps the set
     var p = gal.querySelector('.pgal__prev'), nx = gal.querySelector('.pgal__next');
     if (p) p.addEventListener('click', function () { show(i - 1); });
     if (nx) nx.addEventListener('click', function () { show(i + 1); });
+
+    /* Click (or Enter/Space on) the big image to view the gallery full-screen.
+       Reuses the shared lightbox, so arrows / Esc / backdrop-close come free, and
+       on close the gallery jumps to whichever slide you ended on. The .pgal arrows
+       are siblings of this <img>, so they never trigger it. */
+    if (document.querySelector('.lightbox')) {   // lightbox module initialised
+      main.style.cursor = 'zoom-in';
+      main.setAttribute('role', 'button');
+      main.setAttribute('tabindex', '0');
+      main.setAttribute('aria-label', main.getAttribute('data-zoom-label') ||
+        ((document.documentElement.lang || 'ka').slice(0, 2) === 'en' ? 'Enlarge image' : 'სურათის გადიდება'));
+      var zoom = function () {
+        document.dispatchEvent(new CustomEvent('biomi:lightbox', {
+          detail: { items: thumbs(), index: i, onClose: show }
+        }));
+      };
+      main.addEventListener('click', zoom);
+      main.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); zoom(); }
+      });
+    }
     show(0);
   });
 
@@ -556,8 +607,61 @@
     });
   });
 
+  /* ---- Capacity chips ----
+     Plain chipsets just move the .active highlight. A chipset marked
+     [data-modelswitch] additionally drives the page: picking a capacity is
+     picking a model, so it swaps the model code, the gallery images, the
+     matching spec-table cells, and the port-count chips. Everything it needs
+     travels on the chip itself, so pages opt in purely through markup. */
   document.querySelectorAll('.chipset').forEach(function (set) {
-    var chips = set.querySelectorAll('.chip');
-    chips.forEach(function (c) { c.addEventListener('click', function () { chips.forEach(function (x) { x.classList.remove('active'); }); c.classList.add('active'); }); });
+    var chips = Array.prototype.slice.call(set.querySelectorAll('.chip'));
+    var isSwitch = set.hasAttribute('data-modelswitch');
+    var base = set.getAttribute('data-imgbase') || '';
+    var detail = set.closest('.pdetail') || document;
+    var gal = detail.querySelector('.pgal');
+    var wrap = gal && gal.querySelector('.pgal__thumbs');
+
+    function applyModel(c) {
+      var model = c.getAttribute('data-model');
+      if (!model) return;
+
+      var codeEl = detail.querySelector('.pbuy__model');
+      if (codeEl) codeEl.textContent = model;
+
+      // rebuild the thumbnail strip for this model, then reset to its first shot
+      var imgs = (c.getAttribute('data-imgs') || '').split(',').filter(Boolean);
+      if (wrap && imgs.length) {
+        var label = c.getAttribute('data-alt') || model;
+        wrap.innerHTML = imgs.map(function (src, k) {
+          return '<img src="' + base + src.trim() + '" alt="' + label +
+                 (k ? ' — ' + (k + 1) : '') + '">';
+        }).join('');
+        if (gal.__showSlide) gal.__showSlide(0);
+      }
+
+      // spec rows tagged data-spec="model|cool|heat|ports"
+      ['model', 'cool', 'heat', 'ports'].forEach(function (key) {
+        var v = key === 'model' ? model : c.getAttribute('data-' + key);
+        var cell = document.querySelector('[data-spec="' + key + '"]');
+        if (cell && v) cell.textContent = v;
+      });
+
+      // keep the port-count chips in step with the chosen model
+      var ports = c.getAttribute('data-ports');
+      var portSet = document.querySelector('[data-portset]');
+      if (ports && portSet) {
+        portSet.querySelectorAll('.chip').forEach(function (pc) {
+          pc.classList.toggle('active', pc.textContent.trim() === ports);
+        });
+      }
+    }
+
+    chips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        chips.forEach(function (x) { x.classList.remove('active'); });
+        c.classList.add('active');
+        if (isSwitch) applyModel(c);
+      });
+    });
   });
 })();
