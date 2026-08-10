@@ -149,6 +149,281 @@
     });
   });
 
+  /* ---- Dark mode ----
+     The theme is already on <html> by the time this runs -- the inline script in
+     every <head> does that before first paint so the page never flashes white.
+     All this adds is the switch: one in the header toolbar, one in the drawer
+     (the toolbar is hidden on phones). Injected rather than written into 45
+     pages of markup, so a new page picks it up for free.
+
+     No stored choice means "follow the OS", and it stays that way -- the site
+     tracks the system setting live until someone actually presses the switch. */
+  (function () {
+    var THEME_KEY = 'biomi-theme';
+    var root = document.documentElement;
+    var en = (root.lang || 'ka').slice(0, 2) === 'en';
+    var SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">' +
+      '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2' +
+      'M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/></svg>';
+    var MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" ' +
+      'stroke-linejoin="round"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2Z"/></svg>';
+    var btns = [];
+
+    function label(dark) {
+      return en ? (dark ? 'Switch to light mode' : 'Switch to dark mode')
+                : (dark ? 'ნათელ რეჟიმზე გადართვა' : 'ბნელ რეჟიმზე გადართვა');
+    }
+    /* The header and drawer carry a dedicated dark-mode lockup — white wordmark,
+       blue mark intact — rather than a filtered version of the light one. The
+       path is derived from whatever src the page already has (logo-geo.svg ->
+       logo-geo-dark.svg), so this works from the root and from /products alike
+       and no page needs to name both files.
+
+       Which one shows depends on the backdrop, not the theme: the header also
+       turns solid navy on scroll, and that is just as dark as dark mode, so it
+       takes the dark lockup in either theme. The drawer panel is always the
+       surface colour, so it follows the theme alone.
+
+       The footer is navy in both themes, so it always wants the dark lockup.
+       That one keeps its CSS knock-out as a no-JS fallback and only drops the
+       filter once the real artwork is actually in place. The header needs no
+       such fallback: .is-solid is set by the scroll handler above, so without
+       JS it never goes navy in the first place.
+
+       Manufacturer logos work the same way where a dark version exists. Only
+       the two below have one, so the rest keep the CSS knock-out — hence the
+       explicit list rather than probing for a file. */
+    var headerEl = document.querySelector('.header');
+    var DARK_PARTNERS = /(samsung|mitsubishi-electric)\.svg/;
+    var logos = [];
+
+    function register(img, opts) {
+      var light = img.getAttribute('src');
+      var dark = light.replace(/\.svg/, '-dark.svg');
+      new Image().src = dark;   // warm the cache so the first swap doesn't blink
+      opts.img = img; opts.light = light; opts.dark = dark;
+      logos.push(opts);
+    }
+
+    document.querySelectorAll('.header .brand__logo, .drawer__panel .brand__logo, .footer .brand__logo')
+      .forEach(function (img) {
+        if (!/logo-(geo|eng)\.svg/.test(img.getAttribute('src'))) return;
+        register(img, {
+          onSolid: !!(headerEl && headerEl.contains(img)),
+          always: !!img.closest('.footer'),   // footer is navy in both themes
+          knockout: !!img.closest('.footer')
+        });
+      });
+
+    document.querySelectorAll('.brandpick__card img, .brand-hero__logo').forEach(function (img) {
+      if (!DARK_PARTNERS.test(img.getAttribute('src'))) return;
+      register(img, { onSolid: false, always: false, knockout: true });
+    });
+
+    function paintLogos() {
+      var themeDark = root.getAttribute('data-theme') === 'dark';
+      var solid = !!(headerEl && headerEl.classList.contains('is-solid'));
+      logos.forEach(function (l) {
+        var wantDark = l.always || themeDark || (l.onSolid && solid);
+        var want = wantDark ? l.dark : l.light;
+        if (l.img.getAttribute('src') !== want) l.img.setAttribute('src', want);
+        // these carry a CSS knock-out as the no-JS fallback; drop it once the
+        // real artwork is in, so the Mitsubishi red survives instead of going flat
+        if (l.knockout) l.img.style.filter = wantDark ? 'none' : '';
+      });
+    }
+    if (headerEl && window.MutationObserver) {
+      new MutationObserver(paintLogos).observe(headerEl, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    function paint() {
+      var dark = root.getAttribute('data-theme') === 'dark';
+      paintLogos();
+      btns.forEach(function (b) {
+        b.innerHTML = (dark ? SUN : MOON) + (b.dataset.withText ? '<span>' + (en ? 'Theme' : 'თემა') + '</span>' : '');
+        b.setAttribute('aria-label', label(dark));
+        b.setAttribute('title', label(dark));
+        b.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      });
+    }
+    function set(theme, remember) {
+      root.setAttribute('data-theme', theme);
+      if (remember) { try { localStorage.setItem(THEME_KEY, theme); } catch (e) {} }
+      paint();
+    }
+    function make(cls, withText) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = cls;
+      if (withText) b.dataset.withText = '1';
+      b.addEventListener('click', function () {
+        set(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+      });
+      btns.push(b);
+      return b;
+    }
+
+    var tools = document.querySelector('.nav__tools');
+    if (tools) {
+      var search = tools.querySelector('.icon-btn');
+      tools.insertBefore(make('icon-btn theme-btn', false), search || tools.lastElementChild);
+    }
+    var foot = document.querySelector('.drawer__foot');
+    if (foot) foot.insertBefore(make('drawer__theme', true), foot.firstElementChild);
+    paint();
+
+    // with no stored preference, keep following the OS while the page is open
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    var onOS = function (e) {
+      var stored;
+      try { stored = localStorage.getItem(THEME_KEY); } catch (err) {}
+      if (stored !== 'dark' && stored !== 'light') set(e.matches ? 'dark' : 'light', false);
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onOS);
+    else if (mq.addListener) mq.addListener(onOS);
+  })();
+
+  /* ---- Site search ----
+     The magnifier in the toolbar was decorative. It now opens an overlay that
+     searches a prebuilt index (assets/search-<lang>.json, generated from the
+     hub pages' product cards plus a short list of standalone pages).
+
+     The index is fetched on first open, not on load, so it costs nothing to
+     visitors who never search. Paths inside it are root-relative; the "../"
+     prefix a page needs is read off its own stylesheet href, which is the one
+     link every page already has and which already encodes its depth. */
+  (function () {
+    var tools = document.querySelector('.nav__tools');
+    var trigger = tools && tools.querySelector('.icon-btn:not(.theme-btn)');
+    if (!trigger) return;
+
+    var en = (document.documentElement.lang || 'ka').slice(0, 2) === 'en';
+    var cssHref = (document.querySelector('link[rel="stylesheet"]') || {}).getAttribute
+      ? document.querySelector('link[rel="stylesheet"]').getAttribute('href') : '';
+    var base = cssHref.indexOf('assets/') > 0 ? cssHref.slice(0, cssHref.indexOf('assets/')) : '';
+
+    var T = en
+      ? { ph: 'Search products and pages…', none: 'Nothing found for', esc: 'close', nav: 'to navigate', go: 'to open', label: 'Search' }
+      : { ph: 'მოძებნეთ პროდუქტი ან გვერდი…', none: 'ვერაფერი მოიძებნა:', esc: 'დახურვა', nav: 'ნავიგაცია', go: 'გახსნა', label: 'ძიება' };
+
+    var wrap = document.createElement('div');
+    wrap.className = 'srch';
+    wrap.setAttribute('role', 'dialog');
+    wrap.setAttribute('aria-modal', 'true');
+    wrap.setAttribute('aria-label', T.label);
+    wrap.innerHTML =
+      '<div class="srch__scrim" data-srch-close></div>' +
+      '<div class="srch__panel">' +
+        '<div class="srch__bar">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+            '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
+          '<input type="search" autocomplete="off" spellcheck="false" placeholder="' + T.ph + '" aria-label="' + T.label + '">' +
+          '<button class="srch__close" type="button" data-srch-close>ESC</button>' +
+        '</div>' +
+        '<div class="srch__results" role="listbox"></div>' +
+        '<div class="srch__hint"><span><b>↑↓</b> ' + T.nav + '</span><span><b>↵</b> ' + T.go + '</span></div>' +
+      '</div>';
+    document.body.appendChild(wrap);
+
+    var input = wrap.querySelector('input');
+    var out = wrap.querySelector('.srch__results');
+    var data = null, loading = false, sel = -1, hits = [];
+
+    function esc(s) {
+      return String(s).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+
+    function render() {
+      var q = input.value.toLowerCase().trim();
+      if (!data || !q) { out.innerHTML = ''; hits = []; sel = -1; return; }
+      var terms = q.split(/\s+/);
+      hits = data.filter(function (it) {
+        for (var i = 0; i < terms.length; i++) if (it.q.indexOf(terms[i]) < 0) return false;
+        return true;
+      }).slice(0, 12);
+      sel = hits.length ? 0 : -1;
+      if (!hits.length) {
+        out.innerHTML = '<div class="srch__empty">' + T.none + ' “' + esc(input.value.trim()) + '”</div>';
+        return;
+      }
+      out.innerHTML = hits.map(function (it, i) {
+        var thumb = it.img
+          ? '<span class="srch__thumb"><img src="' + base + esc(it.img) + '" alt=""></span>'
+          : '';
+        return '<a class="srch__item' + (i === sel ? ' is-sel' : '') + '" role="option" href="' + base + esc(it.url) + '">' +
+          thumb +
+          '<span class="srch__txt"><span class="srch__title">' + esc(it.title) + '</span>' +
+          (it.sub ? '<span class="srch__meta">' + esc(it.sub) + '</span>' : '') +
+          '</span><span class="srch__kind">' + esc(it.kind) + '</span></a>';
+      }).join('');
+    }
+
+    function move(step) {
+      if (!hits.length) return;
+      sel = (sel + step + hits.length) % hits.length;
+      var items = out.querySelectorAll('.srch__item');
+      items.forEach(function (el, i) { el.classList.toggle('is-sel', i === sel); });
+      if (items[sel]) items[sel].scrollIntoView({ block: 'nearest' });
+    }
+
+    function load() {
+      if (data || loading) return;
+      loading = true;
+      fetch(base + 'assets/search-' + (en ? 'en' : 'ka') + '.json')
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (j) { data = j; render(); })
+        .catch(function () { data = []; })
+        .then(function () { loading = false; });
+    }
+
+    function open() {
+      load();
+      wrap.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { input.focus(); }, 60);
+    }
+    function close() {
+      wrap.classList.remove('open');
+      document.body.style.overflow = '';
+      trigger.focus();
+    }
+
+    trigger.addEventListener('click', open);
+    wrap.querySelectorAll('[data-srch-close]').forEach(function (el) { el.addEventListener('click', close); });
+    input.addEventListener('input', render);
+    wrap.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { e.preventDefault(); close(); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
+      else if (e.key === 'Enter' && hits[sel]) { e.preventDefault(); location.href = base + hits[sel].url; }
+    });
+    document.addEventListener('keydown', function (e) {
+      // Ctrl/Cmd-K from anywhere, and "/" when not already typing somewhere
+      var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '');
+      if (((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') || (e.key === '/' && !typing && !wrap.classList.contains('open'))) {
+        e.preventDefault(); open();
+      }
+    });
+
+    // the toolbar is hidden on phones, so the drawer gets its own way in
+    var foot = document.querySelector('.drawer__foot');
+    if (foot) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'drawer__theme';
+      b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+        '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span>' + T.label + '</span>';
+      b.addEventListener('click', function () {
+        var d = document.getElementById('drawer');
+        if (d) { d.classList.remove('open'); document.body.style.overflow = ''; }
+        open();
+      });
+      foot.insertBefore(b, foot.firstElementChild);
+    }
+  })();
+
   /* ---- Mobile drawer ---- */
   var burger = document.getElementById('burger');
   var drawer = document.getElementById('drawer');
@@ -542,6 +817,48 @@
     var clr = list.querySelector('[data-clear]');
     if (clr) clr.addEventListener('click', function () { checks.forEach(function (c) { c.checked = false; }); if (search) search.value = ''; apply(); });
     list.querySelectorAll('.pfilter__group h4').forEach(function (h) { h.addEventListener('click', function () { h.parentElement.classList.toggle('closed'); }); });
+
+    /* ---- Phone: collapse the filter behind a toggle ----
+       Stacked on a phone the sidebar puts a wall of checkboxes above the grid.
+       Everything except the search box moves into .pfilter__body, which CSS
+       hides below 760px until the injected toggle opens it. Built here rather
+       than in markup so every hub page (and any future one) gets it. */
+    var panel = list.querySelector('.pfilter');
+    if (panel && !panel.querySelector('.pfilter__body')) {
+      var head = panel.querySelector('.pfilter__head');
+      var body = document.createElement('div');
+      body.className = 'pfilter__body';
+      var move = [];
+      for (var n = head; n; n = n.nextElementSibling) { move.push(n); }
+      move.forEach(function (el) { body.appendChild(el); });
+      panel.appendChild(body);
+
+      var label = (head && head.querySelector('span') && head.querySelector('span').textContent.trim()) || 'Filter';
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'pfilter__toggle';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = '<span>' + label + '</span><span class="pfilter__count"></span>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:auto"><path d="m6 9 6 6 6-6"/></svg>';
+      panel.classList.add('is-collapsible');
+      panel.insertBefore(btn, body);
+
+      btn.addEventListener('click', function () {
+        var open = panel.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      var badge = btn.querySelector('.pfilter__count');
+      var count = function () {
+        var n = checks.filter(function (c) { return c.checked; }).length;
+        badge.textContent = n || '';
+        badge.classList.toggle('on', n > 0);
+      };
+      checks.forEach(function (c) { c.addEventListener('change', count); });
+      if (clr) clr.addEventListener('click', count);
+      count();
+    }
+
     apply();
   }
 
@@ -611,15 +928,30 @@
      Plain chipsets just move the .active highlight. A chipset marked
      [data-modelswitch] additionally drives the page: picking a capacity is
      picking a model, so it swaps the model code, the gallery images, the
-     matching spec-table cells, and the port-count chips. Everything it needs
-     travels on the chip itself, so pages opt in purely through markup. */
+     matching spec-table cells, and the port-count chips. [data-imgswitch] is
+     the lighter cousin -- it only swaps the gallery, for choices like a
+     finish colour that leave every spec untouched. Everything either one
+     needs travels on the chip itself, so pages opt in purely through markup. */
   document.querySelectorAll('.chipset').forEach(function (set) {
     var chips = Array.prototype.slice.call(set.querySelectorAll('.chip'));
     var isSwitch = set.hasAttribute('data-modelswitch');
+    var isImgSwitch = set.hasAttribute('data-imgswitch');
     var base = set.getAttribute('data-imgbase') || '';
     var detail = set.closest('.pdetail') || document;
     var gal = detail.querySelector('.pgal');
     var wrap = gal && gal.querySelector('.pgal__thumbs');
+
+    // rebuild the thumbnail strip from this chip's set, then reset to its first shot
+    function applyImages(c) {
+      var imgs = (c.getAttribute('data-imgs') || '').split(',').filter(Boolean);
+      if (!wrap || !imgs.length) return;
+      var label = c.getAttribute('data-alt') || c.getAttribute('data-model') || '';
+      wrap.innerHTML = imgs.map(function (src, k) {
+        return '<img src="' + base + src.trim() + '" alt="' + label +
+               (k ? ' — ' + (k + 1) : '') + '">';
+      }).join('');
+      if (gal.__showSlide) gal.__showSlide(0);
+    }
 
     function applyModel(c) {
       var model = c.getAttribute('data-model');
@@ -628,16 +960,7 @@
       var codeEl = detail.querySelector('.pbuy__model');
       if (codeEl) codeEl.textContent = model;
 
-      // rebuild the thumbnail strip for this model, then reset to its first shot
-      var imgs = (c.getAttribute('data-imgs') || '').split(',').filter(Boolean);
-      if (wrap && imgs.length) {
-        var label = c.getAttribute('data-alt') || model;
-        wrap.innerHTML = imgs.map(function (src, k) {
-          return '<img src="' + base + src.trim() + '" alt="' + label +
-                 (k ? ' — ' + (k + 1) : '') + '">';
-        }).join('');
-        if (gal.__showSlide) gal.__showSlide(0);
-      }
+      applyImages(c);
 
       // spec rows tagged data-spec="model|cool|heat|ports"
       ['model', 'cool', 'heat', 'ports'].forEach(function (key) {
@@ -661,6 +984,7 @@
         chips.forEach(function (x) { x.classList.remove('active'); });
         c.classList.add('active');
         if (isSwitch) applyModel(c);
+        else if (isImgSwitch) applyImages(c);
       });
     });
   });

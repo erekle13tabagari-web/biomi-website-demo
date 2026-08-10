@@ -8,7 +8,8 @@
 <link rel="icon" href="../assets/img/logomark-ink.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="../assets/css/style.css?v=202608101107">
+<script>(function(){try{var t=localStorage.getItem("biomi-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="../assets/css/style.css?v=202608101648">
 </head>
 <body>
 
@@ -146,6 +147,7 @@
         </div>
         <div class="pbuy__label">შიდა ბლოკების რაოდენობა</div>
         <div class="chipset" data-portset><button class="chip active" type="button">2</button><button class="chip" type="button">3</button><button class="chip" type="button">4</button><button class="chip" type="button">5</button></div>
+        <p class="pbuy__desc">მულტისპლიტ სისტემის გარე ბლოკი — ერთი ბლოკი 2-დან 5 შიდა ბლოკამდე ამუშავებს, ამიტომ ფასადზე მხოლოდ ერთი აგრეგატი ჩანს. თითოეულ ოთახში ტემპერატურა დამოუკიდებლად რეგულირდება, ბლოკების ტიპებს კი თავისუფლად აკომბინირებთ — კედლის, არხული ან კასეტური.</p>
         <a class="btn btn--gold" href="../index.html#contact">მოითხოვეთ შეთავაზება
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
@@ -158,7 +160,6 @@
     <div class="ptabs reveal">
       <div class="ptabs__nav">
         <button class="active" type="button" data-tab="specs">მახასიათებლები</button>
-        <button type="button" data-tab="desc">აღწერა</button>
         <button type="button" data-tab="adv">უპირატესობები</button>
         <button type="button" data-tab="cert">სერტიფიკატები</button>
         <button type="button" data-tab="dl">დოკუმენტაცია</button>
@@ -178,9 +179,6 @@
           <tr><th>მართვა</th><td>SmartThings · BMS</td></tr>
         </table>
         <p style="margin-top:14px;font-size:14px;color:var(--muted);max-width:640px">კვების პარამეტრებს კონკრეტული მოდელისთვის დაგიზუსტებთ შეთავაზებასთან ერთად.</p>
-      </div>
-      <div class="ptabs__panel" data-panel="desc">
-        <p style="max-width:640px;color:var(--muted)">მულტისპლიტ სისტემის გარე ბლოკი — ერთი ბლოკი 2-დან 5 შიდა ბლოკამდე ამუშავებს, ამიტომ ფასადზე მხოლოდ ერთი აგრეგატი ჩანს. თითოეულ ოთახში ტემპერატურა დამოუკიდებლად რეგულირდება, ბლოკების ტიპებს კი თავისუფლად აკომბინირებთ — კედლის, არხული ან კასეტური.</p>
       </div>
       <div class="ptabs__panel" data-panel="adv">
         <!-- rows wrapped so :nth-child(even) alternates the image side correctly -->
@@ -384,6 +382,6 @@
   </aside>
 </div>
 
-<script src="../assets/js/main.js?v=202608101107"></script>
+<script src="../assets/js/main.js?v=202608101648"></script>
 </body>
 </html>
