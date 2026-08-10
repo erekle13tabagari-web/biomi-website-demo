@@ -304,11 +304,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   transform:rotate(90deg) translateY(calc(-1 * var(--r))) rotate(-90deg);
   transition:opacity .45s var(--ease)}
 .ring-wrap.is-focused .ring__hint,.ring-wrap.is-hinted .ring__hint{opacity:0}
-/* 24x40, not 40x40: the artwork is portrait (525x880) and fills its canvas,
-   so a square box would letterbox it. transform-origin sits on the fingertip
-   so the tap animation pivots there. */
-.ring__hint-hand{position:absolute;left:52%;top:46%;width:24px;height:40px;
-  filter:drop-shadow(0 3px 6px rgba(0,0,0,.35));transform-origin:34% 38%;
+/* Box matches the artwork's portrait ratio (882x1275 -> 24/35 = 0.686) so it is
+   never letterboxed or stretched. transform-origin sits on the fingertip, which
+   is near the top of the canvas, so the tap animation pivots at the contact point. */
+.ring__hint-hand{position:absolute;left:52%;top:46%;width:24px;height:35px;
+  filter:drop-shadow(0 3px 6px rgba(0,0,0,.35));transform-origin:32% 10%;
   animation:ringTap 1.9s var(--ease) infinite}
 .ring__hint-ripple{position:absolute;left:50%;top:50%;width:calc(var(--size) + 6px);height:calc(var(--size) + 6px);
   margin:calc((var(--size) + 6px) / -2);border-radius:50%;border:2.5px solid var(--gold);
