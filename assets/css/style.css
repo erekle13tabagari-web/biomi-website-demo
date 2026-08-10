@@ -917,11 +917,17 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   .hero__card{flex:0 0 78vw;margin-right:14px}
   .hero__card-label{padding:32px 16px 13px;font-size:19px}
 
-  /* services ring: compact, centred, tidy labels */
-  .ring{width:min(310px,84vw);--r:clamp(90px,28vw,116px);--size:56px;margin:8px auto 24px}
+  /* Services ring: icons only.
+     Eight labelled nodes cannot share a circle this size. The Georgian service
+     names run 8–11 characters, so at 45° apart every label ends up pressed
+     against a neighbouring badge, and "24/7 სერვისი" wraps to two lines and
+     collides outright. The names are not lost — tapping a node puts its full
+     title and description in the panel below, which is exactly what the
+     pointing-hand hint is there to teach. Dropping the labels also frees the
+     room to make the badges bigger, so they are easier to hit. */
+  .ring{width:min(300px,82vw);--r:clamp(96px,30vw,122px);--size:62px;margin:8px auto 20px}
   .node__badge svg{width:46%;height:46%}
-  .node__label{font-size:10px;top:calc(100% + 3px);max-width:78px;
-    white-space:normal;line-height:1.15;text-align:center}
+  .node__label{display:none}
   .ring__center{width:33vw}
   .ring__logomark{height:15vw}
   .ring__detail-title{font-size:19px}
