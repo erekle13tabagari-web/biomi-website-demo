@@ -55,7 +55,9 @@ function Build($hubs, $static, $outFile) {
     [void]$items.Add([pscustomobject]@{ url = $s.url; title = $s.title; sub = ''; kind = $s.kind; img = ''; q = ($s.title + ' ' + $s.kind).ToLower() })
   }
   $seen = @{}
-  foreach ($hubFile in $hubs.Keys) {
+  # sorted: hashtable key order is not guaranteed stable between runs, and an
+  # index that reshuffles itself would show up as a change on every publish
+  foreach ($hubFile in ($hubs.Keys | Sort-Object)) {
     $path = Join-Path $root "products\$hubFile"
     if (-not (Test-Path $path)) { Write-Host "missing hub: $hubFile"; continue }
     $html = [IO.File]::ReadAllText($path)
