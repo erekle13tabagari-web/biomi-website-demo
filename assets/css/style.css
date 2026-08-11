@@ -36,6 +36,7 @@
   /* brand: Super Blue (primary accent) — --gold* aliases kept from the old skin */
   --gold:#0249f7;
   --gold-200:#8ba4fb;   /* light super blue — accent text on dark */
+  --accent-rgb:2,73,247; /* the accent as raw channels, for tinted rgba() fills */
   --gold-600:#0238be;   /* deep super blue — accent text on light */
   --gold-hover:#0238be; /* deep super blue as a *fill* — stays deep in both themes */
   --purple:#85519a;     /* brand: Felamushi (secondary accent) */
@@ -91,7 +92,15 @@
   --bg-soft:#16162c;
   --cream:#23233f;
   --gray-300:#3a3b57;
-  --gold-600:#8ba4fb;   /* the deep accent is unreadable on dark; use the light one */
+  /* Dark mode is purple throughout — accents, solid buttons and the floating
+     action stack alike. The dark-mode logo artwork carries the same purple in
+     its mark, so the whole theme agrees with the lockup. White on #86529b is
+     5.7:1, so filled buttons stay comfortably readable. */
+  --gold:#86529b;
+  --gold-200:#86529b;
+  --gold-600:#86529b;
+  --gold-hover:#6b4080;  /* hover still goes deeper, just in purple */
+  --accent-rgb:134,82,155;
   --purple:#c49bd8;     /* Felamushi lightened — the brand tone only hits 2.9:1 on dark */
   --purple-600:#dcbcec; /* hover goes lighter on dark, not deeper */
   /* Article prose is a soft near-black on light. Inverted straight it would be a
@@ -109,6 +118,14 @@
 /* the transparent-over-hero header turns solid on scroll; on a dark page it
    should land on the panel colour rather than a second, darker navy */
 :root[data-theme="dark"] .header.is-solid{background:var(--surface)}
+/* The floating action buttons hardcode the brand blue rather than reading the
+   token, so they need saying explicitly. Everything else accent-coloured —
+   bars, rules, active states, ring badges, links — already flows from --gold
+   and turns purple on its own. */
+:root[data-theme="dark"] .fab__ms,
+:root[data-theme="dark"] .fab__ph,
+:root[data-theme="dark"] .fab .fab__top{background:var(--gold)}
+
 /* The Biomi lockup has real dark-mode artwork, swapped in by main.js, so it is
    never filtered — see .header.is-solid .brand__logo. Samsung and Mitsubishi
    have real dark artwork too; the knock-out below is only the no-JS fallback
@@ -128,12 +145,16 @@
 :root[data-theme="dark"] .logos img:hover{filter:brightness(0) invert(1);opacity:.9}
 /* photo tiles: keep the light backdrop, tone down the surrounding chrome */
 :root[data-theme="dark"] .pgal__main,
-:root[data-theme="dark"] .pgal__thumbs img{border-color:var(--line)}
+/* :not(.active) — this rule outranks .pgal__thumbs img.active on specificity,
+   so without it the selected thumbnail loses its accent ring in dark mode */
+:root[data-theme="dark"] .pgal__thumbs img:not(.active){border-color:var(--line)}
 /* Pure white, not an off-white tint: the photos are opaque white to the edge,
    so anything else draws a visible seam between the tile and the shot. The
    margin keeps the panel clear of the badge above it — only needed here, since
    in light mode there is no panel for the badge to collide with. */
-:root[data-theme="dark"] .pcard__img{background:#fff;margin-top:12px}
+/* no top margin any more — the badge it used to clear is gone, so the white
+   photo panel runs all the way to the card's top edge */
+:root[data-theme="dark"] .pcard__img{background:#fff}
 /* The embedded maps keep their own light styling. Inverting a Google Maps frame
    also inverts its logo, its pin colours and its attribution, which is worse
    than a bright panel — and it can't be checked here, since the embedded
@@ -405,26 +426,26 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   transform:rotate(calc(var(--a) + var(--rot))) translateY(calc(-1 * var(--r))) rotate(calc(-1 * (var(--a) + var(--rot))));
   transition:transform .65s var(--ease),opacity .4s var(--ease)}
 .node__badge{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;cursor:pointer;
-  background:rgba(2,73,247,.2);border:1px solid rgba(2,73,247,.55);color:var(--gold-200);
+  background:rgba(var(--accent-rgb),.2);border:1px solid rgba(var(--accent-rgb),.55);color:var(--gold-200);
   transition:transform .45s var(--ease),background .35s,color .35s,box-shadow .35s}
 .node__badge svg{width:44%;height:44%}
 .node__label{position:absolute;top:calc(100% + 9px);left:50%;transform:translateX(-50%);white-space:nowrap;
   font-size:12.5px;font-weight:500;color:rgba(255,255,255,.88);pointer-events:none;
   transition:color .35s,opacity .3s}
 /* hover affordance (only when nothing is selected) */
-.ring-wrap:not(.is-focused) .ring__node:hover .node__badge{transform:scale(1.12);background:rgba(2,73,247,.32)}
+.ring-wrap:not(.is-focused) .ring__node:hover .node__badge{transform:scale(1.12);background:rgba(var(--accent-rgb),.32)}
 /* selected: enlarge at 3 o'clock, dim the rest */
 .ring.has-active .ring__node{opacity:.5}
 .ring.has-active .ring__node.is-active{opacity:1;z-index:5}
 .ring__node.is-active .node__badge{transform:scale(1.55);background:var(--gold);color:#fff;
-  box-shadow:0 16px 40px rgba(2,73,247,.45)}
+  box-shadow:0 16px 40px rgba(var(--accent-rgb),.45)}
 .ring-wrap.is-focused .node__label{opacity:0}
 /* focus: slide the wheel toward the left so the detail has room on the right */
 .ring-wrap.is-focused .ring{transform:translateX(-26%)}
 /* center hub */
 .ring__center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   width:clamp(112px,24vw,162px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
-  text-align:center;border:1px dashed rgba(2,73,247,.38);transition:opacity .4s}
+  text-align:center;border:1px dashed rgba(var(--accent-rgb),.38);transition:opacity .4s}
 .ring-wrap.is-focused .ring__center{opacity:0}
 .ring__center::before{content:"";position:absolute;inset:14px;border-radius:50%;border:1px solid rgba(255,255,255,.07)}
 .ring__logomark{height:clamp(58px,12.5vw,86px);width:auto;display:block}
@@ -550,7 +571,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   border:1.5px solid var(--line);border-radius:8px;background:var(--surface);
   transition:border-color .2s,box-shadow .2s}
 .field input::placeholder{color:#a7abb2}
-.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(2,73,247,.18)}
+.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.18)}
 .field input:user-invalid{border-color:#d9534f}
 
 .filedrop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
@@ -722,7 +743,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   transition:transform .3s var(--ease),box-shadow .3s}
 .pfeat:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
 .pfeat__ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
-  background:rgba(2,73,247,.12);color:var(--gold-600);margin-bottom:16px}
+  background:rgba(var(--accent-rgb),.12);color:var(--gold-600);margin-bottom:16px}
 .pfeat__ic svg{width:24px;height:24px}
 .pfeat h3{font-size:17.5px;font-weight:600;margin-bottom:8px}
 .pfeat p{font-size:14.5px;color:var(--muted)}
@@ -802,9 +823,12 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    needed no frame. Dark mode still needs one — see the dark block. */
 .pcard__img{aspect-ratio:1/1;background:transparent;display:grid;place-items:center;padding:14px}
 .pcard__img img{max-width:100%;max-height:100%;object-fit:contain}
-.pcard__body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+/* The name band is brand navy in both themes — in light mode it gives the white
+   photo panel above it an edge to sit against, and it keeps the card reading
+   the same either way. White on --navy is ~16:1. */
+.pcard__body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1;
+  background:var(--navy);color:#fff}
 .pcard__body h4{font-size:16px}
-.pcard__model{font-size:13px;color:var(--muted);font-family:monospace;letter-spacing:.02em}
 .pcard__price{margin-top:auto;font-size:18px;font-weight:600;color:var(--gold-600)}
 .pcard__price small{font-size:12px;font-weight:400;color:var(--muted)}
 .subsoon{background:var(--bg-soft);border:1px dashed var(--cream);border-radius:var(--radius);
@@ -987,15 +1011,10 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:20px}
 .pgrid__empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--muted)}
-.pcard__badge{align-self:flex-start;margin:14px 0 0 14px;background:var(--ink-strong);color:var(--bg);font-size:11px;
-  font-weight:600;padding:5px 11px;border-radius:999px}
-/* the model code is the card's last line, so it carries the body's bottom edge */
-.pcard__sub{font-size:12.5px;color:var(--muted);font-family:monospace;padding-bottom:2px}
 /* padding, not margin: the button below uses margin-top:auto to bottom-align, so
    this is what keeps a 12px floor (6px here + the 6px flex gap) above it on
    cards whose title wraps and leaves no slack. */
 /* the model code is the last line now, so it carries the body's bottom padding */
-.pcard__sub{padding-bottom:2px}
 
 .pdetail{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:start;margin-bottom:20px}
 .pgal__main{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
@@ -1114,12 +1133,60 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 
   .pgrid{grid-template-columns:1fr 1fr;gap:12px}
   .pcard__img{padding:10px}
-  .pcard__badge{margin:9px 0 0 9px;font-size:10px}
   .pcard__body{padding:10px 11px 12px;gap:4px}
   .pcard__body h4{font-size:13.5px;line-height:1.25}
-  .pcard__sub{font-size:11px}
   .pgal__thumbs{gap:6px}
   .pgal__thumbs img{padding:3px;border-radius:8px}
+
+  /* ---- Product detail on phones ----
+     The page was running very long: a roomy summary card, a spec table with
+     desktop padding, and tab labels wrapping onto a third row. Everything here
+     is spacing and type scale — no content is hidden, it just stops using
+     desktop-sized gaps on a 375px screen. */
+  .pbuy{padding:18px 16px}
+  .pbuy h1{font-size:21px;margin:2px 0 3px}
+  .pbuy__tag{font-size:12.5px;margin-bottom:4px}
+  .pbuy__label{font-size:10px;margin:13px 0 7px}
+  .chipset{gap:7px}
+  .chip{padding:8px 12px;font-size:13.5px}
+  /* restated after .chip: the tighter phone padding would otherwise squash the
+     colour swatches out of square */
+  .chip--sw{padding:3px}
+  .pbuy__desc{margin-top:14px;font-size:13.5px;line-height:1.55}
+  .pbuy .btn{margin-top:16px;padding:12px 18px}
+
+  /* the label column was 44% wide, so long values wrapped to three lines
+     beside a two-word label — narrower label, tighter rows */
+  .spec-table{font-size:13.5px}
+  .spec-table th,.spec-table td{padding:9px 11px}
+  .spec-table th{width:38%}
+
+  .ptabs__nav{gap:2px;margin-bottom:18px}
+  .ptabs__nav button{padding:10px 11px;font-size:13.5px}
+
+  /* related products side by side instead of stacked — two cards of a series
+     took nearly a full screen each when they were full-width */
+  .pcard-grid{grid-template-columns:1fr 1fr;gap:12px}
+
+  /* Close the dead band under the summary card. It measured 120px: 76px of
+     page-hero bottom padding, 20px of .pdetail margin and the 24px the tabs
+     section carries inline. Trimming the first two leaves a normal break. */
+  .page-hero{padding-bottom:18px}
+  .pdetail{margin-bottom:0}
+  .section{padding:34px 0}
+  .section__head{margin-bottom:18px}
+
+  /* Comparison table fits the screen instead of scrolling sideways. It is four
+     columns — one label plus three products — so dropping the 640px floor and
+     the desktop padding is enough; nothing has to be hidden or stacked. */
+  /* overflow stays clipped, not visible: the border-radius on .compare is what
+     rounds the corners, and only a clipping overflow makes the thead's own
+     background respect it. The table fits at this size, so nothing scrolls. */
+  .compare{overflow:hidden}
+  .compare table{min-width:0;font-size:11.5px;table-layout:fixed}
+  .compare th,.compare td{padding:7px 6px;word-break:break-word}
+  .compare thead th:first-child{width:26%}
+  .compare thead img{height:38px;margin-bottom:4px}
 }
 @media(max-width:360px){
   .pgrid{gap:9px}
@@ -1136,7 +1203,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .video-facade{display:block;position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;background:#000}
 .video-facade img{width:100%;height:100%;object-fit:cover;display:block}
 .video-facade__play,.play-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:72px;height:50px;border-radius:14px;background:rgba(2,73,247,.92);display:grid;place-items:center;
+  width:72px;height:50px;border-radius:14px;background:rgba(var(--accent-rgb),.92);display:grid;place-items:center;
   box-shadow:0 10px 26px rgba(0,0,0,.4);transition:transform .2s,background .2s;pointer-events:none}
 .video-facade:hover .video-facade__play{transform:translate(-50%,-50%) scale(1.08);background:var(--gold-hover)}
 .video-facade__play svg,.play-badge svg{width:26px;height:26px;color:#fff;margin-left:3px}

@@ -199,9 +199,13 @@
 
     function register(img, opts) {
       var light = img.getAttribute('src');
-      var dark = light.replace(/\.svg/, '-dark.svg');
-      new Image().src = dark;   // warm the cache so the first swap doesn't blink
-      opts.img = img; opts.light = light; opts.dark = dark;
+      opts.img = img;
+      opts.light = light;
+      opts.dark = light.replace(/\.svg/, '-dark.svg');    // white type, purple mark
+      opts.solid = light.replace(/\.svg/, '-solid.svg');  // white type, blue mark
+      // warm the cache so the first swap doesn't blink
+      new Image().src = opts.dark;
+      if (opts.hasSolid) new Image().src = opts.solid;
       logos.push(opts);
     }
 
@@ -211,7 +215,8 @@
         register(img, {
           onSolid: !!(headerEl && headerEl.contains(img)),
           always: !!img.closest('.footer'),   // footer is navy in both themes
-          knockout: !!img.closest('.footer')
+          knockout: !!img.closest('.footer'),
+          hasSolid: true                      // the Biomi lockup has a blue-mark variant
         });
       });
 
@@ -224,8 +229,14 @@
       var themeDark = root.getAttribute('data-theme') === 'dark';
       var solid = !!(headerEl && headerEl.classList.contains('is-solid'));
       logos.forEach(function (l) {
+        // Two separate questions: is the backdrop dark (so the typography must
+        // go white), and which theme are we in (so the mark matches the accent
+        // — blue in light, purple in dark). The scrolled header and the footer
+        // are dark backdrops in *light* mode too, and there the mark stays blue.
         var wantDark = l.always || themeDark || (l.onSolid && solid);
-        var want = wantDark ? l.dark : l.light;
+        var want = !wantDark ? l.light
+                 : (themeDark || !l.hasSolid) ? l.dark
+                 : l.solid;
         if (l.img.getAttribute('src') !== want) l.img.setAttribute('src', want);
         // these carry a CSS knock-out as the no-JS fallback; drop it once the
         // real artwork is in, so the Mitsubishi red survives instead of going flat

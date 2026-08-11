@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script>(function(){try{var t=localStorage.getItem("biomi-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=202608101703">
+<link rel="stylesheet" href="../assets/css/style.css?v=202608111719">
 </head>
 <body>
 
@@ -124,6 +124,8 @@
   <div class="container" data-plist>
     <div class="cattabs">
       <button class="active" type="button" data-cat="all">Show all</button>
+      <button type="button" data-cat="m-series">M Series</button>
+      <button type="button" data-cat="mr-slim">Mr Slim</button>
       <button type="button" data-cat="citymulti">City Multi</button>
     </div>
     <div class="plist">
@@ -132,28 +134,73 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
           <input type="search" placeholder="Search...">
         </div>
-        <div class="pfilter__head"><span>Filters</span><a data-clear>Clear all</a></div>
+        <div class="pfilter__head"><span>Filters</span><a data-clear>Clear</a></div>
         <div class="pfilter__group">
           <h4>Type <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
           <div class="pfilter__opts">
+            <label><input type="checkbox" name="type" value="wall">Wall-mounted</label>
+            <label><input type="checkbox" name="type" value="cassette">Cassette</label>
+            <label><input type="checkbox" name="type" value="duct">Ducted</label>
+            <label><input type="checkbox" name="type" value="ceiling">Ceiling</label>
             <label><input type="checkbox" name="type" value="outdoor">Outdoor unit</label>
+          </div>
+        </div>
+        <div class="pfilter__group">
+          <h4>Refrigerant <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
+          <div class="pfilter__opts">
+            <label><input type="checkbox" name="ref" value="r32">R32</label>
           </div>
         </div>
       </aside>
 
       <div class="pgrid">
-        <a class="pcard" href="../index-en.html#contact" data-cat="citymulti" data-name="City Multi VRF PUHY PURY" data-type="outdoor">
-          <span class="pcard__badge">Outdoor unit</span>
-          <span class="pcard__img"><img src="../assets/img/prod-heating.jpg" alt="City Multi VRF"></span>
-          <span class="pcard__body">
-            <h4>City Multi VRF</h4>
-            <span class="pcard__sub">PUHY / PURY series</span>
-          </span>
+        <a class="pcard" href="mitsubishi-msz-ln-en.html" data-cat="m-series" data-name="MSZ-LN Wall-mounted MSZ-LN25VG MSZ-LN35VG MSZ-LN50VG MSZ-LN60VG" data-type="wall" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-msz-ln/red-front.avif" alt="MSZ-LN Wall-mounted"></span>
+          <span class="pcard__body"><h4>MSZ-LN Wall-mounted</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-msz-ef-en.html" data-cat="m-series" data-name="MSZ-EF Designer MSZ-EF25VGK MSZ-EF35VGK MSZ-EF42VGK MSZ-EF50VGK" data-type="wall" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-msz-ef/black-front.avif" alt="MSZ-EF Designer"></span>
+          <span class="pcard__body"><h4>MSZ-EF Designer</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-msz-ap-en.html" data-cat="m-series" data-name="MSZ-AP Wall-mounted MSZ-AP25VGKD2 MSZ-AP35VGKD2 MSZ-AP50VGKD2 MSZ-AP60VGKD2 MSZ-AP71VGKD2 MSZ-AP80VGKD2" data-type="wall" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-msz-ap/main.avif" alt="MSZ-AP Wall-mounted"></span>
+          <span class="pcard__body"><h4>MSZ-AP Wall-mounted</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-msz-ay-en.html" data-cat="m-series" data-name="MSZ-AY Wall-mounted MSZ-AY25VGK MSZ-AY35VGK MSZ-AY42VGK" data-type="wall" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-msz-ap/main.avif" alt="MSZ-AY Wall-mounted"></span>
+          <span class="pcard__body"><h4>MSZ-AY Wall-mounted</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-msy-gw-en.html" data-cat="m-series" data-name="MSY-GW Cooling Only MSY-GW25VFD2 MSY-GW35VFD2 MSY-GW42VFD2 MSY-GW50VFD2 MSY-GW60VFD2 MSY-GW71VFD2 MSY-GW80VFD2" data-type="wall" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-msy-gw/main.avif" alt="MSY-GW Cooling Only"></span>
+          <span class="pcard__body"><h4>MSY-GW Cooling Only</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-slz-m-en.html" data-cat="mr-slim" data-name="SLZ-M Compact Cassette SLZ-M25FA SLZ-M35FA SLZ-M50FA SLZ-M60FA" data-type="cassette,ceiling" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-slz-m/main.avif" alt="SLZ-M Compact Cassette"></span>
+          <span class="pcard__body"><h4>SLZ-M Compact Cassette</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-sez-m-en.html" data-cat="mr-slim" data-name="SEZ-M Ducted (Low Profile) SEZ-M25DA SEZ-M35DA SEZ-M50DA SEZ-M60DA SEZ-M71DA" data-type="duct,ceiling" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-sez-m/main.avif" alt="SEZ-M Ducted (Low Profile)"></span>
+          <span class="pcard__body"><h4>SEZ-M Ducted (Low Profile)</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-plfy-wl-en.html" data-cat="citymulti" data-name="PLFY-WL Cassette (Hybrid VRF) PLFY-WL10VFM-E PLFY-WL20VFM-E PLFY-WL25VFM-E PLFY-WL32VFM-E PLFY-WL40VFM-E" data-type="cassette,ceiling" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-plfy-wl/main.avif" alt="PLFY-WL Cassette (Hybrid VRF)"></span>
+          <span class="pcard__body"><h4>PLFY-WL Cassette (Hybrid VRF)</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-muz-ap-en.html" data-cat="m-series" data-name="MUZ-AP Outdoor Unit MUZ-AP25VGD2 MUZ-AP35VGD2 MUZ-AP50VGD2 MUZ-AP60VGD2 MUZ-AP71VGD2 MUZ-AP80VGD2" data-type="outdoor" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-msz-ap/outdoor-small.avif" alt="MUZ-AP Outdoor Unit"></span>
+          <span class="pcard__body"><h4>MUZ-AP Outdoor Unit</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-muy-gw-en.html" data-cat="m-series" data-name="MUY-GW Outdoor Unit MUY-GW25VF MUY-GW35VF MUY-GW42VF MUY-GW50VF MUY-GW60VF MUY-GW71VF MUY-GW80VF" data-type="outdoor" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-msy-gw/outdoor-small.avif" alt="MUY-GW Outdoor Unit"></span>
+          <span class="pcard__body"><h4>MUY-GW Outdoor Unit</h4></span>
+        </a>
+        <a class="pcard" href="mitsubishi-muz-ef-en.html" data-cat="m-series" data-name="MUZ-EF Outdoor Unit MUZ-EF25VGD MUZ-EF35VGD MUZ-EF42VGD MUZ-EF50VGD" data-type="outdoor" data-ref="r32">
+          <span class="pcard__img"><img src="../assets/img/products/mitsubishi-msz-ef/outdoor.avif" alt="MUZ-EF Outdoor Unit"></span>
+          <span class="pcard__body"><h4>MUZ-EF Outdoor Unit</h4></span>
         </a>
         <div class="pgrid__empty" style="display:none">No products found.</div>
       </div>
     </div>
-    <p style="margin-top:26px;color:var(--muted);font-size:14.5px">Detailed Mitsubishi Electric product pages are coming soon. Contact us for a specific model.</p>
   </div>
 </section>
 
@@ -292,6 +339,6 @@
   </aside>
 </div>
 
-<script src="../assets/js/main.js?v=202608101703"></script>
+<script src="../assets/js/main.js?v=202608111719"></script>
 </body>
 </html>
