@@ -133,8 +133,12 @@
    without a dark variant keep the knock-out for real. The marquee is left out:
    it desaturates every logo to a uniform grey by design, and dropping one
    full-colour mark into that row would break the set. */
-:root[data-theme="dark"] .brand-hero__logo,
-:root[data-theme="dark"] .brandpick__card img{filter:brightness(0) invert(1)}
+   Vortice is the exception: its mark is a full lockup on its own green field,
+   so knocking it out would leave a blank white square. It already reads on
+   either background and is excluded by name, the same way main.js keeps an
+   explicit list of the partners that ship a -dark.svg. */
+:root[data-theme="dark"] .brand-hero__logo:not([src*="vortice"]),
+:root[data-theme="dark"] .brandpick__card img:not([src*="vortice"]){filter:brightness(0) invert(1)}
 /* Drawer sub-links sit a step below the top-level items, and on white --muted
    plus an opacity knock reads as exactly that. On dark the same treatment reads
    as *disabled* — every one of these is a tap target. Lift them to the body
@@ -763,6 +767,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 @media (prefers-reduced-motion:reduce){.logos__track{animation:none}}
 /* brand page hero logo */
 .brand-hero__logo{height:42px;width:auto;max-width:240px;display:block;margin:6px 0 16px}
+/* A square lockup set to the wordmarks' height reads as a stamp rather than a
+   logo, because the others spend their 42px across ~240px of width. Match the
+   optical weight instead of the number. */
+.brand-hero__logo[src*="vortice"],
+.brandpick__card img[src*="vortice"]{height:76px}
 
 /* ---- Samsung brand page: DVM/CAC/FJM subsection tabs (horizontal) ---- */
 .subtabs{display:block}
@@ -1089,6 +1098,37 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .dl-list svg{width:22px;height:22px;color:var(--gold-600);flex:none}
 .dl-list small{display:block;color:var(--muted);font-weight:400;font-size:12.5px}
 .energy{display:inline-flex;align-items:center;gap:10px;font-weight:700;color:#fff;background:#3aab5a;padding:10px 18px;border-radius:8px;font-size:18px}
+
+/* ---- Compatibility tab: outdoor unit + accessories ------------------------ */
+.compat__h{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+  font-weight:600;margin:0 0 12px}
+.compat__h + .acc-grid,.compat__h + .pcard-grid{margin-bottom:26px}
+/* the accessory images stay folded away until asked for — a wall of eleven
+   remotes and panels buried the rest of the tab, and they are reference
+   material rather than something every visitor needs */
+.acc-toggle{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;cursor:pointer;
+  border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);
+  font:inherit;font-size:14px;font-weight:600;margin-bottom:26px;transition:.18s}
+.acc-toggle:hover{border-color:var(--gold-200)}
+.acc-toggle svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+.acc-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.acc-toggle[aria-expanded="true"]{margin-bottom:14px}
+.acc-grid[hidden]{display:none}
+.acc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.acc{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden}
+.acc__img{aspect-ratio:4/3;background:#fff;display:grid;place-items:center;padding:10px}
+.acc__img img{max-width:100%;max-height:100%;object-fit:contain}
+.acc__body{padding:9px 11px 11px;display:flex;flex-direction:column;gap:2px;
+  background:var(--navy);color:#fff;flex:1}
+.acc__body b{font-size:12.5px;font-family:monospace;letter-spacing:.02em}
+.acc__body span{font-size:12px;color:rgba(255,255,255,.72);line-height:1.3}
+@media(max-width:600px){
+  .acc-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .acc__body{padding:8px 9px 9px}
+  .acc__body b{font-size:11.5px}
+  .acc__body span{font-size:11px}
+}
 
 .compare{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
 .compare table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px}

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script>(function(){try{var t=localStorage.getItem("biomi-theme");if(t!=="dark"&&t!=="light")t=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
-<link rel="stylesheet" href="assets/css/style.css?v=202608111719">
+<link rel="stylesheet" href="assets/css/style.css?v=202608121730">
 </head>
 <body>
 
@@ -39,13 +39,64 @@
         </a>
         <div class="dropdown prod-menu">
           <div class="prod-menu__chapter">
-            <button class="prod-menu__btn" type="button">გათბობა-გაგრილება
+            <button class="prod-menu__btn" type="button">გათბობა
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
             </button>
             <div class="prod-menu__panel">
               <div class="prod-sub">
                 <div class="prod-sub__head">
-                  <a class="prod-sub__btn" href="products/vrf-vrv.html">VRF / VRV სისტემა</a>
+                  <a class="prod-sub__btn" href="#products">ქვაბი</a>
+                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="ქვეკატეგორიები"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+                </div>
+                <div class="prod-sub__panel">
+                  <a href="#products">Beretta</a>
+                  <a href="#products">Riello</a>
+                  <a href="#products">Warmhaus</a>
+                </div>
+              </div>
+              <div class="prod-sub">
+                <div class="prod-sub__head">
+                  <a class="prod-sub__btn" href="#products">ბოილერები</a>
+                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="ქვეკატეგორიები"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+                </div>
+                <div class="prod-sub__panel">
+                  <a href="#products">Beretta</a>
+                  <a href="#products">Omega</a>
+                  <a href="#products">Riello</a>
+                </div>
+              </div>
+              <div class="prod-sub">
+                <div class="prod-sub__head">
+                  <a class="prod-sub__btn" href="#products">იატაკის გათბობა</a>
+                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="ქვეკატეგორიები"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+                </div>
+                <div class="prod-sub__panel">
+                  <a href="#products">მილები</a>
+                  <a href="#products">იატაკის საფენი</a>
+                  <a href="#products">კოლექტორი</a>
+                </div>
+              </div>
+              <div class="prod-sub">
+                <div class="prod-sub__head">
+                  <a class="prod-sub__btn" href="#products">აქსესუარები</a>
+                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="ქვეკატეგორიები"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+                </div>
+                <div class="prod-sub__panel">
+                  <a href="#products">ჰიდრავლიკური გამათანაბრებელი</a>
+                  <a href="#products">ტუმბო (Dab, Wilo)</a>
+                  <a href="#products">მაკომპლექტებელი</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="prod-menu__chapter">
+            <button class="prod-menu__btn" type="button">გაგრილება
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="prod-menu__panel">
+              <div class="prod-sub">
+                <div class="prod-sub__head">
+                  <a class="prod-sub__btn" href="products/vrf-vrv.html">Multisplit / VRV / VRF</a>
                   <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="ქვეკატეგორიები"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
                 </div>
                 <div class="prod-sub__panel">
@@ -53,11 +104,6 @@
                   <a href="products/mitsubishi-electric.html">Mitsubishi Electric</a>
                 </div>
               </div>
-              <a href="#products">სტაციონარული გათბობის ქვაბი</a>
-              <a href="#products">ჩილერი</a>
-              <a href="#products">თბური ტუმბო</a>
-              <a href="#products">მულტიზონალური სისტემა</a>
-              <a href="#products">კედლის ქვაბის კასკადური სისტემა</a>
             </div>
           </div>
           <div class="prod-menu__chapter">
@@ -65,11 +111,17 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
             </button>
             <div class="prod-menu__panel">
-              <a href="#products">რეკუპერატორი</a>
-              <a href="#products">ჰაერის მოდინება/გამწოვი (AHU)</a>
-              <a href="#products">აუზის სავენტილაციო სისტემა</a>
-              <a href="#products">ROOFTOP</a>
-              <a href="#products">სახანძრო ვენტილაცია</a>
+              <a href="products/vortice.html">Vortice</a>
+            </div>
+          </div>
+          <div class="prod-menu__chapter">
+            <button class="prod-menu__btn" type="button">ჰაერსატარი და მაკომპლექტებელი
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="prod-menu__panel">
+              <a href="#products">ჰაერსატარი</a>
+              <a href="#products">ცხაურა</a>
+              <a href="#products">აქსესუარები</a>
             </div>
           </div>
           <div class="prod-menu__chapter">
@@ -77,13 +129,26 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
             </button>
             <div class="prod-menu__panel">
-              <a href="#products">წყლის უკუდინების სისტემა</a>
-              <a href="#products">ცხელი წყლის სისტემა</a>
-              <a href="#products">წყლის წნევის სისტემა</a>
-              <a href="#products">წყალარინების სისტემა</a>
-              <a href="#products">კანალიზაციის სისტემა</a>
-              <a href="#products">აუზის სისტემა</a>
-              <a href="#products">სადრენაჟო სისტემა</a>
+              <div class="prod-sub">
+                <div class="prod-sub__head">
+                  <a class="prod-sub__btn" href="#products">მილები</a>
+                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="ქვეკატეგორიები"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+                </div>
+                <div class="prod-sub__panel">
+                  <a href="#products">Tiemme</a>
+                  <a href="#products">Botti</a>
+                  <a href="#products">Aquappa</a>
+                </div>
+              </div>
+              <div class="prod-sub">
+                <div class="prod-sub__head">
+                  <a class="prod-sub__btn" href="#products">ტუმბოები</a>
+                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="ქვეკატეგორიები"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+                </div>
+                <div class="prod-sub__panel">
+                  <a href="#products">Dab</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -516,20 +581,40 @@
         <button class="m-acc__btn" type="button">პროდუქტი
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
         <div class="m-acc__panel">
-          <div class="m-acc__group">გათბობა-გაგრილება</div>
-          <a href="products/vrf-vrv.html" data-close>VRF / VRV სისტემა</a>
+          <div class="m-acc__group">გათბობა</div>
+          <a href="#products" data-close>ქვაბი</a>
+          <a class="m-sub" href="#products" data-close>Beretta</a>
+          <a class="m-sub" href="#products" data-close>Riello</a>
+          <a class="m-sub" href="#products" data-close>Warmhaus</a>
+          <a href="#products" data-close>ბოილერები</a>
+          <a class="m-sub" href="#products" data-close>Beretta</a>
+          <a class="m-sub" href="#products" data-close>Omega</a>
+          <a class="m-sub" href="#products" data-close>Riello</a>
+          <a href="#products" data-close>იატაკის გათბობა</a>
+          <a class="m-sub" href="#products" data-close>მილები</a>
+          <a class="m-sub" href="#products" data-close>იატაკის საფენი</a>
+          <a class="m-sub" href="#products" data-close>კოლექტორი</a>
+          <a href="#products" data-close>აქსესუარები</a>
+          <a class="m-sub" href="#products" data-close>ჰიდრავლიკური გამათანაბრებელი</a>
+          <a class="m-sub" href="#products" data-close>ტუმბო (Dab, Wilo)</a>
+          <a class="m-sub" href="#products" data-close>მაკომპლექტებელი</a>
+          <div class="m-acc__group">გაგრილება</div>
+          <a href="products/vrf-vrv.html" data-close>Multisplit / VRV / VRF</a>
           <a class="m-sub" href="products/samsung.html" data-close>Samsung</a>
           <a class="m-sub" href="products/mitsubishi-electric.html" data-close>Mitsubishi Electric</a>
-          <a href="#products" data-close>ჩილერი</a>
-          <a href="#products" data-close>თბური ტუმბო</a>
           <div class="m-acc__group">ვენტილაცია</div>
-          <a href="#products" data-close>რეკუპერატორი</a>
-          <a href="#products" data-close>AHU</a>
-          <a href="#products" data-close>ROOFTOP</a>
+          <a href="products/vortice.html" data-close>Vortice</a>
+          <div class="m-acc__group">ჰაერსატარი და მაკომპლექტებელი</div>
+          <a href="#products" data-close>ჰაერსატარი</a>
+          <a href="#products" data-close>ცხაურა</a>
+          <a href="#products" data-close>აქსესუარები</a>
           <div class="m-acc__group">წყალმომარაგება</div>
-          <a href="#products" data-close>ცხელი წყლის სისტემა</a>
-          <a href="#products" data-close>კანალიზაცია</a>
-          <a href="#products" data-close>აუზის სისტემა</a>
+          <a href="#products" data-close>მილები</a>
+          <a class="m-sub" href="#products" data-close>Tiemme</a>
+          <a class="m-sub" href="#products" data-close>Botti</a>
+          <a class="m-sub" href="#products" data-close>Aquappa</a>
+          <a href="#products" data-close>ტუმბოები</a>
+          <a class="m-sub" href="#products" data-close>Dab</a>
         </div>
       </li>
       <li><a href="#projects" data-close>პროექტები</a></li>
@@ -545,6 +630,6 @@
   </aside>
 </div>
 
-<script src="assets/js/main.js?v=202608111719"></script>
+<script src="assets/js/main.js?v=202608121730"></script>
 </body>
 </html>
