@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://erekle13tabagari-web.github.io/biomi-website-demo/sitemap.xml

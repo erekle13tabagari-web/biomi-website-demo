@@ -1,0 +1,1713 @@
+﻿[
+    {
+        "code":  "30302",
+        "model":  "C 10/2 M",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/centrifugal-fans/duct/30302",
+        "airflow":  "300",
+        "watts":  "100",
+        "diameter":  "",
+        "db":  "55.5",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30304",
+        "model":  "C15/2T ATEX II 2G/D h T3/125°C X Gb/Db",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/centrifugal-fans/duct/30304",
+        "airflow":  "430",
+        "watts":  "175",
+        "diameter":  "",
+        "db":  "59",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30305",
+        "model":  "C20/2T ATEX II 2G/D h T3/125°C X Gb/Db",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/centrifugal-fans/duct/30305",
+        "airflow":  "1000",
+        "watts":  "472",
+        "diameter":  "",
+        "db":  "66",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30306",
+        "model":  "C25/2T ATEX II 2G/D h T3/125°C X Gb/Db",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/centrifugal-fans/duct/30306",
+        "airflow":  "1100",
+        "watts":  "482",
+        "diameter":  "",
+        "db":  "66.5",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30307",
+        "model":  "C30/2T ATEX II 2G/D h T3/125°C X Gb/Db",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/centrifugal-fans/duct/30307",
+        "airflow":  "1350",
+        "watts":  "902",
+        "diameter":  "",
+        "db":  "71",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30309",
+        "model":  "C31/4T ATEX II 2G/D h T3/125°C X Gb/Db",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/centrifugal-fans/duct/30309",
+        "airflow":  "1120",
+        "watts":  "375",
+        "diameter":  "",
+        "db":  "61",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30310",
+        "model":  "C35/4T ATEX II 2G/D h T3/125°C X Gb/Db",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/centrifugal-fans/duct/30310",
+        "airflow":  "1500",
+        "watts":  "401",
+        "diameter":  "",
+        "db":  "61",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30311",
+        "model":  "C37/4T ATEX II 2G/D h T3/125°C X Gb/Db",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/centrifugal-fans/duct/30311",
+        "airflow":  "2150",
+        "watts":  "803",
+        "diameter":  "",
+        "db":  "70",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30173",
+        "model":  "CMS ATEX 16/6 T4 0,08KW  ",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/centrifugal-fans/duct/30173",
+        "airflow":  "600",
+        "watts":  "90",
+        "diameter":  "",
+        "db":  "",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30174",
+        "model":  "CMS ATEX 14/5 T2 0,25KW  ",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/centrifugal-fans/duct/30174",
+        "airflow":  "840",
+        "watts":  "250",
+        "diameter":  "",
+        "db":  "",
+        "family":  "CMS_ ნიჟარის ტიპის გამწოვი  ვენტილიატორი VORTICE",
+        "imgCount":  2,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CMS_ ნიჟარის ტიპის გამწოვი  ვენტილიატორი VORTICE\\30174 CMS ATEX 145 T2 0,25KW ნიჟარის ტიპის გამწოვი  ვენტილიატორი VORTICE\\70_EN_30142_Foto_WEB_Vorticent_CMS_174755.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CMS_ ნიჟარის ტიპის გამწოვი  ვენტილიატორი VORTICE\\30174 CMS ATEX 145 T2 0,25KW ნიჟარის ტიპის გამწოვი  ვენტილიატორი VORTICE\\70_EN_30142_Foto_WEB_Vorticent_CMS_193852.png"
+                   ]
+    },
+    {
+        "code":  "30175",
+        "model":  "CMS ATEX 16/6 T2 0,37KW  ",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/centrifugal-fans/duct/30175",
+        "airflow":  "1080",
+        "watts":  "370",
+        "diameter":  "",
+        "db":  "",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30176",
+        "model":  "CMS ATEX 18/7 T2 0,75KW  ",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/centrifugal-fans/duct/30176",
+        "airflow":  "1470",
+        "watts":  "750",
+        "diameter":  "",
+        "db":  "",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30178",
+        "model":  "CMS ATEX 22/9 T2 1,1KW   ",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/centrifugal-fans/duct/30178",
+        "airflow":  "1480",
+        "watts":  "1100",
+        "diameter":  "",
+        "db":  "",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30179",
+        "model":  "CMS ATEX 22/9 T4 0,37KW  ",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/centrifugal-fans/duct/30179",
+        "airflow":  "1830",
+        "watts":  "370",
+        "diameter":  "",
+        "db":  "",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "30180",
+        "model":  "CMS ATEX 25/10 T2 2,2KW  ",
+        "sheet":  "C-CMS ნიჟარა (რაკუშკა)",
+        "catKa":  "ნიჟარა",
+        "link":  "https://www.vortice.com/en/centrifugal-fans/duct/30180",
+        "airflow":  "2540",
+        "watts":  "2200",
+        "diameter":  "",
+        "db":  "",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "45267",
+        "model":  "VORT QBK-SAL KC T 315",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45267",
+        "airflow":  "1860",
+        "watts":  "280",
+        "diameter":  "315",
+        "db":  "70.9",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "45268",
+        "model":  "VORT QBK-SAL KC M 355",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45268",
+        "airflow":  "4300",
+        "watts":  "820",
+        "diameter":  "355",
+        "db":  "77.8",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "45277",
+        "model":  "VORT QBK-SAL KC T 400",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45277",
+        "airflow":  "6500",
+        "watts":  "1295",
+        "diameter":  "400",
+        "db":  "82.9",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "45278",
+        "model":  "VORT QBK-SAL KC T 500",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45278",
+        "airflow":  "9000",
+        "watts":  "2180",
+        "diameter":  "500",
+        "db":  "84.2",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "45279",
+        "model":  "VORT QBK-SAL KC T 560",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45279",
+        "airflow":  "16300",
+        "watts":  "3630",
+        "diameter":  "560",
+        "db":  "86.2",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "45789",
+        "model":  "VORT QBK HE COMFORT 400 4T",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45789",
+        "airflow":  "4732",
+        "watts":  "570",
+        "diameter":  "400",
+        "db":  "73",
+        "family":  "VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45789 VORT QBK HE COMFORT 400 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45789_Foto_WEB_qbk_he_comfo (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45789 VORT QBK HE COMFORT 400 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45789_Foto_WEB_qbk_he_comfo (2).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45789 VORT QBK HE COMFORT 400 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45789_Foto_WEB_qbk_he_comfo (3).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45789 VORT QBK HE COMFORT 400 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45789_Foto_WEB_qbk_he_comfort_0.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45789 VORT QBK HE COMFORT 400 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45789_Foto_WEB_qbk_he_comfort_01_150775.png"
+                   ]
+    },
+    {
+        "code":  "45790",
+        "model":  "VORT QBK HE COMFORT 450 4T",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45790",
+        "airflow":  "7142",
+        "watts":  "930",
+        "diameter":  "450",
+        "db":  "77",
+        "family":  "VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE",
+        "imgCount":  6,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45790 VORT QBK HE COMFORT 450 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45790_Foto_WEB_qbk_he_comf (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45790 VORT QBK HE COMFORT 450 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45790_Foto_WEB_qbk_he_comf (2).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45790 VORT QBK HE COMFORT 450 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45790_Foto_WEB_qbk_he_comf (3).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45790 VORT QBK HE COMFORT 450 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45790_Foto_WEB_qbk_he_comfort_.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45790 VORT QBK HE COMFORT 450 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45790_Foto_WEB_qbk_he_comfort_01_150816.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45790 VORT QBK HE COMFORT 450 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45790_Foto_WEB_qbk_he_comfort_02_150821.png"
+                   ]
+    },
+    {
+        "code":  "45791",
+        "model":  "VORT QBK HE COMFORT 500 4T",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45791",
+        "airflow":  "9501",
+        "watts":  "1460",
+        "diameter":  "500",
+        "db":  "80",
+        "family":  "VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45791 VORT QBK HE COMFORT 500 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45785_Foto_WEB_qbk_he_comfo (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45791 VORT QBK HE COMFORT 500 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45785_Foto_WEB_qbk_he_comfo (2).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45791 VORT QBK HE COMFORT 500 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45785_Foto_WEB_qbk_he_comfo (3).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45791 VORT QBK HE COMFORT 500 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45785_Foto_WEB_qbk_he_comfo (4).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE_COMFORT_4T_სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45791 VORT QBK HE COMFORT 500 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45785_Foto_WEB_qbk_he_comfort_0.png"
+                   ]
+    },
+    {
+        "code":  "45792",
+        "model":  "VORT QBK HE COMFORT 560 4T",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45792",
+        "airflow":  "12358",
+        "watts":  "2430",
+        "diameter":  "560",
+        "db":  "82",
+        "family":  "VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE",
+        "imgCount":  4,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45792 VORT QBK HE COMFORT 560 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45792_Foto_WEB_qbk_he_comfo (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45792 VORT QBK HE COMFORT 560 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45792_Foto_WEB_qbk_he_comfo (2).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45792 VORT QBK HE COMFORT 560 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45792_Foto_WEB_qbk_he_comfort_.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45792 VORT QBK HE COMFORT 560 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45792_Foto_WEB_qbk_he_comfort_0.png"
+                   ]
+    },
+    {
+        "code":  "45793",
+        "model":  "VORT QBK HE COMFORT 630 4T",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45793",
+        "airflow":  "18152",
+        "watts":  "4510",
+        "diameter":  "630",
+        "db":  "86",
+        "family":  "VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45793 VORT QBK HE COMFORT 630 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45793_Foto_WEB_qbk_he_comf (2).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45793 VORT QBK HE COMFORT 630 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45793_Foto_WEB_qbk_he_comf (3).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45793 VORT QBK HE COMFORT 630 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45793_Foto_WEB_qbk_he_comf (4).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45793 VORT QBK HE COMFORT 630 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45793_Foto_WEB_qbk_he_comfort_.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45793 VORT QBK HE COMFORT 630 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\70_EN_45793_Foto_WEB_qbk_he_comfort_0.png"
+                   ]
+    },
+    {
+        "code":  "45794",
+        "model":  "VORT QBK HE COMFORT 710 6T",
+        "sheet":  "QBK სამზ. ვენტ.",
+        "catKa":  "სამზარეულოს ვენტილიატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/box-fans/ducted/45794",
+        "airflow":  "16725",
+        "watts":  "2230",
+        "diameter":  "710",
+        "db":  "80",
+        "family":  "VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45794 VORT QBK HE COMFORT 710 6T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45793_Foto_WEB_qbk_he_comf (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45794 VORT QBK HE COMFORT 710 6T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45794_Foto_WEB_qbk_he_comfo (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45794 VORT QBK HE COMFORT 710 6T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45794_Foto_WEB_qbk_he_comfo (2).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45794 VORT QBK HE COMFORT 710 6T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45794_Foto_WEB_qbk_he_comfo (3).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT_QBK_HE COMFORT_ 4T სამზარეულოს ტიპის გამწოვი ვენტილიატორი  VORTICE\\45794 VORT QBK HE COMFORT 710 6T სამზარეულოს ტიპის გამწოვი ვენტილიატორი VORTICE\\70_EN_45794_Foto_WEB_qbk_he_comfort_0.png"
+                   ]
+    },
+    {
+        "code":  "17143",
+        "model":  "LINEO 100 Q",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17143",
+        "airflow":  "200",
+        "watts":  "15",
+        "diameter":  "100",
+        "db":  "51.7",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17143 LINEO 100 Q არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 100 მმ VORTICE\\70_EN_17143_Fot.png"
+    },
+    {
+        "code":  "17145",
+        "model":  "LINEO 125",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17145",
+        "airflow":  "365",
+        "watts":  "33",
+        "diameter":  "125",
+        "db":  "51.3",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  3,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17145 LINEO 125 არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 125 მმ VORTICE\\70_EN_17145_Foto_ (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17145 LINEO 125 არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 125 მმ VORTICE\\70_EN_17145_Foto_WE.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17145 LINEO 125 არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 125 მმ VORTICE\\70_EN_17145_Foto_WEB_.png"
+                   ]
+    },
+    {
+        "code":  "17146",
+        "model":  "LINEO 150",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17146",
+        "airflow":  "550",
+        "watts":  "58",
+        "diameter":  "150",
+        "db":  "55.6",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  3,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17146 LINEO 150 არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 150 მმ VORTICE\\70_EN_17146_Foto_ (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17146 LINEO 150 არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 150 მმ VORTICE\\70_EN_17146_Foto_ (2).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17146 LINEO 150 არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 150 მმ VORTICE\\70_EN_17146_Foto_WEB_.png"
+                   ]
+    },
+    {
+        "code":  "17148",
+        "model":  "LINEO 200 Q",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17148",
+        "airflow":  "950",
+        "watts":  "75",
+        "diameter":  "200",
+        "db":  "57.4",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  2,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17148 LINEO 200 Q არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 200 მმ VORTICE\\70_EN_17148_Foto_WE.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17148 LINEO 200 Q არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 200 მმ VORTICE\\70_EN_17148_Foto_WEB_.png"
+                   ]
+    },
+    {
+        "code":  "17149",
+        "model":  "LINEO 250 Q",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17149",
+        "airflow":  "990",
+        "watts":  "110",
+        "diameter":  "250",
+        "db":  "63.1",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  2,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17149 LINEO 250 Q არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 250 მმ VORTICE\\70_EN_17149_Fot (1).png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17149 LINEO 250 Q არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 250 მმ VORTICE\\70_EN_17149_Foto_WE.png"
+                   ]
+    },
+    {
+        "code":  "17197",
+        "model":  "LINEO 250 Q T",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17197",
+        "airflow":  "990",
+        "watts":  "110",
+        "diameter":  "250",
+        "db":  "63.1",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  2,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17197 LINEO 250 Q T არხული ტიპის მრგვალი ვენტილიატორი, დაბალ ხმაურიანი 250 მმ VORTICE\\70_EN_17149_Foto_WEB_l.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17197 LINEO 250 Q T არხული ტიპის მრგვალი ვენტილიატორი, დაბალ ხმაურიანი 250 მმ VORTICE\\70_EN_17149_Foto_WEB_Lineo.png"
+                   ]
+    },
+    {
+        "code":  "17160",
+        "model":  "LINEO 100 QUIET",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17160",
+        "airflow":  "260",
+        "watts":  "27",
+        "diameter":  "100",
+        "db":  "48.9",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17160 LINEO 100 QUIET არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 100 მმ VORTICE\\70_EN_17160_Foto_WE.png"
+    },
+    {
+        "code":  "17161",
+        "model":  "LINEO 125 QUIET",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17161",
+        "airflow":  "320",
+        "watts":  "27",
+        "diameter":  "125",
+        "db":  "47.4",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17161 LINEO 125 QUIET არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 125 მმ VORTICE\\70_EN_17161_Fot.png"
+    },
+    {
+        "code":  "17162",
+        "model":  "LINEO 150 QUIET",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17162",
+        "airflow":  "510",
+        "watts":  "50",
+        "diameter":  "150",
+        "db":  "52.1",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17162 LINEO 150 QUIET არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 150 მმ VORTICE\\70_EN_17162_Fot.png"
+    },
+    {
+        "code":  "17164",
+        "model":  "LINEO 200 QUIET",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17164",
+        "airflow":  "1160",
+        "watts":  "110",
+        "diameter":  "200",
+        "db":  "56",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17164 LINEO 200 QUIET არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 200 მმ VORTICE\\70_EN_17164_Fot.png"
+    },
+    {
+        "code":  "17165",
+        "model":  "LINEO 250 QUIET",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17165",
+        "airflow":  "1550",
+        "watts":  "150",
+        "diameter":  "250",
+        "db":  "62.4",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17165 LINEO 250 QUIET არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის 250 მმ VORTICE\\70_EN_17165_Fot.png"
+    },
+    {
+        "code":  "17166",
+        "model":  "LINEO 315 QUIET",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17166",
+        "airflow":  "2890",
+        "watts":  "360",
+        "diameter":  "315",
+        "db":  "67.5",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17166 LINEO 315 QUIET დაბალი ხმაურის მქონე,არხული ტიპის მგვალი ვენტილიატორი-პლასმასის VORTICE\\70_EN_17166_Fot.png"
+    },
+    {
+        "code":  "17192",
+        "model":  "LINEO 150 T QUIET",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17192",
+        "airflow":  "510",
+        "watts":  "50",
+        "diameter":  "150",
+        "db":  "52.1",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17192 LINEO 150 T QUIET არხული ტიპის მრგვალი ვენტილიატორი, დაბალ ხმაურიანი 150 მმ VORTICE\\70_EN_17162_Foto_WEB_.png"
+    },
+    {
+        "code":  "17194",
+        "model":  "LINEO 200 T QUIET",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17194",
+        "airflow":  "1160",
+        "watts":  "110",
+        "diameter":  "200",
+        "db":  "56",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17194 LINEO 200 T QUIET არხული ტიპის მრგვალი ვენტილიატორი, დაბალ ხმაურიანი 200 მმ VORTICE\\70_EN_17194_Foto_WEB_L.png"
+    },
+    {
+        "code":  "17170",
+        "model":  "LINEO 100 QUIET ES",
+        "sheet":  "LINEO არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/mixed-flow-fans/in-line/17170",
+        "airflow":  "300",
+        "watts":  "23",
+        "diameter":  "100",
+        "db":  "51.4",
+        "family":  "LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\LINEO_Q_ არხული ტიპის მრგვალი ვენტილიატორი, შერეული ტიპის ჰაერისთვის VORTICE\\17170 LINEO 100 QUIET ES არხული ტიპის მრგვალი ვენტილიატორი, დაბალ ხმაურიანი 100 მმ VORTICE\\70_EN_17170_Foto_W.png"
+    },
+    {
+        "code":  "16008",
+        "model":  "CA 100 V0 D",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები პლასტმასის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16008",
+        "airflow":  "200",
+        "watts":  "43",
+        "diameter":  "100",
+        "db":  "53.3",
+        "family":  "CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16008 CA 100 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\70_EN_16008_Foto_WEB_ca_V0_e_01_76390.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16008 CA 100 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\70_EN_16008_Foto_WEB_ca_V0_e_gallery01_76394.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16008 CA 100 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\70_EN_16008_Foto_WEB_ca_V0_e_gallery02_76396.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16008 CA 100 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\70_EN_16008_Foto_WEB_ca_V0_e_gallery03_76398.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16008 CA 100 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\საიმიჯო\\70_EN_16008_Foto_WEB_ca_V0_e_ambiente01_76392.jpg"
+                   ]
+    },
+    {
+        "code":  "16018",
+        "model":  "CA 125 V0 D",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები პლასტმასის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16018",
+        "airflow":  "270",
+        "watts":  "43",
+        "diameter":  "125",
+        "db":  "56.2",
+        "family":  "CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16018 CA 125 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 125 მმ VORTICE\\70_EN_16018_Foto_WEB_ca_V0_e_01_76400.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16018 CA 125 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 125 მმ VORTICE\\70_EN_16018_Foto_WEB_ca_V0_e_gallery01_76404.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16018 CA 125 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 125 მმ VORTICE\\70_EN_16018_Foto_WEB_ca_V0_e_gallery02_76406.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16018 CA 125 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 125 მმ VORTICE\\70_EN_16018_Foto_WEB_ca_V0_e_gallery03_76408.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16018 CA 125 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 125 მმ VORTICE\\საიმიჯო\\70_EN_16018_Foto_WEB_ca_V0_e_ambiente01_76402.jpg"
+                   ]
+    },
+    {
+        "code":  "16028",
+        "model":  "CA 150 V0 D",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები პლასტმასის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16028",
+        "airflow":  "400",
+        "watts":  "43",
+        "diameter":  "150",
+        "db":  "56",
+        "family":  "CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16028 CA 150 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\70_EN_16028_Foto_WEB_ca_V0_e_01_76410.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16028 CA 150 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\70_EN_16028_Foto_WEB_ca_V0_e_gallery01_76414.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16028 CA 150 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\70_EN_16028_Foto_WEB_ca_V0_e_gallery02_76416.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16028 CA 150 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\70_EN_16028_Foto_WEB_ca_V0_e_gallery03_76418.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16028 CA 150 V0 D პლასტმასის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\საიმიჯო\\70_EN_16028_Foto_WEB_ca_V0_e_ambiente01_76412.jpg"
+                   ]
+    },
+    {
+        "code":  "16035",
+        "model":  "CA 200 V0 Q",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები პლასტმასის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16035",
+        "airflow":  "680",
+        "watts":  "65",
+        "diameter":  "200",
+        "db":  "60.5",
+        "family":  "CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  4,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16035 CA 200 V0 Q მეტალის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16035_Foto_WEB_ca_V0_e_gallery01_76424.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16035 CA 200 V0 Q მეტალის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16035_Foto_WEB_ca_V0_e_gallery02_76426.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16035 CA 200 V0 Q მეტალის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16035_Foto_WEB_ca_V0_e_gallery03_76428.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16035 CA 200 V0 Q მეტალის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\საიმიჯო\\70_EN_16035_Foto_WEB_ca_V0_e_ambiente01_76422.jpg"
+                   ]
+    },
+    {
+        "code":  "16038",
+        "model":  "CA 200 V0 E",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები პლასტმასის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16038",
+        "airflow":  "815",
+        "watts":  "90",
+        "diameter":  "200",
+        "db":  "59.8",
+        "family":  "CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16038 CA 200 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16038_Foto_WEB_ca_V0_e_01_76352.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16038 CA 200 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16038_Foto_WEB_ca_V0_e_gallery01_76354.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16038 CA 200 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16038_Foto_WEB_ca_V0_e_gallery02_76355.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16038 CA 200 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16038_Foto_WEB_ca_V0_e_gallery03_76357.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16038 CA 200 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\საიმიჯო\\70_EN_16038_Foto_WEB_ca_V0_e_ambiente01_76358.jpg"
+                   ]
+    },
+    {
+        "code":  "16039",
+        "model":  "CA 250 V0 E",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები პლასტმასის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16039",
+        "airflow":  "805",
+        "watts":  "90",
+        "diameter":  "250",
+        "db":  "60.5",
+        "family":  "CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  4,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16039 CA 250 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16039_Foto_WEB_ca_V0_e_01_76361.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16039 CA 250 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16039_Foto_WEB_ca_V0_e_gallery01_76367.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16039 CA 250 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16039_Foto_WEB_ca_V0_e_gallery02_76370.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16039 CA 250 V0 E პლასტმასის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16039_Foto_WEB_ca_V0_e_gallery03_76373.jpg"
+                   ]
+    },
+    {
+        "code":  "16041",
+        "model":  "CA 315 V0 E",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები პლასტმასის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16041",
+        "airflow":  "1100",
+        "watts":  "120",
+        "diameter":  "315",
+        "db":  "54",
+        "family":  "CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16041 CA 315 V0 E მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16041_Foto_WEB_ca_V0_e_01_76376.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16041 CA 315 V0 E მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16041_Foto_WEB_ca_V0_e_gallery01_76382.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16041 CA 315 V0 E მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16041_Foto_WEB_ca_V0_e_gallery02_76385.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16041 CA 315 V0 E მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16041_Foto_WEB_ca_V0_e_gallery03_76388.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16041 CA 315 V0 E მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\საიმიჯო\\70_EN_16041_Foto_WEB_ca_V0_e_ambiente01_76379.jpg"
+                   ]
+    },
+    {
+        "code":  "16034",
+        "model":  "CA 100 V0 D",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები პლასტმასის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16034",
+        "airflow":  "235",
+        "watts":  "85",
+        "diameter":  "100",
+        "db":  "56",
+        "family":  "CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16034 CA 100 V0 D მეტალის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\70_EN_16008_Foto_WEB_ca_V0_e_01_76390.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16034 CA 100 V0 D მეტალის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\70_EN_16008_Foto_WEB_ca_V0_e_gallery01_76394.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16034 CA 100 V0 D მეტალის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\70_EN_16008_Foto_WEB_ca_V0_e_gallery02_76396.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16034 CA 100 V0 D მეტალის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\70_EN_16008_Foto_WEB_ca_V0_e_gallery03_76398.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_V0_D_პლასტმასის არხული ვენტილიატორი მრგვალი VORTICE\\16034 CA 100 V0 D მეტალის არხული ვენტილიატორი მრგვალი 100 მმ VORTICE\\საიმიჯო\\70_EN_16008_Foto_WEB_ca_V0_e_ambiente01_76392.jpg"
+                   ]
+    },
+    {
+        "code":  "16152",
+        "model":  "CA 150 Q MD",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16152",
+        "airflow":  "365",
+        "watts":  "43",
+        "diameter":  "150",
+        "db":  "57.7",
+        "family":  "CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16152 CA 150 Q MD მეტალის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\16152 CA 150 Q MD მეტალის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE.png"
+    },
+    {
+        "code":  "16153",
+        "model":  "CA 150 MD",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16153",
+        "airflow":  "770",
+        "watts":  "155",
+        "diameter":  "150",
+        "db":  "48",
+        "family":  "CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16153 CA 150 MD მეტალის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\70_EN_16153_Foto_WEB_ca_md_01_76813.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16153 CA 150 MD მეტალის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\70_EN_16153_Foto_WEB_ca_md_02_76827.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16153 CA 150 MD მეტალის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\70_EN_16153_Foto_WEB_ca_md_gallery01_76841.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16153 CA 150 MD მეტალის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\70_EN_16153_Foto_WEB_ca_md_gallery02_76855.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16153 CA 150 MD მეტალის არხული ვენტილიატორი მრგვალი 150 მმ VORTICE\\საიმიჯო\\70_EN_16153_Foto_WEB_ca_md_ambiente01_76869.jpg"
+                   ]
+    },
+    {
+        "code":  "16154",
+        "model":  "CA 160 MD",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16154",
+        "airflow":  "840",
+        "watts":  "155",
+        "diameter":  "160",
+        "db":  "47.4",
+        "family":  "CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16154 CA 160 MD მეტალის არხული ვენტილიატორი მრგვალი160 მმ VORTICE\\70_EN_16164_Foto_WEB_ca_md_e_01_76900.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16154 CA 160 MD მეტალის არხული ვენტილიატორი მრგვალი160 მმ VORTICE\\70_EN_16164_Foto_WEB_ca_md_e_02_76884.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16154 CA 160 MD მეტალის არხული ვენტილიატორი მრგვალი160 მმ VORTICE\\70_EN_16164_Foto_WEB_ca_md_e_gallery01_76892.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16154 CA 160 MD მეტალის არხული ვენტილიატორი მრგვალი160 მმ VORTICE\\70_EN_16164_Foto_WEB_ca_md_e_gallery02_76908.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16154 CA 160 MD მეტალის არხული ვენტილიატორი მრგვალი160 მმ VORTICE\\საიმიჯო\\70_EN_16164_Foto_WEB_ca_md_e_ambiente01_76916.jpg"
+                   ]
+    },
+    {
+        "code":  "16155",
+        "model":  "CA 200 MD",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16155",
+        "airflow":  "1050",
+        "watts":  "155",
+        "diameter":  "200",
+        "db":  "49.6",
+        "family":  "CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  3,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16155 CA 200 MD მეტალის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16155_Foto_WEB_ca_md_01_76817.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16155 CA 200 MD მეტალის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\70_EN_16155_Foto_WEB_ca_md_02_76831.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16155 CA 200 MD მეტალის არხული ვენტილიატორი მრგვალი 200 მმ VORTICE\\საიმიჯო\\70_EN_16156_Foto_WEB_ca_md_ambiente01_76875.jpg"
+                   ]
+    },
+    {
+        "code":  "16156",
+        "model":  "CA 250 MD",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16156",
+        "airflow":  "1200",
+        "watts":  "185",
+        "diameter":  "250",
+        "db":  "63.8",
+        "family":  "CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16156 CA 250 MD მეტალის არხული ვენტილიატორი მრგვალი 250 მმ VORTICE\\70_EN_16156_Foto_WEB_ca_md_01_76819.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16156 CA 250 MD მეტალის არხული ვენტილიატორი მრგვალი 250 მმ VORTICE\\70_EN_16156_Foto_WEB_ca_md_02_76833.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16156 CA 250 MD მეტალის არხული ვენტილიატორი მრგვალი 250 მმ VORTICE\\70_EN_16156_Foto_WEB_ca_md_gallery01_76847.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16156 CA 250 MD მეტალის არხული ვენტილიატორი მრგვალი 250 მმ VORTICE\\70_EN_16156_Foto_WEB_ca_md_gallery02_76861.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16156 CA 250 MD მეტალის არხული ვენტილიატორი მრგვალი 250 მმ VORTICE\\საიმიჯო\\70_EN_16156_Foto_WEB_ca_md_ambiente01_76875.jpg"
+                   ]
+    },
+    {
+        "code":  "16157",
+        "model":  "CA 315 MD",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16157",
+        "airflow":  "1735",
+        "watts":  "300",
+        "diameter":  "315",
+        "db":  "65.2",
+        "family":  "CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16157 CA 315 MD მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16157_Foto_WEB_ca_md_01_76821.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16157 CA 315 MD მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16157_Foto_WEB_ca_md_02_76835.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16157 CA 315 MD მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16157_Foto_WEB_ca_md_gallery01_76849.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16157 CA 315 MD მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16157_Foto_WEB_ca_md_gallery02_76863.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16157 CA 315 MD მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\საიმიჯო\\70_EN_16157_Foto_WEB_ca_md_ambiente01_76877.jpg"
+                   ]
+    },
+    {
+        "code":  "16278",
+        "model":  "CA-RM 125 ES",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით (გათვლილი მავნე აირების გაწოვისთვის,, მაგ: რადონი)",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16278",
+        "airflow":  "500",
+        "watts":  "90",
+        "diameter":  "125",
+        "db":  "62.9",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "16279",
+        "model":  "CA-RM 150 ES",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით (გათვლილი მავნე აირების გაწოვისთვის,, მაგ: რადონი)",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16279",
+        "airflow":  "940",
+        "watts":  "160",
+        "diameter":  "150",
+        "db":  "67.9",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "16280",
+        "model":  "CA-RM 160 ES",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით (გათვლილი მავნე აირების გაწოვისთვის,, მაგ: რადონი)",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16280",
+        "airflow":  "1080",
+        "watts":  "160",
+        "diameter":  "160",
+        "db":  "66.4",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "16281",
+        "model":  "CA-RM 200 ES",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული მრგვალი ვენტილატორები მეტალის კორპუსით (გათვლილი მავნე აირების გაწოვისთვის,, მაგ: რადონი)",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16281",
+        "airflow":  "1210",
+        "watts":  "165",
+        "diameter":  "200",
+        "db":  "65.2",
+        "family":  "CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE\\16281 CA-RM 200 ES არხული მრგვალი ვენტილიატორი 200მმ (ნესტგამძლე) VORTICE\\70_EN_16281_Foto_WEB_ca_rm_es_01_176532.png"
+    },
+    {
+        "code":  "16252",
+        "model":  "CA IL 150 Q",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16252",
+        "airflow":  "350",
+        "watts":  "50",
+        "diameter":  "150",
+        "db":  "53",
+        "family":  "CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE\\16252 CA IL 150 Q ოთკუთხედი არხული ვენტილიატორი 150 მმ VORTICE\\70_EN_16262_Foto_WEB_ca_il_quiet_01_168192.png"
+    },
+    {
+        "code":  "16253",
+        "model":  "CA IL 160 Q",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16253",
+        "airflow":  "350",
+        "watts":  "50",
+        "diameter":  "160",
+        "db":  "54",
+        "family":  "CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE\\16253 CA IL 160 Q ოთკუთხედი არხული ვენტილიატორი 160 მმ VORTICE\\70_EN_16253_Foto_WEB_ca_il_01_129975.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE\\16253 CA IL 160 Q ოთკუთხედი არხული ვენტილიატორი 160 მმ VORTICE\\70_EN_16253_Foto_WEB_ca_il_02_129982.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE\\16253 CA IL 160 Q ოთკუთხედი არხული ვენტილიატორი 160 მმ VORTICE\\70_EN_16253_Foto_WEB_ca_il_gallery01_129989.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE\\16253 CA IL 160 Q ოთკუთხედი არხული ვენტილიატორი 160 მმ VORTICE\\საიმიჯო\\70_EN_16253_Foto_WEB_ca_il_ambiente01_129996.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE\\16253 CA IL 160 Q ოთკუთხედი არხული ვენტილიატორი 160 მმ VORTICE\\საიმიჯო\\70_EN_16253_Foto_WEB_ca_il_ambiente02_130003.jpg"
+                   ]
+    },
+    {
+        "code":  "16256",
+        "model":  "CA IL 200",
+        "sheet":  "CA არხ. ვენტ.",
+        "catKa":  "არხული ვენტილატორები",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line/16256",
+        "airflow":  "830",
+        "watts":  "140",
+        "diameter":  "200",
+        "db":  "62",
+        "family":  "CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_IL _Q_ოთკუთხედი არხული ვენტილიატორიVORTICE\\16256 CA IL 200 ოთკუთხედი არხული ვენტილიატორი 200 მმ VORTICE\\70_EN_16266_Foto_WEB_ca_il_quiet_01_168196.png"
+    },
+    {
+        "code":  "15000",
+        "model":  "TIRACAMINO TC 10 M",
+        "sheet":  "სახურავის ვენტ.",
+        "catKa":  "სახურავის ვენტილატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/extractor-fan-for-chimney-top/roof/15000",
+        "airflow":  "750",
+        "watts":  "150",
+        "diameter":  "180",
+        "db":  "52",
+        "family":  "15000 TIRACAMINO TC 10 M სახურავის ვენტილიატორი VORTICE",
+        "imgCount":  2,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\15000 TIRACAMINO TC 10 M სახურავის ვენტილიატორი VORTICE\\70_EN_15000_Foto_WEB_tiracamino_01_75721.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\15000 TIRACAMINO TC 10 M სახურავის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_15000_Foto_WEB_tiracamino_ambiente01_75722.jpg"
+                   ]
+    },
+    {
+        "code":  "15070",
+        "model":  "TORRETTA TRM 70 E 4P",
+        "sheet":  "სახურავის ვენტ.",
+        "catKa":  "სახურავის ვენტილატორი",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/roof-fans/roof/15070",
+        "airflow":  "6400",
+        "watts":  "1000",
+        "diameter":  "350",
+        "db":  "77",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "15077",
+        "model":  "TORRETTA TRT 150 E 8P",
+        "sheet":  "სახურავის ვენტ.",
+        "catKa":  "სახურავის ვენტილატორი",
+        "link":  "https://www.vortice.com/en/industrial-ventilation/roof-fans/roof/15077",
+        "airflow":  "15000",
+        "watts":  "1600",
+        "diameter":  "550",
+        "db":  "74",
+        "family":  "15077 TORRETTA TRT 150 E 8P სახურავის ვენტილატორი ჰორიზონტალური გამონადენით VORTICE",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\15077 TORRETTA TRT 150 E 8P სახურავის ვენტილატორი ჰორიზონტალური გამონადენით VORTICE\\70_EN_15194_Foto_WEB_torrette_tr_e_v_01_78681.png"
+    },
+    {
+        "code":  "16137",
+        "model":  "CA 315 MD E W",
+        "sheet":  "სახურავის ვენტ.",
+        "catKa":  "სახურავის ვენტილატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line-wall/16137",
+        "airflow":  "1030",
+        "watts":  "125",
+        "diameter":  "315",
+        "db":  "51.4",
+        "family":  "CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16137 CA 315 MD E W მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16167_Foto_WEB_ca_md_e_01_76906.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16137 CA 315 MD E W მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16167_Foto_WEB_ca_md_e_02_76890.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16137 CA 315 MD E W მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16167_Foto_WEB_ca_md_e_gallery01_76898.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16137 CA 315 MD E W მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\70_EN_16167_Foto_WEB_ca_md_e_gallery02_76914.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16137 CA 315 MD E W მეტალის არხული ვენტილიატორი მრგვალი 315 მმ VORTICE\\საიმიჯო\\70_EN_16167_Foto_WEB_ca_md_e_ambiente01_76922.jpg"
+                   ]
+    },
+    {
+        "code":  "16187",
+        "model":  "CA 315 MD E RF",
+        "sheet":  "სახურავის ვენტ.",
+        "catKa":  "სახურავის ვენტილატორი",
+        "link":  "https://www.vortice.com/en/commercial-ventilation/centrifugal-fans/in-line-roof/16187",
+        "airflow":  "865",
+        "watts":  "130",
+        "diameter":  "315",
+        "db":  "40.7",
+        "family":  "CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE",
+        "imgCount":  7,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16187 CA 315 MD E RF მეტალის არხული ვენტილიატორი მრგვალი 315 მმ (გარე მონტაჟის) VORTICE\\70_EN_16187_Foto_WEB_ca_md_e_rf_01_76712.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16187 CA 315 MD E RF მეტალის არხული ვენტილიატორი მრგვალი 315 მმ (გარე მონტაჟის) VORTICE\\70_EN_16187_Foto_WEB_ca_md_e_rf_02_76727.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16187 CA 315 MD E RF მეტალის არხული ვენტილიატორი მრგვალი 315 მმ (გარე მონტაჟის) VORTICE\\70_EN_16187_Foto_WEB_ca_md_e_rf_03_76772.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16187 CA 315 MD E RF მეტალის არხული ვენტილიატორი მრგვალი 315 მმ (გარე მონტაჟის) VORTICE\\70_EN_16187_Foto_WEB_ca_md_e_rf_04_76787.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16187 CA 315 MD E RF მეტალის არხული ვენტილიატორი მრგვალი 315 მმ (გარე მონტაჟის) VORTICE\\70_EN_16187_Foto_WEB_ca_md_e_rf_gallery01_76742.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16187 CA 315 MD E RF მეტალის არხული ვენტილიატორი მრგვალი 315 მმ (გარე მონტაჟის) VORTICE\\70_EN_16187_Foto_WEB_ca_md_e_rf_gallery02_76757.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\CA_MD_მეტალის არხული ვენტილიატორი მრგვალი VORTICE\\16187 CA 315 MD E RF მეტალის არხული ვენტილიატორი მრგვალი 315 მმ (გარე მონტაჟის) VORTICE\\საიმიჯო\\70_EN_16187_Foto_WEB_ca_md_e_rf_ambiente01_76802.jpg"
+                   ]
+    },
+    {
+        "code":  "10924",
+        "model":  "VORT HR 300 NETI IoT",
+        "sheet":  "რეკუპ.",
+        "catKa":  "რეკუპერატორი",
+        "link":  "https://www.vortice.com/en/wet-and-dry-vacuum-cleaners/residencial-heat-recovery/centralized-for-wall-or-floor/10924",
+        "airflow":  "300",
+        "watts":  "190",
+        "diameter":  "125",
+        "db":  "52.8",
+        "family":  "VORT HRI 350 FLAT ჭერის-კედლის რეკუპერატორები",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT HRI 350 FLAT ჭერის-კედლის რეკუპერატორები\\10924 VORT HR 300 NETI IoT რეკუპერატორი კედელი-ჭერი 300(m³h) VORTICE\\VORT_HR 300 NETI_IoT_10924.png"
+    },
+    {
+        "code":  "11282",
+        "model":  "VORT HRI 350 FLAT",
+        "sheet":  "რეკუპ.",
+        "catKa":  "რეკუპერატორი",
+        "link":  "https://www.vortice.com/en/wet-and-dry-vacuum-cleaners/residencial-heat-recovery/false-ceiling-centralized/11282",
+        "airflow":  "380",
+        "watts":  "240",
+        "diameter":  "150",
+        "db":  "51",
+        "family":  "VORT HRI 350 FLAT ჭერის-კედლის რეკუპერატორები",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORT HRI 350 FLAT ჭერის-კედლის რეკუპერატორები\\11282 VORT HRI 350 FLAT ჭერის რეკუპერატორი 350(m³h)  VORTICE\\70_EN_11282_Foto_WEB_vort_hri_flat_01_113733.png"
+    },
+    {
+        "code":  "11110",
+        "model":  "MG 90/3,5\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/in-line/11110",
+        "airflow":  "65",
+        "watts":  "18",
+        "diameter":  "90",
+        "db":  "38",
+        "family":  "MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი",
+        "imgCount":  6,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11110 MG 903,5  90 მმ VORTICE(ჩასაყენებელი)\\70_EN_11110_Foto_WEB_punto_ghost_01_71754.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11110 MG 903,5  90 მმ VORTICE(ჩასაყენებელი)\\70_EN_11110_Foto_WEB_punto_ghost_02_71694.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11110 MG 903,5  90 მმ VORTICE(ჩასაყენებელი)\\70_EN_11110_Foto_WEB_punto_ghost_03_71714.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11110 MG 903,5  90 მმ VORTICE(ჩასაყენებელი)\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente01_71734.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11110 MG 903,5  90 მმ VORTICE(ჩასაყენებელი)\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente02_71774.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11110 MG 903,5  90 მმ VORTICE(ჩასაყენებელი)\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente03_71794.jpg"
+                   ]
+    },
+    {
+        "code":  "11117",
+        "model":  "MG 150/6\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/in-line/11117",
+        "airflow":  "320",
+        "watts":  "29",
+        "diameter":  "150",
+        "db":  "48",
+        "family":  "MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი",
+        "imgCount":  6,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11117 MG 1506 150 მმ  VORTICE (ჩასაყენებელი)\\70_EN_11110_Foto_WEB_punto_ghost_01_71754.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11117 MG 1506 150 მმ  VORTICE (ჩასაყენებელი)\\70_EN_11110_Foto_WEB_punto_ghost_02_71694.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11117 MG 1506 150 მმ  VORTICE (ჩასაყენებელი)\\70_EN_11110_Foto_WEB_punto_ghost_03_71714.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11117 MG 1506 150 მმ  VORTICE (ჩასაყენებელი)\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente01_71734.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11117 MG 1506 150 მმ  VORTICE (ჩასაყენებელი)\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente02_71774.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MG_არხში ჩასაყენებელი მრგვალი ვენტილიატორი\\11117 MG 1506 150 მმ  VORTICE (ჩასაყენებელი)\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente03_71794.jpg"
+                   ]
+    },
+    {
+        "code":  "11122",
+        "model":  "MF 90/3,5\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11122",
+        "airflow":  "65",
+        "watts":  "14",
+        "diameter":  "90",
+        "db":  "28.8",
+        "family":  "MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით",
+        "imgCount":  6,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11122 MF 903,5 მრგვალი  90 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_01_71754.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11122 MF 903,5 მრგვალი  90 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_02_71694.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11122 MF 903,5 მრგვალი  90 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_03_71714.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11122 MF 903,5 მრგვალი  90 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente01_71734.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11122 MF 903,5 მრგვალი  90 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente02_71774.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11122 MF 903,5 მრგვალი  90 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente03_71794.jpg"
+                   ]
+    },
+    {
+        "code":  "11123",
+        "model":  "MF 100/4\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11123",
+        "airflow":  "85",
+        "watts":  "15",
+        "diameter":  "100",
+        "db":  "31",
+        "family":  "MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით",
+        "imgCount":  6,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11123 MF 1004  მრგვალი 100 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_01_71754.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11123 MF 1004  მრგვალი 100 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_02_71694.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11123 MF 1004  მრგვალი 100 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_03_71714.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11123 MF 1004  მრგვალი 100 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente01_71734.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11123 MF 1004  მრგვალი 100 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente02_71774.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11123 MF 1004  მრგვალი 100 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente03_71794.jpg"
+                   ]
+    },
+    {
+        "code":  "11124",
+        "model":  "MF 120/5\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11124",
+        "airflow":  "175",
+        "watts":  "20",
+        "diameter":  "120",
+        "db":  "34.4",
+        "family":  "MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით",
+        "imgCount":  6,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11124 MF 1205  მრგვალი  120 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_01_71754.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11124 MF 1205  მრგვალი  120 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_02_71694.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11124 MF 1205  მრგვალი  120 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_03_71714.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11124 MF 1205  მრგვალი  120 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente01_71734.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11124 MF 1205  მრგვალი  120 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente02_71774.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11124 MF 1205  მრგვალი  120 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente03_71794.jpg"
+                   ]
+    },
+    {
+        "code":  "11125",
+        "model":  "MF 150/6\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11125",
+        "airflow":  "335",
+        "watts":  "28",
+        "diameter":  "150",
+        "db":  "40.1",
+        "family":  "MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით",
+        "imgCount":  6,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11125 MF 1506 მრგვალი  150 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_01_71754.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11125 MF 1506 მრგვალი  150 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_02_71694.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11125 MF 1506 მრგვალი  150 მმ VORTICE\\70_EN_11110_Foto_WEB_punto_ghost_03_71714.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11125 MF 1506 მრგვალი  150 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente01_71734.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11125 MF 1506 მრგვალი  150 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente02_71774.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MF_აბაზანის ვენტილიატორი მრგვალი ცხაურით\\11125 MF 1506 მრგვალი  150 მმ VORTICE\\საიმიჯო\\70_EN_11110_Foto_WEB_punto_ghost_ambiente03_71794.jpg"
+                   ]
+    },
+    {
+        "code":  "11176",
+        "model":  "MF 150/6\" T HCS LL",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11176",
+        "airflow":  "335",
+        "watts":  "28",
+        "diameter":  "150",
+        "db":  "40.1",
+        "family":  "MFO_აბაზანის ვენტილიატორები",
+        "imgCount":  9,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\70_EN_11176_Foto_WEB_punto_filo_01_70570.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\70_EN_11176_Foto_WEB_punto_filo_02_70578.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\70_EN_11176_Foto_WEB_punto_filo_03_70586.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\70_EN_11176_Foto_WEB_punto_filo_04_70594.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\საიმიჯო\\70_EN_11176_Foto_WEB_punto_filo_ambiente01_70562.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\საიმიჯო\\70_EN_11176_Foto_WEB_punto_filo_gallery01_70626.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\საიმიჯო\\70_EN_11176_Foto_WEB_punto_filo_gallery02_70602.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\საიმიჯო\\70_EN_11176_Foto_WEB_punto_filo_gallery03_70610.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11176 MF 1506 T HCS LL აბაზანის ვენტილიატორი მრგვალი ცხაურით  150 მმ VORTICE\\საიმიჯო\\70_EN_11176_Foto_WEB_punto_filo_gallery04_70618.jpg"
+                   ]
+    },
+    {
+        "code":  "11143",
+        "model":  "MFO 90/3,5\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11143",
+        "airflow":  "65",
+        "watts":  "14",
+        "diameter":  "90",
+        "db":  "29.6",
+        "family":  "MFO_აბაზანის ვენტილიატორები",
+        "imgCount":  7,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11143 MFO 903,5 აბაზანის ვენტილიატორი VORTICE\\70_EN_11143_Foto_WEB_punto_four_01_71595.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11143 MFO 903,5 აბაზანის ვენტილიატორი VORTICE\\70_EN_11143_Foto_WEB_punto_four_02_71596.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11143 MFO 903,5 აბაზანის ვენტილიატორი VORTICE\\70_EN_11143_Foto_WEB_punto_four_03_71597.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11143 MFO 903,5 აბაზანის ვენტილიატორი VORTICE\\70_EN_11143_Foto_WEB_punto_four_04_71598.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11143 MFO 903,5 აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_11143_Foto_WEB_punto_four_ambiente_01_71603.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11143 MFO 903,5 აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_11143_Foto_WEB_punto_four_gallery01_71600.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11143 MFO 903,5 აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_11143_Foto_WEB_punto_four_gallery02_71602.jpg"
+                   ]
+    },
+    {
+        "code":  "11145",
+        "model":  "MFO 100/4\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11145",
+        "airflow":  "85",
+        "watts":  "15",
+        "diameter":  "100",
+        "db":  "33.1",
+        "family":  "MFO_აბაზანის ვენტილიატორები",
+        "imgCount":  7,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11145 MFO 1004 აბაზანის ვენტილიატორი სწორი ზედაპირით 90 მმ VORTICE\\70_EN_11145_Foto_WEB_punto_four_01_71607.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11145 MFO 1004 აბაზანის ვენტილიატორი სწორი ზედაპირით 90 მმ VORTICE\\70_EN_11145_Foto_WEB_punto_four_02_71617.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11145 MFO 1004 აბაზანის ვენტილიატორი სწორი ზედაპირით 90 მმ VORTICE\\70_EN_11145_Foto_WEB_punto_four_03_71627.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11145 MFO 1004 აბაზანის ვენტილიატორი სწორი ზედაპირით 90 მმ VORTICE\\70_EN_11145_Foto_WEB_punto_four_04_71637.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11145 MFO 1004 აბაზანის ვენტილიატორი სწორი ზედაპირით 90 მმ VORTICE\\საიმიჯო\\70_EN_11145_Foto_WEB_punto_four_ambiente_01_71667.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11145 MFO 1004 აბაზანის ვენტილიატორი სწორი ზედაპირით 90 მმ VORTICE\\საიმიჯო\\70_EN_11145_Foto_WEB_punto_four_gallery01_71647.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11145 MFO 1004 აბაზანის ვენტილიატორი სწორი ზედაპირით 90 მმ VORTICE\\საიმიჯო\\70_EN_11145_Foto_WEB_punto_four_gallery02_71657.jpg"
+                   ]
+    },
+    {
+        "code":  "11147",
+        "model":  "MFO 120/5\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11147",
+        "airflow":  "175",
+        "watts":  "20",
+        "diameter":  "120",
+        "db":  "39.1",
+        "family":  "MFO_აბაზანის ვენტილიატორები",
+        "imgCount":  7,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11147 MFO 1205 აბაზანის ვენტილიატორი სწორი ზედაპირით 120 მმ VORTICE\\70_EN_11147_Foto_WEB_punto_four_01_71611.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11147 MFO 1205 აბაზანის ვენტილიატორი სწორი ზედაპირით 120 მმ VORTICE\\70_EN_11147_Foto_WEB_punto_four_02_71621.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11147 MFO 1205 აბაზანის ვენტილიატორი სწორი ზედაპირით 120 მმ VORTICE\\70_EN_11147_Foto_WEB_punto_four_03_71631.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11147 MFO 1205 აბაზანის ვენტილიატორი სწორი ზედაპირით 120 მმ VORTICE\\70_EN_11147_Foto_WEB_punto_four_04_71641.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11147 MFO 1205 აბაზანის ვენტილიატორი სწორი ზედაპირით 120 მმ VORTICE\\საიმიჯო\\70_EN_11147_Foto_WEB_punto_four_ambiente_01_71671.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11147 MFO 1205 აბაზანის ვენტილიატორი სწორი ზედაპირით 120 მმ VORTICE\\საიმიჯო\\70_EN_11147_Foto_WEB_punto_four_gallery01_71651.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\MFO_აბაზანის ვენტილიატორები\\11147 MFO 1205 აბაზანის ვენტილიატორი სწორი ზედაპირით 120 მმ VORTICE\\საიმიჯო\\70_EN_11147_Foto_WEB_punto_four_gallery02_71661.jpg"
+                   ]
+    },
+    {
+        "code":  "11201",
+        "model":  "M 100/4\"",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall-window/11201",
+        "airflow":  "90",
+        "watts":  "18",
+        "diameter":  "100",
+        "db":  "37.5",
+        "family":  "M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით",
+        "imgCount":  10,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_01_92145.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_02_92127.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_03_92130.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_04_92133.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_05_92136.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_06_92139.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_gallery01_72149.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_gallery02_72089.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\70_EN_11201_Foto_WEB_punto_gallery03_72109.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საიმიჯო\\70_EN_11201_Foto_WEB_punto_ambiente01_92142.jpg"
+                   ]
+    },
+    {
+        "code":  "11260",
+        "model":  "ME 100/4\" LL",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11260",
+        "airflow":  "95",
+        "watts":  "9",
+        "diameter":  "100",
+        "db":  "26.9",
+        "family":  "M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით",
+        "imgCount":  10,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11260_Foto_WEB_punto_evo_01_71281.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11260_Foto_WEB_punto_evo_02_71282.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11260_Foto_WEB_punto_evo_03_71283.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11260_Foto_WEB_punto_evo_04_71284.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11260_Foto_WEB_punto_evo_gallery02_71286.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11260_Foto_WEB_punto_evo_ambiente01_71288.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11260_Foto_WEB_punto_evo_ambiente02_71289.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11260_Foto_WEB_punto_evo_ambiente03_71290.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11260_Foto_WEB_punto_evo_gallery01_71285.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11260_Foto_WEB_punto_evo_gallery03_71287.jpg"
+                   ]
+    },
+    {
+        "code":  "11261",
+        "model":  "ME 100/4\" LL TP",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11261",
+        "airflow":  "95",
+        "watts":  "9",
+        "diameter":  "100",
+        "db":  "26.9",
+        "family":  "M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით",
+        "imgCount":  10,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_01_71338.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_02_71347.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_03_71356.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_04_71365.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_gallery02_71302.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_ambiente01_71320.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_ambiente02_71329.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_ambiente03_71374.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_gallery01_71293.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_gallery03_71311.jpg"
+                   ]
+    },
+    {
+        "code":  "11270",
+        "model":  "ME 120/5\" LL",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11270",
+        "airflow":  "175",
+        "watts":  "15",
+        "diameter":  "120",
+        "db":  "32.3",
+        "family":  "M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით",
+        "imgCount":  10,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\70_EN_11270_Foto_WEB_punto_evo_01_71432.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\70_EN_11270_Foto_WEB_punto_evo_02_71442.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\70_EN_11270_Foto_WEB_punto_evo_03_71452.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\70_EN_11270_Foto_WEB_punto_evo_04_71462.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\70_EN_11270_Foto_WEB_punto_evo_gallery02_71392.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საიმიჯო\\70_EN_11270_Foto_WEB_punto_evo_ambiente01_71412.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საიმიჯო\\70_EN_11270_Foto_WEB_punto_evo_ambiente02_71422.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საიმიჯო\\70_EN_11270_Foto_WEB_punto_evo_ambiente03_71472.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საიმიჯო\\70_EN_11270_Foto_WEB_punto_evo_gallery01_71382.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საიმიჯო\\70_EN_11270_Foto_WEB_punto_evo_gallery03_71402.jpg"
+                   ]
+    },
+    {
+        "code":  "11307",
+        "model":  "ME 100/4\" LL ORO ROSA-PINK GOLD",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11307",
+        "airflow":  "95",
+        "watts":  "9",
+        "diameter":  "100",
+        "db":  "26.9",
+        "family":  "M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით",
+        "imgCount":  10,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_01_71338.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_02_71347.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_03_71356.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_04_71365.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\70_EN_11261_Foto_WEB_punto_evo_gall (1).jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_ambi (1).jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_ambi (2).jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_ambiente.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_gall (2).jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საიმიჯო\\70_EN_11261_Foto_WEB_punto_evo_gallery0.jpg"
+                   ]
+    },
+    {
+        "code":  "11308",
+        "model":  "ME 100/4\" LL ORO NERO-BLACK GOLD",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11308",
+        "airflow":  "95",
+        "watts":  "9",
+        "diameter":  "100",
+        "db":  "26.9",
+        "family":  null,
+        "imgCount":  0,
+        "images":  [
+
+                   ]
+    },
+    {
+        "code":  "11309",
+        "model":  "ME 100/4\" LL ORO BIANCO-WHITE GOLD",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall/11309",
+        "airflow":  "95",
+        "watts":  "9",
+        "diameter":  "100",
+        "db":  "26.9",
+        "family":  "M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით",
+        "imgCount":  10,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\70_EN_11268_Foto_WEB_punto_evo_es_01_71.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\70_EN_11268_Foto_WEB_punto_evo_es_02_712.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\70_EN_11268_Foto_WEB_punto_evo_es_03_712.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\70_EN_11268_Foto_WEB_punto_evo_es_04_712.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\70_EN_11268_Foto_WEB_punto_evo_es_ga (1).jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11268_Foto_WEB_punto_evo_es_am (1).jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11268_Foto_WEB_punto_evo_es_am (2).jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11268_Foto_WEB_punto_evo_es_ambien.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11268_Foto_WEB_punto_evo_es_ga (2).jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საიმიჯო\\70_EN_11268_Foto_WEB_punto_evo_es_galler.jpg"
+                   ]
+    },
+    {
+        "code":  "11521",
+        "model":  "QE 60 LL",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/centrifugal-fans/wall/11521",
+        "airflow":  "60",
+        "watts":  "16",
+        "diameter":  "80",
+        "db":  "25.5",
+        "family":  "QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11521 QE 60 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 60 მმ VORTICE\\70_EN_11524_Foto_WEB_qe_100_60_ll_129901.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11521 QE 60 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 60 მმ VORTICE\\საიმიჯო\\70_EN_11524_Foto_WEB_qe_100_60_ll_ambiente01_13003.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11521 QE 60 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 60 მმ VORTICE\\საიმიჯო\\70_EN_11524_Foto_WEB_qe_100_60_ll_ambiente02_13003.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11521 QE 60 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 60 მმ VORTICE\\საიმიჯო\\70_EN_11524_Foto_WEB_qe_100_60_ll_ambiente03_13003.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11521 QE 60 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 60 მმ VORTICE\\საიმიჯო\\70_EN_11524_Foto_WEB_qe_100_60_ll_ambiente04_13003.jpg"
+                   ]
+    },
+    {
+        "code":  "11522",
+        "model":  "QE 100 LL",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/centrifugal-fans/wall/11522",
+        "airflow":  "100",
+        "watts":  "26",
+        "diameter":  "80",
+        "db":  "30.5",
+        "family":  "QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი",
+        "imgCount":  5,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11522 QE 100 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 100 მმ VORTICE\\70_EN_11527_Foto_WEB_qe_100_ll_t_129908.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11522 QE 100 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 100 მმ VORTICE\\საიმიჯო\\70_EN_11527_Foto_WEB_qe_100_ll_t_ambiente01_1300.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11522 QE 100 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 100 მმ VORTICE\\საიმიჯო\\70_EN_11527_Foto_WEB_qe_100_ll_t_ambiente02_1300.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11522 QE 100 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 100 მმ VORTICE\\საიმიჯო\\70_EN_11527_Foto_WEB_qe_100_ll_t_ambiente03_1300.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\QE_QE-B M_აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი\\11522 QE 100 LL აბაზანის ვენტილიატორი უნივერსალური,კედელში ჩასაყენებელი 100 მმ VORTICE\\საიმიჯო\\70_EN_11527_Foto_WEB_qe_100_ll_t_ambiente04_1300.jpg"
+                   ]
+    },
+    {
+        "code":  "12000",
+        "model":  "ARIETT HABITAT 15/30 LL",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/centrifugal-fans/wall/12000",
+        "airflow":  "43",
+        "watts":  "8",
+        "diameter":  "100",
+        "db":  "41.5",
+        "family":  "ARIETT HABITAT ტიხარში ჩასაყენებელი ვენტილიატორი",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ARIETT HABITAT ტიხარში ჩასაყენებელი ვენტილიატორი\\12000 ARIETT HABITAT 1530 LL ტიხარში ჩასაყენებელი ვენტილიატორი VORTICE\\70_EN_12000_Foto_WEB_ariett_habitat_01_73008.png"
+    },
+    {
+        "code":  "12001",
+        "model":  "ARIETT HABITAT 20/75 LL",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/centrifugal-fans/wall/12001",
+        "airflow":  "85",
+        "watts":  "25",
+        "diameter":  "100",
+        "db":  "62",
+        "family":  "ARIETT HABITAT ტიხარში ჩასაყენებელი ვენტილიატორი",
+        "imgCount":  1,
+        "images":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ARIETT HABITAT ტიხარში ჩასაყენებელი ვენტილიატორი\\12001 ARIETT HABITAT 2075 LL ტიხარში ჩასაყენებელი ვენტილიატორი VORTICE\\70_EN_12001_Foto_WEB_ariett_habitat_01_73010.png"
+    },
+    {
+        "code":  "12612",
+        "model":  "VORTICE 150/6\" AR",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall-window/12612",
+        "airflow":  "235",
+        "watts":  "25",
+        "diameter":  "150",
+        "db":  "37.5",
+        "family":  "VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი",
+        "imgCount":  9,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\70_EN_12612_Foto_WEB_vortice_vario_01_71152.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\70_EN_12612_Foto_WEB_vortice_vario_02_71164.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\70_EN_12612_Foto_WEB_vortice_vario_03_71104.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_12612_Foto_WEB_vortice_vario_ambiente01_71116.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_12612_Foto_WEB_vortice_vario_ambiente02_71128.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_12612_Foto_WEB_vortice_vario_ambiente03_71140.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_12612_Foto_WEB_vortice_vario_gallery01_73164.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_12612_Foto_WEB_vortice_vario_gallery02_73176.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12612 VORTICE 1506 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი VORTICE\\საიმიჯო\\70_EN_12612_Foto_WEB_vortice_vario_gallery03_73188.jpg"
+                   ]
+    },
+    {
+        "code":  "12451",
+        "model":  "VORTICE 230/9\" P",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall-window/12451",
+        "airflow":  "480",
+        "watts":  "22",
+        "diameter":  "230",
+        "db":  "35.6",
+        "family":  "VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი",
+        "imgCount":  9,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12451_Foto_WEB_vortice_vario_01_71068.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12451_Foto_WEB_vortice_vario_02_71089.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12451_Foto_WEB_vortice_vario_03_70984.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12451_Foto_WEB_vortice_vario_ambiente01_71005.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12451_Foto_WEB_vortice_vario_ambiente02_71026.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12451_Foto_WEB_vortice_vario_ambiente03_71047.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12451_Foto_WEB_vortice_vario_gallery01_73089.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12451_Foto_WEB_vortice_vario_gallery02_73104.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12451 VORTICE 2309 P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12451_Foto_WEB_vortice_vario_gallery03_73119.jpg"
+                   ]
+    },
+    {
+        "code":  "12452",
+        "model":  "VORTICE 230/9\" AR",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall-window/12452",
+        "airflow":  "480",
+        "watts":  "26",
+        "diameter":  "230",
+        "db":  "35.6",
+        "family":  "VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი",
+        "imgCount":  9,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12452_Foto_WEB_vortice_vario_01_71071.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12452_Foto_WEB_vortice_vario_02_71092.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12452_Foto_WEB_vortice_vario_03_70987.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12452_Foto_WEB_vortice_vario_ambiente01_71008.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12452_Foto_WEB_vortice_vario_ambiente02_71029.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12452_Foto_WEB_vortice_vario_ambiente03_71050.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12452_Foto_WEB_vortice_vario_gallery01_73092.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12452_Foto_WEB_vortice_vario_gallery02_73107.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12452 VORTICE 2309 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12452_Foto_WEB_vortice_vario_gallery03_73122.jpg"
+                   ]
+    },
+    {
+        "code":  "12412",
+        "model":  "VORTICE 300/12\" AR",
+        "sheet":  "გამწოვი",
+        "catKa":  "გამწოვი",
+        "link":  "https://www.vortice.com/en/residential-ventilation/axial-fans/wall-window/12412",
+        "airflow":  "700",
+        "watts":  "45",
+        "diameter":  "300",
+        "db":  "40.2",
+        "family":  "VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი",
+        "imgCount":  9,
+        "images":  [
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12412_Foto_WEB_vortice_vario_01_70968.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12412_Foto_WEB_vortice_vario_02_70969.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\70_EN_12412_Foto_WEB_vortice_vario_03_70970.png",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12412_Foto_WEB_vortice_vario_ambiente01_70971.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12412_Foto_WEB_vortice_vario_ambiente02_70972.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12412_Foto_WEB_vortice_vario_ambiente03_70973.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12412_Foto_WEB_vortice_vario_gallery01_73082.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12412_Foto_WEB_vortice_vario_gallery02_73083.jpg",
+                       "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\VORTICE AR_P ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი\\12412 VORTICE 30012 AR ფანჯარაში ჩასაყენებელი აბაზანის ვენტილიატორი  VORTICE\\საიმიჯო\\70_EN_12412_Foto_WEB_vortice_vario_gallery03_73084.jpg"
+                   ]
+    }
+]
