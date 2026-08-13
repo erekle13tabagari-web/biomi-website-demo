@@ -446,6 +446,27 @@
     if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
   });
 
+  /* How tall a chapter panel needs to be, given which of its subs are open.
+     It cannot just read scrollHeight: a sub that was opened by the click being
+     handled is mid-transition on its own max-height, so it still measures zero
+     and the chapter would be sized to clip it. Summing each row's own height
+     (which never animates) with the content height of every open sub gives a
+     stable answer, and stays correct with several subs open at once. */
+  function chapterHeight(panel) {
+    var h = 0;
+    Array.prototype.forEach.call(panel.children, function (el) {
+      if (el.classList.contains('prod-sub')) {
+        var head = el.querySelector('.prod-sub__head');
+        var pan = el.querySelector('.prod-sub__panel');
+        if (head) h += head.offsetHeight;
+        if (pan && el.classList.contains('open')) h += pan.scrollHeight;
+      } else {
+        h += el.offsetHeight;
+      }
+    });
+    return h;
+  }
+
   /* ---- Products dropdown: chapter accordion (one open at a time) ---- */
   document.querySelectorAll('.prod-menu').forEach(function (menu) {
     var chapters = menu.querySelectorAll('.prod-menu__chapter');
@@ -461,29 +482,32 @@
         });
         if (!wasOpen) {
           ch.classList.add('open');
-          panel.style.maxHeight = panel.scrollHeight + 'px';
+          panel.style.maxHeight = chapterHeight(panel) + 'px';
         }
       });
     });
   });
 
-  /* ---- Nested brand submenu inside products dropdown (VRF/VRV) ----
-     The label itself is a plain link to the VRF/VRV page (matching the mobile
-     menu), so only the chevron toggles the brand list open. */
+  /* ---- Nested submenu inside products dropdown ----
+     The label itself is a plain link to the category page (matching the mobile
+     menu), so only the chevron toggles the child list open. */
   document.querySelectorAll('.prod-sub').forEach(function (sub) {
     var btn = sub.querySelector('.prod-sub__toggle');
     var panel = sub.querySelector('.prod-sub__panel');
     if (!btn || !panel) return;
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
-      var chap = sub.closest('.prod-menu__panel');
-      var chapH = chap ? chap.scrollHeight : 0;   // current height (sub in its old state)
-      var subH = panel.scrollHeight;              // sub content height
       var open = sub.classList.toggle('open');
-      panel.style.maxHeight = open ? subH + 'px' : '0';
+      panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0';
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      // grow/shrink the enclosing chapter panel so nothing gets clipped
-      if (chap) chap.style.maxHeight = (chapH + (open ? subH : -subH)) + 'px';
+
+      /* Regrow the enclosing chapter so nothing is clipped. Recomputed from
+         scratch rather than adding/subtracting this sub's height: the chapter
+         is itself max-height clipped, so the old arithmetic worked from a
+         stale figure and collapsed the chapter to a single row whenever a sub
+         was closed. */
+      var chap = sub.closest('.prod-menu__panel');
+      if (chap) chap.style.maxHeight = chapterHeight(chap) + 'px';
     });
   });
 
@@ -923,6 +947,26 @@
     show(0);
   });
 
+  /* ---- Accessory list: folded away until asked for ----
+     The grid ships with [hidden] so it stays collapsed even before this runs,
+     and the label swaps between show/hide. The count is baked into the button
+     text at build time, so only the verb changes here. */
+  document.querySelectorAll('.acc-toggle').forEach(function (btn) {
+    var grid = btn.nextElementSibling;
+    if (!grid || !grid.classList.contains('acc-grid')) return;
+    var en = (document.documentElement.lang || 'ka').slice(0, 2) === 'en';
+    var shown = btn.textContent.trim();
+    var hidden = en ? shown.replace('Show', 'Hide') : shown.replace('ნახვა', 'დამალვა');
+    var icon = btn.querySelector('svg');
+    btn.addEventListener('click', function () {
+      var open = grid.hasAttribute('hidden');
+      if (open) { grid.removeAttribute('hidden'); } else { grid.setAttribute('hidden', ''); }
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open ? hidden : shown;
+      if (icon) btn.appendChild(icon);   // textContent wipes it; put the chevron back
+    });
+  });
+
   document.querySelectorAll('.ptabs').forEach(function (tabs) {
     var btns = tabs.querySelectorAll('.ptabs__nav button');
     var panels = tabs.querySelectorAll('.ptabs__panel');
@@ -973,8 +1017,17 @@
 
       applyImages(c);
 
-      // spec rows tagged data-spec="model|cool|heat|ports"
-      ['model', 'cool', 'heat', 'ports'].forEach(function (key) {
+      // Spec rows are tagged data-spec="<key>" and the chip carries the value
+      // as data-<key>. Which keys exist is the page's business -- an air
+      // conditioner switches cool/heat, a fan switches airflow and dB -- so
+      // they are read off the chip rather than hardcoded. Only "model" is
+      // constant, and data-imgs/data-alt belong to the gallery, not the table.
+      var keys = ['model'];
+      Array.prototype.forEach.call(c.attributes, function (a) {
+        var k = a.name.indexOf('data-') === 0 ? a.name.slice(5) : '';
+        if (k && k !== 'imgs' && k !== 'alt' && keys.indexOf(k) < 0) keys.push(k);
+      });
+      keys.forEach(function (key) {
         var v = key === 'model' ? model : c.getAttribute('data-' + key);
         var cell = document.querySelector('[data-spec="' + key + '"]');
         if (cell && v) cell.textContent = v;

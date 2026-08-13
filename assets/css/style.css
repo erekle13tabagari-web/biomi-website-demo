@@ -97,8 +97,13 @@
      its mark, so the whole theme agrees with the lockup. White on #86529b is
      5.7:1, so filled buttons stay comfortably readable. */
   --gold:#86529b;
-  --gold-200:#86529b;
-  --gold-600:#86529b;
+  /* The -200 and -600 steps are the *text* accent: eyebrows, prices, icons,
+     inline links, hover states. At #86529b they measured 3.4:1 against the
+     page, under the 4.5 minimum, on every page carrying a section label. They
+     are a few steps lighter here (8.3:1) while --gold above stays the fill, so
+     solid buttons keep their deeper purple behind white text. */
+  --gold-200:#c49bd8;
+  --gold-600:#c49bd8;
   --gold-hover:#6b4080;  /* hover still goes deeper, just in purple */
   --accent-rgb:134,82,155;
   --purple:#c49bd8;     /* Felamushi lightened — the brand tone only hits 2.9:1 on dark */
@@ -133,8 +138,12 @@
    without a dark variant keep the knock-out for real. The marquee is left out:
    it desaturates every logo to a uniform grey by design, and dropping one
    full-colour mark into that row would break the set. */
-:root[data-theme="dark"] .brand-hero__logo,
-:root[data-theme="dark"] .brandpick__card img{filter:brightness(0) invert(1)}
+   Vortice is the exception: its mark is a full lockup on its own green field,
+   so knocking it out would leave a blank white square. It already reads on
+   either background and is excluded by name, the same way main.js keeps an
+   explicit list of the partners that ship a -dark.svg. */
+:root[data-theme="dark"] .brand-hero__logo:not([src*="vortice"]),
+:root[data-theme="dark"] .brandpick__card img:not([src*="vortice"]){filter:brightness(0) invert(1)}
 /* Drawer sub-links sit a step below the top-level items, and on white --muted
    plus an opacity knock reads as exactly that. On dark the same treatment reads
    as *disabled* — every one of these is a tap target. Lift them to the body
@@ -763,6 +772,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 @media (prefers-reduced-motion:reduce){.logos__track{animation:none}}
 /* brand page hero logo */
 .brand-hero__logo{height:42px;width:auto;max-width:240px;display:block;margin:6px 0 16px}
+/* A square lockup set to the wordmarks' height reads as a stamp rather than a
+   logo, because the others spend their 42px across ~240px of width. Match the
+   optical weight instead of the number. */
+.brand-hero__logo[src*="vortice"],
+.brandpick__card img[src*="vortice"]{height:76px}
 
 /* ---- Samsung brand page: DVM/CAC/FJM subsection tabs (horizontal) ---- */
 .subtabs{display:block}
@@ -842,10 +856,21 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .pgallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
 .pgallery img{width:100%;height:190px;object-fit:cover;border-radius:var(--radius);
   border:1px solid var(--line);background:#fff}
-.spec-table{width:100%;border-collapse:collapse;font-size:15px;background:var(--surface);
+/* The panel is tinted rather than set to --surface, because on light --surface
+   and --bg are both #ffffff: the same rule that reads as a card on dark
+   rendered an invisible box on light, leaving the rows floating on the page.
+   --bg-soft is the step above the page in each theme; dark keeps --surface
+   below, which is a touch lighter still and is what that theme already used. */
+.spec-table{width:100%;border-collapse:collapse;font-size:15px;background:var(--bg-soft);
   border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+:root[data-theme="dark"] .spec-table{background:var(--surface)}
 .spec-table th,.spec-table td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line)}
 .spec-table th{width:44%;font-weight:500;color:var(--muted)}
+/* --muted was picked against white and lands at 4.43:1 on the tinted panel,
+   just under the 4.5 minimum. One step darker restores it (4.71:1) while
+   staying clearly lighter than the values beside it. Dark is unaffected -- its
+   labels already sit at 6.7:1. */
+:root:not([data-theme="dark"]) .spec-table th{color:#686b6e}
 .spec-table td{font-weight:500;color:var(--ink)}
 .spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:0}
 .pfeat-row{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center;margin:26px 0}
@@ -1090,6 +1115,52 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .dl-list small{display:block;color:var(--muted);font-weight:400;font-size:12.5px}
 .energy{display:inline-flex;align-items:center;gap:10px;font-weight:700;color:#fff;background:#3aab5a;padding:10px 18px;border-radius:8px;font-size:18px}
 
+/* ---- Compatibility tab: outdoor unit + accessories ------------------------ */
+.compat__h{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+  font-weight:600;margin:0 0 12px}
+.compat__h + .acc-grid,.compat__h + .pcard-grid{margin-bottom:26px}
+/* In the compatibility tab the product cards sit directly above the accessory
+   grid, so they take its sizing rather than the hub's larger card: a single
+   compatible outdoor unit was rendering three times the width of the
+   accessories listed right beneath it. auto-fill (not auto-fit) keeps the
+   empty tracks, so one card stays card-sized instead of stretching the row. */
+.ptabs__panel[data-panel="compat"] .pcard-grid{
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.ptabs__panel[data-panel="compat"] .pcard__img{aspect-ratio:4/3;padding:10px}
+.ptabs__panel[data-panel="compat"] .pcard__body{padding:9px 11px 11px;gap:2px}
+.ptabs__panel[data-panel="compat"] .pcard__body h4{font-size:12.5px;line-height:1.3}
+@media(max-width:600px){
+  .ptabs__panel[data-panel="compat"] .pcard-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .ptabs__panel[data-panel="compat"] .pcard__body{padding:8px 9px 9px}
+  .ptabs__panel[data-panel="compat"] .pcard__body h4{font-size:11.5px}
+}
+/* the accessory images stay folded away until asked for — a wall of eleven
+   remotes and panels buried the rest of the tab, and they are reference
+   material rather than something every visitor needs */
+.acc-toggle{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;cursor:pointer;
+  border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);
+  font:inherit;font-size:14px;font-weight:600;margin-bottom:26px;transition:.18s}
+.acc-toggle:hover{border-color:var(--gold-200)}
+.acc-toggle svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+.acc-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.acc-toggle[aria-expanded="true"]{margin-bottom:14px}
+.acc-grid[hidden]{display:none}
+.acc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.acc{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden}
+.acc__img{aspect-ratio:4/3;background:#fff;display:grid;place-items:center;padding:10px}
+.acc__img img{max-width:100%;max-height:100%;object-fit:contain}
+.acc__body{padding:9px 11px 11px;display:flex;flex-direction:column;gap:2px;
+  background:var(--navy);color:#fff;flex:1}
+.acc__body b{font-size:12.5px;font-family:monospace;letter-spacing:.02em}
+.acc__body span{font-size:12px;color:rgba(255,255,255,.72);line-height:1.3}
+@media(max-width:600px){
+  .acc-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .acc__body{padding:8px 9px 9px}
+  .acc__body b{font-size:11.5px}
+  .acc__body span{font-size:11px}
+}
+
 .compare{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
 .compare table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px}
 .compare th,.compare td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
@@ -1097,7 +1168,14 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .compare thead img{height:70px;width:auto;object-fit:contain;display:block;margin-bottom:8px}
 .compare tbody th{font-weight:500;color:var(--muted);width:24%}
 .compare tr:last-child td,.compare tr:last-child th{border-bottom:0}
-.compare .is-this{color:var(--gold-600);font-weight:700}
+/* The left-hand column is the product everything else is being compared
+   against, so the whole column carries the accent -- not just its model cell,
+   which used to leave one tinted row in an otherwise plain column. The link in
+   the last row needs naming explicitly because .link-more sets its own colour.
+   Weight still marks the model itself. */
+.compare tbody td:first-of-type,
+.compare tbody td:first-of-type .link-more{color:var(--gold-600)}
+.compare .is-this{font-weight:700}
 
 @media(max-width:900px){
   .plist{grid-template-columns:1fr}

@@ -1,0 +1,45 @@
+[
+{"ka":"გათბობა","en":"Heating","items":[
+  {"ka":"ქვაბი","en":"Boilers","page":null,"kids":[
+    {"ka":"Beretta","en":"Beretta","page":null},
+    {"ka":"Riello","en":"Riello","page":null},
+    {"ka":"Warmhaus","en":"Warmhaus","page":null}]},
+  {"ka":"ბოილერები","en":"Water heaters","page":null,"kids":[
+    {"ka":"Beretta","en":"Beretta","page":null},
+    {"ka":"Omega","en":"Omega","page":null},
+    {"ka":"Riello","en":"Riello","page":null}]},
+  {"ka":"იატაკის გათბობა","en":"Underfloor heating","page":null,"kids":[
+    {"ka":"მილები","en":"Pipes","page":null},
+    {"ka":"იატაკის საფენი","en":"Floor underlay","page":null},
+    {"ka":"კოლექტორი","en":"Manifold","page":null}]},
+  {"ka":"აქსესუარები","en":"Accessories","page":null,"kids":[
+    {"ka":"ჰიდრავლიკური გამათანაბრებელი","en":"Hydraulic separator","page":null},
+    {"ka":"ტუმბო (Dab, Wilo)","en":"Pump (Dab, Wilo)","page":null},
+    {"ka":"მაკომპლექტებელი","en":"Fittings","page":null}]}
+]},
+
+{"ka":"გაგრილება","en":"Cooling","items":[
+  {"ka":"Multisplit / VRV / VRF","en":"Multisplit / VRV / VRF","page":"vrf-vrv","kids":[
+    {"ka":"Samsung","en":"Samsung","page":"samsung"},
+    {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"mitsubishi-electric"}]}
+]},
+
+{"ka":"ვენტილაცია","en":"Ventilation","items":[
+  {"ka":"Vortice","en":"Vortice","page":"vortice","kids":[]}
+]},
+
+{"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","items":[
+  {"ka":"ჰაერსატარი","en":"Ducting","page":null,"kids":[]},
+  {"ka":"ცხაურა","en":"Grilles","page":null,"kids":[]},
+  {"ka":"აქსესუარები","en":"Accessories","page":null,"kids":[]}
+]},
+
+{"ka":"წყალმომარაგება","en":"Water supply","items":[
+  {"ka":"მილები","en":"Pipes","page":null,"kids":[
+    {"ka":"Tiemme","en":"Tiemme","page":null},
+    {"ka":"Botti","en":"Botti","page":null},
+    {"ka":"Aquappa","en":"Aquappa","page":null}]},
+  {"ka":"ტუმბოები","en":"Pumps","page":null,"kids":[
+    {"ka":"Dab","en":"Dab","page":null}]}
+]}
+]
