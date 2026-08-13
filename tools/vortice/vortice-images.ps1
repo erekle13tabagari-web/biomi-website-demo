@@ -9,7 +9,8 @@
 #   1. the numbered PNG studio shots on white   (_01.png, _02.png ...)
 #   2. the gallery JPGs (detail shots)
 #   3. the ambiente JPGs (in-room photography)
-$root = 'C:\Users\Designer\Desktop\2026\პროდუქტები\ვენტილაცია\Vortice'
+. (Join-Path $PSScriptRoot 'config.ps1')
+$root = $LIBRARY
 $repo = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $sp   = $PSScriptRoot
 $fams = Get-Content (Join-Path $sp 'vortice-families.json') -Raw -Encoding UTF8 | ConvertFrom-Json

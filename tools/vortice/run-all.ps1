@@ -1,4 +1,4 @@
-# Run the Vortice pipeline end to end, in order.
+﻿# Run the Vortice pipeline end to end, in order.
 #
 # The steps are separate scripts because each is independently re-runnable --
 # regenerating pages after a copy tweak does not need the spreadsheet parsed
@@ -21,6 +21,13 @@ foreach ($s in $steps) {
   Write-Host ('=== ' + $s.n) -ForegroundColor Cyan
   & (Join-Path $PSScriptRoot $s.f)
 }
+
+Write-Host ''
+Write-Host '=== metadata' -ForegroundColor Cyan
+# Must follow page generation: the generators strip the meta block out of the
+# template head rather than copy it, so the pages come out of step 7 without
+# one and this puts the right one back.
+& (Join-Path (Split-Path $PSScriptRoot -Parent) 'build-meta.ps1')
 
 Write-Host ''
 Write-Host '=== search index' -ForegroundColor Cyan

@@ -13,7 +13,8 @@
 # A model with no photos of its own borrows from the model it shares the most
 # leading name tokens with: CA-RM 125 ES takes CA-RM 200 ES rather than the
 # CA IL shots, and TORRETTA TRM 70 takes the other TORRETTA, not TIRACAMINO.
-$root = 'C:\Users\Designer\Desktop\2026\პროდუქტები\ვენტილაცია\Vortice'
+. (Join-Path $PSScriptRoot 'config.ps1')
+$root = $LIBRARY
 $repo = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $sp   = $PSScriptRoot
 $fams = Get-Content (Join-Path $sp 'vortice-families.json') -Raw -Encoding UTF8 | ConvertFrom-Json

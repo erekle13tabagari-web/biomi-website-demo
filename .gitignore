@@ -36,6 +36,12 @@ desktop.ini
 
 # Local publish button
 *.bat
+# ...except the publish script itself, which is the documented way to put the
+# site live and has to come with a fresh clone.
+!Update Website.bat
+
+# Per-machine paths to the Vortice source library (see tools/vortice/README.md)
+/tools/vortice/paths.local.ps1
 
 # Futura source cuts — the site only serves the two Upright variable files,
 # which are committed. Static OTFs and the oblique cuts stay local (~10 MB).

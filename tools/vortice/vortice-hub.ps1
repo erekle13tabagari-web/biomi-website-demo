@@ -55,6 +55,10 @@ function Splice($tplPath, $startMark, $newBody, $title, $desc, $file, $selfFrom)
   $i = $tpl.IndexOf($startMark); $j = $tpl.IndexOf('<!-- ===================== FOOTER')
   if ($i -lt 0 -or $j -lt 0) { throw "markers not found in $tplPath" }
   $h = $tpl.Substring(0,$i); $tl = $tpl.Substring($j)
+  # see vortice-gen.ps1: the meta block belongs to tools/build-meta.ps1, and
+  # inheriting the template's would point this page's canonical and og: tags at
+  # the page it was cloned from
+  $h = [regex]::Replace($h, '(?s)[ \t]*<!-- meta:start.*?<!-- meta:end -->\r?\n', '')
   # Repoint the GEO/ENG switcher at this page -- and ONLY the switcher. The
   # template's own filename also appears in the nav and drawer as a genuine
   # link to that product ("Mitsubishi Electric", "VRF / VRV"), so a blanket

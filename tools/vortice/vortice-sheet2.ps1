@@ -3,7 +3,8 @@
 # Content-detection was clever and wrong: it silently produced empty model
 # names for 21 of 94 rows. The layouts are known and stable, so they are just
 # declared here. Sheets 1 and 2 are price lists with no specs and are skipped.
-$xlsx = 'C:\Users\Designer\Desktop\Vortiche Tecnical Price.xlsx'
+. (Join-Path $PSScriptRoot 'config.ps1')
+$xlsx = $PRICELIST
 $sp   = $PSScriptRoot
 
 # sheet index -> column letters. Only the CA sheet is shifted.
