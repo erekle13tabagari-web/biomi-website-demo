@@ -106,6 +106,11 @@ foreach ($lang in 'ka','en') {
   if ($iHead -lt 0 -or $iFoot -lt 0) { throw "markers not found in $($t.tplName)" }
   $head = $tpl.Substring(0, $iHead)
   $tail = $tpl.Substring($iFoot)
+  # The template's head carries its own canonical, og: tags and Product schema.
+  # Copying those would give every generated page the template product's title,
+  # image and structured data. tools/build-meta.ps1 owns that block and rewrites
+  # it per page, so drop it here and let run-all.ps1 put it back.
+  $head = [regex]::Replace($head, '(?s)[ \t]*<!-- meta:start.*?<!-- meta:end -->\r?\n', '')
 
   for ($fi = 0; $fi -lt $fams.Count; $fi++) {
     $f    = $fams[$fi]

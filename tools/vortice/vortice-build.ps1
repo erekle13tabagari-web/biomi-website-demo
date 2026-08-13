@@ -9,7 +9,8 @@
 # Models whose code has no subfolder are still kept: they appear as a size chip
 # with full specs, just without their own photo. Losing them would leave gaps in
 # the catalogue for no good reason.
-$root = 'C:\Users\Designer\Desktop\2026\პროდუქტები\ვენტილაცია\Vortice'
+. (Join-Path $PSScriptRoot 'config.ps1')
+$root = $LIBRARY
 $sp   = $PSScriptRoot
 $models = (Get-Content (Join-Path $sp 'vortice-models.json') -Raw | ConvertFrom-Json) | Where-Object { $_.airflow }
 

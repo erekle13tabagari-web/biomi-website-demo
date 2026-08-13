@@ -4,7 +4,8 @@
 # used. Comparing that against the folder as it stands now says whether the
 # reorganisation is cosmetic (folders renamed, files moved) or whether the
 # photography itself changed and pages need regenerating.
-$root = 'C:\Users\Designer\Desktop\2026\პროდუქტები\ვენტილაცია\Vortice'
+. (Join-Path $PSScriptRoot 'config.ps1')
+$root = $LIBRARY
 $sp   = $PSScriptRoot
 $mods = Get-Content (Join-Path $sp 'vortice-pages.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 

@@ -12,12 +12,34 @@ Run everything in order with:
 
 ## Sources
 
-| What | Where |
+| What | Default location |
 |---|---|
-| Specs (airflow, power, diameter, dB) | `C:\Users\Designer\Desktop\Vortiche Tecnical Price.xlsx` |
-| Photography | `…\2026\პროდუქტები\ვენტილაცია\Vortice` |
+| Specs (airflow, power, diameter, dB) | `…\Desktop\Vortiche Tecnical Price.xlsx` |
+| Photography (~1.7 GB) | `…\2026\პროდუქტები\ვენტილაცია\Vortice` |
 
-Both paths are constants at the top of the scripts that use them.
+Neither is in the repo — the library is far too big and the price list is a
+working document. Both paths live in `config.ps1`.
+
+### Running this on a second machine
+
+Editing and publishing the website needs none of this: `git clone` gives you
+everything the site is built from, and `Update Website.bat` puts it live.
+
+Only regenerating the Vortice pages needs the source material. For that:
+
+1. Install ImageMagick — `winget install ImageMagick.Q16`
+2. Copy the photo library and the price list over (OneDrive, external drive, anything)
+3. Point at them:
+
+   ```powershell
+   Copy-Item tools\vortice\paths.local.example.ps1 tools\vortice\paths.local.ps1
+   # then edit paths.local.ps1
+   ```
+
+`paths.local.ps1` is gitignored, so each machine keeps its own and it never
+shows up as a diff. Don't edit `config.ps1` itself. If the library is missing
+the scripts stop immediately with the path they expected, rather than reporting
+zero images three steps later.
 
 The datasheet PDFs in the library are **not** a usable source. `pdftotext`
 mis-pairs labels and values wherever a label wraps — code 11201 reads as
