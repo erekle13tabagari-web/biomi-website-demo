@@ -511,6 +511,37 @@
     });
   });
 
+  /* ---- Homepage products rail ----
+     The five chapters stay on one line at every width, so below the point
+     where they all fit the row scrolls sideways. The native scrollbar was the
+     only hint that it did, and it read as an artefact rather than a control,
+     so it is hidden in CSS and these arrows take over. They are revealed only
+     while the row actually overflows -- at full width all five are visible and
+     nothing appears. */
+  document.querySelectorAll('.rail').forEach(function (rail) {
+    var grid = rail.querySelector('.prod-grid, .news-grid, .proj-grid');
+    var prev = rail.querySelector('.rail__prev');
+    var next = rail.querySelector('.rail__next');
+    if (!grid || !prev || !next) return;
+
+    function step() {
+      var card = grid.querySelector('.prod, .news, .proj');
+      var gap = parseFloat(getComputedStyle(grid).columnGap) || 14;
+      return card ? card.getBoundingClientRect().width + gap : 240;
+    }
+    function sync() {
+      var slack = grid.scrollWidth - grid.clientWidth;
+      rail.classList.toggle('is-scrollable', slack > 2);
+      prev.disabled = grid.scrollLeft <= 1;
+      next.disabled = grid.scrollLeft >= slack - 1;
+    }
+    prev.addEventListener('click', function () { grid.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { grid.scrollBy({ left: step(), behavior: 'smooth' }); });
+    grid.addEventListener('scroll', sync);
+    window.addEventListener('resize', sync);
+    sync();
+  });
+
   /* ---- Image lightbox with prev/next (grouped per gallery) ---- */
   /* Product pages drive this from their .pgal gallery rather than [data-lightbox]
      markup: those thumbs already own a click handler that swaps the main image,
@@ -850,7 +881,15 @@
     checks.forEach(function (c) { c.addEventListener('change', apply); });
     if (search) search.addEventListener('input', apply);
     var clr = list.querySelector('[data-clear]');
-    if (clr) clr.addEventListener('click', function () { checks.forEach(function (c) { c.checked = false; }); if (search) search.value = ''; apply(); });
+    if (clr) clr.addEventListener('click', function () {
+      checks.forEach(function (c) { c.checked = false; });
+      if (search) search.value = '';
+      // the category tabs live inside the filter panel now, so "clear" has to
+      // reset them too or the panel says empty while a category is still on
+      tabs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-cat') === 'all'); });
+      curCat = 'all';
+      apply();
+    });
     list.querySelectorAll('.pfilter__group h4').forEach(function (h) { h.addEventListener('click', function () { h.parentElement.classList.toggle('closed'); }); });
 
     /* ---- Phone: collapse the filter behind a toggle ----

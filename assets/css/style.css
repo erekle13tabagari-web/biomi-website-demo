@@ -509,19 +509,63 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 /* =========================================================================
    PRODUCTS — clean photo cards w/ caption overlay
    ========================================================================= */
-.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.prod-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+/* The row stays a row at every width. This section mirrors the product menu,
+   so the five chapters read as one set and their order carries meaning --
+   stacking them into a column loses that. Below the width where five cards can
+   share the container they become a swipeable rail instead. */
+@media(max-width:1040px){
+  /* proximity, not mandatory: with mandatory the snap engine fights a smooth
+     programmatic scroll and drags the arrow buttons' animation back to where
+     it started. proximity still settles swipes onto a card. */
+  .prod-grid{display:flex;overflow-x:auto;gap:14px;
+    scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+  .prod-grid>.prod{flex:0 0 clamp(210px,66vw,290px);scroll-snap-align:start;min-height:330px}
+}
+/* The native scrollbar under the rail was the only affordance and it looked
+   like a stray artefact. Hidden here and replaced by the arrows below, which
+   appear only while the rail actually overflows -- so at full width, where all
+   five cards fit, there is nothing to show. */
+.prod-grid,.news-grid,.proj-grid{scrollbar-width:none;-ms-overflow-style:none}
+.prod-grid::-webkit-scrollbar,.news-grid::-webkit-scrollbar,.proj-grid::-webkit-scrollbar{display:none}
+.rail{position:relative}
+.rail__arrow{position:absolute;top:calc(50% - 21px);z-index:3;width:42px;height:42px;
+  border-radius:50%;display:none;place-items:center;background:var(--surface);
+  border:1px solid var(--line);color:var(--ink);box-shadow:var(--shadow-md);transition:.2s}
+.rail.is-scrollable .rail__arrow{display:grid}
+.rail__arrow:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+.rail__arrow:disabled{opacity:.3;pointer-events:none}
+.rail__arrow svg{width:19px;height:19px}
+.rail__prev{left:-10px}
+.rail__next{right:-10px}
+@media(max-width:600px){
+  .rail__arrow{width:36px;height:36px;top:calc(50% - 18px)}
+  .rail__prev{left:-4px}
+  .rail__next{right:-4px}
+}
 .prod{position:relative;border-radius:var(--radius);overflow:hidden;min-height:380px;
   display:flex;flex-direction:column;justify-content:flex-end;padding:28px;color:#fff;
   background:var(--navy);transition:transform .35s var(--ease)}
 .prod:hover{transform:translateY(-5px)}
 .prod__img{position:absolute;inset:0;z-index:0;transition:transform .6s var(--ease)}
 .prod:hover .prod__img{transform:scale(1.05)}
+/* Scrim at the top as well as the bottom: the title moved to the top of the
+   card, where the old gradient was only 15% and the raw photo showed through.
+   The middle stays light so the photograph still reads. */
 .prod__img::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(27,27,51,.15) 30%,rgba(27,27,51,.9) 100%)}
+  background:linear-gradient(180deg,rgba(27,27,51,.78) 0%,rgba(27,27,51,.28) 38%,rgba(27,27,51,.92) 100%)}
 .prod__img .ph{position:absolute;inset:0}
-.prod__body{position:relative;z-index:1}
-.prod__body h3{font-size:23px;font-weight:500}
-.prod__body ul{margin:12px 0 16px;display:flex;flex-wrap:wrap;gap:7px}
+/* The body fills the card so the title can sit at the top while the tags and
+   the link stay pinned to the bottom. Bottom-aligned titles sat at whatever
+   height their own card's content pushed them to, so no two lined up. */
+.prod__body{position:relative;z-index:1;flex:1;display:flex;flex-direction:column}
+/* --gold-200 is the accent's "on dark" step in both themes (#8ba4fb light,
+   #c49bd8 dark) -- the card sits on photography in either theme, so the
+   on-light step would sink into it. overflow-wrap because Georgian category
+   names are single long words that otherwise run past the card edge. */
+.prod__body h3{font-size:19px;font-weight:700;line-height:1.25;color:var(--gold-200);
+  overflow-wrap:anywhere;hyphens:auto}
+.prod__body ul{margin:12px 0 16px;margin-top:auto;display:flex;flex-wrap:wrap;gap:7px}
 .prod__body li{font-size:13px;background:rgba(255,255,255,.16);padding:5px 11px;border-radius:4px}
 .prod__body li[data-href]{cursor:pointer;transition:background .2s,color .2s}
 .prod__body li[data-href]:hover,.prod__body li[data-href]:focus-visible{background:var(--gold);color:#fff}
@@ -711,8 +755,17 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 /* ---- Real photos in cards ---- */
 .about__visual img,.news__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .prod__img{background-size:cover;background-position:center}
-.prod--heating .prod__img{background-image:url('../img/prod-heating.jpg')}
-.prod--vent .prod__img{background-image:url('../img/prod-vent.jpg')}
+/* These five belong to the products section alone. prod-heating.jpg and
+   prod-vent.jpg are deliberately NOT reused here: the hero strip and the news
+   article reference them inline, so repointing them to suit this section
+   changes those too -- which it briefly did.
+   -ph is an explicit placeholder; there is no heating photograph in the
+   library yet. The other four are the real subject: condensers, an axial fan,
+   spiral ductwork and a pipework plant room. */
+.prod--heating .prod__img{background-image:url('../img/prod-heating-ph.jpg')}
+.prod--cooling .prod__img{background-image:url('../img/prod-cooling.jpg')}
+.prod--vent .prod__img{background-image:url('../img/prod-fan.jpg')}
+.prod--duct .prod__img{background-image:url('../img/prod-duct.jpg')}
 .prod--water .prod__img{background-image:url('../img/prod-water.jpg')}
 .proj__img{background-size:cover;background-position:center}
 .proj--1 .proj__img{background-image:url('../img/proj-oro.jpg')}
@@ -736,6 +789,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    PRODUCT PAGE (products/*.html)
    ========================================================================= */
 .page-hero{padding:calc(var(--header-h) + 56px) 0 76px}
+/* A brand hub is just a logo and then the listing. The standard 76px below the
+   hero was tuned for a page with a heading and copy in it; here it left a band
+   of nothing between the logo and the products. */
+.page-hero--brand{padding-bottom:16px}
+.page-hero--brand .brand-hero__logo{margin-bottom:0}
 .crumbs{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--muted);
   margin-bottom:30px;flex-wrap:wrap}
 .crumbs a:hover{color:var(--gold-600)}
@@ -835,7 +893,27 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 /* No tint behind the shot. The product photography is already cut out on solid
    white, so on a white card the tile was a grey box drawn around an image that
    needed no frame. Dark mode still needs one — see the dark block. */
-.pcard__img{aspect-ratio:1/1;background:transparent;display:grid;place-items:center;padding:14px}
+.pcard__img{position:relative;aspect-ratio:1/1;background:transparent;display:grid;place-items:center;padding:14px}
+/* Brand mark in the corner of the photo panel. The listings now mix brands, so
+   the card has to say whose product it is without being opened. */
+.pcard__brand{position:absolute;top:12px;left:12px;z-index:1;display:block;pointer-events:none;line-height:0}
+/* Scoped through .pcard__img on purpose. The ".pcard__img img" rule further
+   down also matches this logo and carries max-height:100%; at equal specificity
+   the later rule won and silently clamped the mark's height. */
+.pcard__img .pcard__brand img{display:block;width:auto;max-width:none;max-height:none}
+/* Sized per brand, because one height suits none of them: Samsung's wordmark is
+   6.5:1, Mitsubishi's 3.45:1 and Vortice's a 1:1 lockup carrying both the mark
+   and the wordmark. These heights give all three roughly the same width on the
+   card, which is what reads as equal weight. No negative margins -- the card
+   clips its own overflow, so anything pulled past the corner is cut off. */
+.pcard__brand img[src*="samsung"]{height:14px}
+.pcard__brand img[src*="mitsubishi"]{height:21px}
+.pcard__brand img[src*="vortice"]{height:38px;border-radius:4px}
+/* the compat tab's cards are about a third the size, so the marks scale too */
+.ptabs__panel[data-panel="compat"] .pcard__brand{top:8px;left:8px}
+.ptabs__panel[data-panel="compat"] .pcard__brand img[src*="samsung"]{height:9px}
+.ptabs__panel[data-panel="compat"] .pcard__brand img[src*="mitsubishi"]{height:15px}
+.ptabs__panel[data-panel="compat"] .pcard__brand img[src*="vortice"]{height:26px}
 .pcard__img img{max-width:100%;max-height:100%;object-fit:contain}
 /* The name band is brand navy in both themes — in light mode it gives the white
    photo panel above it an edge to sit against, and it keeps the card reading
@@ -930,15 +1008,25 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 @media (max-width:920px){
   .about{grid-template-columns:1fr;gap:36px}
   .news-grid{grid-template-columns:1fr 1fr}
-  .prod-grid{grid-template-columns:1fr}
+  /* .prod-grid deliberately absent: it is a horizontal rail below 1040px and
+     must not collapse to a column here. */
   .footer__grid{grid-template-columns:1fr 1fr}
   .contact{grid-template-columns:1fr;gap:36px}
 }
 @media (max-width:680px){
   .section{padding:64px 0}
-  .news-grid{grid-template-columns:1fr}
-  .proj-grid{grid-template-columns:1fr}
-  .proj-grid .proj:first-child{grid-row:auto}
+  /* One row on phones, same as the products row. Three stacked articles turn
+     the section into a long scroll for very little content, and the rail
+     arrows are already there to move through them. */
+  .news-grid{display:flex;overflow-x:auto;gap:14px;
+    scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+  .news-grid>.news{flex:0 0 clamp(230px,74vw,300px);scroll-snap-align:start}
+  /* One row on phones, like the products and news rows. min-height is reset
+     because the feature card is normally auto-height while spanning two grid
+     rows -- in a flex rail that would leave it shorter than its neighbours. */
+  .proj-grid{display:flex;overflow-x:auto;gap:14px;
+    scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+  .proj-grid>.proj{flex:0 0 clamp(230px,74vw,300px);scroll-snap-align:start;min-height:270px}
   /* footer on phones: two short link lists sit side by side, everything else
      spans the full width. DOM order is brand, map, navigation, products,
      contact -- so only children 3 and 4 share a row. */
@@ -1016,6 +1104,10 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   font-weight:600;font-size:14px;color:var(--ink);cursor:pointer;transition:.2s}
 .cattabs button:hover{border-color:var(--gold-200)}
 .cattabs button.active{background:var(--ink-strong);color:var(--bg);border-color:var(--ink-strong)}
+/* In the sidebar the tabs are just another filter, so they read as a list
+   rather than a pill row: full width, left aligned, stacked. */
+.pfilter .cattabs{flex-direction:column;flex-wrap:nowrap;gap:6px;margin:0}
+.pfilter .cattabs button{width:100%;text-align:left;padding:8px 12px;border-radius:9px;font-weight:500}
 
 .plist{display:grid;grid-template-columns:250px 1fr;gap:32px;align-items:start}
 .pfilter__search{position:relative;margin-bottom:20px}

@@ -25,7 +25,7 @@ $L = @{
     home='მთავარი'; products='პროდუქტი'; vent='ვენტილაცია'
     tabAll='ყველა'; tabHome='საყოფაცხოვრებო'; tabDuct='არხული'; tabInd='სამრეწველო'; tabHrv='რეკუპერაცია'
     search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'
-    fType='ტიპი'; fAir='ჰაერის ხარჯი'
+    fType='ტიპი'; fAir='ჰაერის ხარჯი'; fCat='კატეგორია'
     tWall='კედლის'; tCeil='ჭერის'; tDuct='არხული'; tWin='ფანჯრის'; tRoof='სახურავის'; tCent='ცენტრიდანული'
     aLow='500 მ³/სთ-მდე'; aMid='500–2000 მ³/სთ'; aHigh='2000 მ³/სთ-ზე მეტი'
     empty='პროდუქტი ვერ მოიძებნა.'
@@ -38,7 +38,7 @@ $L = @{
     home='Home'; products='Products'; vent='Ventilation'
     tabAll='All'; tabHome='Residential'; tabDuct='In-line'; tabInd='Commercial'; tabHrv='Heat recovery'
     search='Search...'; filter='Filter'; clear='Clear'
-    fType='Type'; fAir='Airflow'
+    fType='Type'; fAir='Airflow'; fCat='Category'
     tWall='Wall'; tCeil='Ceiling'; tDuct='In-duct'; tWin='Window'; tRoof='Roof'; tCent='Centrifugal'
     aLow='Up to 500 m³/h'; aMid='500–2000 m³/h'; aHigh='Over 2000 m³/h'
     empty='No products found.'
@@ -107,7 +107,7 @@ foreach ($lang in 'ka','en') {
   }
   $hubBody = @"
 <!-- ===================== BRAND LISTING ===================== -->
-<section class="page-hero">
+<section class="page-hero page-hero--brand">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="../index.html">$($t.home)</a><span class="sep">/</span>
@@ -115,19 +115,12 @@ foreach ($lang in 'ka','en') {
       <a href="ventilation$sfx">$($t.vent)</a><span class="sep">/</span>
       <b>Vortice</b>
     </nav>
-    <img class="brand-hero__logo" src="../assets/img/partners/vortice.svg" alt="Vortice" style="margin:6px 0 22px">
+    <img class="brand-hero__logo" src="../assets/img/partners/vortice.svg" alt="Vortice">
   </div>
 </section>
 
 <section class="section" style="padding-top:0">
   <div class="container" data-plist>
-    <div class="cattabs">
-      <button class="active" type="button" data-cat="all">$($t.tabAll)</button>
-      <button type="button" data-cat="home">$($t.tabHome)</button>
-      <button type="button" data-cat="duct">$($t.tabDuct)</button>
-      <button type="button" data-cat="ind">$($t.tabInd)</button>
-      <button type="button" data-cat="hrv">$($t.tabHrv)</button>
-    </div>
     <div class="plist">
       <aside class="pfilter">
         <div class="pfilter__search">
@@ -135,6 +128,18 @@ foreach ($lang in 'ka','en') {
           <input type="search" placeholder="$($t.search)">
         </div>
         <div class="pfilter__head"><span>$($t.filter)</span><a data-clear>$($t.clear)</a></div>
+        <div class="pfilter__group pfilter__group--cats">
+          <h4>$($t.fCat) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
+          <div class="pfilter__opts">
+            <div class="cattabs">
+              <button class="active" type="button" data-cat="all">$($t.tabAll)</button>
+              <button type="button" data-cat="home">$($t.tabHome)</button>
+              <button type="button" data-cat="duct">$($t.tabDuct)</button>
+              <button type="button" data-cat="ind">$($t.tabInd)</button>
+              <button type="button" data-cat="hrv">$($t.tabHrv)</button>
+            </div>
+          </div>
+        </div>
         <div class="pfilter__group">
           <h4>$($t.fType) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
           <div class="pfilter__opts">
