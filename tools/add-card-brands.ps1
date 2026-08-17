@@ -9,7 +9,10 @@ $repo = Split-Path $PSScriptRoot -Parent
 $BRANDS = @(
   @{ prefix='samsung';    file='samsung.svg';             name='Samsung' },
   @{ prefix='mitsubishi'; file='mitsubishi-electric.svg'; name='Mitsubishi Electric' },
-  @{ prefix='vortice';    file='vortice.svg';             name='Vortice' }
+  @{ prefix='vortice';    file='vortice.svg';             name='Vortice' },
+  @{ prefix='beretta';    file='beretta.svg';             name='Beretta' },
+  @{ prefix='riello';     file='riello.svg';              name='Riello' },
+  @{ prefix='warmhaus';   file='warmhaus.svg';            name='Warmhaus' }
 )
 
 $files = Get-ChildItem $repo -Filter '*.html' -Recurse -File |

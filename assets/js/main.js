@@ -658,6 +658,33 @@
     });
   });
 
+  /* ---- Drawer chapters (inside the products accordion) ----
+     Opening one has to grow the accordion above it as well, or the chapter
+     expands into a panel that is still only as tall as the collapsed list. The
+     parent height is recomputed from its rows rather than measured, because at
+     the moment of the click this panel is at t=0 of its own transition and
+     still reports zero. */
+  document.querySelectorAll('.m-sec').forEach(function (sec) {
+    var btn = sec.querySelector('.m-sec__btn');
+    var panel = sec.querySelector('.m-sec__panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = sec.classList.toggle('open');
+      panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0';
+      var outer = sec.closest('.m-acc__panel');
+      if (!outer) return;
+      var h = 0;
+      Array.prototype.forEach.call(outer.children, function (el) {
+        var b = el.querySelector('.m-sec__btn');
+        var p = el.querySelector('.m-sec__panel');
+        if (b) { h += b.offsetHeight; if (p && el.classList.contains('open')) h += p.scrollHeight; }
+        else { h += el.offsetHeight; }
+      });
+      outer.style.maxHeight = h + 'px';
+    });
+  });
+
   /* ---- Mobile accordions ---- */
   document.querySelectorAll('.m-acc').forEach(function (acc) {
     var btn = acc.querySelector('.m-acc__btn');

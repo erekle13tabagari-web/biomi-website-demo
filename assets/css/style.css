@@ -148,6 +148,18 @@
    plus an opacity knock reads as exactly that. On dark the same treatment reads
    as *disabled* — every one of these is a tap target. Lift them to the body
    colour and let the indent and the smaller type carry the hierarchy instead. */
+/* Drawer chapters. The products panel holds five chapters and 29 links; left
+   flat it was 1548px of scroll inside an 812px drawer, so each chapter folds
+   the same way the desktop mega-menu does. */
+.m-sec{border-top:1px solid var(--line)}
+.m-sec:first-child{border-top:0}
+.m-sec__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
+  padding:11px 2px;font-size:15px;font-weight:600;color:var(--purple);text-align:left;
+  text-transform:uppercase;letter-spacing:.02em}
+.m-sec__btn svg{width:15px;height:15px;flex:none;opacity:.65;transition:transform .3s}
+.m-sec.open .m-sec__btn svg{transform:rotate(180deg)}
+.m-sec__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
+
 :root[data-theme="dark"] .m-acc__panel a{color:var(--body)}
 :root[data-theme="dark"] .m-acc__panel a.m-sub{opacity:1}
 :root[data-theme="dark"] .logos img{filter:brightness(0) invert(1);opacity:.5}
@@ -906,8 +918,15 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    and the wordmark. These heights give all three roughly the same width on the
    card, which is what reads as equal weight. No negative margins -- the card
    clips its own overflow, so anything pulled past the corner is cut off. */
+/* Fallback first: a brand with no rule of its own would otherwise get no
+   height at all and render 0x0 -- which is exactly what happened when the
+   boiler brands arrived. */
+.pcard__brand img{height:16px}
 .pcard__brand img[src*="samsung"]{height:14px}
 .pcard__brand img[src*="mitsubishi"]{height:21px}
+.pcard__brand img[src*="beretta"]{height:18px}
+.pcard__brand img[src*="riello"]{height:22px}
+.pcard__brand img[src*="warmhaus"]{height:20px}
 .pcard__brand img[src*="vortice"]{height:38px;border-radius:4px}
 /* the compat tab's cards are about a third the size, so the marks scale too */
 .ptabs__panel[data-panel="compat"] .pcard__brand{top:8px;left:8px}

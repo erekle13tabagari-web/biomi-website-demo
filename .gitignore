@@ -40,8 +40,9 @@ desktop.ini
 # site live and has to come with a fresh clone.
 !Update Website.bat
 
-# Per-machine paths to the Vortice source library (see tools/vortice/README.md)
+# Per-machine paths to the source photo libraries (see the README beside each)
 /tools/vortice/paths.local.ps1
+/tools/boilers/paths.local.ps1
 
 # Futura source cuts — the site only serves the two Upright variable files,
 # which are committed. Static OTFs and the oblique cuts stay local (~10 MB).
