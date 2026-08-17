@@ -173,32 +173,10 @@ $($cards -join "`r`n")
   $out = Join-Path $repo ('products\vortice' + $sfx)
   [IO.File]::WriteAllText($out, (Splice (Join-Path $repo ('products\' + $t.hubTpl)) '<!-- ===================== BRAND LISTING' $hubBody $t.hubTitle $t.hubDesc ('vortice' + $sfx) 'mitsubishi-electric'), (New-Object Text.UTF8Encoding($false)))
 
-  # ------------------------------------------------------- the category picker
-  $catBody = @"
-<!-- ===================== BRAND PICKER ===================== -->
-<section class="page-hero" style="padding-bottom:80px">
-  <div class="container">
-    <nav class="crumbs" aria-label="breadcrumb">
-      <a href="../index.html">$($t.home)</a><span class="sep">/</span>
-      <a href="../index.html#products">$($t.products)</a><span class="sep">/</span>
-      <b>$($t.vent)</b>
-    </nav>
-    <div class="section__head center reveal" style="max-width:640px;margin:10px auto 36px">
-      <span class="eyebrow">$($t.catEyebrow)</span>
-      <h2>$($t.catH)</h2>
-      <p>$($t.catP)</p>
-    </div>
-    <div class="brandpick reveal">
-      <a class="brandpick__card" href="vortice$sfx">
-        <img src="../assets/img/partners/vortice.svg" alt="Vortice">
-        <span class="brandpick__go">$($t.goto) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-"@
-  $out = Join-Path $repo ('products\ventilation' + $sfx)
-  [IO.File]::WriteAllText($out, (Splice (Join-Path $repo ('products\' + $t.catTpl)) '<!-- ===================== BRAND PICKER' $catBody $t.catTitle $t.catDesc ('ventilation' + $sfx) 'vrf-vrv'), (New-Object Text.UTF8Encoding($false)))
+  # The Ventilation category page used to be built here too, as a brand picker
+  # spliced off vrf-vrv.html. Both are now real product listings owned by
+  # tools/build-category-pages.ps1, which reads the finished brand hubs -- so
+  # run that after this script rather than expecting a picker here.
 }
-Write-Host 'wrote vortice.html, vortice-en.html, ventilation.html, ventilation-en.html'
+Write-Host 'wrote vortice.html, vortice-en.html'
+Write-Host 'now run tools\build-category-pages.ps1 to refresh products\ventilation*.html'
