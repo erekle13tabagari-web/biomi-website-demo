@@ -19,6 +19,7 @@ $staticKa = @(
   @{ url = 'products/vrf-vrv.html';         title = 'VRF / VRV სისტემა';     kind = 'კატეგორია' },
   @{ url = 'products/samsung.html';         title = 'Samsung';               kind = 'ბრენდი' },
   @{ url = 'products/mitsubishi-electric.html'; title = 'Mitsubishi Electric'; kind = 'ბრენდი' },
+  @{ url = 'products/boilers.html';         title = 'ქვაბი';                 kind = 'კატეგორია' },
   @{ url = 'products/ventilation.html';     title = 'ვენტილაცია';            kind = 'კატეგორია' },
   @{ url = 'products/vortice.html';         title = 'Vortice';               kind = 'ბრენდი' },
   @{ url = 'news/vrf-project.html';         title = 'VRF სისტემის დანერგვა მრავალფუნქციურ ცენტრში'; kind = 'სიახლე' },
@@ -30,6 +31,7 @@ $staticEn = @(
   @{ url = 'products/vrf-vrv-en.html';      title = 'VRF / VRV system';      kind = 'Category' },
   @{ url = 'products/samsung-en.html';      title = 'Samsung';               kind = 'Brand' },
   @{ url = 'products/mitsubishi-electric-en.html'; title = 'Mitsubishi Electric'; kind = 'Brand' },
+  @{ url = 'products/boilers-en.html';      title = 'Boilers';               kind = 'Category' },
   @{ url = 'products/ventilation-en.html';  title = 'Ventilation';           kind = 'Category' },
   @{ url = 'products/vortice-en.html';      title = 'Vortice';               kind = 'Brand' },
   @{ url = 'news/vrf-project-en.html';      title = 'VRF system rollout in a multi-purpose centre'; kind = 'News' },
@@ -37,8 +39,8 @@ $staticEn = @(
 )
 
 # hub file -> brand label shown next to a product result
-$hubsKa = @{ 'samsung.html' = 'Samsung'; 'mitsubishi-electric.html' = 'Mitsubishi Electric'; 'vortice.html' = 'Vortice' }
-$hubsEn = @{ 'samsung-en.html' = 'Samsung'; 'mitsubishi-electric-en.html' = 'Mitsubishi Electric'; 'vortice-en.html' = 'Vortice' }
+$hubsKa = @{ 'samsung.html' = 'Samsung'; 'mitsubishi-electric.html' = 'Mitsubishi Electric'; 'vortice.html' = 'Vortice'; 'beretta.html' = 'Beretta'; 'riello.html' = 'Riello'; 'warmhaus.html' = 'Warmhaus' }
+$hubsEn = @{ 'samsung-en.html' = 'Samsung'; 'mitsubishi-electric-en.html' = 'Mitsubishi Electric'; 'vortice-en.html' = 'Vortice'; 'beretta-en.html' = 'Beretta'; 'riello-en.html' = 'Riello'; 'warmhaus-en.html' = 'Warmhaus' }
 
 $rxCard = [regex]'(?s)<a class="pcard"\s+href="([^"]+)"[^>]*?data-name="([^"]*)"[^>]*>(.*?)</a>'
 $rxImg  = [regex]'<img src="([^"]+)"'

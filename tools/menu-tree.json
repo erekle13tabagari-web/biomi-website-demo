@@ -1,9 +1,9 @@
 [
 {"ka":"გათბობა","en":"Heating","items":[
-  {"ka":"ქვაბი","en":"Boilers","page":null,"kids":[
-    {"ka":"Beretta","en":"Beretta","page":null},
-    {"ka":"Riello","en":"Riello","page":null},
-    {"ka":"Warmhaus","en":"Warmhaus","page":null}]},
+  {"ka":"ქვაბი","en":"Boilers","page":"boilers","kids":[
+    {"ka":"Beretta","en":"Beretta","page":"beretta"},
+    {"ka":"Riello","en":"Riello","page":"riello"},
+    {"ka":"Warmhaus","en":"Warmhaus","page":"warmhaus"}]},
   {"ka":"ბოილერები","en":"Water heaters","page":null,"kids":[
     {"ka":"Beretta","en":"Beretta","page":null},
     {"ka":"Omega","en":"Omega","page":null},

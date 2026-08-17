@@ -18,6 +18,8 @@ $PAGES = @(
      eyebrowKa='გაგრილება'; eyebrowEn='Cooling'
      headKa='Multisplit / VRV / VRF'; headEn='Multisplit / VRV / VRF'
      crumbKa='გაგრილება'; crumbEn='Cooling'
+     titleKa='გაგრილება — ბიომი'; titleEn='Cooling — Biomi'
+     pdescKa='Multisplit, VRV და VRF სისტემები Samsung-ისა და Mitsubishi Electric-ისგან.'; pdescEn='Multisplit, VRV and VRF systems from Samsung and Mitsubishi Electric.'
      series=@(@('dvm','DVM','DVM'),@('cac','CAC','CAC'),@('fjm','FJM','FJM'),
               @('m-series','M Series','M Series'),@('mr-slim','Mr Slim','Mr Slim'),@('citymulti','City Multi','City Multi'))
      seriesKa='სერია'; seriesEn='Series'
@@ -27,11 +29,30 @@ $PAGES = @(
      extraKa='მაცივარაგენტი'; extraEn='Refrigerant'; extraName='ref'
      extras=@(@('r32','R32','R32'),@('r410a','R410A','R410A')) },
 
+  @{ out='boilers'; from=@(
+       @{ hub='beretta';  brand='beretta';  ka='Beretta';  en='Beretta'  },
+       @{ hub='riello';   brand='riello';   ka='Riello';   en='Riello'   },
+       @{ hub='warmhaus'; brand='warmhaus'; ka='Warmhaus'; en='Warmhaus' })
+     eyebrowKa='გათბობა'; eyebrowEn='Heating'
+     headKa='გათბობის ქვაბი'; headEn='Heating boilers'
+     crumbKa='ქვაბი'; crumbEn='Boilers'
+     titleKa='გათბობის ქვაბი — ბიომი'; titleEn='Heating boilers — Biomi'
+     pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან — კედლის და კომერციული სერიები.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus — wall-hung and commercial ranges.'
+     # the hub cards carry data-cat="<brand slug>", so the second group would just
+     # repeat the brand filter -- output band is the useful second axis here
+     series=@(@('k1','35 kW-მდე','Up to 35 kW'),@('k2','36–99 kW','36–99 kW'),@('k3','100 kW და მეტი','100 kW and above'))
+     seriesKa='სიმძლავრე'; seriesEn='Output'; seriesName='kw'
+     typeKa='წარმოშობა'; typeEn='Origin'
+     types=@(@('it','იტალია','Italy'),@('tr','თურქეთი','Turkey'))
+     extraKa=''; extraEn=''; extraName=''; extras=@() },
+
   @{ out='ventilation'; from=@(
        @{ hub='vortice'; brand='vortice'; ka='Vortice'; en='Vortice' })
      eyebrowKa='ვენტილაცია'; eyebrowEn='Ventilation'
      headKa='სავენტილაციო სისტემები'; headEn='Ventilation systems'
      crumbKa='ვენტილაცია'; crumbEn='Ventilation'
+     titleKa='ვენტილაცია — ბიომი'; titleEn='Ventilation — Biomi'
+     pdescKa='სავენტილაციო სისტემები და ტექნიკა Vortice-ისგან.'; pdescEn='Ventilation systems and equipment from Vortice.'
      series=@(@('home','საყოფაცხოვრებო','Residential'),@('duct','არხული','In-line'),
               @('ind','სამრეწველო','Commercial'),@('hrv','რეკუპერაცია','Heat recovery'))
      seriesKa='კატეგორია'; seriesEn='Category'
@@ -51,6 +72,9 @@ $L = @{
 $CARET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
 
 function FilterGroup($label, $name, $opts, $li) {
+  # a group with nothing in it renders as a dead heading, so drop it entirely.
+  # Not every category has four useful axes.
+  if (-not $opts -or -not @($opts).Count -or -not $name) { return '' }
   $s = "        <div class=`"pfilter__group`">`r`n          <h4>$label $CARET</h4>`r`n          <div class=`"pfilter__opts`">`r`n"
   foreach ($o in $opts) {
     $txt = if ($li -eq 'ka') { $o[1] } else { $o[2] }
@@ -117,7 +141,7 @@ foreach ($p in $PAGES) {
           <input type="search" placeholder="$($t.search)">
         </div>
         <div class="pfilter__head"><span>$($t.filter)</span><a data-clear>$($t.clear)</a></div>
-$(FilterGroup $t.brand 'brand' $brandOpts $lang)$(FilterGroup $seriesLbl 'cat' $p.series $lang)$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)      </aside>
+$(FilterGroup $t.brand 'brand' $brandOpts $lang)$(FilterGroup $seriesLbl $(if($p.seriesName){$p.seriesName}else{'cat'}) $p.series $lang)$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)      </aside>
 
       <div class="pgrid">
 $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
@@ -133,6 +157,18 @@ $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
     $j = $txt.IndexOf('<!-- ===================== FOOTER')
     if ($i -lt 0 -or $j -lt 0) { Write-Host "  markers not found in $file"; continue }
     $txt = $txt.Substring(0, $i) + $body + $txt.Substring($j)
+
+    # the page may have been seeded by copying another category page, so its
+    # title, description and GEO/ENG switcher still point at that one
+    $ttl = if ($lang -eq 'ka') { $p.titleKa } else { $p.titleEn }
+    $dsc = if ($lang -eq 'ka') { $p.pdescKa } else { $p.pdescEn }
+    if ($ttl) { $txt = [regex]::Replace($txt,'(?s)<title>.*?</title>', ('<title>' + $ttl + '</title>')) }
+    if ($dsc) { $txt = [regex]::Replace($txt,'(?s)(<meta name="description" content=").*?(">)', ('${1}' + $dsc + '${2}')) }
+    foreach ($rx in '(?s)<div class="lang"[^>]*>.*?</div>','(?s)<div class="drawer__langs">.*?</div>') {
+      $txt = [regex]::Replace($txt, $rx, {
+        param($m) ($m.Value -replace 'href="[^"]*-en\.html"', ('href="' + $p.out + '-en.html"') `
+                             -replace 'href="(?!.*-en\.html)[^"]*\.html"', ('href="' + $p.out + '.html"')) })
+    }
     [IO.File]::WriteAllText($file, $txt, (New-Object Text.UTF8Encoding($false)))
   }
 }

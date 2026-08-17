@@ -80,15 +80,22 @@ foreach ($f in $files) {
   $txt = $txt.Substring(0, $i) + $menu + $txt.Substring($j)
 
   # ----------------------------------------------------------- mobile drawer
+  # Each chapter collapses here too. Flattened, the five chapters and their
+  # children came to 29 links and 1548px inside a drawer 812px tall, so opening
+  # Products turned the menu into one long scroll. Desktop already collapses them.
   $draw = '<div class="m-acc__panel">' + "`r`n"
   foreach ($ch in $tree) {
-    $draw += '          <div class="m-acc__group">' + $ch.$lang + '</div>' + "`r`n"
+    $draw += '          <div class="m-sec">' + "`r`n"
+    $draw += '            <button class="m-sec__btn" type="button">' + $ch.$lang + ' ' + $CARET + '</button>' + "`r`n"
+    $draw += '            <div class="m-sec__panel">' + "`r`n"
     foreach ($it in $ch.items) {
-      $draw += '          <a href="' + (Href $it.page) + '" data-close>' + $it.$lang + '</a>' + "`r`n"
+      $draw += '              <a href="' + (Href $it.page) + '" data-close>' + $it.$lang + '</a>' + "`r`n"
       foreach ($k in @($it.kids)) {
-        $draw += '          <a class="m-sub" href="' + (Href $k.page) + '" data-close>' + $k.$lang + '</a>' + "`r`n"
+        $draw += '              <a class="m-sub" href="' + (Href $k.page) + '" data-close>' + $k.$lang + '</a>' + "`r`n"
       }
     }
+    $draw += '            </div>' + "`r`n"
+    $draw += '          </div>' + "`r`n"
   }
   $draw += '        </div>'
 
@@ -101,7 +108,7 @@ foreach ($f in $files) {
     if ($a -lt 0) { break }
     $b = DivEnd $txt $a
     if ($b -lt 0) { break }
-    if ($txt.Substring($a, $b - $a).Contains('m-acc__group')) {
+    if ($txt.Substring($a, $b - $a) -match 'm-acc__group|m-sec') {
       $txt = $txt.Substring(0, $a) + $draw + $txt.Substring($b)
       $found = $true; break
     }

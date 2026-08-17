@@ -1,0 +1,112 @@
+﻿# Brand hubs for Beretta, Riello and Warmhaus.
+#
+# One card per series, filtered by output band. No category tabs: since the
+# tabs moved into the filter panel there is nothing a second control would add
+# on a hub this size.
+. (Join-Path $PSScriptRoot 'config.ps1')
+$repo = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+$sp   = $PSScriptRoot
+$fams = Get-Content (Join-Path $sp 'families.json')      -Raw -Encoding UTF8 | ConvertFrom-Json
+$mods = Get-Content (Join-Path $sp 'boilers-pages.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+
+$BRANDS = @(
+  @{ brand='Beretta';  slug='beretta';  logo='beretta.svg'  },
+  @{ brand='Riello';   slug='riello';   logo='riello.svg'   },
+  @{ brand='Warmhaus'; slug='warmhaus'; logo='warmhaus.svg' }
+)
+$L = @{
+  ka = @{ file='.html'; tpl='vortice.html'; home='მთავარი'; products='პროდუქტი'; cat='ქვაბი'
+          search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'; fKw='სიმძლავრე'
+          k1='35 kW-მდე'; k2='36–99 kW'; k3='100 kW და მეტი'; empty='პროდუქტი ვერ მოიძებნა.' }
+  en = @{ file='-en.html'; tpl='vortice-en.html'; home='Home'; products='Products'; cat='Boilers'
+          search='Search...'; filter='Filter'; clear='Clear'; fKw='Output'
+          k1='Up to 35 kW'; k2='36–99 kW'; k3='100 kW and above'; empty='No products found.' }
+}
+$CARET='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
+function HtmlEnc($s){ if($null -eq $s){return ''}; $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
+function Kw($n){ $m=[regex]::Match($n,'\b(\d{2,3})\b'); if($m.Success){return [int]$m.Groups[1].Value}; return 0 }
+
+foreach ($b in $BRANDS) {
+  foreach ($lang in 'ka','en') {
+    $t = $L[$lang]; $sfx = $t.file
+    $tplPath = Join-Path $repo ('products\' + $t.tpl)
+    $tpl = Get-Content $tplPath -Raw -Encoding UTF8
+    $i = $tpl.IndexOf('<!-- ===================== BRAND LISTING')
+    $j = $tpl.IndexOf('<!-- ===================== FOOTER')
+    if ($i -lt 0 -or $j -lt 0) { throw "markers not found in $($t.tpl)" }
+    $h = $tpl.Substring(0,$i); $tl = $tpl.Substring($j)
+    $h = [regex]::Replace($h,'(?s)[ \t]*<!-- meta:start.*?<!-- meta:end -->\r?\n','')
+    foreach ($rx in '(?s)<div class="lang"[^>]*>.*?</div>','(?s)<div class="drawer__langs">.*?</div>') {
+      foreach ($ref in 'vortice-en.html','vortice.html') {
+        $to = if ($ref -like '*-en.html') { $b.slug + '-en.html' } else { $b.slug + '.html' }
+        $h  = [regex]::Replace($h,  $rx, { param($m) $m.Value.Replace($ref,$to) })
+        $tl = [regex]::Replace($tl, $rx, { param($m) $m.Value.Replace($ref,$to) })
+      }
+    }
+
+    $cards = ''
+    foreach ($f in ($fams | Where-Object { $_.brand -eq $b.brand })) {
+      $g = @($mods | Where-Object { $_.slug -eq $f.slug })
+      if (-not $g.Count) { continue }
+      $name = if ($lang -eq 'ka') { $f.nameKa } else { $f.nameEn }
+      $max = ($g | ForEach-Object { Kw $_.name } | Measure-Object -Maximum).Maximum
+      $band = if ($max -le 35) { 'k1' } elseif ($max -lt 100) { 'k2' } else { 'k3' }
+      # origin travels on data-type so the category listing can filter by it
+      $ctry = ($g | Where-Object { $_.country } | Select-Object -First 1).country
+      $origin = if ($ctry -eq 'თურქეთი') { 'tr' } elseif ($ctry) { 'it' } else { '' }
+      $terms = $name + ' ' + (($g | ForEach-Object { ($_.name -replace '\s*გათბობის ქვაბი.*$','') + ' ' + $_.code + ' ' + $_.mfr }) -join ' ')
+      $cards += "        <a class=`"pcard`" href=`"$($f.slug)$sfx`" data-cat=`"$($b.slug)`" data-name=`"$(HtmlEnc $terms)`" data-kw=`"$band`" data-type=`"$origin`">`r`n" +
+                "          <span class=`"pcard__img`"><img src=`"../assets/img/products/$($f.slug)/main.avif`" alt=`"$(HtmlEnc $name)`"></span>`r`n" +
+                "          <span class=`"pcard__body`"><h4>$(HtmlEnc $name)</h4></span>`r`n        </a>`r`n"
+    }
+
+    $body = @"
+<!-- ===================== BRAND LISTING ===================== -->
+<section class="page-hero page-hero--brand">
+  <div class="container">
+    <nav class="crumbs" aria-label="breadcrumb">
+      <a href="../index.html">$($t.home)</a><span class="sep">/</span>
+      <a href="../index.html#products">$($t.products)</a><span class="sep">/</span>
+      <a href="boilers$sfx">$($t.cat)</a><span class="sep">/</span>
+      <b>$($b.brand)</b>
+    </nav>
+    <img class="brand-hero__logo" src="../assets/img/partners/$($b.logo)" alt="$($b.brand)">
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="container" data-plist>
+    <div class="plist">
+      <aside class="pfilter">
+        <div class="pfilter__search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" placeholder="$($t.search)">
+        </div>
+        <div class="pfilter__head"><span>$($t.filter)</span><a data-clear>$($t.clear)</a></div>
+        <div class="pfilter__group">
+          <h4>$($t.fKw) $CARET</h4>
+          <div class="pfilter__opts">
+            <label><input type="checkbox" name="kw" value="k1">$($t.k1)</label>
+            <label><input type="checkbox" name="kw" value="k2">$($t.k2)</label>
+            <label><input type="checkbox" name="kw" value="k3">$($t.k3)</label>
+          </div>
+        </div>
+      </aside>
+
+      <div class="pgrid">
+$cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+"@
+    $title = "$($b.brand) — " + $(if ($lang -eq 'ka') { 'ბიომი' } else { 'Biomi' })
+    $descr = if ($lang -eq 'ka') { "$($b.brand)-ის გათბობის ქვაბები — კედლის და კომერციული სერიები." }
+             else { "$($b.brand) heating boilers — wall-hung and commercial ranges." }
+    $h = [regex]::Replace($h,'(?s)<title>.*?</title>',('<title>' + (HtmlEnc $title) + '</title>'))
+    $h = [regex]::Replace($h,'(?s)(<meta name="description" content=").*?(">)',('${1}' + (HtmlEnc $descr) + '${2}'))
+    [IO.File]::WriteAllText((Join-Path $repo ('products\' + $b.slug + $sfx)), ($h + $body + $tl), (New-Object Text.UTF8Encoding($false)))
+    Write-Host ("  wrote " + $b.slug + $sfx)
+  }
+}

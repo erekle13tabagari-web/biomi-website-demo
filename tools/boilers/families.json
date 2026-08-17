@@ -1,0 +1,79 @@
+[
+{"slug":"beretta-ciao-s","brand":"Beretta","match":"^CIAO S","imgdirs":["Beretta\\Ciao S 20"],
+ "nameKa":"CIAO S კედლის ქვაბი","nameEn":"CIAO S wall-hung boiler",
+ "descKa":"კედელზე დასამონტაჟებელი გაზის ქვაბი Beretta-ს CIAO S სერიიდან. კომპაქტური კორპუსი ბინისა და კერძო სახლისთვის.",
+ "descEn":"A wall-mounted gas boiler from Beretta's CIAO S range. A compact body suited to flats and private houses."},
+
+{"slug":"beretta-city","brand":"Beretta","match":"^CITY","imgdirs":["Beretta\\City 24_28"],
+ "nameKa":"CITY კედლის ქვაბი","nameEn":"CITY wall-hung boiler",
+ "descKa":"კედლის გაზის ქვაბი ორ სიმძლავრეში, თითოეული CSI და RSI ვერსიით. ევროპის ბაზარზე აღარ იყიდება — მარაგი ადგილზეა.",
+ "descEn":"A wall-hung gas boiler in two outputs, each in a CSI and an RSI version. No longer sold in Europe — stock is held locally."},
+
+{"slug":"beretta-mynute-s","brand":"Beretta","match":"MYNUTE","imgdirs":["Beretta\\Mynute 35 S"],
+ "nameKa":"MYNUTE S 35 კედლის ქვაბი","nameEn":"MYNUTE S 35 wall-hung boiler",
+ "descKa":"სერიის ყველაზე მაღალი სიმძლავრის კედლის ქვაბი, CSI და RSI ვერსიებში. ევროპის ბაზარზე აღარ იყიდება — მარაგი ადგილზეა.",
+ "descEn":"The highest output in the range's wall-hung line, in CSI and RSI versions. No longer sold in Europe — stock is held locally."},
+
+{"slug":"beretta-quadra-green","brand":"Beretta","match":"^QUADRA GREEN","imgdirs":["Beretta\\Quadra Green 25"],
+ "nameKa":"QUADRA GREEN 25 კედლის ქვაბი","nameEn":"QUADRA GREEN 25 wall-hung boiler",
+ "descKa":"Beretta-ს QUADRA GREEN სერიის კედლის ქვაბი. ევროპის ბაზარზე აღარ იყიდება — მარაგი ადგილზეა.",
+ "descEn":"A wall-hung boiler from Beretta's QUADRA GREEN range. No longer sold in Europe — stock is held locally."},
+
+{"slug":"beretta-power-evo-x","brand":"Beretta","match":"POWER EVO-X","imgdirs":["Beretta\\Power Evo-X"],
+ "nameKa":"POWER EVO-X ქვაბი","nameEn":"POWER EVO-X boiler",
+ "descKa":"Beretta-ს კომერციული სერია სამ სიმძლავრეში — 50, 65 და 80. კასკადურ სისტემაში მუშაობისთვის.",
+ "descEn":"Beretta's commercial range in three outputs — 50, 65 and 80 — built to work in a cascade system."},
+
+{"slug":"beretta-power-max","brand":"Beretta","match":"POWER MAX","imgdirs":["Beretta\\Power Max"],
+ "nameKa":"POWER MAX ქვაბი","nameEn":"POWER MAX boiler",
+ "descKa":"Beretta-ს კომერციული სერიის უმაღლესი სიმძლავრეები — 100, 130 და 150. კასკადურ სისტემაში მუშაობისთვის.",
+ "descEn":"The top outputs of Beretta's commercial range — 100, 130 and 150 — built to work in a cascade system."},
+
+{"slug":"riello-start-25","brand":"Riello","match":"START 25 KIS","imgdirs":["Riello\\Start 25"],
+ "nameKa":"START 25 KIS კედლის ქვაბი","nameEn":"START 25 KIS wall-hung boiler",
+ "descKa":"Riello-ს START 25 KIS. KIS ნომენკლატურის მიუხედავად ეს სხვა ქვაბია — კორპუსი START 24/28/35-ისგან სრულიად განსხვავებულია.",
+ "descEn":"Riello's START 25 KIS. Despite sharing the KIS naming this is a different boiler — its body is quite unlike the START 24/28/35."},
+
+{"slug":"riello-start","brand":"Riello","match":"START (24|28|35) KIS","imgdirs":["Riello\\Start 24_28_35"],
+ "nameKa":"START KIS კედლის ქვაბი","nameEn":"START KIS wall-hung boiler",
+ "descKa":"Riello-ს START KIS სერია სამ სიმძლავრეში — 24, 28 და 35. კედელზე დასამონტაჟებელი გაზის ქვაბი.",
+ "descEn":"Riello's START KIS range in three outputs — 24, 28 and 35. A wall-mounted gas boiler."},
+
+{"slug":"riello-rlt","brand":"Riello","match":"RLT","imgdirs":["Riello\\RLT 25 KIS"],
+ "nameKa":"RLT 25 KIS კედლის ქვაბი","nameEn":"RLT 25 KIS wall-hung boiler",
+ "descKa":"Riello-ს კედლის გაზის ქვაბი 25 სიმძლავრეში.","descEn":"A Riello wall-hung gas boiler at 25 output."},
+
+{"slug":"riello-condexa-pro","brand":"Riello","match":"CONDEXA","imgdirs":["Riello\\Condexa Pro 135"],
+ "nameKa":"CONDEXA PRO 135 ქვაბი","nameEn":"CONDEXA PRO 135 boiler",
+ "descKa":"Riello-ს კომერციული სერიის ქვაბი 135 სიმძლავრეში.","descEn":"A boiler from Riello's commercial range at 135 output."},
+
+{"slug":"warmhaus-lawa","brand":"Warmhaus","match":"^LAWA \\d+( BLACK)? გათბობის","imgdirs":["Warmhous\\Lawa 18","Warmhous\\Lawa 24_HO","Warmhous\\Lawa 28_HO","Warmhous\\Lawa 32_HO"],
+ "nameKa":"LAWA კედლის ქვაბი","nameEn":"LAWA wall-hung boiler",
+ "descKa":"Warmhaus-ის LAWA სერია ოთხ სიმძლავრეში — 18, 24, 28 და 32. 18 ხელმისაწვდომია შავ კორპუსშიც.",
+ "descEn":"Warmhaus's LAWA range in four outputs — 18, 24, 28 and 32. The 18 is also available in a black body."},
+
+{"slug":"warmhaus-lawa-plus","brand":"Warmhaus","match":"LAWA PLUS","imgdirs":["Warmhous\\Lawa 24_Plus"],
+ "nameKa":"LAWA PLUS 24 კედლის ქვაბი","nameEn":"LAWA PLUS 24 wall-hung boiler",
+ "descKa":"LAWA სერიის PLUS ვერსია 24 სიმძლავრეში.","descEn":"The PLUS version of the LAWA range at 24 output."},
+
+{"slug":"warmhaus-lawa-system","brand":"Warmhaus","match":"LAWA (HO \\d+ )?SYSTEM|LAWA HO",
+ "imgdirs":["Warmhous\\Lawa 24_HO","Warmhous\\Lawa 28_HO","Warmhous\\Lawa 32_HO"],
+ "nameKa":"LAWA SYSTEM ქვაბი","nameEn":"LAWA SYSTEM boiler",
+ "descKa":"LAWA სერიის SYSTEM და HO SYSTEM ვერსიები 24, 28 და 32 სიმძლავრეში. ცალკე პროდუქტებია, თუმცა LAWA-ს კორპუსს იზიარებენ.",
+ "descEn":"The SYSTEM and HO SYSTEM versions of the LAWA range at 24, 28 and 32. Separate products, though they share the LAWA body."},
+
+{"slug":"warmhaus-viwa-50-65","brand":"Warmhaus","match":"^VIWA (50|65)\\b","imgdirs":["Warmhous\\Viwa 50_65"],
+ "nameKa":"VIWA 50 / 65 ქვაბი","nameEn":"VIWA 50 / 65 boiler",
+ "descKa":"VIWA სერიის ორი მცირე სიმძლავრე — 50 და 65. კორპუსით განსხვავდება VIWA 90-150-ისგან.",
+ "descEn":"The two smaller outputs in the VIWA range — 50 and 65. A different body from the VIWA 90–150."},
+
+{"slug":"warmhaus-viwa","brand":"Warmhaus","match":"^VIWA (90|115|125|150)\\b","imgdirs":["Warmhous\\Viwa 90_115_125_150"],
+ "nameKa":"VIWA ქვაბი","nameEn":"VIWA boiler",
+ "descKa":"Warmhaus-ის VIWA სერია — 90-დან 150 სიმძლავრემდე, დიდი ობიექტებისთვის.",
+ "descEn":"Warmhaus's VIWA range — from 90 up to 150 output, for larger buildings."},
+
+{"slug":"warmhaus-viwa-s","brand":"Warmhaus","match":"^VIWA S","imgdirs":["Warmhous\\Viwa S 100"],
+ "nameKa":"VIWA S ქვაბი","nameEn":"VIWA S boiler",
+ "descKa":"VIWA სერიის S ვერსია ოთხ სიმძლავრეში — 100, 115, 125 და 150.",
+ "descEn":"The S version of the VIWA range in four outputs — 100, 115, 125 and 150."}
+]

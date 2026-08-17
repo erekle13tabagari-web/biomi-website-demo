@@ -1,0 +1,50 @@
+﻿{
+    "warmhaus-lawa":  {
+                          "LAWA 28 გათბობის ქვაბი WARMHAUS":  [
+                                                                  "m3-1.avif",
+                                                                  "m3-2.avif"
+                                                              ],
+                          "LAWA 18 გათბობის ქვაბი WARMHAUS":  [
+                                                                  "m1-1.avif",
+                                                                  "m1-2.avif"
+                                                              ],
+                          "LAWA 24 გათბობის ქვაბი WARMHAUS":  [
+                                                                  "m2-1.avif",
+                                                                  "m2-2.avif"
+                                                              ],
+                          "LAWA 32 გათბობის ქვაბი WARMHAUS":  [
+                                                                  "m4-1.avif",
+                                                                  "m4-2.avif"
+                                                              ],
+                          "LAWA 18 BLACK გათბობის ქვაბი WARMHAUS":  [
+                                                                        "m1-1.avif",
+                                                                        "m1-2.avif"
+                                                                    ]
+                      },
+    "warmhaus-lawa-system":  {
+                                 "LAWA SYSTEM 28 გათბობის ქვაბი WARMHAUS":  [
+                                                                                "m2-1.avif",
+                                                                                "m2-2.avif"
+                                                                            ],
+                                 "LAWA HO 32 SYSTEM გათბობის ქვაბი WARMHAUS":  [
+                                                                                   "m3-1.avif",
+                                                                                   "m3-2.avif"
+                                                                               ],
+                                 "LAWA HO 28 SYSTEM გათბობის ქვაბი WARMHAUS":  [
+                                                                                   "m2-1.avif",
+                                                                                   "m2-2.avif"
+                                                                               ],
+                                 "LAWA HO 24 SYSTEM გათბობის ქვაბი WARMHAUS":  [
+                                                                                   "m1-1.avif",
+                                                                                   "m1-2.avif"
+                                                                               ],
+                                 "LAWA SYSTEM 24 გათბობის ქვაბი WARMHAUS":  [
+                                                                                "m1-1.avif",
+                                                                                "m1-2.avif"
+                                                                            ],
+                                 "LAWA SYSTEM 32 გათბობის ქვაბი WARMHAUS":  [
+                                                                                "m3-1.avif",
+                                                                                "m3-2.avif"
+                                                                            ]
+                             }
+}

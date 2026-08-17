@@ -1,0 +1,422 @@
+﻿[
+    {
+        "brand":  "Beretta",
+        "code":  "100101",
+        "name":  "20069395 MYNUTE S 35 RSI გათბობის ქვაბი BERETTA",
+        "mfr":  "20069395",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-mynute-s"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "101049",
+        "name":  "20122798 START 24 KIS გათბობის ქვაბი RIELLO",
+        "mfr":  "20122798",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-start"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27023 / 27014",
+        "name":  "LAWA 18 BLACK გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA 18 BLACK",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101201",
+        "name":  "20177631 MYNUTE S 35 CSI გათბობის ქვაბი BERETTA",
+        "mfr":  "20177631",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-mynute-s"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "101048",
+        "name":  "20122801 START 28 KIS გათბობის ქვაბი RIELLO",
+        "mfr":  "20122801",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-start"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "100100",
+        "name":  "CIAO S 20 CSI გათბობის ქვაბი BERETTA",
+        "mfr":  "20199175",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-ciao-s"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "101050",
+        "name":  "20122802 START 35 KIS გათბობის ქვაბი RIELLO",
+        "mfr":  "20122802",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-start"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27019 / 27003",
+        "name":  "LAWA 18 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA 18",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "1004",
+        "name":  "CITY 24 CSI გათბობის ქვაბი BERETTA",
+        "mfr":  "20199177",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-city"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "1003",
+        "name":  "CITY 24 RSI გათბობის ქვაბი BERETTA",
+        "mfr":  "20199176",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-city"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "101204",
+        "name":  "20197878 START 25 KIS გათბობის ქვაბი RIELLO",
+        "mfr":  "20197878",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-start-25"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27020 / 27001",
+        "name":  "LAWA 24 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA 24",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "1040",
+        "name":  "CITY 28 CSI გათბობის ქვაბი ( 20087848) BERETTA",
+        "mfr":  "20087848",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-city"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "1005",
+        "name":  "CITY 28 RSI გათბობის ქვაბი BERETTA",
+        "mfr":  "20087850",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-city"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "101203",
+        "name":  "20213292 RLT 25 KIS გათბობის ქვაბი RIELLO",
+        "mfr":  "20213292",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-rlt"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27021 / 27004",
+        "name":  "LAWA 28 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA 28",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "101202",
+        "name":  "20115229 CONDEXA PRO 135 გათბობის ქვაბი RIELLO",
+        "mfr":  "20115229",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-condexa-pro"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27022 / 27013",
+        "name":  "LAWA 32 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA 32",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271112",
+        "name":  "LAWA HO 24 SYSTEM გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA HO 24",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa-system"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271099",
+        "name":  "LAWA SYSTEM 24 გათბობის ქვაბი WARMHAUS",
+        "mfr":  null,
+        "country":  null,
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa-system"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101051",
+        "name":  "QUADRA GREEN 25 CSI გათბობის ქვაბი (20095438) BERETTA",
+        "mfr":  "20095438",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-quadra-green"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271110",
+        "name":  "LAWA HO 28 SYSTEM გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA HO 28",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa-system"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271100",
+        "name":  "LAWA SYSTEM 28 გათბობის ქვაბი WARMHAUS",
+        "mfr":  null,
+        "country":  null,
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa-system"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101171",
+        "name":  "20190070 CALDAIA POWER EVO-X 50 გათბობის ქვაბი BERETTA",
+        "mfr":  "20190070",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-power-evo-x"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271111",
+        "name":  "LAWA HO 32 SYSTEM გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA HO 32",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa-system"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101224",
+        "name":  "20190072 CALDAIA POWER EVO-X 65 გათბობის ქვაბი BERETTA",
+        "mfr":  "20190072",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-power-evo-x"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271101",
+        "name":  "LAWA SYSTEM 32 გათბობის ქვაბი WARMHAUS",
+        "mfr":  null,
+        "country":  null,
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa-system"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101225",
+        "name":  "20190073 CALDAIA POWER EVO-X 80 გათბობის ქვაბი BERETTA",
+        "mfr":  "20190073",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-power-evo-x"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27026 / 27002",
+        "name":  "LAWA PLUS 24 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "LAWA PLUS 24",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  true,
+        "slug":  "warmhaus-lawa-plus"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101024",
+        "name":  "20128433 CALDAIA POWER MAX 100 MTN გათბობის ქვაბი BERETTA",
+        "mfr":  "20128433",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-power-max"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101026",
+        "name":  "20128435 CALDAIA POWER MAX 130 MTN გათბობის ქვაბი BERETTA",
+        "mfr":  "20128435",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-power-max"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101028",
+        "name":  "20128436 CALDAIA POWER MAX 150 MTN გათბობის ქვაბი BERETTA",
+        "mfr":  "20128436",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "beretta-power-max"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27203",
+        "name":  "VIWA 50 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA 50",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa-50-65"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27202",
+        "name":  "VIWA 65 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA 65",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa-50-65"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27201",
+        "name":  "VIWA 90 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA 90",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27206",
+        "name":  "VIWA 115 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA 115",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271095",
+        "name":  "VIWA S 100 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA S 100",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa-s"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271103",
+        "name":  "VIWA S 115 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA S 115",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa-s"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "27213",
+        "name":  "VIWA S 125 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA S 125",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa-s"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "271084",
+        "name":  "VIWA S 150 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA S 150",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa-s"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "",
+        "name":  "VIWA 125 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA 125",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa"
+    },
+    {
+        "brand":  "Warmhaus",
+        "code":  "",
+        "name":  "VIWA 150 გათბობის ქვაბი WARMHAUS",
+        "mfr":  "VIWA 150",
+        "country":  "თურქეთი",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "warmhaus-viwa"
+    }
+]
