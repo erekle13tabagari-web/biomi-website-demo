@@ -8,6 +8,19 @@ $sp   = $PSScriptRoot
 $fams = Get-Content (Join-Path $sp 'vortice-families.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $mods = Get-Content (Join-Path $sp 'vortice-pages.json')    -Raw -Encoding UTF8 | ConvertFrom-Json
 
+# Listing order: biggest first. The range runs from an 85 m3/h bathroom fan to
+# an 18,152 m3/h industrial unit, and airflow is the one measure that spans all
+# of it, so it sorts on each family's highest-rated model.
+#
+# families.json keeps its own order untouched: that file drives generation and
+# model-to-page matching, where sequence is load-bearing -- LINEO QUIET has to
+# be tested before LINEO or every QUIET model lands on the wrong page.
+$ordered = @($fams | Sort-Object -Descending -Property @{ e = {
+  $slug = $_.slug
+  ($mods | Where-Object { $_.slug -eq $slug } | ForEach-Object { [double]$_.airflow } |
+    Measure-Object -Maximum).Maximum
+}})
+
 # page -> listing group and filter facets
 $CAT = @{
   'vortice-me'=@{g='home';t='wall'};         'vortice-mf'=@{g='home';t='wall,ceiling'}
@@ -90,7 +103,7 @@ foreach ($lang in 'ka','en') {
 
   # ------------------------------------------------------------------ the hub
   $cards = @()
-  foreach ($f in $fams) {
+  foreach ($f in $ordered) {
     $name = if ($lang -eq 'ka') { $f.nameKa } else { $f.nameEn }
     $c = $CAT[$f.slug]
     $g = @($mods | Where-Object { $_.slug -eq $f.slug })

@@ -11,6 +11,20 @@
 $repo = Split-Path $PSScriptRoot -Parent
 $prod = Join-Path $repo 'products'
 
+# Lowest boiler output, read from the boiler data rather than typed into the
+# table above: the "from N kW" band label must match the cards, and the cards
+# are generated from this same file.
+$KWMIN = ''
+$bp = Join-Path $repo 'tools\boilers\boilers-pages.json'
+if (Test-Path $bp) {
+  $bm = Get-Content $bp -Raw -Encoding UTF8 | ConvertFrom-Json
+  $vals = @($bm | ForEach-Object {
+    $m = [regex]::Match($_.name, '\b(\d{2,3})\b')
+    if ($m.Success) { [int]$m.Groups[1].Value }
+  } | Where-Object { $_ -gt 0 })
+  if ($vals.Count) { $KWMIN = ($vals | Measure-Object -Minimum).Minimum }
+}
+
 $PAGES = @(
   @{ out='vrf-vrv'; from=@(
        @{ hub='samsung';             brand='samsung';    ka='Samsung';             en='Samsung' },
@@ -51,7 +65,7 @@ $PAGES = @(
      pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან — კედლის და კომერციული სერიები.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus — wall-hung and commercial ranges.'
      # the hub cards carry data-cat="<brand slug>", so the second group would just
      # repeat the brand filter -- output band is the useful second axis here
-     series=@(@('k1','35 kW-მდე','Up to 35 kW'),@('k2','36–99 kW','36–99 kW'),@('k3','100 kW და მეტი','100 kW and above'))
+     series=@(@('k1','{kwmin} kW-დან','From {kwmin} kW'),@('k2','36–99 kW','36–99 kW'),@('k3','100 kW და მეტი','100 kW and above'))
      seriesKa='სიმძლავრე'; seriesEn='Output'; seriesName='kw'
      typeKa='წარმოშობა'; typeEn='Origin'
      types=@(@('it','იტალია','Italy'),@('tr','თურქეთი','Turkey'))
@@ -90,6 +104,7 @@ function FilterGroup($label, $name, $opts, $li) {
   $s = "        <div class=`"pfilter__group`">`r`n          <h4>$label $CARET</h4>`r`n          <div class=`"pfilter__opts`">`r`n"
   foreach ($o in $opts) {
     $txt = if ($li -eq 'ka') { $o[1] } else { $o[2] }
+    if ($KWMIN) { $txt = $txt.Replace('{kwmin}', [string]$KWMIN) }
     # A 5-element option carries a one-line gloss. The series names are trade
     # abbreviations -- DVM, FJM, Mr Slim -- that tell a visitor nothing on their
     # own, so the filter explains itself rather than sending them elsewhere.
