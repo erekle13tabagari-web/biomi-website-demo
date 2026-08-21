@@ -23,6 +23,7 @@ $L = @{
     lblModel='მოდელი'; specs='მახასიათებლები'; cert='სერტიფიკატები'; dl='დოკუმენტაცია'
     thModel='მოდელი'; thCode='კოდი'; thMfr='მწარმოებლის კოდი'; thBrand='ბრენდი'
     thKw='სიმძლავრე'; thCountry='წარმოშობა'; thRange='მოდელების რიგი'
+    thHeat='თბური სიმძლავრე'; thDhw='ცხელი წყალი'; thEff='მარგი ქმედება'; thMod='მოდულაცია'; thNox='NOx კლასი'; dhwUnit='ლ/წთ'
     cta='მოითხოვეთ შეთავაზება'; eyebrowRel='მსგავსი პროდუქტი'; headRel='სხვა სერიები'
     certTxt='CE. სრული სერტიფიცირება მოთხოვნისამებრ.'
     dlTxt='ტექნიკური დოკუმენტაცია მოთხოვნისამებრ — დაგვიკავშირდით კონკრეტული მოდელისთვის.'
@@ -32,12 +33,43 @@ $L = @{
     lblModel='Model'; specs='Specifications'; cert='Certificates'; dl='Documentation'
     thModel='Model'; thCode='Code'; thMfr='Manufacturer code'; thBrand='Brand'
     thKw='Output'; thCountry='Origin'; thRange='Model range'
+    thHeat='Heat output'; thDhw='Hot water'; thEff='Efficiency'; thMod='Modulation'; thNox='NOx class'; dhwUnit='L/min'
     cta='Request a quote'; eyebrowRel='Related products'; headRel='Other ranges'
     certTxt='CE. Full certification available on request.'
     dlTxt='Technical documentation on request — contact us about a specific model.'
     kw='kW'; prev='Previous'; next='Next' }
 }
 $COUNTRY = @{ 'იტალია'=@{ka='იტალია';en='Italy'}; 'თურქეთი'=@{ka='თურქეთი';en='Turkey'} }
+
+# Manufacturer figures, keyed by the chip label. Only Warmhaus publishes any --
+# see the _source note inside specs.json for the exact pages and for why
+# dimensions and weight are absent. A model with no entry simply renders no
+# extra rows, which is why Beretta and Riello pages are unchanged.
+$SPECS = @{}
+$raw = Get-Content (Join-Path $sp 'specs.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+foreach ($pr in $raw.PSObject.Properties) {
+  if ($pr.Name -eq '_source') { continue }
+  $SPECS[$pr.Name] = $pr.Value
+}
+$SPECKEYS = @('heat','dhw','eff','mod','nox')
+function SpecAttrs($name, $t) {
+  $out = ''
+  foreach ($k in $SPECKEYS) {
+    $v = SpecOf $name $k
+    if ($v) {
+      if ($k -eq 'dhw') { $v = "$v $($t.dhwUnit)" }
+      $out += '" data-' + $k + '="' + (HtmlEnc $v)
+    }
+  }
+  return $out
+}
+function SpecOf($name, $key) {
+  $e = $SPECS[$name]
+  if (-not $e) { return '' }
+  $v = $e.$key
+  if (-not $v) { return '' }
+  return $v
+}
 
 function HtmlEnc($s){ if($null -eq $s){return ''}; $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
 # the output is the number in the model name: CITY 24 -> 24, VIWA S 150 -> 150
@@ -91,12 +123,23 @@ foreach ($lang in 'ka','en') {
       $chips += '          <button class="' + $cls + '" type="button" data-model="' + (HtmlEnc (Chip $m.name)) +
                 '" data-code="' + (HtmlEnc $(if($m.code){$m.code}else{'—'})) +
                 '" data-mfr="' + (HtmlEnc $(if($m.mfr){$m.mfr}else{'—'})) +
-                '" data-kw="' + $kwTxt + '" data-country="' + (HtmlEnc $ctry) + $imgAttr + '">' +
+                '" data-kw="' + $kwTxt + '" data-country="' + (HtmlEnc $ctry) + (SpecAttrs (Chip $m.name) $t) + $imgAttr + '">' +
                 (HtmlEnc (Chip $m.name)) + '</button>'
     }
     $first = $g[0]
     $fKw = Kw $first.name; $fKwTxt = if ($fKw) { "$fKw $($t.kw)" } else { '—' }
     $fCtry = if ($first.country -and $COUNTRY[$first.country]) { $COUNTRY[$first.country][$lang] } else { '—' }
+    # One row per published figure, and only where some model on this page has
+    # it: an all-empty row reads as a hole in the datasheet rather than as an
+    # absence of data. Beretta and Riello therefore keep the original table.
+    $LBL = @{ heat=$t.thHeat; dhw=$t.thDhw; eff=$t.thEff; mod=$t.thMod; nox=$t.thNox }
+    $specRows = ''
+    foreach ($k in $SPECKEYS) {
+      if (-not @($g | Where-Object { SpecOf (Chip $_.name) $k }).Count) { continue }
+      $v = SpecOf (Chip $first.name) $k
+      if (-not $v) { $v = '—' } elseif ($k -eq 'dhw') { $v = "$v $($t.dhwUnit)" }
+      $specRows += "`r`n          <tr><th>$($LBL[$k])</th><td data-spec=`"$k`">" + (HtmlEnc $v) + '</td></tr>'
+    }
     $kws = @($g | ForEach-Object { Kw $_.name } | Where-Object { $_ } | ForEach-Object { [int]$_ } | Sort-Object)
     $range = if ($kws.Count -gt 1) { "$($kws[0])–$($kws[-1]) $($t.kw)" } elseif ($kws.Count) { "$($kws[0]) $($t.kw)" } else { '—' }
 
@@ -172,7 +215,7 @@ $finish        <p class="pbuy__desc">$(HtmlEnc $desc)</p>
           <tr><th>$($t.thCode)</th><td data-spec="code">$(HtmlEnc $(if($first.code){$first.code}else{'—'}))</td></tr>
           <tr><th>$($t.thMfr)</th><td data-spec="mfr">$(HtmlEnc $(if($first.mfr){$first.mfr}else{'—'}))</td></tr>
           <tr><th>$($t.thCountry)</th><td data-spec="country">$(HtmlEnc $fCtry)</td></tr>
-          <tr><th>$($t.thRange)</th><td>$range</td></tr>
+          <tr><th>$($t.thRange)</th><td>$range</td></tr>$specRows
         </table>
       </div>
       <div class="ptabs__panel" data-panel="cert"><p style="color:var(--muted)">$($t.certTxt)</p></div>

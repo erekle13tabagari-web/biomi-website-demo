@@ -1,0 +1,177 @@
+﻿[
+    {
+        "brand":  "Beretta",
+        "code":  "101163",
+        "name":  "IDRA BV 200 BERETTA ბოილერი ერთი თბომცვლელით",
+        "mfr":  "20101895",
+        "country":  "იტალია"
+    },
+    {
+        "brand":  "Beretta",
+        "code":  "101164",
+        "name":  "IDRA BV 300 BERETTA ბოილერი ერთი თბომცვლელით",
+        "mfr":  "20101897",
+        "country":  "იტალია"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "1034",
+        "name":  "ბოილერი 7200.200NV RIELLO",
+        "mfr":  "20052377",
+        "country":  "იტალია"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61001",
+        "name":  "OMEGA ESB100 - 100 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB100",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61002",
+        "name":  "OMEGA ESB160 - 160 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB160",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61003",
+        "name":  "OMEGA ESB200 - 200 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB200",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61004",
+        "name":  "OMEGA ESB300 - 300 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB300",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61005",
+        "name":  "OMEGA ESB400 - 400 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB400",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61006",
+        "name":  "OMEGA ESB500 - 500 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB500",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61007",
+        "name":  "OMEGA ESB800 - 800 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB800",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61008",
+        "name":  "OMEGA ESB1000 - 1000 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB1000",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61009",
+        "name":  "OMEGA ESB1500 - 1500 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB1500",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61010",
+        "name":  "OMEGA ESB2000 - 2000 LT ბოილერი ერთი თბომცვლელით",
+        "mfr":  "ESB2000",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61011",
+        "name":  "OMEGA ECSB160 - 160 LT ბოილერი ორი თბომცვლელით",
+        "mfr":  "ECSB160",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61012",
+        "name":  "OMEGA ECSB200 - 200 LT ბოილერი ორი თბომცვლელით",
+        "mfr":  "ECSB200",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61013",
+        "name":  "OMEGA ECSB300 - 300 LT ბოილერი ორი თბომცვლელით",
+        "mfr":  "ECSB300",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61015",
+        "name":  "OMEGA ECSB500 - 500 LT ბოილერი ორი თბომცვლელით",
+        "mfr":  "ECSB500",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61016",
+        "name":  "OMEGA ECSB800 - 800 LT ბოილერი ორი თბომცვლელით",
+        "mfr":  "ECSB800",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61017",
+        "name":  "OMEGA ECSB1000 - 1000 LT ბოილერი ორი თბომცვლელით",
+        "mfr":  "ECSB1000",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61018",
+        "name":  "OMEGA ECSB1500 - 1500 LT ბოილერი ორი თბომცვლელით",
+        "mfr":  "ECSB1500",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61019",
+        "name":  "OMEGA ECSB2000 - 2000 LT ბოილერი ორი თბომცვლელით",
+        "mfr":  "ECSB2000",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61021",
+        "name":  "OMEGA CR-AKM300 – 300 LT ბაკი აკუმულატორი (უჟანგავი ფოლადი)",
+        "mfr":  "CR-AKM300",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61020",
+        "name":  "OMEGA CR-ECSB800 - 800 LT ბოილერი ორი თბომცვლელით (უჟანგავი ფოლადი)",
+        "mfr":  "CR-ECSB800",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61022",
+        "name":  "OMEGA OBF300 – 300 LT ბუფერული ავზი",
+        "mfr":  "OBF300",
+        "country":  "თურქეთი"
+    },
+    {
+        "brand":  "Omega",
+        "code":  "61023",
+        "name":  "OMEGA OBF300 CRN1 – 300 LT ბუფერული ავზი უჟანგავი ფოლადის ფლიანეცი DN80",
+        "mfr":  "OBF300 CRN1",
+        "country":  "თურქეთი"
+    }
+]

@@ -19,9 +19,19 @@ $PAGES = @(
      headKa='Multisplit / VRV / VRF'; headEn='Multisplit / VRV / VRF'
      crumbKa='გაგრილება'; crumbEn='Cooling'
      titleKa='გაგრილება — ბიომი'; titleEn='Cooling — Biomi'
+     ledeKa='ერთი გარე ბლოკი ამარაგებს რამდენიმე შიდა ბლოკს. VRF და VRV სისტემები მაცივარაგენტის ხარჯს თითოეული ოთახის საჭიროებაზე არეგულირებს.'; ledeEn='One outdoor unit serves several indoor units. VRF and VRV systems vary the refrigerant flow to match what each room actually needs.'
      pdescKa='Multisplit, VRV და VRF სისტემები Samsung-ისა და Mitsubishi Electric-ისგან.'; pdescEn='Multisplit, VRV and VRF systems from Samsung and Mitsubishi Electric.'
-     series=@(@('dvm','DVM','DVM'),@('cac','CAC','CAC'),@('fjm','FJM','FJM'),
-              @('m-series','M Series','M Series'),@('mr-slim','Mr Slim','Mr Slim'),@('citymulti','City Multi','City Multi'))
+     # Every one of these is a manufacturer's trade name, so the gloss says what
+     # the range actually is, plus the expansion where the initials stand for
+     # something. Checked against samsung.com and mitsubishielectric.com rather
+     # than written from memory.
+     series=@(
+       @('dvm','DVM','DVM','Digital Variable Multi · Samsung-ის VRF',"Digital Variable Multi · Samsung VRF"),
+       @('cac','CAC','CAC','Commercial Air Conditioner · Samsung',"Commercial Air Conditioner · Samsung"),
+       @('fjm','FJM','FJM','Free Joint Multi · Samsung',"Free Joint Multi · Samsung"),
+       @('m-series','M Series','M Series','Mitsubishi Electric · საყოფაცხოვრებო',"Mitsubishi Electric · residential"),
+       @('mr-slim','Mr Slim','Mr Slim','Mitsubishi Electric · კომერციული',"Mitsubishi Electric · light commercial"),
+       @('citymulti','City Multi','City Multi','Mitsubishi Electric · VRF',"Mitsubishi Electric · VRF"))
      seriesKa='სერია'; seriesEn='Series'
      typeKa='ტიპი'; typeEn='Type'
      types=@(@('wall','კედლის','Wall'),@('cassette','კასეტური','Cassette'),@('duct','არხული','Duct'),
@@ -37,6 +47,7 @@ $PAGES = @(
      headKa='გათბობის ქვაბი'; headEn='Heating boilers'
      crumbKa='ქვაბი'; crumbEn='Boilers'
      titleKa='გათბობის ქვაბი — ბიომი'; titleEn='Heating boilers — Biomi'
+     ledeKa='გაზის ქვაბები ბინის, კერძო სახლისა და კომერციული ობიექტისთვის — კედლის და კასკადური სერიები.'; ledeEn='Gas boilers for flats, private houses and commercial buildings - wall-hung and cascade ranges.'
      pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან — კედლის და კომერციული სერიები.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus — wall-hung and commercial ranges.'
      # the hub cards carry data-cat="<brand slug>", so the second group would just
      # repeat the brand filter -- output band is the useful second axis here
@@ -52,6 +63,7 @@ $PAGES = @(
      headKa='სავენტილაციო სისტემები'; headEn='Ventilation systems'
      crumbKa='ვენტილაცია'; crumbEn='Ventilation'
      titleKa='ვენტილაცია — ბიომი'; titleEn='Ventilation — Biomi'
+     ledeKa='აბაზანის, არხული და სამრეწველო ვენტილატორები, აგრეთვე რეკუპერაციის სისტემები.'; ledeEn='Bathroom, in-line and commercial fans, plus heat-recovery units.'
      pdescKa='სავენტილაციო სისტემები და ტექნიკა Vortice-ისგან.'; pdescEn='Ventilation systems and equipment from Vortice.'
      series=@(@('home','საყოფაცხოვრებო','Residential'),@('duct','არხული','In-line'),
               @('ind','სამრეწველო','Commercial'),@('hrv','რეკუპერაცია','Heat recovery'))
@@ -78,7 +90,16 @@ function FilterGroup($label, $name, $opts, $li) {
   $s = "        <div class=`"pfilter__group`">`r`n          <h4>$label $CARET</h4>`r`n          <div class=`"pfilter__opts`">`r`n"
   foreach ($o in $opts) {
     $txt = if ($li -eq 'ka') { $o[1] } else { $o[2] }
-    $s += "            <label><input type=`"checkbox`" name=`"$name`" value=`"$($o[0])`">$txt</label>`r`n"
+    # A 5-element option carries a one-line gloss. The series names are trade
+    # abbreviations -- DVM, FJM, Mr Slim -- that tell a visitor nothing on their
+    # own, so the filter explains itself rather than sending them elsewhere.
+    $hint = ''
+    if (@($o).Count -ge 5) { $hint = if ($li -eq 'ka') { $o[3] } else { $o[4] } }
+    if ($hint) {
+      $s += "            <label class=`"has-hint`"><input type=`"checkbox`" name=`"$name`" value=`"$($o[0])`"><span class=`"opt`">$txt<small>$hint</small></span></label>`r`n"
+    } else {
+      $s += "            <label><input type=`"checkbox`" name=`"$name`" value=`"$($o[0])`">$txt</label>`r`n"
+    }
   }
   return $s + "          </div>`r`n        </div>`r`n"
 }
@@ -112,6 +133,11 @@ foreach ($p in $PAGES) {
     $head = if ($lang -eq 'ka') { $p.headKa } else { $p.headEn }
     $eyebrow = if ($lang -eq 'ka') { $p.eyebrowKa } else { $p.eyebrowEn }
     $crumb = if ($lang -eq 'ka') { $p.crumbKa } else { $p.crumbEn }
+    # The lede sits inside the heading block, so it is built with the markup
+    # rather than passed in empty: a page without one must emit no <p> at all.
+    $ledeTxt = if ($lang -eq 'ka') { $p.ledeKa } else { $p.ledeEn }
+    $lede = ''
+    if ($ledeTxt) { $lede = "`r`n      <p class=`"page-lede`">" + $ledeTxt + "</p>" }
     $seriesLbl = if ($lang -eq 'ka') { $p.seriesKa } else { $p.seriesEn }
     $typeLbl = if ($lang -eq 'ka') { $p.typeKa } else { $p.typeEn }
     $extraLbl = if ($lang -eq 'ka') { $p.extraKa } else { $p.extraEn }
@@ -127,7 +153,7 @@ foreach ($p in $PAGES) {
     </nav>
     <div class="section__head" style="margin-bottom:0">
       <span class="eyebrow">$eyebrow</span>
-      <h2>$head</h2>
+      <h2>$head</h2>$lede
     </div>
   </div>
 </section>

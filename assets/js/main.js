@@ -542,6 +542,75 @@
     sync();
   });
 
+
+
+  /* ---- About section: collapse the copy on phones ----
+     The section is the second tallest on the homepage and the two paragraphs
+     are a third of its height. Rather than cut any of the text it collapses to
+     roughly six lines behind a toggle. Progressive enhancement on purpose: the
+     wrapper and button are built here, so with JS off the full copy shows. The
+     button only appears when the copy actually overflows, which keeps it away
+     from wide viewports and from shorter translations. */
+  (function () {
+    var text = document.querySelector('.about__text');
+    if (!text) return;
+    var ps = Array.prototype.slice.call(text.querySelectorAll(':scope > p'));
+    if (ps.length < 2) return;
+
+    var copy = document.createElement('div');
+    copy.className = 'about__copy';
+    ps[0].parentNode.insertBefore(copy, ps[0]);
+    ps.forEach(function (p) { copy.appendChild(p); });
+
+    var en = (document.documentElement.lang || 'ka').indexOf('en') === 0;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'about__more';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', 'about-copy');
+    copy.id = 'about-copy';
+    var LESS = en ? 'Show less' : 'ნაკლების ჩვენება';
+    var MORE = en ? 'Show more' : 'მეტის ჩვენება';
+    btn.textContent = MORE;
+    copy.parentNode.insertBefore(btn, copy.nextSibling);
+
+    btn.addEventListener('click', function () {
+      var open = copy.classList.toggle('is-open');
+      btn.textContent = open ? LESS : MORE;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    function sync() {
+      // clipped only where the CSS clamp applies, so ask the layout rather than
+      // duplicating the breakpoint here
+      var clamped = copy.scrollHeight - copy.clientHeight > 4;
+      btn.hidden = !clamped && !copy.classList.contains('is-open');
+    }
+    window.addEventListener('resize', sync);
+    sync();
+  })();
+
+  /* ---- Horizontal strips: fade whichever edge still has content beyond it ----
+     A permanent fade on both sides (the treatment the logo marquee uses) would
+     dim the first and last thumbnail even when there is nothing past them, so
+     the state is driven from the scroll position instead. No overflow means
+     neither class is set and the strip renders unmasked. */
+  document.querySelectorAll('.gallery,.prod-grid,.news-grid,.proj-grid').forEach(function (g) {
+    g.classList.add('edgefade');
+    function update() {
+      var over = g.scrollWidth - g.clientWidth;
+      g.classList.toggle('has-left', over > 2 && g.scrollLeft > 2);
+      g.classList.toggle('has-right', over > 2 && g.scrollLeft < over - 2);
+    }
+    g.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    // images arrive after layout, so re-measure once they have decoded
+    g.querySelectorAll('img').forEach(function (im) {
+      if (!im.complete) im.addEventListener('load', update, { once: true });
+    });
+    update();
+  });
+
   /* ---- Image lightbox with prev/next (grouped per gallery) ---- */
   /* Product pages drive this from their .pgal gallery rather than [data-lightbox]
      markup: those thumbs already own a click handler that swaps the main image,
@@ -555,7 +624,12 @@
     // group images by their container so arrows cycle within one gallery
     var groups = [];
     all.forEach(function (im) {
-      var parent = im.parentElement;
+      // Group per article, not per container. The hero sits in <figure
+      // class="article__img"> and the rest in <div class="gallery">, so keying
+      // on parentElement made the hero a group of one -- open it and the arrows
+      // had nowhere to go. Anything outside an .article still groups by its own
+      // container.
+      var parent = im.closest('.article') || im.parentElement;
       var g = null;
       for (var i = 0; i < groups.length; i++) { if (groups[i].parent === parent) { g = groups[i]; break; } }
       if (!g) { g = { parent: parent, items: [] }; groups.push(g); }
@@ -664,6 +738,50 @@
      parent height is recomputed from its rows rather than measured, because at
      the moment of the click this panel is at t=0 of its own transition and
      still reports zero. */
+  /* Three levels of disclosure now: the Products accordion, the chapters inside
+     it, and each subsection's brand list. Every level animates max-height in
+     pixels, so a parent's height has to be computed from its children's natural
+     sizes rather than read back off the DOM -- an element mid-transition reports
+     its current clipped height, which is what made the chapter collapse the
+     first time a nested menu was added to the desktop nav. scrollHeight is safe
+     on a *panel* (it measures content, not the clipped box) but not on an
+     ancestor whose child is still animating. */
+  function itmPanelHeight(panel) {
+    var h = 0;
+    Array.prototype.forEach.call(panel.children, function (c) {
+      if (c.classList.contains('m-itm')) {
+        var head = c.querySelector('.m-itm__head');
+        var sub = c.querySelector('.m-itm__panel');
+        if (head) h += head.offsetHeight;
+        if (sub && c.classList.contains('open')) h += sub.scrollHeight;
+      } else {
+        h += c.offsetHeight;
+      }
+    });
+    return h;
+  }
+  function acctHeight(outer) {
+    var h = 0;
+    Array.prototype.forEach.call(outer.children, function (el) {
+      var b = el.querySelector('.m-sec__btn');
+      var p = el.querySelector('.m-sec__panel');
+      if (b) { h += b.offsetHeight; if (p && el.classList.contains('open')) h += itmPanelHeight(p); }
+      else { h += el.offsetHeight; }
+    });
+    return h;
+  }
+  function regrow(node) {
+    var sec = node.closest ? node.closest('.m-sec') : null;
+    if (sec && sec.classList.contains('open')) {
+      var p = sec.querySelector('.m-sec__panel');
+      if (p) p.style.maxHeight = itmPanelHeight(p) + 'px';
+    }
+    var outer = node.closest ? node.closest('.m-acc__panel') : null;
+    if (outer && outer.style.maxHeight && outer.style.maxHeight !== '0px') {
+      outer.style.maxHeight = acctHeight(outer) + 'px';
+    }
+  }
+
   document.querySelectorAll('.m-sec').forEach(function (sec) {
     var btn = sec.querySelector('.m-sec__btn');
     var panel = sec.querySelector('.m-sec__panel');
@@ -671,17 +789,25 @@
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       var open = sec.classList.toggle('open');
-      panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0';
+      panel.style.maxHeight = open ? itmPanelHeight(panel) + 'px' : '0';
       var outer = sec.closest('.m-acc__panel');
-      if (!outer) return;
-      var h = 0;
-      Array.prototype.forEach.call(outer.children, function (el) {
-        var b = el.querySelector('.m-sec__btn');
-        var p = el.querySelector('.m-sec__panel');
-        if (b) { h += b.offsetHeight; if (p && el.classList.contains('open')) h += p.scrollHeight; }
-        else { h += el.offsetHeight; }
-      });
-      outer.style.maxHeight = h + 'px';
+      if (outer) outer.style.maxHeight = acctHeight(outer) + 'px';
+    });
+  });
+
+  /* A subsection's brand list. The caret is its own control -- tapping the
+     label still navigates to the category. */
+  document.querySelectorAll('.m-itm__btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var itm = btn.closest('.m-itm');
+      var panel = itm.querySelector('.m-itm__panel');
+      if (!panel) return;
+      var open = itm.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0';
+      regrow(itm);
     });
   });
 
@@ -918,6 +1044,28 @@
       apply();
     });
     list.querySelectorAll('.pfilter__group h4').forEach(function (h) { h.addEventListener('click', function () { h.parentElement.classList.toggle('closed'); }); });
+
+    /* ---- Pre-tick filter boxes from the URL ----
+       There are no brand landing pages any more: the product menu points
+       straight at the category listing with ?brand=vortice, which is the same
+       page with one box already ticked. Matching is by checkbox name, not a
+       hardcoded list of brands, so ?brand=riello&type=wall works too and any
+       filter group added later is supported without touching this. */
+    var qs = window.location.search.replace(/^\?/, '');
+    if (qs) {
+      var want = {};
+      qs.split('&').forEach(function (pair) {
+        var eq = pair.indexOf('=');
+        if (eq < 1) return;
+        var k = decodeURIComponent(pair.slice(0, eq));
+        decodeURIComponent(pair.slice(eq + 1).replace(/\+/g, ' ')).split(',').forEach(function (v) {
+          (want[k] = want[k] || []).push(v.trim().toLowerCase());
+        });
+      });
+      checks.forEach(function (c) {
+        if (want[c.name] && want[c.name].indexOf(c.value.toLowerCase()) >= 0) c.checked = true;
+      });
+    }
 
     /* ---- Phone: collapse the filter behind a toggle ----
        Stacked on a phone the sidebar puts a wall of checkboxes above the grid.

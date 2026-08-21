@@ -52,8 +52,9 @@
   --line:#e7e6ea;
   --bg:#ffffff;
   --surface:#ffffff;    /* cards, panels, inputs — anything raised off --bg */
-  --bg-soft:#f4eef6;    /* Felamushi tint — soft section backgrounds */
-  --cream:#eadef0;      /* Felamushi light — stronger accent surfaces */
+  --bg-soft:#f1f4fc;     /* soft section backgrounds */
+  --deco:#85519a;        /* brand ring decoration: the counterpoint accent */
+  --cream:#e6ecfb;      /* Felamushi light — stronger accent surfaces */
 
   --container:1240px;
   --radius:14px;
@@ -90,6 +91,7 @@
   --bg:#0d0d1a;
   --surface:#1b1b33;
   --bg-soft:#16162c;
+  --deco:#0249f7;      /* rings go blue on dark, opposite the text accent */
   --cream:#23233f;
   --gray-300:#3a3b57;
   /* Dark mode is purple throughout — accents, solid buttons and the floating
@@ -154,16 +156,47 @@
 .m-sec{border-top:1px solid var(--line)}
 .m-sec:first-child{border-top:0}
 .m-sec__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
-  padding:11px 2px;font-size:15px;font-weight:600;color:var(--purple);text-align:left;
+  padding:11px 2px;font-size:15px;font-weight:600;color:var(--gold-600);text-align:left;
   text-transform:uppercase;letter-spacing:.02em}
 .m-sec__btn svg{width:15px;height:15px;flex:none;opacity:.65;transition:transform .3s}
 .m-sec.open .m-sec__btn svg{transform:rotate(180deg)}
 .m-sec__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
+/* Subsection rows inside a drawer chapter. The label is a link to the category
+   and the chevron beside it only opens that category's brand list -- two
+   separate targets in one row, which is why the caret is a real <button> rather
+   than the whole row being a toggle. Bold rather than blue -- the chapter above
+   is the blue one, and three coloured levels flattened the hierarchy. */
+.m-itm__head{display:flex;align-items:center;gap:6px}
+.m-acc__panel .m-itm__head > a{flex:1;min-width:0;font-weight:600;color:var(--ink)}
+.m-itm__btn{flex:none;width:36px;height:36px;display:grid;place-items:center;
+  color:inherit;background:none;border:0;cursor:pointer}
+.m-itm__btn svg{width:15px;height:15px;opacity:.7;transition:transform .3s}
+.m-itm.open .m-itm__btn svg{transform:rotate(180deg)}
+.m-itm__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
+/* items with no brands to expand match, so the list reads as one set */
+.m-acc__panel .m-sec__panel > a{font-weight:600;color:var(--ink)}
 
 :root[data-theme="dark"] .m-acc__panel a{color:var(--body)}
 :root[data-theme="dark"] .m-acc__panel a.m-sub{opacity:1}
 :root[data-theme="dark"] .logos img{filter:brightness(0) invert(1);opacity:.5}
-:root[data-theme="dark"] .logos img:hover{filter:brightness(0) invert(1);opacity:.9}
+/* Dark-mode hover: the real brand colours, unfiltered wherever possible.
+   Most of these marks are saturated enough to read on the dark page, so they
+   get filter:none and their exact colours. Only the three drawn in near-black
+   (#010101) need help, and they are handled individually below -- applying the
+   invert trick to all seven muted the ones that never needed it, because CSS
+   hue-rotate is a matrix approximation that desaturates as a side effect. */
+:root[data-theme="dark"] .logos img:hover{filter:none;opacity:1}
+/* Samsung is pure greyscale, so a straight invert is exact -- no hue to lose. */
+:root[data-theme="dark"] .logos img[src*="samsung"]:hover{filter:invert(1)}
+/* Mitsubishi ships a proper dark-mode asset -- white wordmark, true #EB2627
+   red -- so hover swaps to it rather than approximating with a filter. Its
+   viewBox matches the light file (279x80.9), so nothing shifts. This is the
+   better fix wherever a real dark variant exists; a filter is the fallback. */
+:root[data-theme="dark"] .logos img[src*="mitsubishi"]:hover{
+  filter:none;content:url("../img/partners/mitsubishi-electric-dark.svg")}
+/* Warmhaus has no dark asset in assets/, so it keeps the lightness flip: black
+   wordmark to white, orange mark approximately preserved. */
+:root[data-theme="dark"] .logos img[src*="warmhaus"]:hover{filter:invert(1) hue-rotate(180deg)}
 /* photo tiles: keep the light backdrop, tone down the surrounding chrome */
 :root[data-theme="dark"] .pgal__main,
 /* :not(.active) — this rule outranks .pgal__thumbs img.active on specificity,
@@ -272,9 +305,9 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 }
 .dropdown::before{content:"";position:absolute;top:-10px;left:0;right:0;height:10px}
 .nav__item:hover .dropdown{opacity:1;visibility:visible;transform:translate(-50%,0)}
-.dropdown a{display:block;padding:9px 13px;border-radius:8px;color:var(--purple);font-weight:500;font-size:15px;transition:.18s}
-.dropdown a:hover{background:var(--bg-soft);color:var(--purple-600)}
-/* products chapter links stay ink (chapter titles carry the purple) */
+.dropdown a{display:block;padding:9px 13px;border-radius:8px;color:var(--gold-600);font-weight:500;font-size:15px;transition:.18s}
+.dropdown a:hover{background:var(--bg-soft);color:var(--gold)}
+/* products chapter links stay ink (chapter titles carry the accent) */
 .prod-menu__panel a{color:var(--ink);font-weight:400}
 .prod-menu__panel a:hover{color:var(--gold-600)}
 /* products dropdown — chapters first, click to expand */
@@ -282,7 +315,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .prod-menu__chapter{border-bottom:1px solid var(--line)}
 .prod-menu__chapter:last-child{border-bottom:0}
 .prod-menu__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
-  padding:12px 13px;font-size:14.5px;font-weight:600;letter-spacing:.02em;color:var(--purple);
+  padding:12px 13px;font-size:14.5px;font-weight:600;letter-spacing:.02em;color:var(--gold-600);
   text-align:left;border-radius:8px;transition:background .2s;text-transform:uppercase}
 .prod-menu__btn:hover{background:var(--bg-soft)}
 .prod-menu__btn svg{width:15px;height:15px;flex:none;opacity:.65;transition:transform .3s}
@@ -306,6 +339,13 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .prod-sub.open .prod-sub__toggle svg{transform:rotate(180deg)}
 .prod-sub__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
 .prod-menu__panel .prod-sub__panel a{padding-left:38px}
+/* Subsection labels carry weight on the desktop menu too, matching the drawer:
+   chapter = blue uppercase, subsection = bold ink, brand = light. Scoped
+   through .prod-menu__panel because the plain `.prod-menu__panel a` rule above
+   sets weight 400 and would otherwise win on source order. Brand links sit
+   deeper than the `> a` selector, so they keep their lighter weight. */
+.prod-menu__panel > a,
+.prod-menu__panel .prod-sub__btn{font-weight:600}
 
 /* tools */
 .nav__tools{display:flex;align-items:center;gap:8px;margin-left:6px}
@@ -425,7 +465,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .news__date{position:absolute;left:14px;top:14px;background:#fff;color:var(--navy);
   font-size:12px;font-weight:500;padding:6px 11px;border-radius:4px}
 .news__body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1}
-.news__cat{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--purple);font-weight:600}
+.news__cat{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-600);font-weight:600}
 .news h3{font-size:18.5px;font-weight:500}
 .news__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:8px}
 .news__share{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:8px;
@@ -603,7 +643,27 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .proj__logo{flex:none;display:inline-flex;align-items:center;justify-content:center;
   min-width:56px;height:48px;padding:0 14px;border-radius:10px;background:rgba(255,255,255,.95);
   color:var(--navy);font-weight:700;font-size:16px;box-shadow:0 6px 18px rgba(0,0,0,.28)}
-.proj__logo img{max-height:30px;max-width:140px;width:auto;height:auto;display:block}
+.proj__logo img{height:30px;max-width:140px;width:auto;display:block;flex:none}
+
+/* Project card logo: pinned to the card's top-left rather than sharing a row
+   with the title. As a flex:none sibling of the title it was pushed past the
+   card edge whenever the name was long -- SDSU overflowed by 111px, Terminal by
+   50px, the Agrarian University by 30px on a 278px card. Absolute placement
+   removes it from that row entirely, so the title gets the full width and the
+   chip can never be displaced. Scoped to .proj so the same chip stays inline in
+   the project page's .article__topmeta, where it fits. */
+/* Client logo beside the breadcrumb. Sized here rather than inline because the
+   logo needs room inside the chip: several of these marks carry their own frame
+   -- Terminal's artwork is literally a rectangle with the wordmark inside it --
+   and a logo as tall as its chip leaves the pill's rounded edge cutting across
+   that frame. 20px inside 34px gives 7px of clearance top and bottom. */
+.article__topmeta .proj__logo{height:34px;min-width:0;padding:0 12px}
+.article__topmeta .proj__logo img{height:20px;max-width:150px}
+.proj .proj__logo{position:absolute;top:18px;left:18px;z-index:2;
+  height:auto;min-width:0;padding:7px 11px;max-width:calc(100% - 36px)}
+/* object-fit keeps the aspect ratio if a future logo is wide enough for
+   max-width to bite -- with a fixed height it would otherwise stretch. */
+.proj .proj__logo img{height:22px;max-width:100%;object-fit:contain}
 
 /* =========================================================================
    CONTACT strip
@@ -668,7 +728,9 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    ========================================================================= */
 .footer{background:var(--navy);color:rgba(255,255,255,.72);padding:70px 0 26px;position:relative;overflow:hidden}
 .footer .brand{color:#fff;margin-bottom:18px}
-.footer__grid{display:grid;grid-template-columns:1.4fr .9fr .9fr 1.1fr 1.25fr;gap:40px}
+/* six columns since Legal joined: brand, map, navigation, products, contact,
+   legal. Legal holds one short link so it takes the narrowest track. */
+.footer__grid{display:grid;grid-template-columns:1.25fr .85fr .85fr 1fr 1.1fr .8fr;gap:36px}
 .footer__about{font-size:15px;max-width:300px}
 .footer__social{display:flex;gap:10px;margin-top:22px}
 .footer__social a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
@@ -719,6 +781,16 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .fab .fab__social a{width:42px;height:42px;background:transparent;color:var(--gold);box-shadow:none}
 .fab .fab__social a:hover{background:var(--bg-soft);transform:none}
 .fab__social svg{width:23px;height:23px}
+/* Dark mode for the social capsule. The light-mode recipe is a 40% *white*
+   fill with a white hairline and a dark drop shadow -- on a dark page that
+   reads as a pale slab rather than glass, and the --gold glyphs (#86529b in
+   dark) sit on it with poor contrast. Glass needs to be tinted toward the
+   surface it floats over, so here the fill goes dark and translucent, the
+   hairline goes light, and the shadow deepens. */
+:root[data-theme="dark"] .fab__social{background:rgba(20,20,40,.55);
+  border-color:rgba(255,255,255,.16);box-shadow:0 8px 26px rgba(0,0,0,.5)}
+:root[data-theme="dark"] .fab .fab__social a{color:var(--gold-200)}
+:root[data-theme="dark"] .fab .fab__social a:hover{background:rgba(255,255,255,.1)}
 .fab .fab__top svg{width:22px;height:22px}
 .fab .fab__top.show{opacity:1;visibility:visible;transform:none}
 
@@ -745,7 +817,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .m-acc__panel{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
 .m-acc__panel a{padding:11px 16px;font-size:15px;color:var(--muted)}
 .m-acc__panel a.m-sub{padding-left:34px;font-size:14px;opacity:.85}
-.m-acc__group{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);
+.m-acc__group{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-600);
   padding:12px 16px 4px;font-weight:700}
 .drawer__foot{margin-top:auto;padding-top:24px;display:flex;flex-direction:column;gap:14px}
 .drawer__langs{display:flex;gap:8px}
@@ -785,6 +857,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .proj--3 .proj__img{background-image:url('../img/proj-sdsu.jpg')}
 .proj--4 .proj__img{background-image:url('../img/proj-agrarian.jpg')}
 .proj--5 .proj__img{background-image:url('../img/proj-pasha.jpg')}
+.proj--6 .proj__img{background-image:url('../img/proj-terminal.jpg')}
 
 /* ---- Decorative brand rings (new identity: thick circle motif) ---- */
 .deco{position:absolute;z-index:0;pointer-events:none}
@@ -870,8 +943,36 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 }
 
 /* ---- article image gallery + lightbox ---- */
-.gallery{display:flex;gap:12px;margin:14px 0 8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
-.gallery img{flex:0 0 auto;height:88px;width:132px;object-fit:cover;border-radius:10px;
+/* Gallery strip: themed drag bar, and edges that fade rather than cut.
+   The native scrollbar was default chrome grey and read as browser furniture
+   sitting under the card. The homepage rails hide it outright and use arrows,
+   but a thumbnail strip is short enough that a visible drag affordance earns
+   its keep -- so it is styled to match instead of removed. */
+.gallery{display:flex;gap:12px;margin:14px 0 8px;overflow-x:auto;padding-bottom:8px;
+  scrollbar-width:thin;scrollbar-color:var(--gold-600) transparent}
+/* The drag bar is styled with the standard properties only. ::-webkit-scrollbar
+   and friends are inert in current Chromium once scrollbar-width is in play --
+   even display:none on them leaves the bar's reserved height untouched -- so the
+   arrow buttons the platform draws at each end cannot be styled away. The only
+   way to remove them is scrollbar-width:none, which takes the whole bar with it.
+   Colour note: this was --gold-200, which is #8ba4fb in light mode and read as
+   washed out on white; --gold-600 is solid in both themes. */
+/* Edge fade for any horizontally scrolling strip -- the thumbnail galleries and
+   the product/news/project rails. main.js adds .edgefade and keeps has-left /
+   has-right in step with the scroll position, so only the side that still has
+   content beyond it fades and a strip that does not overflow never fades. */
+.edgefade{--fade:linear-gradient(#000,#000);-webkit-mask-image:var(--fade);mask-image:var(--fade)}
+.edgefade.has-left.has-right{--fade:linear-gradient(90deg,transparent 0,#000 36px,#000 calc(100% - 36px),transparent 100%)}
+.edgefade.has-right:not(.has-left){--fade:linear-gradient(90deg,#000 calc(100% - 36px),transparent 100%)}
+.edgefade.has-left:not(.has-right){--fade:linear-gradient(90deg,transparent 0,#000 36px)}
+/* The thumbnail strip is the only one with a visible drag bar, so it unions a
+   second layer that keeps the bottom 10px opaque and the bar solid end to end.
+   The rails must NOT have this -- they hide their scrollbar, and the strip would
+   leave the bottom of the outermost cards stubbornly unfaded. */
+.gallery.edgefade{
+  -webkit-mask-image:var(--fade),linear-gradient(180deg,transparent calc(100% - 16px),#000 calc(100% - 16px));
+  mask-image:var(--fade),linear-gradient(180deg,transparent calc(100% - 16px),#000 calc(100% - 16px));
+  -webkit-mask-composite:source-over;mask-composite:add}.gallery img{flex:0 0 auto;height:88px;width:132px;object-fit:cover;border-radius:10px;
   border:1px solid var(--line);cursor:zoom-in;transition:transform .2s,box-shadow .2s}
 .gallery img:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:var(--gold-200)}
 .lightbox{position:fixed;inset:0;z-index:200;background:rgba(15,15,30,.92);
@@ -923,6 +1024,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    boiler brands arrived. */
 .pcard__brand img{height:16px}
 .pcard__brand img[src*="samsung"]{height:14px}
+.pcard__brand img[src*="omega"]{height:18px}   /* 308x79 viewBox - wide, so it sits at the Beretta height */
 .pcard__brand img[src*="mitsubishi"]{height:21px}
 .pcard__brand img[src*="beretta"]{height:18px}
 .pcard__brand img[src*="riello"]{height:22px}
@@ -979,6 +1081,23 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   .pfeat-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:680px){
+  /* About on phones. The section ran 1341px -- 1.7 screens on a 375px viewport
+     -- with the numbers row stacking into three rows at 40px type, a 5:4 photo,
+     and 449px of copy. Condensed without dropping a word: the numbers go
+     3-across, the photo takes a wider crop, and the copy collapses behind a
+     toggle (added in main.js, and only when it actually overflows). */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+  .stat b{font-size:25px}
+  .stat span{font-size:12.5px;line-height:1.3}
+  .about__visual{aspect-ratio:16/10}
+  .about__text p:first-of-type{font-size:17px}
+  .about__cta{margin-top:24px}
+  .about__copy{overflow:hidden}
+  .about__copy:not(.is-open){max-height:11.5em;
+    -webkit-mask-image:linear-gradient(#000 68%,transparent);
+    mask-image:linear-gradient(#000 68%,transparent)}
+  .about__more{margin-top:4px;font-size:15px;font-weight:600;color:var(--gold-600);
+    background:none;border:0;padding:0;cursor:pointer}
   .pfeat-grid{grid-template-columns:1fr}
 }
 
@@ -1144,6 +1263,20 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .pfilter__opts{padding-top:10px}
 .pfilter__opts label{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px;color:var(--muted);cursor:pointer}
 .pfilter__opts input{width:16px;height:16px;accent-color:var(--gold)}
+
+/* A filter option that carries a one-line explanation. Trade abbreviations
+   (DVM, FJM, Mr Slim) mean nothing to a visitor, so the gloss sits under the
+   label instead of behind a tooltip. The checkbox aligns to the first line
+   rather than to the middle of a two-line block, hence the separate class --
+   plain options keep their vertical centring. */
+.pfilter__opts label.has-hint{align-items:flex-start}
+.pfilter__opts label.has-hint input{margin-top:2px;flex:0 0 auto}
+.pfilter__opts .opt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pfilter__opts .opt small{font-size:12px;line-height:1.35;opacity:.68}
+
+/* one-line explainer under a category page title */
+/* size and colour come from .section__head p, which this always sits inside */
+.page-lede{margin:10px 0 0;max-width:66ch}
 
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:20px}
 .pgrid__empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--muted)}
@@ -1405,3 +1538,55 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .gallery__vid .play-badge{width:44px;height:31px;border-radius:9px}
 .gallery__vid .play-badge svg{width:17px;height:17px}
 .gallery__vid:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:var(--gold-200)}
+
+/* project video: 16:9 embed matching the article figure treatment */
+.article__video{position:relative;aspect-ratio:16/9;margin:26px 0;border-radius:14px;overflow:hidden;background:#000}
+.article__video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+
+/* Project headings carry a descriptor after the name. It reads as a subtitle
+   rather than part of the title, so it drops to lead size on its own line and
+   the em dash that used to separate them is no longer needed. */
+.article h1 .article__sub{display:block;margin-top:10px;font-size:clamp(16px,1.6vw,20px);
+  font-weight:500;line-height:1.4;color:var(--muted)}
+
+/* =========================================================================
+   BRAND RING DECORATION
+   Purple in light, blue in dark -- deliberately the inverse of the text accent,
+   so the decoration reads as a counterpoint instead of competing with links.
+
+   Drawn with a border rather than brand-ring-*.svg: those two files carry a
+   hard-coded stroke (#0249f7 / #85519a) and cannot follow a theme. A border
+   circle needs no asset and takes the token directly. The footer's existing
+   <img> rings stay in the markup -- 164 pages carry them -- and are swapped by
+   file per theme instead.
+
+   Every decorated section gets overflow:hidden so a ring hanging off the edge
+   cannot widen the page, and its .container is raised above the ring: a
+   positioned element with z-index:0 otherwise paints over in-flow content.
+   ========================================================================= */
+.deco--ring1 img,.deco--ring2 img{content:url('../img/brand-ring-purple.svg')}
+:root[data-theme="dark"] .deco--ring1 img,
+:root[data-theme="dark"] .deco--ring2 img{content:url('../img/brand-ring-blue.svg')}
+
+#about,#services,#projects,.page-hero{position:relative;overflow:hidden}
+#about > .container,#services > .container,#projects > .container,
+.page-hero > .container{position:relative;z-index:1}
+
+#about::before,#services::after,#projects::before,.page-hero::after{
+  content:'';position:absolute;z-index:0;pointer-events:none;
+  border-radius:50%;border-style:solid;border-color:var(--deco);opacity:.24}
+/* sizes follow the SVG's proportions -- its stroke is 12% of the diameter.
+   Offsets grow with the radius so each ring keeps roughly the same slice
+   showing; scaling the circle without moving it just crowds the copy. */
+#about::before{width:470px;height:470px;border-width:56px;left:-200px;bottom:-210px}
+#services::after{width:400px;height:400px;border-width:48px;right:-165px;top:-140px}
+#projects::before{width:540px;height:540px;border-width:65px;right:-235px;bottom:-250px}
+.page-hero::after{width:430px;height:430px;border-width:52px;right:-190px;top:-180px}
+@media (max-width:680px){
+  /* smaller and further out on phones, where a full-size ring crowds the copy */
+  #about::before,#services::after,#projects::before,.page-hero::after{opacity:.18}
+  #about::before{width:310px;height:310px;border-width:37px;left:-145px}
+  #services::after{width:275px;height:275px;border-width:33px;right:-125px}
+  #projects::before{width:340px;height:340px;border-width:41px;right:-155px}
+  .page-hero::after{width:290px;height:290px;border-width:35px;right:-130px}
+}

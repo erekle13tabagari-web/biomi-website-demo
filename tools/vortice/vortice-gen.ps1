@@ -229,7 +229,7 @@ foreach ($lang in 'ka','en') {
       <a href="../index.html">$($t.home)</a><span class="sep">/</span>
       <a href="../index.html#products">$($t.products)</a><span class="sep">/</span>
       <a href="ventilation$($t.file)">$($t.vent)</a><span class="sep">/</span>
-      <a href="vortice$($t.file)">Vortice</a><span class="sep">/</span>
+      <a href="ventilation$($t.file)?brand=vortice">Vortice</a><span class="sep">/</span>
       <b>$(HtmlEnc $short)</b>
     </nav>
     <div class="pdetail">
