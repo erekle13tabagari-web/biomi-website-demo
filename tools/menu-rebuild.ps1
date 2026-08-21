@@ -43,7 +43,15 @@ foreach ($f in $files) {
   elseif ($dir -eq (Join-Path $repo 'products')) { $P = '';    $A = '../index.html#products' }
   else                                 { $P = '../products/'; $A = '../index.html#products' }
   $subAria = if ($en) { 'Subcategories' } else { 'ქვეკატეგორიები' }
-  function Href($page) { if ($page) { return $P + $page + $sfx } else { return $A } }
+  # Brand entries no longer have a landing page of their own: they point at
+  # their category listing with ?brand=<slug>, which main.js reads and
+  # pre-ticks. Items with no page at all still fall back to the products anchor.
+  function Href($n) {
+    if (-not $n.page) { return $A }
+    $q = ''
+    if ($n.brand) { $q = '?brand=' + $n.brand }
+    return $P + $n.page + $sfx + $q
+  }
 
   # ------------------------------------------------------- desktop mega-menu
   $menu = '<div class="dropdown prod-menu">' + "`r`n"
@@ -58,15 +66,15 @@ foreach ($f in $files) {
       if ($kids.Count) {
         $menu += '              <div class="prod-sub">' + "`r`n"
         $menu += '                <div class="prod-sub__head">' + "`r`n"
-        $menu += '                  <a class="prod-sub__btn" href="' + (Href $it.page) + '">' + $it.$lang + '</a>' + "`r`n"
+        $menu += '                  <a class="prod-sub__btn" href="' + (Href $it) + '">' + $it.$lang + '</a>' + "`r`n"
         $menu += '                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="' + $subAria + '">' + $CARET + '</button>' + "`r`n"
         $menu += '                </div>' + "`r`n"
         $menu += '                <div class="prod-sub__panel">' + "`r`n"
-        foreach ($k in $kids) { $menu += '                  <a href="' + (Href $k.page) + '">' + $k.$lang + '</a>' + "`r`n" }
+        foreach ($k in $kids) { $menu += '                  <a href="' + (Href $k) + '">' + $k.$lang + '</a>' + "`r`n" }
         $menu += '                </div>' + "`r`n"
         $menu += '              </div>' + "`r`n"
       } else {
-        $menu += '              <a href="' + (Href $it.page) + '">' + $it.$lang + '</a>' + "`r`n"
+        $menu += '              <a href="' + (Href $it) + '">' + $it.$lang + '</a>' + "`r`n"
       }
     }
     $menu += '            </div>' + "`r`n"
@@ -89,10 +97,27 @@ foreach ($f in $files) {
     $draw += '            <button class="m-sec__btn" type="button">' + $ch.$lang + ' ' + $CARET + '</button>' + "`r`n"
     $draw += '            <div class="m-sec__panel">' + "`r`n"
     foreach ($it in $ch.items) {
-      $draw += '              <a href="' + (Href $it.page) + '" data-close>' + $it.$lang + '</a>' + "`r`n"
-      foreach ($k in @($it.kids)) {
-        $draw += '              <a class="m-sub" href="' + (Href $k.page) + '" data-close>' + $k.$lang + '</a>' + "`r`n"
+      $kids = @($it.kids)
+      if (-not $kids.Count) {
+        # nothing to expand, so no chevron -- a disclosure control that reveals
+        # nothing is worse than none
+        $draw += '              <a href="' + (Href $it) + '" data-close>' + $it.$lang + '</a>' + "`r`n"
+        continue
       }
+      # the label stays a link to the category; the chevron beside it only opens
+      # the brand list, so tapping the name and tapping the arrow do different
+      # things on purpose
+      $draw += '              <div class="m-itm">' + "`r`n"
+      $draw += '                <div class="m-itm__head">' + "`r`n"
+      $draw += '                  <a href="' + (Href $it) + '" data-close>' + $it.$lang + '</a>' + "`r`n"
+      $draw += '                  <button class="m-itm__btn" type="button" aria-expanded="false" aria-label="' + $subAria + '">' + $CARET + '</button>' + "`r`n"
+      $draw += '                </div>' + "`r`n"
+      $draw += '                <div class="m-itm__panel">' + "`r`n"
+      foreach ($k in $kids) {
+        $draw += '                  <a class="m-sub" href="' + (Href $k) + '" data-close>' + $k.$lang + '</a>' + "`r`n"
+      }
+      $draw += '                </div>' + "`r`n"
+      $draw += '              </div>' + "`r`n"
     }
     $draw += '            </div>' + "`r`n"
     $draw += '          </div>' + "`r`n"

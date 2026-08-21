@@ -7,6 +7,8 @@
 /concrete product page/
 /stock images/
 /partner logoes/
+# 2.6 GB of project source: docx copy, master stills, "do not use" sets
+/Projects files/
 /New brandbook and materials/
 /Pictograms/
 /svg/
@@ -43,6 +45,7 @@ desktop.ini
 # Per-machine paths to the source photo libraries (see the README beside each)
 /tools/vortice/paths.local.ps1
 /tools/boilers/paths.local.ps1
+/tools/water-heaters/paths.local.ps1
 
 # Futura source cuts — the site only serves the two Upright variable files,
 # which are committed. Static OTFs and the oblique cuts stay local (~10 MB).

@@ -1,0 +1,31 @@
+[
+{"slug":"beretta-idra-bv","brand":"Beretta","match":"^IDRA BV","imgdirs":["Beretta/Idra BV 200_300"],
+ "nameKa":"IDRA BV ბოილერი","nameEn":"IDRA BV cylinder",
+ "descKa":"Beretta-ს ირიბი გაცხელების ბოილერი ერთი თბომცვლელით, 200 და 300 ლიტრში.",
+ "descEn":"Beretta's indirect cylinder with a single coil, in 200 and 300 litres."},
+
+{"slug":"riello-7200v","brand":"Riello","match":"7200[.]200NV","imgdirs":["Riello/7200V 200NV"],
+ "nameKa":"7200V 200NV ბოილერი","nameEn":"7200V 200NV cylinder",
+ "descKa":"Riello-ს 200-ლიტრიანი ბოილერი ერთი თბომცვლელით.",
+ "descEn":"Riello's 200-litre cylinder with a single coil."},
+
+{"slug":"omega-esb","brand":"Omega","match":"^OMEGA ESB","imgdirs":["Omega/OMEGA ESB_100"],
+ "nameKa":"ESB ბოილერი — ერთი თბომცვლელი","nameEn":"ESB cylinder — single coil",
+ "descKa":"ერთთბომცვლელიანი ბოილერი 100-დან 2000 ლიტრამდე, ათ ზომაში.",
+ "descEn":"A single-coil cylinder from 100 to 2000 litres, in ten sizes."},
+
+{"slug":"omega-ecsb","brand":"Omega","match":"^OMEGA (CR-)?ECSB","imgdirs":["Omega/OMEGA ECSB"],
+ "nameKa":"ECSB ბოილერი — ორი თბომცვლელი","nameEn":"ECSB cylinder — twin coil",
+ "descKa":"ორთბომცვლელიანი ბოილერი 160-დან 2000 ლიტრამდე. 800 ლიტრი ხელმისაწვდომია უჟანგავი ფოლადის ვერსიაშიც.",
+ "descEn":"A twin-coil cylinder from 160 to 2000 litres. The 800 litre is also available in stainless steel."},
+
+{"slug":"omega-akm","brand":"Omega","match":"AKM","imgdirs":["Omega/OMEGA CR-AKM"],
+ "nameKa":"CR-AKM ბაკი-აკუმულატორი","nameEn":"CR-AKM accumulation tank",
+ "descKa":"300-ლიტრიანი ბაკი-აკუმულატორი უჟანგავი ფოლადისგან.",
+ "descEn":"A 300-litre accumulation tank in stainless steel."},
+
+{"slug":"omega-obf","brand":"Omega","match":"OBF","imgdirs":["Omega/OMEGA OBF"],
+ "nameKa":"OBF ბუფერული ავზი","nameEn":"OBF buffer tank",
+ "descKa":"300-ლიტრიანი ბუფერული ავზი გათბობის კონტურისთვის, უჟანგავი ფოლადის ფლანეცის ვერსიითაც.",
+ "descEn":"A 300-litre buffer tank for the heating circuit, also with a stainless-steel flange."}
+]
