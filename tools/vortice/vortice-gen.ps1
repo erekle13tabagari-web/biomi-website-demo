@@ -22,6 +22,7 @@ function GalFor($gal, $code) {
 # ---------------------------------------------------------------- language kit
 $L = @{
   ka = @{
+    madeIn='წარმოებულია იტალიაში'
     file='.html'; tplName='mitsubishi-msz-ap.html'
     home='მთავარი'; products='პროდუქტი'; vent='ვენტილაცია'
     lblModel='მოდელი'; specs='მახასიათებლები'; cert='სერტიფიკატები'; dl='დოკუმენტაცია'
@@ -36,6 +37,7 @@ $L = @{
     ph1='1 ფაზა, 220–240 V, 50 Hz'; phMix='1 / 3 ფაზა (მოდელის მიხედვით)'
   }
   en = @{
+    madeIn='Made in Italy'
     file='-en.html'; tplName='mitsubishi-msz-ap-en.html'
     home='Home'; products='Products'; vent='Ventilation'
     lblModel='Model'; specs='Specifications'; cert='Certificates'; dl='Documentation'
@@ -245,7 +247,13 @@ $thumbs
       </div>
       <div class="pbuy reveal">
         <h1>$(HtmlEnc $name)</h1>
-        <div class="pbuy__tag">$(HtmlEnc $tag)</div>
+        <div class="pbuy__ident">
+          <div>
+            <div class="pbuy__brand pbuy__brand--tall" style="--m:url('../img/partners/vortice-mono.svg')"><img src="../assets/img/partners/vortice-mono.svg" alt="Vortice"></div>
+            <div class="pbuy__kw">$range</div>
+          </div>
+          <div class="pbuy__origin" title="$($t.madeIn)"><img src="../assets/img/flags/it.webp" alt="$($t.madeIn)" loading="lazy"></div>
+        </div>
         <div class="pbuy__label">$($t.lblModel)</div>
         <div class="chipset" data-modelswitch$(if ($gal) { ' data-imgbase="../assets/img/products/' + $f.slug + '/"' })>
 $($chips -join "`r`n")

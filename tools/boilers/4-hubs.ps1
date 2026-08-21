@@ -14,17 +14,22 @@ $BRANDS = @(
   @{ brand='Riello';   slug='riello';   logo='riello.svg'   },
   @{ brand='Warmhaus'; slug='warmhaus'; logo='warmhaus.svg' }
 )
+function Kw($n){ $m=[regex]::Match($n,'\b(\d{2,3})\b'); if($m.Success){return [int]$m.Groups[1].Value}; return 0 }
+# lowest output in the range, so the "from N kW" label cannot drift from the
+# products: it is the LAWA 18 today, and a typed figure would quietly lie the
+# moment a smaller unit is added.
+$KWMIN = ($mods | ForEach-Object { Kw $_.name } | Where-Object { $_ -gt 0 } | Measure-Object -Minimum).Minimum
 $L = @{
   ka = @{ file='.html'; tpl='vortice.html'; home='მთავარი'; products='პროდუქტი'; cat='ქვაბი'
           search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'; fKw='სიმძლავრე'
-          k1='35 kW-მდე'; k2='36–99 kW'; k3='100 kW და მეტი'; empty='პროდუქტი ვერ მოიძებნა.' }
+          k1="$($KWMIN) kW-დან"; k2='36–99 kW'; k3='100 kW და მეტი'; empty='პროდუქტი ვერ მოიძებნა.' }
   en = @{ file='-en.html'; tpl='vortice-en.html'; home='Home'; products='Products'; cat='Boilers'
           search='Search...'; filter='Filter'; clear='Clear'; fKw='Output'
-          k1='Up to 35 kW'; k2='36–99 kW'; k3='100 kW and above'; empty='No products found.' }
+          k1="From $($KWMIN) kW"; k2='36–99 kW'; k3='100 kW and above'; empty='No products found.' }
 }
 $CARET='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
 function HtmlEnc($s){ if($null -eq $s){return ''}; $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
-function Kw($n){ $m=[regex]::Match($n,'\b(\d{2,3})\b'); if($m.Success){return [int]$m.Groups[1].Value}; return 0 }
+
 
 foreach ($b in $BRANDS) {
   foreach ($lang in 'ka','en') {
@@ -54,10 +59,21 @@ foreach ($b in $BRANDS) {
       # origin travels on data-type so the category listing can filter by it
       $ctry = ($g | Where-Object { $_.country } | Select-Object -First 1).country
       $origin = if ($ctry -eq 'თურქეთი') { 'tr' } elseif ($ctry) { 'it' } else { '' }
-      $terms = $name + ' ' + (($g | ForEach-Object { ($_.name -replace '\s*გათბობის ქვაბი.*$','') + ' ' + $_.code + ' ' + $_.mfr }) -join ' ')
+      $terms = $name + ' ' + (($g | ForEach-Object { ($_.name -replace '\s*გათბობის ქვაბი.*$','') + ' ' + $_.code + ' ' + $_.mfr }) -join ' ')      # The card shows the model name and its output, nothing else, so the
+      # family name loses its type descriptor here: "CIAO S კედლის ქვაბი" is a
+      # heading on the product page but only noise repeated across a grid where
+      # every card is a boiler. The full name stays in data-name for search.
+      $short = if ($lang -eq 'ka') { $name -replace '\s*(კედლის\s+)?ქვაბი\s*$','' }
+               else                { $name -replace '\s*(wall-hung\s+)?boiler\s*$','' }
+      # one output or a span, taken from the models actually on the page
+      $kws = @($g | ForEach-Object { Kw $_.name } | Where-Object { $_ -gt 0 } | Sort-Object -Unique)
+      $kwTxt = if (-not $kws.Count) { '' }
+               elseif ($kws[0] -eq $kws[-1]) { "$($kws[0]) kW" }
+               else { "$($kws[0])–$($kws[-1]) kW" }      $kwSpan = ''
+      if ($kwTxt) { $kwSpan = '<span class="pcard__kw">' + $kwTxt + '</span>' }
       $cards += "        <a class=`"pcard`" href=`"$($f.slug)$sfx`" data-cat=`"$($b.slug)`" data-name=`"$(HtmlEnc $terms)`" data-kw=`"$band`" data-type=`"$origin`">`r`n" +
                 "          <span class=`"pcard__img`"><img src=`"../assets/img/products/$($f.slug)/main.avif`" alt=`"$(HtmlEnc $name)`"></span>`r`n" +
-                "          <span class=`"pcard__body`"><h4>$(HtmlEnc $name)</h4></span>`r`n        </a>`r`n"
+                "          <span class=`"pcard__body`"><h4>$(HtmlEnc $short)</h4>$kwSpan</span>`r`n        </a>`r`n"
     }
 
     $body = @"

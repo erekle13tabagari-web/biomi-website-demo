@@ -1307,11 +1307,47 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .pgal__thumbs img{flex:1 1 0;min-width:0;max-width:92px;aspect-ratio:1/1;object-fit:contain;
   padding:5px;background:#fff;border:1px solid var(--line);border-radius:10px;cursor:pointer;transition:.2s}
 .pgal__thumbs img.active{border-color:var(--gold)}
-.pbuy{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.pbuy{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;position:relative}
+/* "Made in" flag, pinned to the panel's top-right corner. Rendered only where
+   the workbook states an origin, so a product with none simply has no flag --
+   the alternative would be inferring manufacture from the brand, which is often
+   wrong for HVAC. The title/alt carries the wording; the flag alone is not a
+   label a screen reader could read. */
+/* The flag sits on the identity row -- beside the brand mark and its output,
+   or beside the descriptive tag on the Vortice pages. It was in the panel's
+   top-right corner, but an absolute position cannot track that row: the title
+   wraps to two lines on some models, so the flag drifted away from what it
+   belongs to and collided with the heading. In flow it simply follows. */
+.pbuy__ident{display:flex;align-items:center;justify-content:space-between;gap:18px}
+/* On the cooling pages the identity line keeps its series/refrigerant tag --
+   it is the useful label there, not a figure -- so it takes the accent instead
+   of being replaced, with the abbreviation spelled out beneath it. */
+.pbuy__ident .pbuy__tag{font-size:15px;font-weight:600;color:var(--gold-600);margin-bottom:3px}
+.pbuy__gloss{font-size:12.5px;line-height:1.4;color:var(--muted);max-width:34ch}
+.pbuy__origin{flex:none;line-height:0;align-self:flex-start}
+.pbuy__origin img{height:40px;width:auto;display:block;border-radius:3px;
+  box-shadow:0 1px 4px rgba(27,27,51,.28)}
+:root[data-theme="dark"] .pbuy__origin img{box-shadow:0 1px 4px rgba(0,0,0,.5)}
 .pbuy__model{font-size:13px;color:var(--muted);font-family:monospace}
-.pbuy h1{font-size:clamp(22px,3vw,28px);margin:6px 0 4px}
+.pbuy h1{font-size:clamp(22px,3vw,28px);margin:6px 0 16px}
 .pbuy__tag{font-size:13px;color:var(--muted);margin-bottom:8px}
-.pbuy__label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:18px 0 9px}
+/* Brand shown as its logo, with the output on its own line beneath it.
+   The logo is painted as a flat colour, not shown in its own palette: a filter
+   cannot map an arbitrary logo colour onto one specific blue, so the shape is
+   used as a mask and filled from a token. The <img> stays for layout -- it
+   carries the real aspect ratio, so the box sizes itself and any logo works
+   without a per-brand width -- and is hidden, with the mask painted over it.
+   --m is set inline by the page generator, which knows the brand. */
+.pbuy__brand{position:relative;display:inline-block;width:max-content;margin:0 0 11px}
+.pbuy__brand img{height:22px;width:auto;max-width:150px;display:block;visibility:hidden}
+.pbuy__brand::after{content:'';position:absolute;inset:0;background:#1b1b33;
+  -webkit-mask:var(--m) no-repeat left center/contain;mask:var(--m) no-repeat left center/contain}
+/* navy on the light panel, white on the dark one */
+:root[data-theme="dark"] .pbuy__brand::after{background:#fff}
+/* the output is the headline figure on this panel, so it takes the accent and
+   a size to match; --gold-600 resolves per theme and reads on both surfaces */
+.pbuy__kw{font-size:22px;font-weight:700;line-height:1;color:var(--gold-600);margin-bottom:4px}
+.pbuy__label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:26px 0 10px}
 .chipset{display:flex;flex-wrap:wrap;gap:9px}
 .chip{padding:9px 15px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-weight:500;background:var(--surface);cursor:pointer;transition:.15s}
 .chip:hover{border-color:var(--gold-200)}
@@ -1466,9 +1502,13 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
      is spacing and type scale — no content is hidden, it just stops using
      desktop-sized gaps on a 375px screen. */
   .pbuy{padding:18px 16px}
-  .pbuy h1{font-size:21px;margin:2px 0 3px}
+  .pbuy h1{font-size:21px;margin:2px 0 12px}
   .pbuy__tag{font-size:12.5px;margin-bottom:4px}
-  .pbuy__label{font-size:10px;margin:13px 0 7px}
+  .pbuy__origin img{height:30px;width:auto}
+  .pbuy__brand{margin-bottom:9px}
+  .pbuy__brand img{height:19px}
+  .pbuy__kw{font-size:19px;margin-bottom:3px}
+  .pbuy__label{font-size:10px;margin:20px 0 8px}
   .chipset{gap:7px}
   .chip{padding:8px 12px;font-size:13.5px}
   /* restated after .chip: the tighter phone padding would otherwise squash the
@@ -1590,3 +1630,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   #projects::before{width:340px;height:340px;border-width:41px;right:-155px}
   .page-hero::after{width:290px;height:290px;border-width:35px;right:-130px}
 }
+/* Boiler cards carry the model name and its output only, so the figure gets a
+   line of its own under the name. White, not the accent: .pcard__body is
+   var(--navy) in both themes, so an accent colour lands on dark navy. */
+.pcard__kw{font-size:14px;font-weight:600;color:#fff}
+
+/* Vortice is a stacked badge, not a wide lockup, so 22px leaves its wordmark
+   illegible; it gets its own height and the flag follows suit. */
+.pbuy__brand--tall img{height:36px}

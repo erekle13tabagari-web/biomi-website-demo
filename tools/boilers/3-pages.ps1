@@ -39,7 +39,12 @@ $L = @{
     dlTxt='Technical documentation on request — contact us about a specific model.'
     kw='kW'; prev='Previous'; next='Next' }
 }
-$COUNTRY = @{ 'იტალია'=@{ka='იტალია';en='Italy'}; 'თურქეთი'=@{ka='თურქეთი';en='Turkey'} }
+# Origin drives the flag in the panel corner. Only countries actually present in
+# the workbook are listed: a missing entry renders no flag rather than a guess.
+$COUNTRY = @{
+  'იტალია'  = @{ ka='იტალია';  en='Italy';  flag='it'; madeKa='წარმოებულია იტალიაში'; madeEn='Made in Italy'  }
+  'თურქეთი' = @{ ka='თურქეთი'; en='Turkey'; flag='tr'; madeKa='წარმოებულია თურქეთში'; madeEn='Made in Turkey' }
+}
 
 # Manufacturer figures, keyed by the chip label. Only Warmhaus publishes any --
 # see the _source note inside specs.json for the exact pages and for why
@@ -129,6 +134,15 @@ foreach ($lang in 'ka','en') {
     $first = $g[0]
     $fKw = Kw $first.name; $fKwTxt = if ($fKw) { "$fKw $($t.kw)" } else { '—' }
     $fCtry = if ($first.country -and $COUNTRY[$first.country]) { $COUNTRY[$first.country][$lang] } else { '—' }
+    # the flag only appears when the origin is one we have a file for
+    $flagTag = ''
+    $co = $null
+    if ($first.country) { $co = $COUNTRY[$first.country] }
+    if ($co -and $co.flag) {
+      $madeIn = if ($lang -eq 'ka') { $co.madeKa } else { $co.madeEn }
+      $flagTag = '          <div class="pbuy__origin" title="' + (HtmlEnc $madeIn) + '">' +
+                 '<img src="../assets/img/flags/' + $co.flag + '.webp" alt="' + (HtmlEnc $madeIn) + '" loading="lazy"></div>'
+    }
     # One row per published figure, and only where some model on this page has
     # it: an all-empty row reads as a hole in the datasheet rather than as an
     # absence of data. Beretta and Riello therefore keep the original table.
@@ -186,7 +200,13 @@ $thumbs
       </div>
       <div class="pbuy reveal">
         <h1>$(HtmlEnc $name)</h1>
-        <div class="pbuy__tag">$($f.brand) · $range</div>
+        <div class="pbuy__ident">
+          <div>
+            <div class="pbuy__brand" style="--m:url('../img/partners/$($f.brand.ToLower()).svg')"><img src="../assets/img/partners/$($f.brand.ToLower()).svg" alt="$($f.brand)"></div>
+            <div class="pbuy__kw">$range</div>
+          </div>
+$flagTag
+        </div>
         <div class="pbuy__label">$($t.lblModel)</div>
         <div class="chipset" data-modelswitch$(if ($pageGal) { ' data-imgbase="../assets/img/products/' + $f.slug + '/"' })>
 $($chips -join "`r`n")
