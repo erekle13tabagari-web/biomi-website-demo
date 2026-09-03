@@ -122,7 +122,10 @@ foreach ($f in $files) {
   # replace any previous block, then insert before </head>
   $txt = [regex]::Replace($txt, '(?s)[ \t]*<!-- meta:start.*?<!-- meta:end -->\r?\n', '')
   $txt = $txt -replace '(?=</head>)', $b.ToString()
-  [IO.File]::WriteAllText($f.FullName, $txt, (New-Object Text.UTF8Encoding($false)))
+  # With the BOM: every HTML file in the repo carries one, and writing these
+  # without it rewrote all 176 pages for nothing every time this ran.
+  # sitemap.xml and robots.txt below stay BOM-less, which is correct for them.
+  [IO.File]::WriteAllText($f.FullName, $txt, (New-Object Text.UTF8Encoding($true)))
   [void]$urls.Add(@{ loc = $canon; ka = "$BASE/$kaRel"; en = "$BASE/$enRel"; pair = $hasPair })
 }
 
