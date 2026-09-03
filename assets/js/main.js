@@ -1,10 +1,10 @@
-/* ბიომი — interactions */
+/* ბიომი - interactions */
 (function () {
   'use strict';
 
   /* ---- Georgian caps (Mtavruli) wherever CSS asks for uppercase ---- */
   /* CSS text-transform:uppercase handles Latin but does nothing for Georgian, so
-     Mkhedruli text nodes are converted to Mtavruli (U+10D0–U+10FF -> +0xBC0).
+     Mkhedruli text nodes are converted to Mtavruli (U+10D0-U+10FF -> +0xBC0).
      Rather than keep a hand-written selector list in sync with the stylesheet,
      this reads the computed style: anything CSS renders uppercase (headings,
      .eyebrow kickers, .news__cat chips, nav links, tags) gets Georgian caps too.
@@ -78,7 +78,7 @@
       }
     }
     if (ms) fab.appendChild(ms);   // Messenger (blue, like the call button)
-    if (ph) fab.appendChild(ph);   // Phone — call CTA
+    if (ph) fab.appendChild(ph);   // Phone - call CTA
     if (top) fab.appendChild(top); // Back to top
   })();
 
@@ -139,7 +139,7 @@
     vp.addEventListener('pointerleave', function () { lastX = null; dir = 1; }); // back to default
   })();
 
-  /* ---- Language toggle (GEO/ENG pills) — placeholder until ENG is built ---- */
+  /* ---- Language toggle (GEO/ENG pills) - placeholder until ENG is built ---- */
   document.querySelectorAll('.lang, .drawer__langs').forEach(function (group) {
     group.querySelectorAll('button').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -173,8 +173,8 @@
       return en ? (dark ? 'Switch to light mode' : 'Switch to dark mode')
                 : (dark ? 'ნათელ რეჟიმზე გადართვა' : 'ბნელ რეჟიმზე გადართვა');
     }
-    /* The header and drawer carry a dedicated dark-mode lockup — white wordmark,
-       blue mark intact — rather than a filtered version of the light one. The
+    /* The header and drawer carry a dedicated dark-mode lockup - white wordmark,
+       blue mark intact - rather than a filtered version of the light one. The
        path is derived from whatever src the page already has (logo-geo.svg ->
        logo-geo-dark.svg), so this works from the root and from /products alike
        and no page needs to name both files.
@@ -191,7 +191,7 @@
        JS it never goes navy in the first place.
 
        Manufacturer logos work the same way where a dark version exists. Only
-       the two below have one, so the rest keep the CSS knock-out — hence the
+       the two below have one, so the rest keep the CSS knock-out - hence the
        explicit list rather than probing for a file. */
     var headerEl = document.querySelector('.header');
     var DARK_PARTNERS = /(samsung|mitsubishi-electric)\.svg/;
@@ -231,7 +231,7 @@
       logos.forEach(function (l) {
         // Two separate questions: is the backdrop dark (so the typography must
         // go white), and which theme are we in (so the mark matches the accent
-        // — blue in light, purple in dark). The scrolled header and the footer
+        // - blue in light, purple in dark). The scrolled header and the footer
         // are dark backdrops in *light* mode too, and there the mark stays blue.
         var wantDark = l.always || themeDark || (l.onSolid && solid);
         var want = !wantDark ? l.light
@@ -676,7 +676,7 @@
       if (onClose) { var cb = onClose; onClose = null; cb(index); }
     }
 
-    /* Open an arbitrary image list on request — detail: {items, index, onClose}.
+    /* Open an arbitrary image list on request - detail: {items, index, onClose}.
        Used by the .pgal product gallery, which cannot reach `open` directly. */
     document.addEventListener('biomi:lightbox', function (e) {
       var d = e.detail || {};
@@ -884,15 +884,97 @@
       if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
     });
 
+    /* ---- Delivery ----
+       The site is static (GitHub Pages), so there is no server of ours to post
+       to and no way to send mail from the page itself. Everything below goes
+       through a form-relay service, which takes the POST and emails it on.
+       ACCESS_KEY is the only thing that has to be filled in: get it from
+       web3forms.com by entering the recipient address below, and paste it here.
+
+       Until it is filled in the form refuses to pretend. It used to answer every
+       submission with "your request has been received" while sending nothing at
+       all, which is worse than an error -- a customer would have walked away
+       believing they had been in touch. */
+    var ACCESS_KEY = '';   // <- paste the Web3Forms access key here
+    var RELAY      = 'https://api.web3forms.com/submit';
+    var RECIPIENT  = 'Marketing@maxcomfort.ge';
+
+    var en = (document.documentElement.lang || 'ka').indexOf('en') === 0;
+    var T = en ? {
+      sending: 'Sending…',
+      ok:      'Thank you. Your request has been sent - we will be in touch shortly.',
+      fail:    'The message could not be sent. Please email info@biomi.ge or call +995 322 15 11 15.',
+      unwired: 'The form is not connected yet. Please email info@biomi.ge or call +995 322 15 11 15.'
+    } : {
+      sending: 'იგზავნება…',
+      ok:      'მადლობა! თქვენი მოთხოვნა გაიგზავნა - ჩვენ მალე დაგიკავშირდებით.',
+      fail:    'შეტყობინება ვერ გაიგზავნა. მოგვწერეთ info@biomi.ge ან დაგვირეკეთ +995 322 15 11 15.',
+      unwired: 'ფორმა ჯერ არ არის დაკავშირებული. მოგვწერეთ info@biomi.ge ან დაგვირეკეთ +995 322 15 11 15.'
+    };
+    var submitBtn = form.querySelector('button[type="submit"]');
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
-      // NOTE: static site — wire this to a form backend (Formspree / Web3Forms) to
-      // actually deliver the fields + attached files. Build a FormData from `files`.
-      flash('მადლობა! თქვენი მოთხოვნა მიღებულია — ჩვენ მალე დაგიკავშირდებით.', 'ok');
-      form.reset(); files = []; render();
+      if (!ACCESS_KEY) {
+        flash(T.unwired, 'err');
+        if (window.console) console.warn('contact form: ACCESS_KEY is empty, nothing was sent');
+        return;
+      }
+
+      var data = new FormData(form);
+      data.append('access_key', ACCESS_KEY);
+      data.append('to', RECIPIENT);
+      data.append('subject', (en ? 'Website enquiry - ' : 'ვებ-გვერდიდან მოთხოვნა - ') + (data.get('name') || ''));
+      // the file input is `hidden` and the list is held in JS, so the files have
+      // to be attached from that array rather than left to FormData
+      data.delete('files');
+      files.forEach(function (f, i) { data.append('attachment' + (i ? i + 1 : ''), f, f.name); });
+
+      submitBtn.disabled = true;
+      flash(T.sending, 'ok');
+      fetch(RELAY, { method: 'POST', body: data })
+        .then(function (r) { return r.json().catch(function () { return { success: r.ok }; }); })
+        .then(function (res) {
+          if (!res || !res.success) throw new Error((res && res.message) || 'relay refused');
+          flash(T.ok, 'ok');
+          form.reset(); files = []; render();
+          form.dispatchEvent(new Event('reset'));
+        })
+        .catch(function (err) {
+          flash(T.fail, 'err');
+          if (window.console) console.error('contact form:', err);
+        })
+        .then(function () { submitBtn.disabled = false; });
     });
   })();
+
+  /* ---- Word limit on the free-text brief ----
+     HTML can cap characters but not words, so the count is done here. The text
+     is never truncated -- typing past the limit turns the counter red and marks
+     the field invalid, which the form's own checkValidity() already blocks on,
+     so the customer keeps what they wrote and can trim it themselves. */
+  document.querySelectorAll('textarea[data-maxwords]').forEach(function (ta) {
+    var max = parseInt(ta.getAttribute('data-maxwords'), 10) || 150;
+    var out = document.querySelector('.field__count[data-for="' + ta.id + '"]');
+    if (!out) return;
+    // the label's own text says what the unit is, so reuse it rather than
+    // hard-coding "words" in two languages here
+    var unit = (out.textContent.split('/')[1] || '').replace(/[\d\s]/g, '');
+    var over = (document.documentElement.lang || 'ka').indexOf('en') === 0
+      ? 'Please shorten this to ' + max + ' words or fewer.'
+      : 'გთხოვთ, შეამოკლოთ ' + max + ' სიტყვამდე.';
+
+    function sync() {
+      var words = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0;
+      out.textContent = words + ' / ' + max + ' ' + unit;
+      out.classList.toggle('is-over', words > max);
+      ta.setCustomValidity(words > max ? over : '');
+    }
+    ta.addEventListener('input', sync);
+    if (ta.form) ta.form.addEventListener('reset', function () { setTimeout(sync, 0); });
+    sync();
+  });
 
   /* ---- Services ring: click a category -> rotate it to 3 o'clock, reveal detail ---- */
   document.querySelectorAll('.ring-wrap').forEach(function (wrap) {
@@ -901,6 +983,7 @@
     var detail = wrap.querySelector('.ring__detail');
     var dTitle = detail.querySelector('.ring__detail-title');
     var dDesc = detail.querySelector('.ring__detail-desc');
+    var dLink = detail.querySelector('.ring__detail-link');
 
     // dismiss the tap-hint once the user interacts with the ring
     wrap.addEventListener('pointerdown', function () { wrap.classList.add('is-hinted'); }, { once: true });
@@ -922,6 +1005,15 @@
       ring.style.setProperty('--rot', target + 'deg');
       dTitle.textContent = n.getAttribute('data-title') || '';
       dDesc.textContent = n.getAttribute('data-desc') || '';
+      // a step that has a page of its own offers a way through to it
+      if (dLink) {
+        var href = n.getAttribute('data-href');
+        dLink.hidden = !href;
+        if (href) {
+          dLink.href = href;
+          dLink.textContent = n.getAttribute('data-cta') || '';
+        }
+      }
     }
     nodes.forEach(function (n) {
       n.addEventListener('click', function (e) {
@@ -1217,7 +1309,7 @@
       var label = c.getAttribute('data-alt') || c.getAttribute('data-model') || '';
       wrap.innerHTML = imgs.map(function (src, k) {
         return '<img src="' + base + src.trim() + '" alt="' + label +
-               (k ? ' — ' + (k + 1) : '') + '">';
+               (k ? ' - ' + (k + 1) : '') + '">';
       }).join('');
       if (gal.__showSlide) gal.__showSlide(0);
     }

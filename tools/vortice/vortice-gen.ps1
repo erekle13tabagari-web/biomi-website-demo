@@ -32,9 +32,9 @@ $L = @{
     cta='მოითხოვეთ შეთავაზება'; eyebrowRel='მსგავსი პროდუქტი'; headRel='Vortice-ის სხვა სერიები'
     eyebrowCmp='შედარება'; headCmp='პროდუქტების შედარება'; view='ნახვა'
     certTxt='CE · RoHS · ERP. სრული სერტიფიცირება მოთხოვნისამებრ.'
-    dlTxt='ტექნიკური დოკუმენტაცია მოთხოვნისამებრ — დაგვიკავშირდით კონკრეტული მოდელისთვის.'
+    dlTxt='ტექნიკური დოკუმენტაცია მოთხოვნისამებრ - დაგვიკავშირდით კონკრეტული მოდელისთვის.'
     uAir='მ³/სთ'; uW='ვტ'; uMm='მმ'; uDb='dBA'
-    ph1='1 ფაზა, 220–240 V, 50 Hz'; phMix='1 / 3 ფაზა (მოდელის მიხედვით)'
+    ph1='1 ფაზა, 220-240 V, 50 Hz'; phMix='1 / 3 ფაზა (მოდელის მიხედვით)'
   }
   en = @{
     madeIn='Made in Italy'
@@ -47,9 +47,9 @@ $L = @{
     cta='Request a quote'; eyebrowRel='Related products'; headRel='Other Vortice ranges'
     eyebrowCmp='Comparison'; headCmp='Compare products'; view='View'
     certTxt='CE · RoHS · ERP. Full certification available on request.'
-    dlTxt='Technical documentation on request — contact us about a specific model.'
+    dlTxt='Technical documentation on request - contact us about a specific model.'
     uAir='m³/h'; uW='W'; uMm='mm'; uDb='dBA'
-    ph1='1 phase, 220–240 V, 50 Hz'; phMix='1 / 3 phase (depending on model)'
+    ph1='1 phase, 220-240 V, 50 Hz'; phMix='1 / 3 phase (depending on model)'
   }
 }
 # ranges that mix single- and three-phase models
@@ -171,8 +171,8 @@ foreach ($lang in 'ka','en') {
     for ($i = 0; $i -lt $g.Count; $i++) {
       $m = $g[$i]
       $cls = if ($i -eq 0) { 'chip active' } else { 'chip' }
-      $dia = if ($m.diameter) { $m.diameter + ' ' + $t.uMm } else { '—' }
-      $db  = if ($m.db)       { $m.db + ' ' + $t.uDb }       else { '—' }
+      $dia = if ($m.diameter) { $m.diameter + ' ' + $t.uMm } else { '-' }
+      $db  = if ($m.db)       { $m.db + ' ' + $t.uDb }       else { '-' }
       $imgAttr = ''
       $lst = GalFor $gal $m.code
       if ($lst) { $imgAttr = '" data-alt="' + (HtmlEnc $m.model) + '" data-imgs="' + ($lst -join ',') }
@@ -182,10 +182,10 @@ foreach ($lang in 'ka','en') {
                 '" data-db="' + $db + $imgAttr + '">' + (HtmlEnc $labels[$m.code]) + '</button>'
     }
     $first = $g[0]
-    $fDia = if ($first.diameter) { $first.diameter + ' ' + $t.uMm } else { '—' }
-    $fDb  = if ($first.db)       { $first.db + ' ' + $t.uDb }       else { '—' }
+    $fDia = if ($first.diameter) { $first.diameter + ' ' + $t.uMm } else { '-' }
+    $fDb  = if ($first.db)       { $first.db + ' ' + $t.uDb }       else { '-' }
     $lo = [double]($g[0].airflow); $hi = [double]($g[-1].airflow)
-    $range = if ($g.Count -gt 1) { "$lo–$hi $($t.uAir)" } else { "$lo $($t.uAir)" }
+    $range = if ($g.Count -gt 1) { "$lo-$hi $($t.uAir)" } else { "$lo $($t.uAir)" }
     $power = if ($MIXED -contains $f.slug) { $t.phMix } else { $t.ph1 }
 
     # ---- siblings for the related + comparison blocks
@@ -207,8 +207,8 @@ foreach ($lang in 'ka','en') {
       $v = switch ($key) {
         'model' { $gg[0].model }
         'type'  { if ($lang -eq 'ka') { $fam.typeKa } else { $fam.typeEn } }
-        'air'   { '' + [double]$gg[0].airflow + '–' + [double]$gg[-1].airflow + ' ' + $t.uAir }
-        'db'    { $q = @($gg | Where-Object { $_.db }); if ($q.Count) { '' + [double]$q[0].db + '–' + [double]$q[-1].db + ' ' + $t.uDb } else { '—' } }
+        'air'   { '' + [double]$gg[0].airflow + '-' + [double]$gg[-1].airflow + ' ' + $t.uAir }
+        'db'    { $q = @($gg | Where-Object { $_.db }); if ($q.Count) { '' + [double]$q[0].db + '-' + [double]$q[-1].db + ' ' + $t.uDb } else { '-' } }
       }
       $c = if ($isThis) { ' class="is-this"' } else { '' }
       return '<td' + $c + '>' + (HtmlEnc $v) + '</td>'
@@ -324,7 +324,7 @@ $cmpRows
       $to = if ($s -like '*-en.html') { $f.slug + '-en.html' } else { $f.slug + '.html' }
       $h  = $h.Replace($s, $to); $tl = $tl.Replace($s, $to)
     }
-    $h = [regex]::Replace($h, '(?s)<title>.*?</title>', ('<title>' + (HtmlEnc $name) + ' — ' + $(if ($lang -eq 'ka') { 'ბიომი' } else { 'Biomi' }) + '</title>'))
+    $h = [regex]::Replace($h, '(?s)<title>.*?</title>', ('<title>' + (HtmlEnc $name) + ' - ' + $(if ($lang -eq 'ka') { 'ბიომი' } else { 'Biomi' }) + '</title>'))
     $h = [regex]::Replace($h, '(?s)(<meta name="description" content=").*?(">)', ('${1}' + (HtmlEnc $desc) + '${2}'))
     $out = Join-Path $repo ('products\' + $f.slug + $t.file)
     [IO.File]::WriteAllText($out, ($h + $body + $tl), (New-Object Text.UTF8Encoding($false)))

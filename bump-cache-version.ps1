@@ -10,7 +10,7 @@
 #
 # Stamping a fresh timestamp on every run rewrote all 45 pages each time, so the
 # publish script always saw "changes" and made a commit full of nothing but new
-# ?v= numbers — and its "nothing to commit" branch could never be reached.
+# ?v= numbers - and its "nothing to commit" branch could never be reached.
 # Pass -Force to stamp regardless.
 $assets = @('assets/css/style.css', 'assets/js/main.js')
 if ($args -notcontains '-Force') {

@@ -10,12 +10,12 @@
  "descEn":"Riello's 200-litre cylinder with a single coil."},
 
 {"slug":"omega-esb","brand":"Omega","match":"^OMEGA ESB","imgdirs":["Omega/OMEGA ESB_100"],
- "nameKa":"ESB ბოილერი — ერთი თბომცვლელი","nameEn":"ESB cylinder — single coil",
+ "nameKa":"ESB ბოილერი - ერთი თბომცვლელი","nameEn":"ESB cylinder - single coil",
  "descKa":"ერთთბომცვლელიანი ბოილერი 100-დან 2000 ლიტრამდე, ათ ზომაში.",
  "descEn":"A single-coil cylinder from 100 to 2000 litres, in ten sizes."},
 
 {"slug":"omega-ecsb","brand":"Omega","match":"^OMEGA (CR-)?ECSB","imgdirs":["Omega/OMEGA ECSB"],
- "nameKa":"ECSB ბოილერი — ორი თბომცვლელი","nameEn":"ECSB cylinder — twin coil",
+ "nameKa":"ECSB ბოილერი - ორი თბომცვლელი","nameEn":"ECSB cylinder - twin coil",
  "descKa":"ორთბომცვლელიანი ბოილერი 160-დან 2000 ლიტრამდე. 800 ლიტრი ხელმისაწვდომია უჟანგავი ფოლადის ვერსიაშიც.",
  "descEn":"A twin-coil cylinder from 160 to 2000 litres. The 800 litre is also available in stainless steel."},
 

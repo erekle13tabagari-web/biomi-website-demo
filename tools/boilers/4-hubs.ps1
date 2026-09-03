@@ -22,10 +22,10 @@ $KWMIN = ($mods | ForEach-Object { Kw $_.name } | Where-Object { $_ -gt 0 } | Me
 $L = @{
   ka = @{ file='.html'; tpl='vortice.html'; home='მთავარი'; products='პროდუქტი'; cat='ქვაბი'
           search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'; fKw='სიმძლავრე'
-          k1="$($KWMIN) kW-დან"; k2='36–99 kW'; k3='100 kW და მეტი'; empty='პროდუქტი ვერ მოიძებნა.' }
+          k1="$($KWMIN) kW-დან"; k2='36-99 kW'; k3='100 kW და მეტი'; empty='პროდუქტი ვერ მოიძებნა.' }
   en = @{ file='-en.html'; tpl='vortice-en.html'; home='Home'; products='Products'; cat='Boilers'
           search='Search...'; filter='Filter'; clear='Clear'; fKw='Output'
-          k1="From $($KWMIN) kW"; k2='36–99 kW'; k3='100 kW and above'; empty='No products found.' }
+          k1="From $($KWMIN) kW"; k2='36-99 kW'; k3='100 kW and above'; empty='No products found.' }
 }
 $CARET='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
 function HtmlEnc($s){ if($null -eq $s){return ''}; $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
@@ -69,7 +69,7 @@ foreach ($b in $BRANDS) {
       $kws = @($g | ForEach-Object { Kw $_.name } | Where-Object { $_ -gt 0 } | Sort-Object -Unique)
       $kwTxt = if (-not $kws.Count) { '' }
                elseif ($kws[0] -eq $kws[-1]) { "$($kws[0]) kW" }
-               else { "$($kws[0])–$($kws[-1]) kW" }      $kwSpan = ''
+               else { "$($kws[0])-$($kws[-1]) kW" }      $kwSpan = ''
       if ($kwTxt) { $kwSpan = '<span class="pcard__kw">' + $kwTxt + '</span>' }
       $cards += "        <a class=`"pcard`" href=`"$($f.slug)$sfx`" data-cat=`"$($b.slug)`" data-name=`"$(HtmlEnc $terms)`" data-kw=`"$band`" data-type=`"$origin`">`r`n" +
                 "          <span class=`"pcard__img`"><img src=`"../assets/img/products/$($f.slug)/main.avif`" alt=`"$(HtmlEnc $name)`"></span>`r`n" +
@@ -117,9 +117,9 @@ $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
 </section>
 
 "@
-    $title = "$($b.brand) — " + $(if ($lang -eq 'ka') { 'ბიომი' } else { 'Biomi' })
-    $descr = if ($lang -eq 'ka') { "$($b.brand)-ის გათბობის ქვაბები — კედლის და კომერციული სერიები." }
-             else { "$($b.brand) heating boilers — wall-hung and commercial ranges." }
+    $title = "$($b.brand) - " + $(if ($lang -eq 'ka') { 'ბიომი' } else { 'Biomi' })
+    $descr = if ($lang -eq 'ka') { "$($b.brand)-ის გათბობის ქვაბები - კედლის და კომერციული სერიები." }
+             else { "$($b.brand) heating boilers - wall-hung and commercial ranges." }
     $h = [regex]::Replace($h,'(?s)<title>.*?</title>',('<title>' + (HtmlEnc $title) + '</title>'))
     $h = [regex]::Replace($h,'(?s)(<meta name="description" content=").*?(">)',('${1}' + (HtmlEnc $descr) + '${2}'))
     [IO.File]::WriteAllText((Join-Path $repo ('products\' + $b.slug + $sfx)), ($h + $body + $tl), (New-Object Text.UTF8Encoding($false)))
