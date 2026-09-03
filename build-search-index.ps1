@@ -16,6 +16,7 @@ $enc  = New-Object Text.UTF8Encoding($false)
 $staticKa = @(
   @{ url = 'index.html';                    title = 'მთავარი';               kind = 'გვერდი' },
   @{ url = 'about.html';                    title = 'ჩვენ შესახებ';          kind = 'გვერდი' },
+  @{ url = 'service.html';                  title = 'სერვისი და ტექნიკური მხარდაჭერა'; kind = 'გვერდი' },
   @{ url = 'products/vrf-vrv.html';         title = 'VRF / VRV სისტემა';     kind = 'კატეგორია' },
   @{ url = 'products/samsung.html';         title = 'Samsung';               kind = 'ბრენდი' },
   @{ url = 'products/mitsubishi-electric.html'; title = 'Mitsubishi Electric'; kind = 'ბრენდი' },
@@ -23,12 +24,12 @@ $staticKa = @(
   @{ url = 'products/water-heaters.html';    title = 'ბოილერი';               kind = 'კატეგორია' },
   @{ url = 'products/ventilation.html';     title = 'ვენტილაცია';            kind = 'კატეგორია' },
   @{ url = 'products/vortice.html';         title = 'Vortice';               kind = 'ბრენდი' },
-  @{ url = 'news/vrf-project.html';         title = 'VRF სისტემის დანერგვა მრავალფუნქციურ ცენტრში'; kind = 'სიახლე' },
-  @{ url = 'projects/oro.html';             title = 'ORO — კომერციული კომპლექსის კლიმატიზაცია';     kind = 'პროექტი' }
+  @{ url = 'news/vrf-project.html';         title = 'VRF სისტემის დანერგვა მრავალფუნქციურ ცენტრში'; kind = 'სიახლე' }
 )
 $staticEn = @(
   @{ url = 'index-en.html';                 title = 'Home';                  kind = 'Page' },
   @{ url = 'about-en.html';                 title = 'About us';              kind = 'Page' },
+  @{ url = 'service-en.html';               title = 'Service and technical support'; kind = 'Page' },
   @{ url = 'products/vrf-vrv-en.html';      title = 'VRF / VRV system';      kind = 'Category' },
   @{ url = 'products/samsung-en.html';      title = 'Samsung';               kind = 'Brand' },
   @{ url = 'products/mitsubishi-electric-en.html'; title = 'Mitsubishi Electric'; kind = 'Brand' },
@@ -36,9 +37,34 @@ $staticEn = @(
   @{ url = 'products/water-heaters-en.html'; title = 'Water heaters';         kind = 'Category' },
   @{ url = 'products/ventilation-en.html';  title = 'Ventilation';           kind = 'Category' },
   @{ url = 'products/vortice-en.html';      title = 'Vortice';               kind = 'Brand' },
-  @{ url = 'news/vrf-project-en.html';      title = 'VRF system rollout in a multi-purpose centre'; kind = 'News' },
-  @{ url = 'projects/oro-en.html';          title = 'ORO — climate control for a commercial complex'; kind = 'Project' }
+  @{ url = 'news/vrf-project-en.html';      title = 'VRF system rollout in a multi-purpose centre'; kind = 'News' }
 )
+
+# Project pages are read off disk rather than listed here. The hand-kept list
+# had only ORO in it while PASHA Bank and Terminal Towers were live and
+# unsearchable, so the pages themselves are now the source: the h1 gives the
+# name, the subtitle beside it gives the descriptor, and the hero gives a
+# thumbnail.
+$rxH1     = [regex]'(?s)<h1>(.*?)(?:<span class="article__sub">(.*?)</span>)?</h1>'
+$rxHero   = [regex]'(?s)<figure class="article__img">\s*<img src="([^"]+)"'
+function Projects($en, $kind) {
+  $out = @()
+  $files = Get-ChildItem (Join-Path $root 'projects') -Filter '*.html' -File |
+           Where-Object { $en -eq ($_.Name -match '-en\.html$') } | Sort-Object Name
+  foreach ($f in $files) {
+    $html = [IO.File]::ReadAllText($f.FullName)
+    $m = $rxH1.Match($html)
+    if (-not $m.Success) { Write-Host ("no h1: " + $f.Name); continue }
+    $out += [pscustomobject]@{
+      url   = 'projects/' + $f.Name
+      title = Esc($m.Groups[1].Value)
+      sub   = Esc($m.Groups[2].Value)
+      kind  = $kind
+      img   = ($rxHero.Match($html).Groups[1].Value -replace '^\.\./', '')
+    }
+  }
+  return $out
+}
 
 # hub file -> brand label shown next to a product result
 $hubsKa = @{ 'samsung.html' = 'Samsung'; 'mitsubishi-electric.html' = 'Mitsubishi Electric'; 'vortice.html' = 'Vortice'; 'beretta.html' = 'Beretta'; 'riello.html' = 'Riello'; 'warmhaus.html' = 'Warmhaus'; 'water-heaters.html' = '' }
@@ -57,10 +83,14 @@ function Esc([string]$s) {
   return ($s -replace '\s+', ' ').Trim()
 }
 
-function Build($hubs, $static, $outFile) {
+function Build($hubs, $static, $projects, $outFile) {
   $items = New-Object System.Collections.ArrayList
   foreach ($s in $static) {
     [void]$items.Add([pscustomobject]@{ url = $s.url; title = $s.title; sub = ''; kind = $s.kind; img = ''; q = ($s.title + ' ' + $s.kind).ToLower() })
+  }
+  foreach ($p in $projects) {
+    [void]$items.Add([pscustomobject]@{ url = $p.url; title = $p.title; sub = $p.sub; kind = $p.kind; img = $p.img;
+                                        q = ($p.title + ' ' + $p.sub + ' ' + $p.kind).ToLower() })
   }
   $seen = @{}
   # sorted: hashtable key order is not guaranteed stable between runs, and an
@@ -96,5 +126,5 @@ function Build($hubs, $static, $outFile) {
   Write-Host ("{0,-34} {1} entries" -f $outFile, $items.Count)
 }
 
-Build $hubsKa $staticKa 'assets/search-ka.json'
-Build $hubsEn $staticEn 'assets/search-en.json'
+Build $hubsKa $staticKa (Projects $false 'პროექტი') 'assets/search-ka.json'
+Build $hubsEn $staticEn (Projects $true  'Project')  'assets/search-en.json'

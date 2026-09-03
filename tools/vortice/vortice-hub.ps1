@@ -40,26 +40,26 @@ $L = @{
     search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'
     fType='ტიპი'; fAir='ჰაერის ხარჯი'; fCat='კატეგორია'
     tWall='კედლის'; tCeil='ჭერის'; tDuct='არხული'; tWin='ფანჯრის'; tRoof='სახურავის'; tCent='ცენტრიდანული'
-    aLow='500 მ³/სთ-მდე'; aMid='500–2000 მ³/სთ'; aHigh='2000 მ³/სთ-ზე მეტი'
+    aLow='500 მ³/სთ-მდე'; aMid='500-2000 მ³/სთ'; aHigh='2000 მ³/სთ-ზე მეტი'
     empty='პროდუქტი ვერ მოიძებნა.'
     catEyebrow='ვენტილაცია'; catH='აირჩიეთ ბრენდი'
-    catP='ჩვენი სავენტილაციო პარტნიორი ბრენდები — დააჭირეთ ლოგოს პროდუქტების სანახავად.'
+    catP='ჩვენი სავენტილაციო პარტნიორი ბრენდები - დააჭირეთ ლოგოს პროდუქტების სანახავად.'
     goto='პროდუქტები'
-    hubTitle='Vortice — ბიომი'; hubDesc='Vortice-ის სავენტილაციო ტექნიკა — აბაზანის, არხული, სამრეწველო ვენტილატორები და რეკუპერატორები.'
-    catTitle='ვენტილაცია — ბიომი'; catDesc='სავენტილაციო სისტემები და ტექნიკა — აირჩიეთ ბრენდი პროდუქტების სანახავად.' }
+    hubTitle='Vortice - ბიომი'; hubDesc='Vortice-ის სავენტილაციო ტექნიკა - აბაზანის, არხული, სამრეწველო ვენტილატორები და რეკუპერატორები.'
+    catTitle='ვენტილაცია - ბიომი'; catDesc='სავენტილაციო სისტემები და ტექნიკა - აირჩიეთ ბრენდი პროდუქტების სანახავად.' }
   en = @{ file='-en.html'; hubTpl='mitsubishi-electric-en.html'; catTpl='vrf-vrv-en.html'
     home='Home'; products='Products'; vent='Ventilation'
     tabAll='All'; tabHome='Residential'; tabDuct='In-line'; tabInd='Commercial'; tabHrv='Heat recovery'
     search='Search...'; filter='Filter'; clear='Clear'
     fType='Type'; fAir='Airflow'; fCat='Category'
     tWall='Wall'; tCeil='Ceiling'; tDuct='In-duct'; tWin='Window'; tRoof='Roof'; tCent='Centrifugal'
-    aLow='Up to 500 m³/h'; aMid='500–2000 m³/h'; aHigh='Over 2000 m³/h'
+    aLow='Up to 500 m³/h'; aMid='500-2000 m³/h'; aHigh='Over 2000 m³/h'
     empty='No products found.'
     catEyebrow='Ventilation'; catH='Choose a brand'
-    catP='Our ventilation partner brands — click a logo to see the products.'
+    catP='Our ventilation partner brands - click a logo to see the products.'
     goto='Products'
-    hubTitle='Vortice — Biomi'; hubDesc='Vortice ventilation equipment — bathroom, in-line and commercial fans, and heat recovery units.'
-    catTitle='Ventilation — Biomi'; catDesc='Ventilation systems and equipment — choose a brand to see the products.' }
+    hubTitle='Vortice - Biomi'; hubDesc='Vortice ventilation equipment - bathroom, in-line and commercial fans, and heat recovery units.'
+    catTitle='Ventilation - Biomi'; catDesc='Ventilation systems and equipment - choose a brand to see the products.' }
 }
 function HtmlEnc($s) { $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
 

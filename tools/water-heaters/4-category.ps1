@@ -17,15 +17,15 @@ $L = @{
   ka = @{ sfx='.html'; tpl='boilers.html'
     home='მთავარი'; products='პროდუქტი'; crumb='ბოილერი'
     eyebrow='გათბობა'; head='ბოილერები'
-    lede='ირიბი გაცხელების ბოილერები და ავზები — 100-დან 2000 ლიტრამდე, ერთი და ორი თბომცვლელით.'
-    title='ბოილერები — ბიომი'; desc='ბოილერები და ავზები Beretta-ს, Riello-სა და Omega-სგან.'
+    lede='ირიბი გაცხელების ბოილერები და ავზები - 100-დან 2000 ლიტრამდე, ერთი და ორი თბომცვლელით.'
+    title='ბოილერები - ბიომი'; desc='ბოილერები და ავზები Beretta-ს, Riello-სა და Omega-სგან.'
     fBrand='ბრენდი'; fType='ტიპი'; filter='ფილტრი'; clear='გასუფთავება'; empty='პროდუქტი ვერ მოიძებნა'
     search='ძებნა...' }
   en = @{ sfx='-en.html'; tpl='boilers-en.html'
     home='Home'; products='Products'; crumb='Water heaters'
     eyebrow='Heating'; head='Water heaters'
-    lede='Indirect cylinders and tanks — from 100 to 2000 litres, with one or two coils.'
-    title='Water heaters — Biomi'; desc='Cylinders and tanks from Beretta, Riello and Omega.'
+    lede='Indirect cylinders and tanks - from 100 to 2000 litres, with one or two coils.'
+    title='Water heaters - Biomi'; desc='Cylinders and tanks from Beretta, Riello and Omega.'
     fBrand='Brand'; fType='Type'; filter='Filter'; clear='Clear'; empty='No products found.'
     search='Search...' }
 }

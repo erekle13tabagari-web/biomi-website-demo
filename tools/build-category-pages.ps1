@@ -32,7 +32,7 @@ $PAGES = @(
      eyebrowKa='გაგრილება'; eyebrowEn='Cooling'
      headKa='Multisplit / VRV / VRF'; headEn='Multisplit / VRV / VRF'
      crumbKa='გაგრილება'; crumbEn='Cooling'
-     titleKa='გაგრილება — ბიომი'; titleEn='Cooling — Biomi'
+     titleKa='გაგრილება - ბიომი'; titleEn='Cooling - Biomi'
      ledeKa='ერთი გარე ბლოკი ამარაგებს რამდენიმე შიდა ბლოკს. VRF და VRV სისტემები მაცივარაგენტის ხარჯს თითოეული ოთახის საჭიროებაზე არეგულირებს.'; ledeEn='One outdoor unit serves several indoor units. VRF and VRV systems vary the refrigerant flow to match what each room actually needs.'
      pdescKa='Multisplit, VRV და VRF სისტემები Samsung-ისა და Mitsubishi Electric-ისგან.'; pdescEn='Multisplit, VRV and VRF systems from Samsung and Mitsubishi Electric.'
      # Every one of these is a manufacturer's trade name, so the gloss says what
@@ -60,12 +60,12 @@ $PAGES = @(
      eyebrowKa='გათბობა'; eyebrowEn='Heating'
      headKa='გათბობის ქვაბი'; headEn='Heating boilers'
      crumbKa='ქვაბი'; crumbEn='Boilers'
-     titleKa='გათბობის ქვაბი — ბიომი'; titleEn='Heating boilers — Biomi'
-     ledeKa='გაზის ქვაბები ბინის, კერძო სახლისა და კომერციული ობიექტისთვის — კედლის და კასკადური სერიები.'; ledeEn='Gas boilers for flats, private houses and commercial buildings - wall-hung and cascade ranges.'
-     pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან — კედლის და კომერციული სერიები.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus — wall-hung and commercial ranges.'
+     titleKa='გათბობის ქვაბი - ბიომი'; titleEn='Heating boilers - Biomi'
+     ledeKa='გაზის ქვაბები ბინის, კერძო სახლისა და კომერციული ობიექტისთვის - კედლის და კასკადური სერიები.'; ledeEn='Gas boilers for flats, private houses and commercial buildings - wall-hung and cascade ranges.'
+     pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან - კედლის და კომერციული სერიები.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus - wall-hung and commercial ranges.'
      # the hub cards carry data-cat="<brand slug>", so the second group would just
      # repeat the brand filter -- output band is the useful second axis here
-     series=@(@('k1','{kwmin} kW-დან','From {kwmin} kW'),@('k2','36–99 kW','36–99 kW'),@('k3','100 kW და მეტი','100 kW and above'))
+     series=@(@('k1','{kwmin} kW-დან','From {kwmin} kW'),@('k2','36-99 kW','36-99 kW'),@('k3','100 kW და მეტი','100 kW and above'))
      seriesKa='სიმძლავრე'; seriesEn='Output'; seriesName='kw'
      typeKa='წარმოშობა'; typeEn='Origin'
      types=@(@('it','იტალია','Italy'),@('tr','თურქეთი','Turkey'))
@@ -76,7 +76,7 @@ $PAGES = @(
      eyebrowKa='ვენტილაცია'; eyebrowEn='Ventilation'
      headKa='სავენტილაციო სისტემები'; headEn='Ventilation systems'
      crumbKa='ვენტილაცია'; crumbEn='Ventilation'
-     titleKa='ვენტილაცია — ბიომი'; titleEn='Ventilation — Biomi'
+     titleKa='ვენტილაცია - ბიომი'; titleEn='Ventilation - Biomi'
      ledeKa='აბაზანის, არხული და სამრეწველო ვენტილატორები, აგრეთვე რეკუპერაციის სისტემები.'; ledeEn='Bathroom, in-line and commercial fans, plus heat-recovery units.'
      pdescKa='სავენტილაციო სისტემები და ტექნიკა Vortice-ისგან.'; pdescEn='Ventilation systems and equipment from Vortice.'
      series=@(@('home','საყოფაცხოვრებო','Residential'),@('duct','არხული','In-line'),
@@ -86,7 +86,7 @@ $PAGES = @(
      types=@(@('wall','კედლის','Wall'),@('ceiling','ჭერის','Ceiling'),@('duct','არხული','In-duct'),
              @('window','ფანჯრის','Window'),@('roof','სახურავის','Roof'),@('centrifugal','ცენტრიდანული','Centrifugal'))
      extraKa='ჰაერის ხარჯი'; extraEn='Airflow'; extraName='air'
-     extras=@(@('low','500 მ³/სთ-მდე','Up to 500 m³/h'),@('mid','500–2000 მ³/სთ','500–2000 m³/h'),
+     extras=@(@('low','500 მ³/სთ-მდე','Up to 500 m³/h'),@('mid','500-2000 მ³/სთ','500-2000 m³/h'),
               @('high','2000 მ³/სთ-ზე მეტი','Over 2000 m³/h')) }
 )
 $L = @{

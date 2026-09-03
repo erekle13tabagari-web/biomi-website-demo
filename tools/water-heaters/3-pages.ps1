@@ -26,7 +26,7 @@ $L = @{
     thHeat='თბური სიმძლავრე'; thDhw='ცხელი წყალი'; thEff='მარგი ქმედება'; thMod='მოდულაცია'; thNox='NOx კლასი'; dhwUnit='ლ/წთ'
     cta='მოითხოვეთ შეთავაზება'; eyebrowRel='მსგავსი პროდუქტი'; headRel='სხვა სერიები'
     certTxt='CE. სრული სერტიფიცირება მოთხოვნისამებრ.'
-    dlTxt='ტექნიკური დოკუმენტაცია მოთხოვნისამებრ — დაგვიკავშირდით კონკრეტული მოდელისთვის.'
+    dlTxt='ტექნიკური დოკუმენტაცია მოთხოვნისამებრ - დაგვიკავშირდით კონკრეტული მოდელისთვის.'
     kw='ლ'; prev='წინა'; next='შემდეგი' }
   en = @{ file='-en.html'; tpl='vortice-lineo-en.html'
     home='Home'; products='Products'; cat='Water heaters'
@@ -36,7 +36,7 @@ $L = @{
     thHeat='Heat output'; thDhw='Hot water'; thEff='Efficiency'; thMod='Modulation'; thNox='NOx class'; dhwUnit='L/min'
     cta='Request a quote'; eyebrowRel='Related products'; headRel='Other ranges'
     certTxt='CE. Full certification available on request.'
-    dlTxt='Technical documentation on request — contact us about a specific model.'
+    dlTxt='Technical documentation on request - contact us about a specific model.'
     kw='L'; prev='Previous'; next='Next' }
 }
 # Origin drives the flag in the panel corner. Only countries actually present in
@@ -132,19 +132,19 @@ foreach ($lang in 'ka','en') {
     for ($i=0; $i -lt $g.Count; $i++) {
       $m = $g[$i]
       $cls = if ($i -eq 0) { 'chip active' } else { 'chip' }
-      $kw = Kw $m.name; $kwTxt = if ($kw) { "$kw $($t.kw)" } else { '—' }
-      $ctry = if ($m.country -and $COUNTRY[$m.country]) { $COUNTRY[$m.country][$lang] } else { '—' }
+      $kw = Kw $m.name; $kwTxt = if ($kw) { "$kw $($t.kw)" } else { '-' }
+      $ctry = if ($m.country -and $COUNTRY[$m.country]) { $COUNTRY[$m.country][$lang] } else { '-' }
       $mg = @(GalOf $m.name)
       $imgAttr = if ($mg -and $mg[0]) { '" data-alt="' + (HtmlEnc (Chip $m.name)) + '" data-imgs="' + ($mg -join ',') } else { '' }
       $chips += '          <button class="' + $cls + '" type="button" data-model="' + (HtmlEnc (Chip $m.name)) +
-                '" data-code="' + (HtmlEnc $(if($m.code){$m.code}else{'—'})) +
-                '" data-mfr="' + (HtmlEnc $(if($m.mfr){$m.mfr}else{'—'})) +
+                '" data-code="' + (HtmlEnc $(if($m.code){$m.code}else{'-'})) +
+                '" data-mfr="' + (HtmlEnc $(if($m.mfr){$m.mfr}else{'-'})) +
                 '" data-kw="' + $kwTxt + '" data-country="' + (HtmlEnc $ctry) + (SpecAttrs (Chip $m.name) $t) + $imgAttr + '">' +
                 (HtmlEnc (Chip $m.name)) + '</button>'
     }
     $first = $g[0]
-    $fKw = Kw $first.name; $fKwTxt = if ($fKw) { "$fKw $($t.kw)" } else { '—' }
-    $fCtry = if ($first.country -and $COUNTRY[$first.country]) { $COUNTRY[$first.country][$lang] } else { '—' }
+    $fKw = Kw $first.name; $fKwTxt = if ($fKw) { "$fKw $($t.kw)" } else { '-' }
+    $fCtry = if ($first.country -and $COUNTRY[$first.country]) { $COUNTRY[$first.country][$lang] } else { '-' }
     # the flag only appears when the origin is one we have a file for
     $flagTag = ''
     $co = $null
@@ -162,11 +162,11 @@ foreach ($lang in 'ka','en') {
     foreach ($k in $SPECKEYS) {
       if (-not @($g | Where-Object { SpecOf (Chip $_.name) $k }).Count) { continue }
       $v = SpecOf (Chip $first.name) $k
-      if (-not $v) { $v = '—' } elseif ($k -eq 'dhw') { $v = "$v $($t.dhwUnit)" }
+      if (-not $v) { $v = '-' } elseif ($k -eq 'dhw') { $v = "$v $($t.dhwUnit)" }
       $specRows += "`r`n          <tr><th>$($LBL[$k])</th><td data-spec=`"$k`">" + (HtmlEnc $v) + '</td></tr>'
     }
     $kws = @($g | ForEach-Object { Kw $_.name } | Where-Object { $_ } | ForEach-Object { [int]$_ } | Sort-Object)
-    $range = if ($kws.Count -gt 1) { "$($kws[0])–$($kws[-1]) $($t.kw)" } elseif ($kws.Count) { "$($kws[0]) $($t.kw)" } else { '—' }
+    $range = if ($kws.Count -gt 1) { "$($kws[0])-$($kws[-1]) $($t.kw)" } elseif ($kws.Count) { "$($kws[0]) $($t.kw)" } else { '-' }
 
     $finish = ''
     if ($blackImgs.Count) {
@@ -177,8 +177,8 @@ foreach ($lang in 'ka','en') {
       $lblB = if ($lang -eq 'ka') { 'შავი' } else { 'Black' }
       $finish = "        <div class=`"pbuy__label`">$lblF</div>`r`n" +
                 "        <div class=`"chipset`" data-imgswitch data-imgbase=`"../assets/img/products/$($f.slug)/`">`r`n" +
-                "          <button class=`"chip chip--sw active`" type=`"button`" style=`"--sw:#f2f2f4`" title=`"$lblW`" aria-label=`"$lblW`" data-alt=`"$(HtmlEnc $name) — $lblW`" data-imgs=`"$std`"></button>`r`n" +
-                "          <button class=`"chip chip--sw`" type=`"button`" style=`"--sw:#17171b`" title=`"$lblB`" aria-label=`"$lblB`" data-alt=`"$(HtmlEnc $name) — $lblB`" data-imgs=`"$blk`"></button>`r`n" +
+                "          <button class=`"chip chip--sw active`" type=`"button`" style=`"--sw:#f2f2f4`" title=`"$lblW`" aria-label=`"$lblW`" data-alt=`"$(HtmlEnc $name) - $lblW`" data-imgs=`"$std`"></button>`r`n" +
+                "          <button class=`"chip chip--sw`" type=`"button`" style=`"--sw:#17171b`" title=`"$lblB`" aria-label=`"$lblB`" data-alt=`"$(HtmlEnc $name) - $lblB`" data-imgs=`"$blk`"></button>`r`n" +
                 "        </div>`r`n"
     }
 
@@ -243,8 +243,8 @@ $finish        <p class="pbuy__desc">$(HtmlEnc $desc)</p>
           <tr><th>$($t.thModel)</th><td data-spec="model">$(HtmlEnc (Chip $first.name))</td></tr>
           <tr><th>$($t.thBrand)</th><td>$($f.brand)</td></tr>
           <tr><th>$($t.thKw)</th><td data-spec="kw">$fKwTxt</td></tr>
-          <tr><th>$($t.thCode)</th><td data-spec="code">$(HtmlEnc $(if($first.code){$first.code}else{'—'}))</td></tr>
-          <tr><th>$($t.thMfr)</th><td data-spec="mfr">$(HtmlEnc $(if($first.mfr){$first.mfr}else{'—'}))</td></tr>
+          <tr><th>$($t.thCode)</th><td data-spec="code">$(HtmlEnc $(if($first.code){$first.code}else{'-'}))</td></tr>
+          <tr><th>$($t.thMfr)</th><td data-spec="mfr">$(HtmlEnc $(if($first.mfr){$first.mfr}else{'-'}))</td></tr>
           <tr><th>$($t.thCountry)</th><td data-spec="country">$(HtmlEnc $fCtry)</td></tr>
           <tr><th>$($t.thRange)</th><td>$range</td></tr>$specRows
         </table>
@@ -270,7 +270,7 @@ $rel
       $to = if ($s -like '*-en.html') { $f.slug + '-en.html' } else { $f.slug + '.html' }
       $h = $h.Replace($s,$to); $tl = $tl.Replace($s,$to)
     }
-    $h = [regex]::Replace($h,'(?s)<title>.*?</title>',('<title>' + (HtmlEnc $name) + ' — ' + $(if($lang -eq 'ka'){'ბიომი'}else{'Biomi'}) + '</title>'))
+    $h = [regex]::Replace($h,'(?s)<title>.*?</title>',('<title>' + (HtmlEnc $name) + ' - ' + $(if($lang -eq 'ka'){'ბიომი'}else{'Biomi'}) + '</title>'))
     $h = [regex]::Replace($h,'(?s)(<meta name="description" content=").*?(">)',('${1}' + (HtmlEnc $desc) + '${2}'))
     [IO.File]::WriteAllText((Join-Path $repo ('products\' + $f.slug + $t.file)), ($h + $body + $tl), (New-Object Text.UTF8Encoding($false)))
     $made += ($f.slug + $t.file)

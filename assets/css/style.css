@@ -1,4 +1,4 @@
-/* =========================================================================
+﻿/* =========================================================================
    BIOMI — ბრენდის სტილი / Brand stylesheet (rebrand 2026)
    Visual language: minimal · white · photo-driven
    Palette : Biomi Original #1B1B33 · Super Blue #0249F7 · Felamushi #85519A
@@ -491,7 +491,8 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   transition:transform .45s var(--ease),background .35s,color .35s,box-shadow .35s}
 .node__badge svg{width:44%;height:44%}
 .node__label{position:absolute;top:calc(100% + 9px);left:50%;transform:translateX(-50%);white-space:nowrap;
-  font-size:12.5px;font-weight:500;color:rgba(255,255,255,.88);pointer-events:none;
+  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.88);pointer-events:none;
   transition:color .35s,opacity .3s}
 /* hover affordance (only when nothing is selected) */
 .ring-wrap:not(.is-focused) .ring__node:hover .node__badge{transform:scale(1.12);background:rgba(var(--accent-rgb),.32)}
@@ -513,7 +514,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 /* tap hint — a finger tapping a category, until the user interacts */
 .ring__hint{position:absolute;left:50%;top:50%;width:var(--size);height:var(--size);
   margin:calc(var(--size) / -2);z-index:6;pointer-events:none;
-  transform:rotate(90deg) translateY(calc(-1 * var(--r))) rotate(-90deg);
+  transform:rotate(var(--hint-a,90deg)) translateY(calc(-1 * var(--r))) rotate(calc(-1 * var(--hint-a,90deg)));
   transition:opacity .45s var(--ease)}
 .ring-wrap.is-focused .ring__hint,.ring-wrap.is-hinted .ring__hint{opacity:0}
 /* Height drives the size; width:auto takes the ratio from the SVG itself, so
@@ -543,11 +544,24 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .ring__detail{position:absolute;top:50%;right:0;width:min(42%,380px);
   transform:translateY(-50%) translateX(26px);opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .5s var(--ease) .2s,transform .5s var(--ease) .2s}
-.ring-wrap.is-focused .ring__detail{opacity:1;visibility:visible;transform:translateY(-50%)}
+.ring-wrap.is-focused .ring__detail{opacity:1;visibility:visible;transform:translateY(-50%);pointer-events:auto}
 .ring__detail-tag{display:inline-block;width:42px;height:3px;background:var(--gold);margin-bottom:16px}
 .ring__detail-title{font-size:clamp(22px,2.4vw,30px);color:#fff;font-weight:600;margin-bottom:12px}
 .ring__detail-desc{font-size:16px;color:rgba(255,255,255,.72);line-height:1.7}
-@media (max-width:820px){
+/* A step with a page of its own gets a way through from the panel. The panel
+   itself is pointer-events:none so it never blocks the ring underneath, so
+   focusing has to hand interaction back or the link cannot be clicked. */
+.ring__detail-link{display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+  font-size:14.5px;font-weight:600;color:var(--gold-200);
+  border-bottom:1px solid rgba(var(--accent-rgb),.5);padding-bottom:3px;
+  transition:color .25s,border-color .25s}
+.ring__detail-link::after{content:"→";font-size:16px}
+.ring__detail-link:hover{color:#fff;border-color:#fff}
+/* The focused node sits at 3 o'clock while the panel is pinned right, so
+   between these two the badge runs into the text -- measured as 52px of
+   overlap at 880px and still 32px at 1000px. Below 1080 the panel stacks
+   under the ring instead. */
+@media (max-width:1080px){
   .ring-wrap.is-focused .ring{transform:none}
   .ring__detail{position:static;width:auto;max-width:440px;margin:22px auto 0;text-align:center;
     transform:translateY(14px)}
@@ -629,6 +643,12 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    ========================================================================= */
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .proj-grid .proj:first-child{grid-row:span 2}
+/* The first card spans two rows, so the grid holds one more cell than there
+   are projects. An even number of projects therefore makes an odd number of
+   cells and leaves the last row half empty -- give the final card the full
+   width in that case. :last-child:nth-child(even) is true only when the count
+   itself is even, so this corrects itself as projects are added. */
+.proj-grid .proj:last-child:nth-child(even){grid-column:span 2;min-height:230px}
 .proj{position:relative;border-radius:var(--radius);overflow:hidden;min-height:270px;
   display:flex;align-items:flex-end;padding:26px;color:#fff;background:var(--navy)}
 .proj:first-child{min-height:auto}
@@ -664,6 +684,14 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 /* object-fit keeps the aspect ratio if a future logo is wide enough for
    max-width to bite -- with a fixed height it would otherwise stretch. */
 .proj .proj__logo img{height:22px;max-width:100%;object-fit:contain}
+/* Two shapes of client logo end up in these chips. A wide wordmark (SDSU at
+   6.4:1, Terminal at 4.6:1) fills the width and reads fine at 22px tall. A
+   stacked lockup -- mark over text, ORO 2.4:1 down to Agrarian at 1:1 --
+   collapses to between 21 and 51px wide at that height and turns to mush, so
+   it gets a much taller box and the chip grows with it. */
+.article__topmeta .proj__logo--lockup{height:56px}
+.article__topmeta .proj__logo--lockup img{height:42px}
+.proj .proj__logo--lockup img{height:42px}
 
 /* =========================================================================
    CONTACT strip
@@ -692,12 +720,29 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field{margin-bottom:18px;display:flex;flex-direction:column;gap:7px}
 .field label{font-size:14px;font-weight:500;color:var(--ink-strong)}
-.field input{font-family:inherit;font-size:15px;color:var(--ink);padding:12px 14px;
+.field input,.field textarea,.field select{font-family:inherit;font-size:15px;color:var(--ink);padding:12px 14px;
   border:1.5px solid var(--line);border-radius:8px;background:var(--surface);
   transition:border-color .2s,box-shadow .2s}
-.field input::placeholder{color:#a7abb2}
-.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.18)}
-.field input:user-invalid{border-color:#d9534f}
+.field input::placeholder,.field textarea::placeholder{color:#a7abb2}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.18)}
+.field input:user-invalid,.field textarea:user-invalid,.field select:user-invalid{border-color:#d9534f}
+/* Free-text brief. resize:vertical only -- horizontal dragging would break the
+   two-column form row beside it. The counter sits under the box and turns red
+   past the limit; the limit itself is enforced in main.js, since HTML can cap
+   characters but not words. */
+.field textarea{resize:vertical;min-height:104px;line-height:1.55}
+.field__count{align-self:flex-end;font-size:12.5px;color:var(--muted);margin-top:-2px}
+.field__count.is-over{color:#d9534f;font-weight:600}
+/* Native select chrome differs wildly between browsers and neither version
+   matches the inputs beside it, so the arrow is drawn here instead. The chevron
+   is a data URI in the placeholder grey, which reads on both the white surface
+   and the dark one; padding-right keeps the text clear of it. */
+.field select{appearance:none;-webkit-appearance:none;cursor:pointer;
+  padding-right:38px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a7abb2' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;background-size:16px}
+/* the placeholder row reads as placeholder text until a real choice is made */
+.field select:has(option[value=""]:checked){color:#a7abb2}
 
 .filedrop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
   text-align:center;padding:26px 20px;border:1.6px dashed var(--gray-300);border-radius:10px;
@@ -728,15 +773,20 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    ========================================================================= */
 .footer{background:var(--navy);color:rgba(255,255,255,.72);padding:70px 0 26px;position:relative;overflow:hidden}
 .footer .brand{color:#fff;margin-bottom:18px}
-/* six columns since Legal joined: brand, map, navigation, products, contact,
-   legal. Legal holds one short link so it takes the narrowest track. */
-.footer__grid{display:grid;grid-template-columns:1.25fr .85fr .85fr 1fr 1.1fr .8fr;gap:36px}
+.footer__grid{display:grid;grid-template-columns:1.4fr .9fr .9fr 1.1fr 1.25fr;gap:40px}
 .footer__about{font-size:15px;max-width:300px}
 .footer__social{display:flex;gap:10px;margin-top:22px}
 .footer__social a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
   background:rgba(255,255,255,.08);color:#fff;transition:background .25s,transform .25s}
 .footer__social a:hover{background:var(--gold);color:#fff;transform:translateY(-3px)}
 .footer__social svg{width:18px;height:18px}
+/* The privacy-policy link, under the social icons rather than in a column of
+   its own -- it is one link, and a whole column for it left the footer
+   lopsided. */
+.footer__policy{display:inline-flex;align-items:flex-start;gap:8px;margin-top:20px;
+  font-size:14px;color:rgba(255,255,255,.66);transition:color .2s}
+.footer__policy:hover{color:var(--gold-200)}
+.footer__policy svg{width:15px;height:15px;flex:none;margin-top:2px;color:var(--gold-200)}
 .footer h4{color:#fff;font-size:14px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:18px;font-weight:600}
 .footer__links a{display:block;padding:7px 0;font-size:15px;transition:color .2s,padding .2s}
 .footer__links a:hover{color:var(--gold-200);padding-left:5px}
@@ -852,12 +902,14 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .prod--duct .prod__img{background-image:url('../img/prod-duct.jpg')}
 .prod--water .prod__img{background-image:url('../img/prod-water.jpg')}
 .proj__img{background-size:cover;background-position:center}
-.proj--1 .proj__img{background-image:url('../img/proj-oro.jpg')}
-.proj--2 .proj__img{background-image:url('../img/proj-chateau.jpg')}
-.proj--3 .proj__img{background-image:url('../img/proj-sdsu.jpg')}
-.proj--4 .proj__img{background-image:url('../img/proj-agrarian.jpg')}
-.proj--5 .proj__img{background-image:url('../img/proj-pasha.jpg')}
-.proj--6 .proj__img{background-image:url('../img/proj-terminal.jpg')}
+.proj--1 .proj__img{background-image:url('../img/proj-terminal.jpg')}
+.proj--2 .proj__img{background-image:url('../img/proj-kartlisi.jpg')}
+.proj--3 .proj__img{background-image:url('../img/proj-oro.jpg')}
+.proj--4 .proj__img{background-image:url('../img/proj-pasha.jpg')}
+.proj--5 .proj__img{background-image:url('../img/proj-chateau.jpg')}
+.proj--6 .proj__img{background-image:url('../img/proj-culinary.jpg')}
+.proj--7 .proj__img{background-image:url('../img/proj-agrarian.jpg')}
+.proj--8 .proj__img{background-image:url('../img/proj-sdsu.jpg')}
 
 /* ---- Decorative brand rings (new identity: thick circle motif) ---- */
 .deco{position:absolute;z-index:0;pointer-events:none}
@@ -1127,6 +1179,30 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .article__foot{display:flex;align-items:center;justify-content:space-between;gap:14px;
   border-top:1px solid var(--line);margin-top:38px;padding-top:24px}
 .article__foot span{font-size:14.5px;color:var(--muted)}
+/* Two CTAs side by side squeeze each label onto three lines at phone width --
+   the service page is the first article foot to carry two buttons rather than
+   a line of text and one. Stack them and let each take the full width. */
+@media (max-width:680px){
+  .article__foot{flex-direction:column;align-items:stretch;gap:12px}
+  .article__foot .btn{justify-content:center}
+}
+
+/* Article pages on a phone still rendered their body at desktop sizes -- a
+   19px lead, 23px headings with 36px above them, 18px between paragraphs. On a
+   list-heavy page like the service one that ran far taller than it needed to.
+   Nothing is hidden or cut: the type and the spacing simply tighten. */
+@media (max-width:600px){
+  .page-hero{padding-top:calc(var(--header-h) + 34px)}
+  .article h1{margin:8px 0 16px}
+  .article__lead{font-size:16.5px;line-height:1.55}
+  .article__img{margin:22px 0}
+  .article__body p{margin-bottom:14px;line-height:1.62}
+  .article__body h2{font-size:19px;margin:26px 0 10px}
+  .article__body ul{margin:0 0 14px 18px}
+  .article__body ul li{margin-bottom:6px;line-height:1.55}
+  .article__body blockquote{font-size:16.5px;margin:22px 0;padding-left:16px}
+  .article__foot{margin-top:28px;padding-top:20px}
+}
 
 /* ---- Reveal on scroll ---- */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -1277,6 +1353,39 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 /* one-line explainer under a category page title */
 /* size and colour come from .section__head p, which this always sits inside */
 .page-lede{margin:10px 0 0;max-width:66ch}
+
+/* The brand slogan keeps only the "ეკო" / "eco" stem bold and sets the rest of
+   the line at regular weight, so the stem carries the emphasis on its own.
+   Headings are 700 (see the h1,h2,h3,h4 rule), hence 400 here. */
+.slogan-reg{font-weight:400}
+
+/* =========================================================================
+   PRIVACY POLICY document
+   -------------------------------------------------------------------------
+   The policy is served as page images, not as a PDF: a PDF sitting at a public
+   URL can always be fetched, whatever the viewer's toolbar is told to hide, so
+   there is deliberately no document file to download. Selection, dragging and
+   printing are blocked below.
+
+   Screenshots cannot be prevented. Nothing available to a web page can stop the
+   operating system capturing what is on screen, so treat the rules below as
+   deterrents against casual copying, not as protection.
+   ========================================================================= */
+.policy{max-width:900px;margin:0 auto;display:grid;gap:18px;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+/* pointer-events:none takes the images out of the right-click / long-press
+   "save image" path; the page still scrolls and browser zoom still works. */
+.policy img{width:100%;height:auto;display:block;border-radius:14px;
+  border:1px solid var(--line);background:#fff;pointer-events:none}
+.policy__note{margin:30px auto 0;max-width:900px;text-align:center;
+  color:var(--muted);font-size:14.5px}
+.policy__note a{color:var(--gold-600);font-weight:500}
+.policy__print{display:none}
+@media print{
+  /* Ctrl+P and "save as PDF" produce the notice, not the document. */
+  .policy{display:none}
+  .policy__print{display:block;text-align:center;color:#000}
+}
 
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:20px}
 .pgrid__empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--muted)}
@@ -1604,9 +1713,23 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    cannot widen the page, and its .container is raised above the ring: a
    positioned element with z-index:0 otherwise paints over in-flow content.
    ========================================================================= */
-.deco--ring1 img,.deco--ring2 img{content:url('../img/brand-ring-purple.svg')}
-:root[data-theme="dark"] .deco--ring1 img,
-:root[data-theme="dark"] .deco--ring2 img{content:url('../img/brand-ring-blue.svg')}
+/* The footer rings take their colour from --deco, the same token the section
+   decorations use: Felamushi on light, blue on dark. Masking one neutral ring
+   rather than swapping between a purple and a blue file means one source of
+   truth, and no fallback that can show the wrong colour -- content:url() on an
+   <img> silently leaves the element's own src in place wherever it does not
+   apply, and that src is the blue ring. */
+.deco--ring1 img,.deco--ring2 img{
+  -webkit-mask:url('../img/brand-ring.svg') center/contain no-repeat;
+          mask:url('../img/brand-ring.svg') center/contain no-repeat;
+  background:var(--deco)}
+/* The footer is navy in both themes, so its rings have to be judged against
+   navy rather than against the page. The mid-tone Felamushi that reads
+   correctly on a light section desaturates over navy at 40% until it looks
+   blue, so on light the footer takes the lighter tint instead. Dark keeps
+   --deco: the blue is vivid enough to hold up. */
+:root:not([data-theme="dark"]) .footer .deco--ring1 img,
+:root:not([data-theme="dark"]) .footer .deco--ring2 img{background:#c49bd8}
 
 #about,#services,#projects,.page-hero{position:relative;overflow:hidden}
 #about > .container,#services > .container,#projects > .container,
