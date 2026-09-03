@@ -1,0 +1,44 @@
+﻿{
+  "_note": [
+    "Source folder -> product page slug, for the libraries that have no families.json.",
+    "Boilers, water heaters and Vortice are mapped by reusing tools/<those>/families.json,",
+    "so only the air-conditioner library needs a table here.",
+    "",
+    "'dir' is matched with StartsWith against the path below the category folder, the same",
+    "way the image scripts resolve their source folders. 'slugs' lists every page the",
+    "documents in that folder belong to -- an indoor/outdoor pair shares one folder."
+  ],
+
+  "ვენტილაცია": [
+    { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Lineo_Range",        "slugs": ["vortice-lineo", "vortice-lineo-quiet"] },
+    { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Vort_QBK_HE_Range",  "slugs": ["vortice-qbk"] },
+    { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Vort_QBK_SAL-KC_EVO", "slugs": ["vortice-qbk-sal"] },
+    { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_VORTICENT_CMS_RANGE", "slugs": ["vortice-cms"] }
+  ],
+  "_skipped": [
+    "Doc_Pubblicita_Residential_Ventilation2024 and Doc_Pubblicita_Commercial_Ventilation are",
+    "range brochures covering the whole residential / commercial line. They belong on the",
+    "Vortice brand page rather than on any one model, and brand pages have no documents",
+    "panel -- mapping them anywhere else would either orphan the file or repeat an 8.5 MB",
+    "download across 18 product pages."
+  ],
+
+  "კონდინციონერები": [
+    { "dir": "Mitsubishi\\MSY-GW25-80VFD",     "slugs": ["mitsubishi-msy-gw", "mitsubishi-muy-gw"] },
+    { "dir": "Mitsubishi\\MSZ-AP60VGK-ER1",    "slugs": ["mitsubishi-msz-ap", "mitsubishi-muz-ap"] },
+    { "dir": "Mitsubishi\\MSZ-AY25VGK",        "slugs": ["mitsubishi-msz-ay"] },
+    { "dir": "Mitsubishi\\MSZ-EF25VGKB-ER1",   "slugs": ["mitsubishi-msz-ef", "mitsubishi-muz-ef"] },
+    { "dir": "Mitsubishi\\MSZ-LN",             "slugs": ["mitsubishi-msz-ln"] },
+    { "dir": "Mitsubishi\\PLFY-WL VFM-E",      "slugs": ["mitsubishi-plfy-wl"] },
+    { "dir": "Mitsubishi\\SEZ-M25DA",          "slugs": ["mitsubishi-sez-m"] },
+    { "dir": "Mitsubishi\\SLZ-M25-60FA",       "slugs": ["mitsubishi-slz-m"] },
+
+    { "dir": "Samsung\\CAC\\არხული",                      "slugs": ["samsung-cac-duct"] },
+    { "dir": "Samsung\\CAC\\უნივერსალური გარე ბლოკი",      "slugs": ["samsung-cac-outdoor"] },
+    { "dir": "Samsung\\CAC\\შიდა ბლოკი კასეტური 360",      "slugs": ["samsung-cac-360"] },
+    { "dir": "Samsung\\CAC\\შიდა ბლოკი ჭერის",             "slugs": ["samsung-cac-ceiling"] },
+    { "dir": "Samsung\\DVM\\შიდა ბლოკი კასეტური 4-დინებიანი WindFree", "slugs": ["samsung-dvm-cassette-4way"] },
+    { "dir": "Samsung\\FJM\\შიდა ბლოკი კედლის WindFree",   "slugs": ["samsung-fjm-wall-windfree"] },
+    { "dir": "Samsung\\FJM\\შიდა ბლოკი კასეტური 1-დინებიანი WindFree", "slugs": ["samsung-fjm-windfree"] }
+  ]
+}

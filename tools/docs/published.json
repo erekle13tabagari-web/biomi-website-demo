@@ -1,0 +1,2972 @@
+﻿[
+    {
+        "file":  "vortice-tiracamino-tc-10-m-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "TIRACAMINO TC 10 M",
+        "name":  "0000015000.pdf",
+        "mb":  0.1,
+        "srcmb":  0.81,
+        "slugs":  [
+                      "vortice-roof"
+                  ]
+    },
+    {
+        "file":  "vortice-tiracamino-tc-10-m-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "TIRACAMINO TC 10 M",
+        "name":  "70_EN_15000_Libretti_Istruzioni_5471084864__27-11-2017_133750.pdf",
+        "mb":  0.49,
+        "srcmb":  1.57,
+        "slugs":  [
+                      "vortice-roof"
+                  ]
+    },
+    {
+        "file":  "vortice-tiracamino-tc-10-m-safety.pdf",
+        "class":  "safety",
+        "cat":  "vortice",
+        "model":  "TIRACAMINO TC 10 M",
+        "name":  "70_EN_15000_Libretti_Istruzioni_838-Avvertenze_Sicurezza_IMQ__9-11-17__133751.pdf",
+        "mb":  1.02,
+        "srcmb":  1.27,
+        "slugs":  [
+                      "vortice-hri",
+                      "vortice-mf",
+                      "vortice-mfo",
+                      "vortice-mg",
+                      "vortice-roof"
+                  ]
+    },
+    {
+        "file":  "vortice-roof-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_15194_Libretti_Istruzioni_5371084436__29062009_24919.pdf",
+        "mb":  2.39,
+        "srcmb":  4.41,
+        "slugs":  [
+                      "vortice-roof"
+                  ]
+    },
+    {
+        "file":  "vortice-roof-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_15194_Libretti_Istruzioni_5571084897__24-05-2021_171834.pdf",
+        "mb":  2.61,
+        "srcmb":  5.06,
+        "slugs":  [
+                      "vortice-roof"
+                  ]
+    },
+    {
+        "file":  "vortice-roof-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_15194_Schemi_collegamento_E960021E_146418.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-roof"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-15-30-ll-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 15/30 LL",
+        "name":  "70_EN_12000_Libretti_Istruzioni_5371084101_17_09_2004_12946.pdf",
+        "mb":  1.81,
+        "srcmb":  1.89,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-15-30-ll-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 15/30 LL",
+        "name":  "70_EN_12000_Libretti_Istruzioni_5371084482__20032008_19938.pdf",
+        "mb":  1.94,
+        "srcmb":  2.21,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-15-30-ll-booklet-3.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 15/30 LL",
+        "name":  "70_EN_12000_Libretti_Istruzioni_5571084178__15-02-2019_149078.pdf",
+        "mb":  1.15,
+        "srcmb":  1.28,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-15-30-ll-booklet-4.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 15/30 LL",
+        "name":  "70_EN_12000_Libretti_Istruzioni_5571084762__8-02-2021_168417.pdf",
+        "mb":  1.19,
+        "srcmb":  1.74,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-15-30-ll-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 15/30 LL",
+        "name":  "70_EN_12000_Schemi_collegamento_E960039A_11783.pdf",
+        "mb":  0.02,
+        "srcmb":  0.02,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-15-30-ll-wiring-2.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 15/30 LL",
+        "name":  "70_EN_12000_Schemi_collegamento_E960039B_16371.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-15-30-ll-wiring-3.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 15/30 LL",
+        "name":  "70_EN_12000_Schemi_collegamento_E960256A__43975.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-20-75-ll-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 20/75 LL",
+        "name":  "0000012001.pdf",
+        "mb":  0.1,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-20-75-ll-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 20/75 LL",
+        "name":  "70_EN_12001_Libretti_Istruzioni_5671084397__22-11-2023_188820.pdf",
+        "mb":  3.06,
+        "srcmb":  3.64,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ariett-habitat-20-75-ll-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ARIETT HABITAT 20/75 LL",
+        "name":  "de-0000012001.pdf",
+        "mb":  0.05,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ariett"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-il-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_16262_Libretti_Istruzioni_5471084674__27-4-2017_131781.pdf",
+        "mb":  0.83,
+        "srcmb":  0.97,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-il-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_16262_Libretti_Istruzioni_5571084899__24-05-2021_170886.pdf",
+        "mb":  0.92,
+        "srcmb":  1.62,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-il-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_16262_Schemi_collegamento_E960452B_CA_IL_127879.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-il-wiring-2.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_16262_Schemi_collegamento_E960479A_CA_IL_Accessori_127886.pdf",
+        "mb":  0.02,
+        "srcmb":  0.02,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-il-160-q-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA IL 160 Q",
+        "name":  "0000016253.pdf",
+        "mb":  0.11,
+        "srcmb":  1.02,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-il-160-q-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA IL 160 Q",
+        "name":  "de-0000016253.pdf",
+        "mb":  0.04,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-il-200-quiet-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA IL 200 QUIET",
+        "name":  "0000016266.pdf",
+        "mb":  0.1,
+        "srcmb":  1.01,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-il-200-quiet-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA IL 200 QUIET",
+        "name":  "de-0000016266.pdf",
+        "mb":  0.04,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-rm-200-es-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA-RM 200 ES",
+        "name":  "70_EN_16281_Libretti_Istruzioni_5671084151__08-09-2022_177823.pdf",
+        "mb":  2.42,
+        "srcmb":  7.11,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-rm-200-es-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "CA-RM 200 ES",
+        "name":  "70_EN_16281_Schemi_collegamento_E960588B__173435.pdf",
+        "mb":  0.04,
+        "srcmb":  0.04,
+        "slugs":  [
+                      "vortice-ca-il"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-315-md-e-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 315 MD E",
+        "name":  "0000016167.pdf",
+        "mb":  0.12,
+        "srcmb":  1.13,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-315-md-e-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 315 MD E",
+        "name":  "70_EN_16167_Libretti_Istruzioni_5571084901__25-05-2021_176645.pdf",
+        "mb":  2.46,
+        "srcmb":  4.32,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-315-md-e-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "CA 315 MD E",
+        "name":  "70_EN_16167_Schemi_collegamento_E960500B_141279.pdf",
+        "mb":  0.05,
+        "srcmb":  0.05,
+        "slugs":  [
+                      "vortice-ca-md",
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-150-md-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 150 MD",
+        "name":  "0000016153.pdf",
+        "mb":  0.1,
+        "srcmb":  0.83,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-150-md-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "CA 150 MD",
+        "name":  "70_EN_16153_Schemi_collegamento_E960177A_23800.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-160-md-e-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 160 MD E",
+        "name":  "0000016164.pdf",
+        "mb":  0.12,
+        "srcmb":  1.08,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-160-md-e-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 160 MD E",
+        "name":  "70_EN_16164_Libretti_Istruzioni_5671084135__10-11-2022_178368.pdf",
+        "mb":  2.71,
+        "srcmb":  4.7,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-160-md-e-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "CA 160 MD E",
+        "name":  "70_EN_16164_Schemi_collegamento_E960251A_42726.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-160-md-e-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA 160 MD E",
+        "name":  "de-0000016164.pdf",
+        "mb":  0.04,
+        "srcmb":  0.12,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-200-md-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 200 MD",
+        "name":  "0000016155.pdf",
+        "mb":  0.1,
+        "srcmb":  0.82,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-200-md-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 200 MD",
+        "name":  "70_EN_16155_Libretti_Istruzioni_5671084535__17-10-2024_187058.pdf",
+        "mb":  3.42,
+        "srcmb":  3.83,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-250-md-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 250 MD",
+        "name":  "0000016156.pdf",
+        "mb":  0.1,
+        "srcmb":  0.83,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-315-md-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 315 MD",
+        "name":  "0000016157.pdf",
+        "mb":  0.1,
+        "srcmb":  0.84,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-315-md-e-rf-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 315 MD E RF",
+        "name":  "0000016187.pdf",
+        "mb":  0.13,
+        "srcmb":  1.57,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-315-md-e-rf-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 315 MD E RF",
+        "name":  "70_EN_16187_Libretti_Istruzioni_5571084370___09-10-.pdf",
+        "mb":  0,
+        "srcmb":  0.86,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-315-md-e-rf-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 315 MD E RF",
+        "name":  "70_EN_16187_Libretti_Istruzioni_5571084903__31- (1).pdf",
+        "mb":  0,
+        "srcmb":  4.13,
+        "slugs":  [
+                      "vortice-ca-md"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-100-v0-d-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 100 V0 D",
+        "name":  "0000016008.pdf",
+        "mb":  0.13,
+        "srcmb":  1.13,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-100-v0-d-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 100 V0 D",
+        "name":  "70_EN_16008_Libretti_Istruzioni_5171084481_08_11_2001_13056.pdf",
+        "mb":  0,
+        "srcmb":  0.64,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-100-v0-d-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 100 V0 D",
+        "name":  "70_EN_16008_Libretti_Istruzioni_5171084991_25_07_2003_13058.pdf",
+        "mb":  0,
+        "srcmb":  2.26,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-100-v0-d-booklet-3.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 100 V0 D",
+        "name":  "70_EN_16008_Libretti_Istruzioni_5671084263__14-04-2023_179936.pdf",
+        "mb":  0,
+        "srcmb":  5.22,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-100-v0-d-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "CA 100 V0 D",
+        "name":  "70_EN_16008_Schemi_collegamento_E960594C_178423.pdf",
+        "mb":  0.09,
+        "srcmb":  0.1,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-100-v0-d-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA 100 V0 D",
+        "name":  "de-0000016008.pdf",
+        "mb":  0.04,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-125-v0-d-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 125 V0 D",
+        "name":  "0000016018.pdf",
+        "mb":  0.13,
+        "srcmb":  1.05,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-125-v0-d-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 125 V0 D",
+        "name":  "70_EN_16018_Libretti_Istruzioni_5571084748__07-01-2021__167626.pdf",
+        "mb":  0,
+        "srcmb":  9.87,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-125-v0-d-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "CA 125 V0 D",
+        "name":  "70_EN_16018_Schemi_collegamento_E960594A_177300.pdf",
+        "mb":  0.04,
+        "srcmb":  0.05,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-125-v0-d-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA 125 V0 D",
+        "name":  "de-0000016018.pdf",
+        "mb":  0.04,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-150-v0-d-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 150 V0 D",
+        "name":  "0000016028.pdf",
+        "mb":  0.13,
+        "srcmb":  1.06,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-150-v0-d-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 150 V0 D",
+        "name":  "70_EN_16028_Libretti_Istruzioni_5471084889__13-2-2018_140454.pdf",
+        "mb":  0,
+        "srcmb":  1.63,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-150-v0-d-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA 150 V0 D",
+        "name":  "de-0000016028.pdf",
+        "mb":  0.04,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-100-v0-d-datasheet-2.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 100 V0 D",
+        "name":  "0000016008.pdf",
+        "mb":  0.13,
+        "srcmb":  1.13,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-100-v0-d-energy-2.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA 100 V0 D",
+        "name":  "de-0000016008.pdf",
+        "mb":  0.04,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-200-v0-q-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 200 V0 Q",
+        "name":  "0000016035.pdf",
+        "mb":  0.13,
+        "srcmb":  1.14,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-200-v0-q-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA 200 V0 Q",
+        "name":  "de-0000016035.pdf",
+        "mb":  0.04,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-200-v0-e-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 200 V0 E",
+        "name":  "0000016038.pdf",
+        "mb":  0.13,
+        "srcmb":  1.17,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-200-v0-e-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "CA 200 V0 E",
+        "name":  "de-0000016038.pdf",
+        "mb":  0.04,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-250-v0-e-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 250 V0 E",
+        "name":  "0000016039.pdf",
+        "mb":  0.14,
+        "srcmb":  1.59,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-250-v0-e-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CA 250 V0 E",
+        "name":  "70_EN_16039_Libretti_Istruzioni_5671084255__05-04-2023_179921.pdf",
+        "mb":  0,
+        "srcmb":  4.82,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-ca-315-v0-e-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "CA 315 V0 E",
+        "name":  "0000016041.pdf",
+        "mb":  0.12,
+        "srcmb":  1.16,
+        "slugs":  [
+                      "vortice-ca-v0"
+                  ]
+    },
+    {
+        "file":  "vortice-cms-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_30139_Libretti_Istruzioni_5571084886__12-05-2021_173570.pdf",
+        "mb":  0.5,
+        "srcmb":  1.06,
+        "slugs":  [
+                      "vortice-cms",
+                      "vortice-qbk-sal"
+                  ]
+    },
+    {
+        "file":  "vortice-cms-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_30139_Schemi_collegamento_E960590A_173973.pdf",
+        "mb":  0.17,
+        "srcmb":  0.54,
+        "slugs":  [
+                      "vortice-cms"
+                  ]
+    },
+    {
+        "file":  "vortice-cms-wiring-2.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_30139_Schemi_collegamento_E960590B_192846.pdf",
+        "mb":  0.43,
+        "srcmb":  1.86,
+        "slugs":  [
+                      "vortice-cms"
+                  ]
+    },
+    {
+        "file":  "vortice-cms-atex-14-5-t2-0-25kw-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CMS ATEX 14/5 T2 0,25KW  ",
+        "name":  "70_EN_30174_Libretti_Istruzioni_5671084460__31-10-2023_182362.pdf",
+        "mb":  0.57,
+        "srcmb":  2.71,
+        "slugs":  [
+                      "vortice-cms"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-q-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "LINEO 100 Q",
+        "name":  "70_EN_17143_Librett.pdf",
+        "mb":  0,
+        "srcmb":  5.45,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-q-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "LINEO 100 Q",
+        "name":  "70_EN_17143_Schemi_.pdf",
+        "mb":  0,
+        "srcmb":  1.96,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-125-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 125",
+        "name":  "0000017145.pdf",
+        "mb":  0.13,
+        "srcmb":  1.06,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-150-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 150",
+        "name":  "0000017146.pdf",
+        "mb":  0.13,
+        "srcmb":  1.14,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-200-q-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 200 Q",
+        "name":  "0000017148.pdf",
+        "mb":  0.13,
+        "srcmb":  1.21,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-250-q-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 250 Q",
+        "name":  "0000017149.pdf",
+        "mb":  0.12,
+        "srcmb":  1.13,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-quiet-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 100 QUIET",
+        "name":  "0000017160.pdf",
+        "mb":  0.12,
+        "srcmb":  1.03,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-quiet-other.pdf",
+        "class":  "other",
+        "cat":  "vortice",
+        "model":  "LINEO 100 QUIET",
+        "name":  "70_EN_17160 (1).pdf",
+        "mb":  0,
+        "srcmb":  20.25,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-quiet-other-2.pdf",
+        "class":  "other",
+        "cat":  "vortice",
+        "model":  "LINEO 100 QUIET",
+        "name":  "70_EN_17160_Lib.pdf",
+        "mb":  0,
+        "srcmb":  0.07,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-quiet-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "LINEO 100 QUIET",
+        "name":  "70_EN_17160_Sch.pdf",
+        "mb":  0,
+        "srcmb":  0.05,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-200-quiet-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 200 QUIET",
+        "name":  "0000017164.pdf",
+        "mb":  0.12,
+        "srcmb":  1.04,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-200-quiet-other.pdf",
+        "class":  "other",
+        "cat":  "vortice",
+        "model":  "LINEO 200 QUIET",
+        "name":  "70_EN_17164_Lib.pdf",
+        "mb":  0,
+        "srcmb":  0.1,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-250-quiet-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 250 QUIET",
+        "name":  "0000017165.pdf",
+        "mb":  0.11,
+        "srcmb":  0.9,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-250-quiet-other.pdf",
+        "class":  "other",
+        "cat":  "vortice",
+        "model":  "LINEO 250 QUIET",
+        "name":  "70_EN_17165 (1).pdf",
+        "mb":  0,
+        "srcmb":  19.87,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-quiet-es-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 100 QUIET ES",
+        "name":  "0000017170.pdf",
+        "mb":  0.11,
+        "srcmb":  0.95,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-quiet-es-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "LINEO 100 QUIET ES",
+        "name":  "70_EN_17170_Libretti_.pdf",
+        "mb":  0,
+        "srcmb":  13.08,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-100-quiet-es-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "LINEO 100 QUIET ES",
+        "name":  "70_EN_17170_Schemi_co.pdf",
+        "mb":  0,
+        "srcmb":  0.1,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-150-quiet-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 150 QUIET",
+        "name":  "0000017162.pdf",
+        "mb":  0.12,
+        "srcmb":  1.03,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-200-t-quiet-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "LINEO 200 T QUIET",
+        "name":  "70_EN_17194_Schemi_col.pdf",
+        "mb":  0,
+        "srcmb":  2.37,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-250-q-datasheet-2.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "LINEO 250 Q",
+        "name":  "0000017149.pdf",
+        "mb":  0.12,
+        "srcmb":  1.13,
+        "slugs":  [
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-mfo-90-3-5-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "MFO 90/3,5\"",
+        "name":  "70_EN_11143_Libretti_Istruzioni_5571084097_14_09_2017_144504.pdf",
+        "mb":  3.41,
+        "srcmb":  3.88,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mfo-90-3-5-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "MFO 90/3,5\"",
+        "name":  "70_EN_11143_Libretti_Istruzioni_5671084540__18-10-2024_187063.pdf",
+        "mb":  3.82,
+        "srcmb":  3.89,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mfo-90-3-5-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "MFO 90/3,5\"",
+        "name":  "70_EN_11143_Schemi_collegamento_E960063C_38282.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mfo-90-3-5-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "MFO 90/3,5\"",
+        "name":  "de-0000011143.pdf",
+        "mb":  0.04,
+        "srcmb":  0.1,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mfo-100-4-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "MFO 100/4\"",
+        "name":  "70_EN_11145_Libretti_Istruzioni_5471084715__21-6-2017_129419.pdf",
+        "mb":  3.2,
+        "srcmb":  3.46,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mfo-100-4-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "MFO 100/4\"",
+        "name":  "de-0000011145.pdf",
+        "mb":  0.04,
+        "srcmb":  0.1,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mfo-120-5-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "MFO 120/5\"",
+        "name":  "0000011147.pdf",
+        "mb":  0.1,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mfo-120-5-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "MFO 120/5\"",
+        "name":  "de-0000011147.pdf",
+        "mb":  0.04,
+        "srcmb":  0.1,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mf-150-6-t-hcs-ll-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "MF 150/6\" T HCS LL",
+        "name":  "70_EN_11176_Libretti_Istruzioni_5571084094_18_09_2018_144697.pdf",
+        "mb":  6.01,
+        "srcmb":  6.86,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mf-150-6-t-hcs-ll-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "MF 150/6\" T HCS LL",
+        "name":  "70_EN_11176_Libretti_Istruzioni_5571084783__12-02-2021_168441.pdf",
+        "mb":  6.16,
+        "srcmb":  7.62,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mf-150-6-t-hcs-ll-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "MF 150/6\" T HCS LL",
+        "name":  "70_EN_11176_Schemi_collegamento_E960147A_38391.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mf-150-6-t-hcs-ll-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "MF 150/6\" T HCS LL",
+        "name":  "de-0000011176.pdf",
+        "mb":  0.05,
+        "srcmb":  0.14,
+        "slugs":  [
+                      "vortice-mfo"
+                  ]
+    },
+    {
+        "file":  "vortice-mg-90-3-5-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "MG 90/3,5\"",
+        "name":  "0000011110.pdf",
+        "mb":  0.1,
+        "srcmb":  0.76,
+        "slugs":  [
+                      "vortice-mf",
+                      "vortice-mg"
+                  ]
+    },
+    {
+        "file":  "vortice-mg-90-3-5-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "MG 90/3,5\"",
+        "name":  "70_EN_11110_Libretti_Istruzioni_5571084055_06_07_2018_142732.pdf",
+        "mb":  2.94,
+        "srcmb":  7.19,
+        "slugs":  [
+                      "vortice-mf",
+                      "vortice-mg"
+                  ]
+    },
+    {
+        "file":  "vortice-mg-90-3-5-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "MG 90/3,5\"",
+        "name":  "70_EN_11110_Libretti_Istruzioni_5571084095_14_09_2018_144407.pdf",
+        "mb":  3,
+        "srcmb":  7.27,
+        "slugs":  [
+                      "vortice-mf",
+                      "vortice-mg"
+                  ]
+    },
+    {
+        "file":  "vortice-mg-90-3-5-booklet-3.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "MG 90/3,5\"",
+        "name":  "70_EN_11110_Libretti_Istruzioni_5671084381__16-11-2023_182474.pdf",
+        "mb":  2.15,
+        "srcmb":  15.17,
+        "slugs":  [
+                      "vortice-mf",
+                      "vortice-mg"
+                  ]
+    },
+    {
+        "file":  "vortice-mg-90-3-5-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "MG 90/3,5\"",
+        "name":  "70_EN_11110_Schemi_collegamento_E960001H_131049.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-mf",
+                      "vortice-mg"
+                  ]
+    },
+    {
+        "file":  "vortice-mg-90-3-5-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "MG 90/3,5\"",
+        "name":  "de-0000011110.pdf",
+        "mb":  0.05,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-mf",
+                      "vortice-mg"
+                  ]
+    },
+    {
+        "file":  "vortice-m-100-4-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "M 100/4\"",
+        "name":  "0000011201.pdf",
+        "mb":  0.1,
+        "srcmb":  0.44,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-m-100-4-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "M 100/4\"",
+        "name":  "70_EN_11201_Libretti_Istruzioni_5571084759__26-01-2021_167839.pdf",
+        "mb":  6.28,
+        "srcmb":  7.52,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-m-100-4-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "M 100/4\"",
+        "name":  "70_EN_11201_Libretti_Istruzioni_5671084561__06-11-2024_187324.pdf",
+        "mb":  2.15,
+        "srcmb":  3.84,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-m-100-4-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "M 100/4\"",
+        "name":  "de-0000011201.pdf",
+        "mb":  0.05,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "0000011260.pdf",
+        "mb":  0.09,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "70_EN_11260_Libretti_Istruzioni_5571084808__03-03-2021_171894.pdf",
+        "mb":  0,
+        "srcmb":  4.45,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "70_EN_11260_Libretti_Istruzioni_5671084386__16-11-2023_182673.pdf",
+        "mb":  0,
+        "srcmb":  6.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "70_EN_11260_Schemi_collegamento_E960291C_60252.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "de-0000011260.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "0000011261.pdf",
+        "mb":  0.1,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "70_EN_11261_Libretti_Istruzioni_5571084808__03-03-202.pdf",
+        "mb":  0,
+        "srcmb":  4.46,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "70_EN_11261_Schemi_collegamento_E960292B_60231.pdf",
+        "mb":  0,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "de-0000011261.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-120-5-ll-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 120/5\" LL",
+        "name":  "0000011270.pdf",
+        "mb":  0.09,
+        "srcmb":  0.28,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-120-5-ll-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 120/5\" LL",
+        "name":  "de-0000011270.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-datasheet-2.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "0000011261.pdf",
+        "mb":  0.1,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-energy-2.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "de-0000011261.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-es-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" ES",
+        "name":  "0000011268.pdf",
+        "mb":  0.09,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-es-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" ES",
+        "name":  "70_EN_11268_Libretti_Istruzioni_54710840.pdf",
+        "mb":  0,
+        "srcmb":  1.35,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-es-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" ES",
+        "name":  "70_EN_11268_Schemi_collegamento_E960342A.pdf",
+        "mb":  0,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-es-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" ES",
+        "name":  "de-0000011268.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-100-60-ll-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "QE 100/60 LL",
+        "name":  "0000011524.pdf",
+        "mb":  0.08,
+        "srcmb":  0.6,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-100-60-ll-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "QE 100/60 LL",
+        "name":  "70_EN_11524_Schemi_collegamento_E960405A_101593.pdf",
+        "mb":  0,
+        "srcmb":  0.05,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-100-ll-t-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "QE 100 LL T",
+        "name":  "0000011527.pdf",
+        "mb":  0.08,
+        "srcmb":  0.57,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-100-ll-t-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "QE 100 LL T",
+        "name":  "70_EN_11527_Libretti_Istruzioni_062-FOGLIO_GUIDA.pdf",
+        "mb":  0,
+        "srcmb":  0.9,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-100-ll-t-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "QE 100 LL T",
+        "name":  "70_EN_11527_Libretti_Istruzioni_5571084244_30-04-2.pdf",
+        "mb":  0,
+        "srcmb":  4.02,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-100-ll-t-booklet-3.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "QE 100 LL T",
+        "name":  "70_EN_11527_Libretti_Istruzioni_5571084339__29-0.pdf",
+        "mb":  0,
+        "srcmb":  4.02,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-100-ll-t-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "QE 100 LL T",
+        "name":  "70_EN_11527_Schemi_collegamento_E960408A_101596.pdf",
+        "mb":  0,
+        "srcmb":  0.05,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-b-m-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "QE-B M",
+        "name":  "0000011561.pdf",
+        "mb":  0.11,
+        "srcmb":  0.69,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-qe-b-m-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "QE-B M",
+        "name":  "70_EN_11561_Libretti_Istruzioni_5571084077__30-07-2018_147141.pdf",
+        "mb":  0,
+        "srcmb":  5.72,
+        "slugs":  [
+                      "vortice-qe"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hr-300-neti-iot-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORT HR 300 NETI IoT",
+        "name":  "0000010924.pdf",
+        "mb":  0.11,
+        "srcmb":  1.19,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hr-300-neti-iot-other.pdf",
+        "class":  "other",
+        "cat":  "vortice",
+        "model":  "VORT HR 300 NETI IoT",
+        "name":  "70_EN_10924_Etichetta_Energetica_5.175.948.118_180256.pdf",
+        "mb":  0.04,
+        "srcmb":  0.19,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hr-300-neti-iot-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORT HR 300 NETI IoT",
+        "name":  "70_EN_10924_Libretti_Istruzioni_458_-_ADDENDUM_MULTILINGUE_183939.pdf",
+        "mb":  0.15,
+        "srcmb":  0.26,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hr-300-neti-iot-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORT HR 300 NETI IoT",
+        "name":  "70_EN_10924_Libretti_Istruzioni_5671084267___18-05-2023_180255.pdf",
+        "mb":  5.23,
+        "srcmb":  28.58,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hr-300-neti-iot-booklet-3.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORT HR 300 NETI IoT",
+        "name":  "70_EN_10924_Libretti_Istruzioni_5671084503__18-06-2024_185581.pdf",
+        "mb":  4.93,
+        "srcmb":  11.03,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hr-300-neti-iot-booklet-4.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORT HR 300 NETI IoT",
+        "name":  "70_EN_10924_Libretti_Istruzioni_5671084503___26-06-2025_190128.pdf",
+        "mb":  4.07,
+        "srcmb":  10.56,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hr-300-neti-iot-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "VORT HR 300 NETI IoT",
+        "name":  "70_EN_10924_Schemi_collegamento_E960602A_179993.pdf",
+        "mb":  0.04,
+        "srcmb":  0.05,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hri-350-flat-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORT HRI 350 FLAT",
+        "name":  "0000011282.pdf",
+        "mb":  0.11,
+        "srcmb":  1.03,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hri-350-flat-other.pdf",
+        "class":  "other",
+        "cat":  "vortice",
+        "model":  "VORT HRI 350 FLAT",
+        "name":  "70_EN_11282_Etichetta_Energetica_5175948063_123080.pdf",
+        "mb":  0.03,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hri-350-flat-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "VORT HRI 350 FLAT",
+        "name":  "70_EN_11282_Schemi_collegamento_E960537A_153169.pdf",
+        "mb":  0.04,
+        "srcmb":  0.04,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-hri-350-flat-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "VORT HRI 350 FLAT",
+        "name":  "de-0000011282.pdf",
+        "mb":  0.05,
+        "srcmb":  0.11,
+        "slugs":  [
+                      "vortice-hri"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-300-12-ar-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORTICE 300/12\" AR",
+        "name":  "0000012412 (1).pdf",
+        "mb":  0.12,
+        "srcmb":  1.16,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-300-12-ar-datasheet-2.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORTICE 300/12\" AR",
+        "name":  "0000012412.pdf",
+        "mb":  0.12,
+        "srcmb":  1.16,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-300-12-ar-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORTICE 300/12\" AR",
+        "name":  "70_EN_12412_Libretti_Istruzioni_5471084274__01122015_114560.pdf",
+        "mb":  0,
+        "srcmb":  3.74,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-300-12-ar-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORTICE 300/12\" AR",
+        "name":  "70_EN_12412_Libretti_Istruzioni_5571084776__13_04_2021_169920.pdf",
+        "mb":  0,
+        "srcmb":  5.26,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-300-12-ar-booklet-3.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORTICE 300/12\" AR",
+        "name":  "70_EN_12412_Libretti_Istruzioni_5671084319__28-08-2023_181546.pdf",
+        "mb":  0,
+        "srcmb":  9.48,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-300-12-ar-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "VORTICE 300/12\" AR",
+        "name":  "70_EN_12412_Schemi_collegamento_E960349B_181490.pdf",
+        "mb":  0.02,
+        "srcmb":  0.02,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-230-9-p-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORTICE 230/9\" P",
+        "name":  "0000012451.pdf",
+        "mb":  0.1,
+        "srcmb":  0.57,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-230-9-p-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "VORTICE 230/9\" P",
+        "name":  "70_EN_12451_Schemi_collegamento_E960348B_181689.pdf",
+        "mb":  0.01,
+        "srcmb":  0.02,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-230-9-ar-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORTICE 230/9\" AR",
+        "name":  "0000012452.pdf",
+        "mb":  0.12,
+        "srcmb":  0.79,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-230-9-ar-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORTICE 230/9\" AR",
+        "name":  "70_EN_12452_Libretti_Istruzioni_5571084491__11-02-2020_16033.pdf",
+        "mb":  0,
+        "srcmb":  3.6,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-230-9-ar-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORTICE 230/9\" AR",
+        "name":  "70_EN_12452_Libretti_Istruzioni_5671084115__22-06-2022_17723.pdf",
+        "mb":  0,
+        "srcmb":  8.74,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-vortice-150-6-ar-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORTICE 150/6\" AR",
+        "name":  "0000012612.pdf",
+        "mb":  0.12,
+        "srcmb":  0.76,
+        "slugs":  [
+                      "vortice-ar-p"
+                  ]
+    },
+    {
+        "file":  "vortice-qbk-sal-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_43151_Schemi_collegamento.pdf",
+        "mb":  0.17,
+        "srcmb":  0.98,
+        "slugs":  [
+                      "vortice-qbk-sal"
+                  ]
+    },
+    {
+        "file":  "vortice-qbk-sal-wiring-2.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "70_EN_43157_Schemi_collegamento_E96.pdf",
+        "mb":  0,
+        "srcmb":  0.97,
+        "slugs":  [
+                      "vortice-qbk-sal"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-450-4t-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 450 4T",
+        "name":  "0000045790.pdf",
+        "mb":  0.13,
+        "srcmb":  1.08,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-450-4t-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 450 4T",
+        "name":  "70_EN_45790_Libretti_Istruzioni_5671.pdf",
+        "mb":  0,
+        "srcmb":  6.79,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-450-4t-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 450 4T",
+        "name":  "70_EN_45790_Schemi_collegamento_E960.pdf",
+        "mb":  0,
+        "srcmb":  0.02,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-560-4t-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 560 4T",
+        "name":  "0000045792.pdf",
+        "mb":  0.12,
+        "srcmb":  1.05,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-560-4t-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 560 4T",
+        "name":  "70_EN_45792_Schemi_collegamento_E9605.pdf",
+        "mb":  0,
+        "srcmb":  0.12,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-630-4t-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 630 4T",
+        "name":  "0000045793.pdf",
+        "mb":  0.12,
+        "srcmb":  1.01,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-710-6t-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 710 6T",
+        "name":  "70_EN_45794_Libretti_Istruzioni_56710.pdf",
+        "mb":  0,
+        "srcmb":  6.86,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-400-4t-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 400 4T",
+        "name":  "0000045789 (1).pdf",
+        "mb":  0.12,
+        "srcmb":  1.05,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-400-4t-datasheet-2.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 400 4T",
+        "name":  "0000045789.pdf",
+        "mb":  0.12,
+        "srcmb":  1.05,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-vort-qbk-he-comfort-500-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "VORT QBK HE COMFORT 500",
+        "name":  "0000045785.pdf",
+        "mb":  0.12,
+        "srcmb":  1.04,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-lineo-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "Doc_Pubblicita_Lineo_Range_193047.pdf",
+        "mb":  3.86,
+        "srcmb":  4.83,
+        "slugs":  [
+                      "vortice-lineo",
+                      "vortice-lineo-quiet"
+                  ]
+    },
+    {
+        "file":  "vortice-cms-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "Doc_Pubblicita_VORTICENT_CMS_RANGE_193646.pdf",
+        "mb":  0.68,
+        "srcmb":  7.4,
+        "slugs":  [
+                      "vortice-cms"
+                  ]
+    },
+    {
+        "file":  "vortice-qbk-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "Doc_Pubblicita_Vort_QBK_HE_Range_177688.pdf",
+        "mb":  1.01,
+        "srcmb":  9.12,
+        "slugs":  [
+                      "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-qbk-sal-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "vortice",
+        "model":  "",
+        "name":  "Doc_Pubblicita_Vort_QBK_SAL-KC_EVO_190829.pdf",
+        "mb":  0.84,
+        "srcmb":  10.4,
+        "slugs":  [
+                      "vortice-qbk-sal"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msy-gw-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_Cooling-Only-Air-Conditioning-2026.pdf",
+        "mb":  0.19,
+        "srcmb":  0.31,
+        "slugs":  [
+                      "mitsubishi-msy-gw",
+                      "mitsubishi-muy-gw"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msy-gw-brochure-2.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_MSY-GW-Series-Cooling-Only-2022-11.pdf",
+        "mb":  0.47,
+        "srcmb":  0.74,
+        "slugs":  [
+                      "mitsubishi-msy-gw",
+                      "mitsubishi-muy-gw"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msy-gw-brochure-3.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Split_Systems_Filters_Flyer-2023.pdf",
+        "mb":  0.35,
+        "srcmb":  0.36,
+        "slugs":  [
+                      "mitsubishi-msy-gw",
+                      "mitsubishi-msz-ap",
+                      "mitsubishi-msz-ay",
+                      "mitsubishi-msz-ef",
+                      "mitsubishi-msz-ln",
+                      "mitsubishi-muy-gw",
+                      "mitsubishi-muz-ap",
+                      "mitsubishi-muz-ef"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msy-gw-install.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "MSY-GW25-35-42VFD-A1_Installation-Manual-JG79N354H02.pdf",
+        "mb":  1.52,
+        "srcmb":  1.53,
+        "slugs":  [
+                      "mitsubishi-msy-gw",
+                      "mitsubishi-muy-gw"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msy-gw-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "MSY-GW25-80-VFD-A1-User-Manual-DG79A01WH01.pdf",
+        "mb":  1.96,
+        "srcmb":  1.96,
+        "slugs":  [
+                      "mitsubishi-msy-gw",
+                      "mitsubishi-muy-gw"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msy-gw-install-2.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "MSY-GW50-60VFD-A1_Installation-Manual-JG79N355H02.pdf",
+        "mb":  0.65,
+        "srcmb":  0.65,
+        "slugs":  [
+                      "mitsubishi-msy-gw",
+                      "mitsubishi-muy-gw"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msy-gw-install-3.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "MSY-GW71-80VFD_Installation-Manual-JG79N359H02.pdf",
+        "mb":  0.63,
+        "srcmb":  0.63,
+        "slugs":  [
+                      "mitsubishi-msy-gw",
+                      "mitsubishi-muy-gw"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ap-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_Plasma-Quad-Connect-2022-05.pdf",
+        "mb":  0.38,
+        "srcmb":  0.66,
+        "slugs":  [
+                      "mitsubishi-msz-ap",
+                      "mitsubishi-msz-ay",
+                      "mitsubishi-msz-ef",
+                      "mitsubishi-muz-ap",
+                      "mitsubishi-muz-ef"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ap-brochure-2.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Split-System-Brochure-2025-12.pdf",
+        "mb":  1.92,
+        "srcmb":  2.09,
+        "slugs":  [
+                      "mitsubishi-msz-ap",
+                      "mitsubishi-msz-ay",
+                      "mitsubishi-msz-ef",
+                      "mitsubishi-msz-ln",
+                      "mitsubishi-muz-ap",
+                      "mitsubishi-muz-ef",
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ap-install.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "MSZ-AP25-50VGKD2_IM_VG79N349H02.pdf",
+        "mb":  0.65,
+        "srcmb":  0.65,
+        "slugs":  [
+                      "mitsubishi-msz-ap",
+                      "mitsubishi-msz-ay",
+                      "mitsubishi-muz-ap"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ap-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "MSZ-AP25-50VGKD2_OM_VG79N348H02.pdf",
+        "mb":  1.81,
+        "srcmb":  1.86,
+        "slugs":  [
+                      "mitsubishi-msz-ap",
+                      "mitsubishi-msz-ay",
+                      "mitsubishi-muz-ap"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ap-user-2.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "MSZ-AP60-80VGD2_OM_VG79Y683H03.pdf",
+        "mb":  2.28,
+        "srcmb":  2.34,
+        "slugs":  [
+                      "mitsubishi-msz-ap",
+                      "mitsubishi-msz-ay",
+                      "mitsubishi-muz-ap"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ap-install-2.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "MSZ-AP60-80VGKD2_IM_VG79N341H03.pdf",
+        "mb":  0.76,
+        "srcmb":  0.76,
+        "slugs":  [
+                      "mitsubishi-msz-ap",
+                      "mitsubishi-msz-ay",
+                      "mitsubishi-muz-ap"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ef-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_MSZ-EF_Series-2021-06-web.pdf",
+        "mb":  0.12,
+        "srcmb":  1.36,
+        "slugs":  [
+                      "mitsubishi-msz-ef",
+                      "mitsubishi-muz-ef"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ef-install.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Installation_Manual-MSZ-EF.VGD-A1_IM_JG79N829H02.pdf",
+        "mb":  0.88,
+        "srcmb":  0.9,
+        "slugs":  [
+                      "mitsubishi-msz-ef",
+                      "mitsubishi-muz-ef"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ef-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "User_Manual-MSZ-EF.VGD-A1_OM_DG79A0D4H02.pdf",
+        "mb":  1.46,
+        "srcmb":  1.5,
+        "slugs":  [
+                      "mitsubishi-msz-ef",
+                      "mitsubishi-muz-ef"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ln-brochure-2.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_MSZ-LN_13.11.18.pdf",
+        "mb":  1.28,
+        "srcmb":  1.77,
+        "slugs":  [
+                      "mitsubishi-msz-ln"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ln-brochure-3.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_MXZ_Series-2021-05-web.pdf",
+        "mb":  0.21,
+        "srcmb":  2.91,
+        "slugs":  [
+                      "mitsubishi-msz-ln",
+                      "mitsubishi-sez-m",
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ln-brochure-4.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_PUMY-Series-2023.pdf",
+        "mb":  0.41,
+        "srcmb":  0.62,
+        "slugs":  [
+                      "mitsubishi-msz-ln",
+                      "mitsubishi-sez-m",
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ln-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "mitsubishi--msz-ln-brochure.pdf",
+        "mb":  3.5,
+        "srcmb":  5.75,
+        "slugs":  [
+                      "mitsubishi-msz-ln"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ln-brochure-5.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Multi-Split-Systems-Air-Conditioning-Brochure-2025-12.pdf",
+        "mb":  1.66,
+        "srcmb":  2.01,
+        "slugs":  [
+                      "mitsubishi-msz-ln",
+                      "mitsubishi-sez-m"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ln-install.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Installation_Manual-MSZ-LN-VG2_IM_VG79Y198H01_Sept2020.pdf",
+        "mb":  0.53,
+        "srcmb":  0.53,
+        "slugs":  [
+                      "mitsubishi-msz-ln"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-msz-ln-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "User_Manual-MSZ-LN-VG2_OM_JG79Y724H01_Sept2020.pdf",
+        "mb":  3.27,
+        "srcmb":  3.27,
+        "slugs":  [
+                      "mitsubishi-msz-ln"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-plfy-wl-other.pdf",
+        "class":  "other",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "EC_PLFY-WL25VFM-E.pdf",
+        "mb":  0.12,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "mitsubishi-plfy-wl"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-plfy-wl-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "OM_PLFY-WL_VFM-E_BH79A522H02.pdf",
+        "mb":  2.65,
+        "srcmb":  3.76,
+        "slugs":  [
+                      "mitsubishi-plfy-wl"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-sez-m-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Multi_Split_Guide-2021-01-web.pdf",
+        "mb":  2.38,
+        "srcmb":  2.39,
+        "slugs":  [
+                      "mitsubishi-sez-m",
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-slz-m-other.pdf",
+        "class":  "other",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Case-Study-VIC-Brimbank-Acquatic-Centre_2023.pdf",
+        "mb":  0.23,
+        "srcmb":  0.56,
+        "slugs":  [
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-slz-m-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Mr_Slim-Air-Conditioning-Systems-Brochure-2025.pdf",
+        "mb":  1.84,
+        "srcmb":  2.09,
+        "slugs":  [
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-slz-m-install.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "SLZ-M25-60FA-A_IM_VG79Y136H01_Feb2020.pdf",
+        "mb":  4.56,
+        "srcmb":  8.26,
+        "slugs":  [
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-slz-m-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "SLZ-M25-60FA-A_OM_VG79Y135H01_Feb2020.pdf",
+        "mb":  1.56,
+        "srcmb":  1.56,
+        "slugs":  [
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
+        "file":  "samsung-cac-duct-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "2022_CAC_Africa_CIS_DUCT_IB_DB68-11694A-02_EN.pdf",
+        "mb":  0.87,
+        "srcmb":  7.34,
+        "slugs":  [
+                      "samsung-cac-duct"
+                  ]
+    },
+    {
+        "file":  "samsung-cac-outdoor-other.pdf",
+        "class":  "other",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "DB68-11658A-01_CAC_Universal_Outdoor_AF_EN_230320-D01.pdf",
+        "mb":  1.07,
+        "srcmb":  1.44,
+        "slugs":  [
+                      "samsung-cac-outdoor"
+                  ]
+    },
+    {
+        "file":  "samsung-cac-360-install.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "DB68-11656A-00_IM_CAC_Universal_360_AF_EN_220615-D10.pdf",
+        "mb":  2.89,
+        "srcmb":  6.57,
+        "slugs":  [
+                      "samsung-cac-360"
+                  ]
+    },
+    {
+        "file":  "samsung-cac-360-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "DB68-11659A-01_IB_CAC_Universal_360_AF_EN_230328-D02.pdf",
+        "mb":  1.51,
+        "srcmb":  1.99,
+        "slugs":  [
+                      "samsung-cac-360"
+                  ]
+    },
+    {
+        "file":  "samsung-cac-ceiling-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "2022_CAC_Africa_CIS_Big_Ceiling_IB_DB68-11692A-02_EN.pdf",
+        "mb":  1.26,
+        "srcmb":  7.66,
+        "slugs":  [
+                      "samsung-cac-ceiling"
+                  ]
+    },
+    {
+        "file":  "samsung-dvm-cassette-4way-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "DVM_Wind-Free_Mini_4way_TK_IB_EN_DB68-07823A-10_23.03.18.pdf",
+        "mb":  0.89,
+        "srcmb":  7.89,
+        "slugs":  [
+                      "samsung-dvm-cassette-4way"
+                  ]
+    },
+    {
+        "file":  "samsung-dvm-cassette-4way-install.pdf",
+        "class":  "install",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "DVM_Wind-Free_Mini_4way_TK_IM_EN_DB68-07824A-04_22.09.15.pdf",
+        "mb":  2.06,
+        "srcmb":  14.64,
+        "slugs":  [
+                      "samsung-dvm-cassette-4way"
+                  ]
+    },
+    {
+        "file":  "samsung-fjm-wall-windfree-user.pdf",
+        "class":  "user",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "FJM001-00_IB_Global_HP_Wind-Free_GEO_EA_EN-WEB_200610.pdf",
+        "mb":  9.37,
+        "srcmb":  19.26,
+        "slugs":  [
+                      "samsung-fjm-wall-windfree"
+                  ]
+    },
+    {
+        "file":  "beretta-ciao-s-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "CIAO S-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  0.71,
+        "srcmb":  1.77,
+        "slugs":  [
+                      "beretta-ciao-s",
+                      "beretta-city"
+                  ]
+    },
+    {
+        "file":  "beretta-mynute-s-other.pdf",
+        "class":  "other",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "beretta-mynute.pdf",
+        "mb":  0.83,
+        "srcmb":  1.46,
+        "slugs":  [
+                      "beretta-mynute-s"
+                  ]
+    },
+    {
+        "file":  "beretta-mynute-s-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "MYNUTE LX-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  0.38,
+        "srcmb":  1.1,
+        "slugs":  [
+                      "beretta-mynute-s"
+                  ]
+    },
+    {
+        "file":  "beretta-mynute-s-install.pdf",
+        "class":  "install",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "MYNUTE S 35 C-S-I- NG-20069392-Installer Manual-0-EN-FR-ES-PT-HU-RO-DE-SL.pdf",
+        "mb":  10.06,
+        "srcmb":  23.76,
+        "slugs":  [
+                      "beretta-mynute-s"
+                  ]
+    },
+    {
+        "file":  "beretta-mynute-s-brochure-2.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "MYNUTE S-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  2.2,
+        "srcmb":  14.67,
+        "slugs":  [
+                      "beretta-mynute-s"
+                  ]
+    },
+    {
+        "file":  "beretta-power-evo-x-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "27024080_00_beretta_power_evo_x_en_brochure_04.2025.pdf",
+        "mb":  2.23,
+        "srcmb":  3.75,
+        "slugs":  [
+                      "beretta-power-evo-x"
+                  ]
+    },
+    {
+        "file":  "beretta-power-max-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "beretta_power_max_guide_en_07.2020.pdf",
+        "mb":  16.21,
+        "srcmb":  16.21,
+        "slugs":  [
+                      "beretta-power-max"
+                  ]
+    },
+    {
+        "file":  "beretta-power-max-brochure-2.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "MAX MONOBLOC WALL-HUNG HYBRID SYSTEMS-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  6.16,
+        "srcmb":  6.19,
+        "slugs":  [
+                      "beretta-power-max"
+                  ]
+    },
+    {
+        "file":  "beretta-quadra-green-install.pdf",
+        "class":  "install",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "QUADRA II 24 C-S-I- NG-20084087-Installer + User Manual-0-EN-FR-ES.pdf",
+        "mb":  6.28,
+        "srcmb":  7.06,
+        "slugs":  [
+                      "beretta-quadra-green"
+                  ]
+    },
+    {
+        "file":  "beretta-quadra-green-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "QUADRA II 24-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  1.14,
+        "srcmb":  1.84,
+        "slugs":  [
+                      "beretta-quadra-green"
+                  ]
+    },
+    {
+        "file":  "beretta-quadra-green-other.pdf",
+        "class":  "other",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "Quadra-Green-Date-tehnice.pdf",
+        "mb":  0.23,
+        "srcmb":  0.31,
+        "slugs":  [
+                      "beretta-quadra-green"
+                  ]
+    },
+    {
+        "file":  "riello-condexa-pro-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "27017467_riello_condexa_pro_guide_en_07.2020.pdf",
+        "mb":  16.56,
+        "srcmb":  16.56,
+        "slugs":  [
+                      "riello-condexa-pro"
+                  ]
+    },
+    {
+        "file":  "riello-condexa-pro-brochure-2.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "CONDEXA PRO-Technical-commercial sheet-0-EN.pdf",
+        "mb":  2.34,
+        "srcmb":  3.33,
+        "slugs":  [
+                      "riello-condexa-pro"
+                  ]
+    },
+    {
+        "file":  "riello-rlt-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "RLT-Brochure-Depliant di prodotto-0-IT.pdf",
+        "mb":  1.27,
+        "srcmb":  4.04,
+        "slugs":  [
+                      "riello-rlt"
+                  ]
+    },
+    {
+        "file":  "riello-rlt-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "scheda-tecnica-caldaia-riello-rlt.pdf",
+        "mb":  2.17,
+        "srcmb":  2.17,
+        "slugs":  [
+                      "riello-rlt"
+                  ]
+    },
+    {
+        "file":  "riello-start-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "START (KI)-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  0.83,
+        "srcmb":  4.63,
+        "slugs":  [
+                      "riello-start"
+                  ]
+    },
+    {
+        "file":  "riello-start-25-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "START-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  0.81,
+        "srcmb":  2.33,
+        "slugs":  [
+                      "riello-start-25"
+                  ]
+    },
+    {
+        "file":  "warmhaus-lawa-install.pdf",
+        "class":  "install",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "warmhaus-montaj-kullanim-kilavuz-eng-anl-20201120-web_9123788944.pdf",
+        "mb":  1.47,
+        "srcmb":  1.73,
+        "slugs":  [
+                      "warmhaus-lawa"
+                  ]
+    },
+    {
+        "file":  "warmhaus-lawa-plus-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "enerwa-and-enerwa-plus-brochure-2.pdf",
+        "mb":  2.46,
+        "srcmb":  3.34,
+        "slugs":  [
+                      "warmhaus-lawa-plus"
+                  ]
+    },
+    {
+        "file":  "warmhaus-lawa-plus-brochure-2.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "lawa-and-lawa-plus-brochure.pdf",
+        "mb":  3.2,
+        "srcmb":  3.26,
+        "slugs":  [
+                      "warmhaus-lawa-plus"
+                  ]
+    },
+    {
+        "file":  "warmhaus-lawa-plus-user.pdf",
+        "class":  "user",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "lawa-and-lawa-plus-user-manual.pdf",
+        "mb":  1.48,
+        "srcmb":  1.48,
+        "slugs":  [
+                      "warmhaus-lawa-plus"
+                  ]
+    },
+    {
+        "file":  "warmhaus-viwa-50-65-install.pdf",
+        "class":  "install",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "Warmhaus Viwa 50-65 Installation and User Manual-ENG ANL-20211008-WebL.pdf",
+        "mb":  12.62,
+        "srcmb":  14.22,
+        "slugs":  [
+                      "warmhaus-viwa-50-65"
+                  ]
+    },
+    {
+        "file":  "warmhaus-viwa-install.pdf",
+        "class":  "install",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "Warmhaus Viwa 90-150 Installation \u0026 User Manual ENG ANL-20220428 WebL.pdf",
+        "mb":  16.77,
+        "srcmb":  18.54,
+        "slugs":  [
+                      "warmhaus-viwa"
+                  ]
+    },
+    {
+        "file":  "warmhaus-viwa-s-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "viwa-s-brochure.pdf",
+        "mb":  6.48,
+        "srcmb":  6.48,
+        "slugs":  [
+                      "warmhaus-viwa-s"
+                  ]
+    },
+    {
+        "file":  "warmhaus-viwa-s-user.pdf",
+        "class":  "user",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "viwa-s-user-manual.pdf",
+        "mb":  2.82,
+        "srcmb":  7.25,
+        "slugs":  [
+                      "warmhaus-viwa-s"
+                  ]
+    },
+    {
+        "file":  "beretta-idra-bv-install.pdf",
+        "class":  "install",
+        "cat":  "water-heaters",
+        "model":  "",
+        "name":  "IDRA BV 550-20101900-Installer + User Manual-0-EN.pdf",
+        "mb":  0.32,
+        "srcmb":  0.32,
+        "slugs":  [
+                      "beretta-idra-bv"
+                  ]
+    },
+    {
+        "file":  "omega-esb-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "water-heaters",
+        "model":  "",
+        "name":  "omega-katalog-en.pdf",
+        "mb":  4.82,
+        "srcmb":  13.34,
+        "slugs":  [
+                      "omega-esb"
+                  ]
+    },
+    {
+        "file":  "riello-7200v-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "water-heaters",
+        "model":  "",
+        "name":  "090708401RIELLO_7200V_200-550NV_кривая.pdf",
+        "mb":  0.47,
+        "srcmb":  0.95,
+        "slugs":  [
+                      "riello-7200v"
+                  ]
+    },
+    {
+        "file":  "riello-7200v-other.pdf",
+        "class":  "other",
+        "cat":  "water-heaters",
+        "model":  "",
+        "name":  "8cc46a650442851d150eb5d8cbcc6f95.pdf",
+        "mb":  0.18,
+        "srcmb":  1.22,
+        "slugs":  [
+                      "riello-7200v"
+                  ]
+    },
+    {
+        "file":  "riello-7200v-wiring-2.pdf",
+        "class":  "wiring",
+        "cat":  "water-heaters",
+        "model":  "",
+        "name":  "Пульт управления бойлером 7200_25.pdf",
+        "mb":  0.47,
+        "srcmb":  0.72,
+        "slugs":  [
+                      "riello-7200v"
+                  ]
+    }
+]

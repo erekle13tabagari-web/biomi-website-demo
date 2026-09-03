@@ -1,0 +1,17 @@
+﻿[
+  {
+    "_note": "Two documents were already published under hand-written blocks before this generator existed. They are not in the source library, so the inventory cannot find them -- they are declared here so regenerating a page keeps them instead of dropping the link.",
+    "file": "samsung-technical-catalogue.pdf",
+    "class": "brochure",
+    "cat": "ac",
+    "model": "",
+    "labelKa": "ტექნიკური კატალოგი",
+    "labelEn": "Technical catalogue",
+    "slugs": ["samsung-cac-360", "samsung-cac-ceiling", "samsung-cac-duct", "samsung-cac-outdoor",
+              "samsung-dvm-360", "samsung-dvm-cassette-1way", "samsung-dvm-cassette-4way",
+              "samsung-dvm-duct-mid", "samsung-dvm-outdoor", "samsung-dvm-wall-windfree",
+              "samsung-dvm-wall", "samsung-fjm-duct-low-static", "samsung-fjm-outdoor",
+              "samsung-fjm-wall-windfree", "samsung-fjm-windfree"],
+    "mb": 7.34
+  }
+]

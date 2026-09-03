@@ -1,0 +1,24 @@
+﻿{
+  "_note": [
+    "Per-document overrides, keyed by source filename.",
+    "",
+    "'pages' extracts a page range instead of publishing the whole file. Used for",
+    "manuals bound in several languages: the reader only wants one of them, and the",
+    "other seven multiply the download for nothing."
+  ],
+
+  "mitsubishi--msz-ln-brochure.pdf": {
+    "as": "mitsubishi-msz-ln-brochure",
+    "why": "The same 24-page 'For your luxury' brochure that was already published by hand at this filename, only compressed (5.7 MB -> 3.5 MB). Forcing the name keeps the URL that has been live working and stops the page listing the document twice."
+  },
+
+  "PRODUCT_CATALOGUE_International-Markets_ENG.pdf": {
+    "exclude": true,
+    "why": "Beretta's general international-markets catalogue, not a Quadra Green brochure -- it only sits in that model's folder. 57.8 MB, and 27.7 MB even after compression, because its pages are already efficiently-compressed imagery. Link to Beretta's own download page instead, per the decision to link out rather than host the large catalogues."
+  },
+
+  "MYNUTE S 35 C-S-I- NG-20069392-Installer Manual-0-EN-FR-ES-PT-HU-RO-DE-SL.pdf": {
+    "pages": "1-17,118-144",
+    "why": "144 pages in eight languages. English runs 1-17 (FRANÇAIS starts on 18) and the shared figures and wiring diagrams run 118-144; the 100 pages between are FR/ES/PT/HU/RO/DE/SL. Verified by reading the language header on each boundary page."
+  }
+}
