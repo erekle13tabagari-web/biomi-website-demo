@@ -676,22 +676,34 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    logo needs room inside the chip: several of these marks carry their own frame
    -- Terminal's artwork is literally a rectangle with the wordmark inside it --
    and a logo as tall as its chip leaves the pill's rounded edge cutting across
-   that frame. 20px inside 34px gives 7px of clearance top and bottom. */
-.article__topmeta .proj__logo{height:34px;min-width:0;padding:0 12px}
-.article__topmeta .proj__logo img{height:20px;max-width:150px}
+   that frame. The chip is sized by its padding rather than a fixed height,
+   so that 7px of clearance holds however tall the logo is set below. */
+.article__topmeta .proj__logo{height:auto;min-width:0;padding:7px 12px}
+.article__topmeta .proj__logo img{height:var(--logo-h,20px);max-width:150px}
 .proj .proj__logo{position:absolute;top:18px;left:18px;z-index:2;
   height:auto;min-width:0;padding:7px 11px;max-width:calc(100% - 36px)}
 /* object-fit keeps the aspect ratio if a future logo is wide enough for
    max-width to bite -- with a fixed height it would otherwise stretch. */
-.proj .proj__logo img{height:22px;max-width:100%;object-fit:contain}
+.proj .proj__logo img{height:var(--logo-h,22px);max-width:100%;object-fit:contain}
 /* Two shapes of client logo end up in these chips. A wide wordmark (SDSU at
-   6.4:1, Terminal at 4.6:1) fills the width and reads fine at 22px tall. A
+   6.4:1) fills the width and reads fine at the base height. A
    stacked lockup -- mark over text, ORO 2.4:1 down to Agrarian at 1:1 --
-   collapses to between 21 and 51px wide at that height and turns to mush, so
+   collapses to between 21 and 51px wide there and turns to mush, so
    it gets a much taller box and the chip grows with it. */
-.article__topmeta .proj__logo--lockup{height:56px}
-.article__topmeta .proj__logo--lockup img{height:42px}
-.proj .proj__logo--lockup img{height:42px}
+/* 42 + 7 + 7 is the 56px this chip used to hard-code, so it needs no rule. */
+.article__topmeta .proj__logo--lockup img{--logo-h:42px}
+.proj .proj__logo--lockup img{--logo-h:42px}
+/* Per-logo heights, because two tiers cannot hold ratios running from
+   0.95:1 (Agrarian) to 6.4:1 (SDSU). At the wordmark height Terminal and
+   Kartlisi read small; at the lockup height ORO outweighs every chip beside
+   it. Keying on the filename keeps the sizing in one place, and a renamed
+   logo falls back to its tier rather than breaking. */
+.proj .proj__logo img[src$="terminal.svg"],
+.article__topmeta .proj__logo img[src$="terminal.svg"]{--logo-h:28px}
+.proj .proj__logo img[src$="kartlisi.png"],
+.article__topmeta .proj__logo img[src$="kartlisi.png"]{--logo-h:30px}
+.proj .proj__logo img[src$="oro.svg"],
+.article__topmeta .proj__logo img[src$="oro.svg"]{--logo-h:34px}
 
 /* =========================================================================
    CONTACT strip
