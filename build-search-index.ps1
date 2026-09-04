@@ -16,7 +16,7 @@ $enc  = New-Object Text.UTF8Encoding($false)
 $staticKa = @(
   @{ url = 'index.html';                    title = 'მთავარი';               kind = 'გვერდი' },
   @{ url = 'about.html';                    title = 'ჩვენ შესახებ';          kind = 'გვერდი' },
-  @{ url = 'service.html';                  title = 'სერვისი და ტექნიკური მხარდაჭერა'; kind = 'გვერდი' },
+  # hidden for now: @{ url = 'service.html';                  title = 'სერვისი და ტექნიკური მხარდაჭერა'; kind = 'გვერდი' },
   @{ url = 'products/vrf-vrv.html';         title = 'VRF / VRV სისტემა';     kind = 'კატეგორია' },
   @{ url = 'products/samsung.html';         title = 'Samsung';               kind = 'ბრენდი' },
   @{ url = 'products/mitsubishi-electric.html'; title = 'Mitsubishi Electric'; kind = 'ბრენდი' },
@@ -29,7 +29,7 @@ $staticKa = @(
 $staticEn = @(
   @{ url = 'index-en.html';                 title = 'Home';                  kind = 'Page' },
   @{ url = 'about-en.html';                 title = 'About us';              kind = 'Page' },
-  @{ url = 'service-en.html';               title = 'Service and technical support'; kind = 'Page' },
+  # hidden for now: @{ url = 'service-en.html';               title = 'Service and technical support'; kind = 'Page' },
   @{ url = 'products/vrf-vrv-en.html';      title = 'VRF / VRV system';      kind = 'Category' },
   @{ url = 'products/samsung-en.html';      title = 'Samsung';               kind = 'Brand' },
   @{ url = 'products/mitsubishi-electric-en.html'; title = 'Mitsubishi Electric'; kind = 'Brand' },
