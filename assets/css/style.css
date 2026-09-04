@@ -1187,7 +1187,12 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .article__lead{font-size:19px;color:var(--ink);margin-bottom:6px}
 .article__img{border-radius:var(--radius);overflow:hidden;margin:30px 0;box-shadow:var(--shadow-sm)}
 .article__img img{width:100%;display:block}
-.article__img figcaption{font-size:13px;color:var(--muted);padding:10px 4px 0}
+/* The caption sits inside the figure, which is a rounded card with
+   overflow:hidden. With no bottom padding the last line ran into that
+   rounded edge and lost its descenders, and 4px left it almost touching
+   the sides. It never showed while every caption was one short line. */
+.article__img figcaption{font-size:13px;color:var(--muted);line-height:1.5;
+  padding:12px 16px 14px}
 .article__body p{margin-bottom:18px;color:var(--body)}
 .article__body h2{font-size:23px;margin:36px 0 14px}
 .article__body ul{margin:0 0 18px 22px;list-style:disc;color:var(--body)}
