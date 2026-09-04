@@ -1192,6 +1192,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    NEWS ARTICLE PAGE (news/*.html)
    ========================================================================= */
 .article{max-width:800px;margin-inline:auto}
+/* Centring the 800px measure is right when the article is the whole page.
+   On the projects gallery it sits above a grid that fills the container, so
+   the heading ended up indented well to the right of the first card. Flush
+   left lines the two up; the measure is unchanged. */
+.article--flush{margin-inline:0}
 .article__topmeta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:6px}
 .article__date{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--muted)}
 .article__date svg{width:15px;height:15px;color:var(--gold-600)}

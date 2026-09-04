@@ -58,7 +58,7 @@ foreach ($lang in 'ka', 'en') {
   $body = @(
     '<section class="page-hero">',
     '  <div class="container">',
-    '    <article class="article">',
+    '    <article class="article article--flush">',
     '      <nav class="crumbs" aria-label="breadcrumb">',
     ('        <a href="' + $t.home + '">' + $t.crumbHome + '</a><span class="sep">/</span>'),
     ('        <b>' + $t.crumb + '</b>'),
