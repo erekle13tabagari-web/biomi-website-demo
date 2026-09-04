@@ -4,6 +4,32 @@
     "src": "„ბიომი ჰოლდინგმა“ ჰაერსატარების წარმოების შესაძლებლობები გაზარდა",
     "date": "2025-03-15",
     "hero": "news-duct-production.jpg",
+    "figures": [
+      {
+        "from": "docx:image2",
+        "img": "news-duct-production-kartlisi.jpg",
+        "ka": {
+          "alt": "„კარტლისის“ სივრცე მწვანე ჰაერსატარებით",
+          "cap": "„კარტლისის“ პროექტისთვის განკუთვნილი მწვანე ფერის ჰაერსატარები"
+        },
+        "en": {
+          "alt": "The Kartlisi space with its green ductwork",
+          "cap": "Ductwork in green, made for the Kartlisi project"
+        }
+      },
+      {
+        "from": "წრე.jpg",
+        "img": "news-duct-production-tsre.jpg",
+        "ka": {
+          "alt": "„წრეს“ სივრცე თეთრი ჰაერსატარებით",
+          "cap": "„წრეს“ სივრცისთვის შექმნილი თეთრი ჰაერსატარები, ელექტროსტატიკურად დატანილი ფხვნილოვანი საფარითაა დამუშავებული, რაც გარდა ვიზუალური ესთეთიკისა, მათ მაღალი კოროზიული და მექანიკური გამძლეობით გამოარჩევს"
+        },
+        "en": {
+          "alt": "The Tsre space with its white ductwork",
+          "cap": "White ductwork made for the Tsre space, finished with an electrostatically applied powder coating that, beyond the look of it, gives the ducts high resistance to corrosion and mechanical wear"
+        }
+      }
+    ],
     "ka": {
       "cat": "სიახლე",
       "crumb": "ჰაერსატარების წარმოება",
@@ -26,13 +52,10 @@
         "",
         "<p>ეს შესაძლებლობა განსაკუთრებით აქტუალურია ღია ჭერის მქონე სივრცეებისთვის, სადაც საინჟინრო კომუნიკაციები ინტერიერში ხილული რჩება. ასეთ პროექტებში ჰაერსატარი მხოლოდ ტექნიკური ელემენტი აღარ არის - მისი ფორმა, შესრულების ხარისხი და ფერი საერთო არქიტექტურული კონცეფციის ნაწილი ხდება.</p>",
         "",
-        "<p>ახალი ხაზის ამოქმედებით „ბიომი ჰოლდინგმა“ გაზარდა ნებისმიერი კონფიგურაციის ჰაერსატარების წარმოების სიმძლავრე, რითიც უფრო მოქნილად უპასუხებს თითოეული პროექტის მოთხოვნებს. გაზრდილი სიმძლავრით კომპანიას შეუძლია, ერთდროულად მოემსახუროს განსხვავებული მასშტაბისა და ტექნიკური მოთხოვნების მქონე პროექტებს.</p>"
-      ],
-      "figure": {
-        "img": "news-duct-production-kartlisi.jpg",
-        "alt": "„კარტლისის“ სივრცე მწვანე ჰაერსატარებით",
-        "cap": "„კარტლისის“ პროექტისთვის განკუთვნილი მწვანე ფერის ჰაერსატარები"
-      }
+        "<p>ახალი ხაზის ამოქმედებით „ბიომი ჰოლდინგმა“ გაზარდა ნებისმიერი კონფიგურაციის ჰაერსატარების წარმოების სიმძლავრე, რითიც უფრო მოქნილად უპასუხებს თითოეული პროექტის მოთხოვნებს. გაზრდილი სიმძლავრით კომპანიას შეუძლია, ერთდროულად მოემსახუროს განსხვავებული მასშტაბისა და ტექნიკური მოთხოვნების მქონე პროექტებს.</p>",
+        "",
+        "FIGURE"
+      ]
     },
     "en": {
       "cat": "News",
@@ -56,13 +79,10 @@
         "",
         "<p>That matters most in spaces with an open ceiling, where the engineering services stay visible in the interior. On those projects a duct is no longer only a technical element: its form, the quality of its execution and its colour become part of the overall architectural concept.</p>",
         "",
-        "<p>With the new line running, Biomi Holding has increased its capacity to produce ductwork in any configuration, and can answer the requirements of each project more flexibly. The added capacity lets the company serve projects of differing scale and technical demand at the same time.</p>"
-      ],
-      "figure": {
-        "img": "news-duct-production-kartlisi.jpg",
-        "alt": "The Kartlisi space with its green ductwork",
-        "cap": "Ductwork in green, made for the Kartlisi project"
-      }
+        "<p>With the new line running, Biomi Holding has increased its capacity to produce ductwork in any configuration, and can answer the requirements of each project more flexibly. The added capacity lets the company serve projects of differing scale and technical demand at the same time.</p>",
+        "",
+        "FIGURE"
+      ]
     }
   },
   {

@@ -66,32 +66,41 @@ foreach ($item in $DATA) {
     }
   }
 
-  # ---- the inline figure, pulled out of the .docx
+  # ---- the inline figures
   #
-  # The captioned photos live inside the Word file, not in the folder: the
-  # author placed each one against its own caption there. Taking it from the
-  # .docx is what guarantees the caption still describes the photo above it.
-  # A .docx is a zip, so word/media holds them in document order.
+  # Each one names its own source, because they do not all live in the same
+  # place. "áƒ¬áƒ áƒ”.jpg" is a file in the article folder; "docx:image2" is the
+  # second inline shape inside the Word file, where the author placed it
+  # against its caption and nowhere else. Naming the source per figure is what
+  # keeps a caption tied to the photo it was written for.
   $figNote = 'none'
-  if ($item.ka.figure) {
-    $doc = Get-ChildItem -LiteralPath $folder -Filter '*.docx' -File | Select-Object -First 1
-    if ($doc) {
-      Add-Type -AssemblyName System.IO.Compression.FileSystem
-      $tmp = Join-Path $env:TEMP ('news-' + $item.slug + '.zip')
-      Copy-Item $doc.FullName $tmp -Force
-      $zip = [IO.Compression.ZipFile]::OpenRead($tmp)
-      # image2 is the second inline shape: the first is the hero, the third is
-      # the shot that was later moved to "DO NOT USE" and must not be published.
-      $entry = $zip.Entries | Where-Object { $_.FullName -like 'word/media/image2.*' } | Select-Object -First 1
-      if ($entry) {
-        $raw = Join-Path $env:TEMP ('news-fig-' + $item.slug + [IO.Path]::GetExtension($entry.FullName))
-        [IO.Compression.ZipFileExtensions]::ExtractToFile($entry, $raw, $true)
-        & $MAGICK $raw -resize '1400x>' -quality 82 (Join-Path $IMG $item.ka.figure.img)
-        $figNote = $item.ka.figure.img
-        Remove-Item $raw -Force
+  foreach ($fig in $item.figures) {
+    $dstImg = Join-Path $IMG $fig.img
+    $raw = $null; $tmpRaw = $null
+    if ($fig.from -like 'docx:*') {
+      $want = $fig.from.Substring(5)
+      $doc = Get-ChildItem -LiteralPath $folder -Filter '*.docx' -File | Select-Object -First 1
+      if ($doc) {
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        $tmpZip = Join-Path $env:TEMP ('news-' + $item.slug + '.zip')
+        Copy-Item $doc.FullName $tmpZip -Force
+        $zip = [IO.Compression.ZipFile]::OpenRead($tmpZip)
+        $entry = $zip.Entries | Where-Object { $_.FullName -like ('word/media/' + $want + '.*') } | Select-Object -First 1
+        if ($entry) {
+          $tmpRaw = Join-Path $env:TEMP ('news-fig-' + $want + [IO.Path]::GetExtension($entry.FullName))
+          [IO.Compression.ZipFileExtensions]::ExtractToFile($entry, $tmpRaw, $true)
+          $raw = $tmpRaw
+        }
+        $zip.Dispose(); Remove-Item $tmpZip -Force
       }
-      $zip.Dispose(); Remove-Item $tmp -Force
+    } else {
+      $file = Get-ChildItem -LiteralPath $folder -File | Where-Object { $_.Name -eq $fig.from } | Select-Object -First 1
+      if ($file) { $raw = $file.FullName }
     }
+    if (-not $raw) { Write-Host ('  ! figure source missing: ' + $fig.from); continue }
+    & $MAGICK $raw -resize '1400x1400>' -quality 82 $dstImg
+    if ($tmpRaw) { Remove-Item $tmpRaw -Force }
+    $figNote = if ($figNote -eq 'none') { $fig.img } else { $figNote + ', ' + $fig.img }
   }
 
   $size = if ($n) { ' (' + [math]::Round((Get-ChildItem $gdir -File | Measure-Object Length -Sum).Sum / 1KB) + ' KB)' } else { '' }

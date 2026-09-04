@@ -14,11 +14,9 @@ powershell -File tools\news\build-news.ps1   # the four pages + the homepage rai
    - `thumbnail.*` — becomes the hero, cropped to 16:9
    - `Main gallery/` — optional, becomes the thumbnail strip
    - `DO NOT USE/` — never read
-   - the `.docx` — the copy, and the source of any captioned inline photo
+   - the `.docx` — the copy, and a possible source for captioned photos
 2. Add an entry to `news.json`. Both languages, `body` as an array of HTML
-   lines. A line that is exactly `FIGURE` becomes the captioned inline photo
-   described by that language's `figure` block; leave `figure` out and the
-   marker is dropped.
+   lines.
 3. Run the two scripts. Then `tools\build-meta.ps1` and
    `build-search-index.ps1`, and add the article to the static list in the
    latter.
@@ -29,14 +27,30 @@ rail and the "other news" strip at the foot of each article are whatever is in
 edited, so the markup, labels and inline SVGs stay exactly as designed rather
 than being retyped here.
 
-## Why the inline figure comes out of the .docx
+## Captioned figures
 
-The captioned photos are not in the folder — the author placed each one against
-its own caption inside the Word file. Pulling `word/media/image2.*` out of the
-`.docx` is what guarantees the caption still describes the photo above it.
+A line in `body` that is exactly `FIGURE` becomes the next entry from the
+item's `figures` list, in order, with that language's `alt` and `cap`.
 
-`image1` is the hero and `image3`, in the ductwork article, is the shot that was
-later moved to `DO NOT USE`; that figure and its caption are both left out.
+Each figure names its own source, because they do not all live in the same
+place:
+
+```json
+{ "from": "docx:image2", "img": "news-duct-production-kartlisi.jpg", … }
+{ "from": "წრე.jpg",     "img": "news-duct-production-tsre.jpg",     … }
+```
+
+- `docx:imageN` — the Nth inline shape inside the Word file. Some captioned
+  photos exist only there, placed against their caption by the author and
+  nowhere else. `image1` is normally the hero.
+- anything else — a file sitting in the article folder.
+
+Naming the source per figure is what keeps a caption tied to the photo it was
+written for.
+
+A `FIGURE` marker with no figure left to spend is dropped. That is how a
+withdrawn photo takes its caption out of the article with it, rather than
+leaving the caption to be paired with some other picture.
 
 ## Templates
 

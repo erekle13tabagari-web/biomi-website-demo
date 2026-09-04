@@ -96,15 +96,25 @@ foreach ($item in $DATA) {
       }
     }
 
-    # ---- body. FIGURE on its own line becomes the captioned inline photo.
+    # ---- body. Each FIGURE line on its own becomes the next captioned photo
+    #      from this item's figures list, in order. A FIGURE with no figure
+    #      left to spend is dropped, which is how a withdrawn photo takes its
+    #      caption out of the article with it rather than pairing that caption
+    #      with some other picture.
     $lines = @()
+    $fi = 0
     foreach ($line in $t.body) {
-      if ($line -eq 'FIGURE' -and $t.figure) {
-        $lines += '<figure class="article__img">'
-        $lines += '  <img src="../assets/img/' + $t.figure.img + '" alt="' + (Esc $t.figure.alt) + '" data-lightbox>'
-        $lines += '  <figcaption>' + $t.figure.cap + '</figcaption>'
-        $lines += '</figure>'
-      } elseif ($line -ne 'FIGURE') {
+      if ($line -eq 'FIGURE') {
+        $fig = if ($item.figures -and $fi -lt @($item.figures).Count) { @($item.figures)[$fi] } else { $null }
+        $fi++
+        if ($fig) {
+          $ft = $fig.$lang
+          $lines += '<figure class="article__img">'
+          $lines += '  <img src="../assets/img/' + $fig.img + '" alt="' + (Esc $ft.alt) + '" data-lightbox>'
+          $lines += '  <figcaption>' + $ft.cap + '</figcaption>'
+          $lines += '</figure>'
+        }
+      } else {
         $lines += $line
       }
     }
