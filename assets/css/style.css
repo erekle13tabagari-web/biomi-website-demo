@@ -490,8 +490,19 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   background:rgba(var(--accent-rgb),.2);border:1px solid rgba(var(--accent-rgb),.55);color:var(--gold-200);
   transition:transform .45s var(--ease),background .35s,color .35s,box-shadow .35s}
 .node__badge svg{width:44%;height:44%}
-.node__label{position:absolute;top:calc(100% + 9px);left:50%;transform:translateX(-50%);white-space:nowrap;
+/* The artwork is white with one accent colour. That accent is --gold, which is
+   why a single set of icons serves both themes -- but the selected badge fills
+   with --gold too, and an accent the same colour as its own background is an
+   invisible one. On the concept, technology, logistics and service icons the
+   accent is most of the drawing, so it turns white while the badge is filled. */
+.node__badge svg .ico-a{fill:var(--gold);transition:fill .35s}
+.ring__node.is-active .node__badge svg .ico-a{fill:#fff}
+/* The label carries the step's full name -- „სერვისი და ტექნიკური მხარდაჭერა"
+   rather than „სერვისი" -- so it wraps instead of running along the ring and
+   into its neighbours. The cap sits below the arc between two nodes. */
+.node__label{position:absolute;top:calc(100% + 9px);left:50%;transform:translateX(-50%);
   font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  width:max-content;max-width:min(148px,34vw);text-align:center;line-height:1.28;
   color:rgba(255,255,255,.88);pointer-events:none;
   transition:color .35s,opacity .3s}
 /* hover affordance (only when nothing is selected) */
@@ -1281,13 +1292,13 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   .hero__card-label{padding:32px 16px 13px;font-size:19px}
 
   /* Services ring: icons only.
-     Eight labelled nodes cannot share a circle this size. The Georgian service
-     names run 8–11 characters, so at 45° apart every label ends up pressed
-     against a neighbouring badge, and "24/7 სერვისი" wraps to two lines and
-     collides outright. The names are not lost — tapping a node puts its full
-     title and description in the panel below, which is exactly what the
-     pointing-hand hint is there to teach. Dropping the labels also frees the
-     room to make the badges bigger, so they are easier to hit. */
+     Seven labelled nodes cannot share a circle this size. Each label now
+     carries the step's full name -- "Service and technical support" rather
+     than "Service" -- so at 51 degrees apart they would collide outright. The
+     names are not lost: tapping a node puts its full title and description in
+     the panel below, which is exactly what the pointing-hand hint is there to
+     teach. Dropping the labels also frees the room to make the badges bigger,
+     so they are easier to hit. */
   .ring{width:min(300px,82vw);--r:clamp(96px,30vw,122px);--size:62px;margin:8px auto 20px}
   .node__badge svg{width:46%;height:46%}
   .node__label{display:none}
