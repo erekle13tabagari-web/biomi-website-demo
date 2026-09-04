@@ -119,7 +119,10 @@ foreach ($lang in 'ka', 'en') {
   $detail = $s.IndexOf('<div class="ring__detail"')
   if ($first -lt 0 -or $detail -lt 0) { throw "ring markup not found in $file" }
   $close  = $s.LastIndexOf('</div>', $detail)   # the </div> that closes .ring
-  $s = $s.Substring(0, $first) + $out + '      ' + $s.Substring($close)
+  # TrimEnd: the slice before $first ends with that line's own indent, and $out
+  # brings its own, so without this each run left eight more spaces in front of
+  # the first node than the last one did -- six runs today had it at 56.
+  $s = $s.Substring(0, $first).TrimEnd(' ') + $out + '      ' + $s.Substring($close)
 
   # The tap hint has to sit exactly on a node, so its angle comes from the same
   # arithmetic rather than the fixed 90deg it used to carry -- that was a node
