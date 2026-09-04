@@ -24,7 +24,8 @@ $staticKa = @(
   @{ url = 'products/water-heaters.html';    title = 'ბოილერი';               kind = 'კატეგორია' },
   @{ url = 'products/ventilation.html';     title = 'ვენტილაცია';            kind = 'კატეგორია' },
   @{ url = 'products/vortice.html';         title = 'Vortice';               kind = 'ბრენდი' },
-  @{ url = 'news/vrf-project.html';         title = 'VRF სისტემის დანერგვა მრავალფუნქციურ ცენტრში'; kind = 'სიახლე' }
+  @{ url = 'news/duct-production.html'; title = '„ბიომი ჰოლდინგმა“ ჰაერსატარების წარმოების შესაძლებლობები გაზარდა'; kind = 'სიახლე' },
+  @{ url = 'news/team-expansion.html'; title = '„ბიომი ჰოლდინგმა“ საინჟინრო და საპროექტო გუნდები გააფართოვა'; kind = 'სიახლე' }
 )
 $staticEn = @(
   @{ url = 'index-en.html';                 title = 'Home';                  kind = 'Page' },
@@ -37,7 +38,8 @@ $staticEn = @(
   @{ url = 'products/water-heaters-en.html'; title = 'Water heaters';         kind = 'Category' },
   @{ url = 'products/ventilation-en.html';  title = 'Ventilation';           kind = 'Category' },
   @{ url = 'products/vortice-en.html';      title = 'Vortice';               kind = 'Brand' },
-  @{ url = 'news/vrf-project-en.html';      title = 'VRF system rollout in a multi-purpose centre'; kind = 'News' }
+  @{ url = 'news/duct-production-en.html'; title = 'Biomi Holding has increased its ductwork production capacity'; kind = 'News' },
+  @{ url = 'news/team-expansion-en.html'; title = 'Biomi Holding has expanded its engineering and design teams'; kind = 'News' }
 )
 
 # Project pages are read off disk rather than listed here. The hand-kept list
