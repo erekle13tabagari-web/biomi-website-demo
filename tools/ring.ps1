@@ -19,13 +19,11 @@ $HEAD = @{
           p  = 'We bring together every stage of a project - from the engineering concept through to technical support' }
 }
 
-# Every step's panel offers a way through to the services page. It used to be
-# only the last one -- the single step with a page of its own -- which left the
-# other six panels ending on nothing while that one had a call to action.
-$LINK = @{
-  ka = @{ href = 'service.html'; cta = 'ვრცლად სერვისის შესახებ' }
-  en = @{ href = 'service-en.html'; cta = 'More about service' }
-}
+# No per-node link. Each panel used to end with a way through to the services
+# page, but that page is hidden for now, so the panels end on their description
+# and the wheel itself is what the menu's Services entry points at. main.js
+# hides the link when a node carries no data-href, so nothing else changes.
+# Restoring it means emitting data-href and data-cta again, nothing more.
 
 # The node artwork, drawn by the designer: white shapes with one accent colour.
 # It lives in ring-icons.json rather than here because each icon carries its own
@@ -104,10 +102,7 @@ foreach ($lang in 'ka', 'en') {
   for ($i = 0; $i -lt $n; $i++) {
     $t = $STEPS[$i].$lang
     $a = [math]::Round(360.0 * $i / $n, 2)
-    # Not $link: PowerShell variable names are case-insensitive, so assigning
-    # to it would overwrite the $LINK table and every node after the first
-    # would index a string and come out with empty attributes.
-    $linkAttr = ' data-href="' + $LINK[$lang].href + '" data-cta="' + (Esc $LINK[$lang].cta) + '"'
+    $linkAttr = ''
     $out += '        <div class="ring__node" style="--a:' + $a + 'deg" data-title="' + (Esc $t.title) +
             '" data-desc="' + (Esc $t.desc) + '"' + $linkAttr + '>' + "`r`n" +
             '          <div class="node__badge">' + $STEPS[$i].icon + '</div>' + "`r`n" +
