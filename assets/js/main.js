@@ -1,4 +1,4 @@
-/* ბიომი - interactions */
+﻿/* ბიომი - interactions */
 (function () {
   'use strict';
 
@@ -1005,7 +1005,7 @@
       ring.style.setProperty('--rot', target + 'deg');
       dTitle.textContent = n.getAttribute('data-title') || '';
       dDesc.textContent = n.getAttribute('data-desc') || '';
-      // a step that has a page of its own offers a way through to it
+      // every step offers a way through to the services page
       if (dLink) {
         var href = n.getAttribute('data-href');
         dLink.hidden = !href;

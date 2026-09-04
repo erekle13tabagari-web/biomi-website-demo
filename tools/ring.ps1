@@ -19,6 +19,14 @@ $HEAD = @{
           p  = 'We bring together every stage of a project - from the engineering concept through to technical support' }
 }
 
+# Every step's panel offers a way through to the services page. It used to be
+# only the last one -- the single step with a page of its own -- which left the
+# other six panels ending on nothing while that one had a call to action.
+$LINK = @{
+  ka = @{ href = 'service.html'; cta = 'ვრცლად სერვისის შესახებ' }
+  en = @{ href = 'service-en.html'; cta = 'More about service' }
+}
+
 # The node artwork, drawn by the designer: white shapes with one accent colour.
 # It lives in ring-icons.json rather than here because each icon carries its own
 # viewBox and a few thousand characters of path data.
@@ -68,15 +76,11 @@ $STEPS = @(
      en = @{ title = 'Commissioning and set-up'
              desc  = 'We commission and set up the installed systems to the operating parameters defined by the design' } },
 
-  # The only step with a page of its own: it is the one a customer comes back to
-  # once the project is finished, so the detail panel offers a way through to it.
   @{ icon = $ICONS.service
      ka = @{ title = 'სერვისი და ტექნიკური მხარდაჭერა'
-             desc  = 'ვუზრუნველყოფთ საინჟინრო სისტემების სერვისსა და ტექნიკურ მხარდაჭერას მათი ექსპლუატაციის განმავლობაში'
-             href  = 'service.html';    cta = 'ვრცლად სერვისის შესახებ' }
+             desc  = 'ვუზრუნველყოფთ საინჟინრო სისტემების სერვისსა და ტექნიკურ მხარდაჭერას მათი ექსპლუატაციის განმავლობაში' }
      en = @{ title = 'Service and technical support'
-             desc  = 'We provide service and technical support for the engineering systems throughout their working life'
-             href  = 'service-en.html'; cta = 'More about service' } }
+             desc  = 'We provide service and technical support for the engineering systems throughout their working life' } }
 )
 
 function Esc($s) { $s -replace '&(?!(amp|lt|gt|quot|#\d+);)', '&amp;' -replace '"', '&quot;' }
@@ -100,10 +104,12 @@ foreach ($lang in 'ka', 'en') {
   for ($i = 0; $i -lt $n; $i++) {
     $t = $STEPS[$i].$lang
     $a = [math]::Round(360.0 * $i / $n, 2)
-    $link = ''
-    if ($t.href) { $link = ' data-href="' + $t.href + '" data-cta="' + (Esc $t.cta) + '"' }
+    # Not $link: PowerShell variable names are case-insensitive, so assigning
+    # to it would overwrite the $LINK table and every node after the first
+    # would index a string and come out with empty attributes.
+    $linkAttr = ' data-href="' + $LINK[$lang].href + '" data-cta="' + (Esc $LINK[$lang].cta) + '"'
     $out += '        <div class="ring__node" style="--a:' + $a + 'deg" data-title="' + (Esc $t.title) +
-            '" data-desc="' + (Esc $t.desc) + '"' + $link + '>' + "`r`n" +
+            '" data-desc="' + (Esc $t.desc) + '"' + $linkAttr + '>' + "`r`n" +
             '          <div class="node__badge">' + $STEPS[$i].icon + '</div>' + "`r`n" +
             '          <span class="node__label">' + $t.title + '</span>' + "`r`n" +
             '        </div>' + "`r`n"
@@ -125,8 +131,8 @@ foreach ($lang in 'ka', 'en') {
   $s = [regex]::Replace($s, '<div class="ring"(?:\s+style="[^"]*")?>',
                         ('<div class="ring" style="--hint-a:' + $ha + 'deg">'))
 
-  # The detail panel carries a link that main.js fills in for whichever step has
-  # a page. Rewritten here so it cannot drift between the two languages.
+  # The detail panel carries the link that main.js fills in for the selected step
+  # Rewritten here so it cannot drift between the two languages.
   $panel = '<div class="ring__detail" aria-live="polite">' + "`r`n" +
            '        <span class="ring__detail-tag"></span>' + "`r`n" +
            '        <h3 class="ring__detail-title"></h3>' + "`r`n" +
