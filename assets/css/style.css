@@ -934,6 +934,18 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .proj--7 .proj__img{background-image:url('../img/proj-agrarian.jpg')}
 .proj--8 .proj__img{background-image:url('../img/proj-sdsu.jpg')}
 
+/* Projects gallery page: the same cards as the homepage rail, four across.
+   A plain grid, not the rail's bento -- every card is equal here, so nothing
+   spans two rows and the parity rule that widens a lone last card does not
+   apply. The cards keep their .proj--N classes only to carry their photo. */
+.proj-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+.proj-gallery .proj{min-height:300px}
+/* Four columns need about 260px each to keep the title on two lines and the
+   logo chip clear of it; below that, drop a column at a time. */
+@media (max-width:1180px){.proj-gallery{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:880px){.proj-gallery{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media (max-width:560px){.proj-gallery{grid-template-columns:1fr}}
+
 /* ---- Decorative brand rings (new identity: thick circle motif) ---- */
 .deco{position:absolute;z-index:0;pointer-events:none}
 .deco img{width:100%;height:100%;display:block}

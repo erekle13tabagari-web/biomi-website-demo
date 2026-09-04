@@ -15,7 +15,8 @@ $enc  = New-Object Text.UTF8Encoding($false)
 # Static pages, per language: path, title, kind label
 $staticKa = @(
   @{ url = 'index.html';                    title = 'მთავარი';               kind = 'გვერდი' },
-  @{ url = 'about.html';                    title = 'ჩვენ შესახებ';          kind = 'გვერდი' },
+  @{ url = 'about.html';                    title = 'ჩვენ შესახებ';          kind = 'გვერდი' },
+  @{ url = 'projects.html'; title = 'ჩვენი პროექტები'; kind = 'გვერდი' },
   # hidden for now: @{ url = 'service.html';                  title = 'სერვისი და ტექნიკური მხარდაჭერა'; kind = 'გვერდი' },
   @{ url = 'products/vrf-vrv.html';         title = 'VRF / VRV სისტემა';     kind = 'კატეგორია' },
   @{ url = 'products/samsung.html';         title = 'Samsung';               kind = 'ბრენდი' },
@@ -29,7 +30,8 @@ $staticKa = @(
 )
 $staticEn = @(
   @{ url = 'index-en.html';                 title = 'Home';                  kind = 'Page' },
-  @{ url = 'about-en.html';                 title = 'About us';              kind = 'Page' },
+  @{ url = 'about-en.html';                 title = 'About us';              kind = 'Page' },
+  @{ url = 'projects-en.html'; title = 'Our projects'; kind = 'Page' },
   # hidden for now: @{ url = 'service-en.html';               title = 'Service and technical support'; kind = 'Page' },
   @{ url = 'products/vrf-vrv-en.html';      title = 'VRF / VRV system';      kind = 'Category' },
   @{ url = 'products/samsung-en.html';      title = 'Samsung';               kind = 'Brand' },
