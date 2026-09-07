@@ -439,7 +439,15 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 /* =========================================================================
    ABOUT — text left · photo right
    ========================================================================= */
-.about{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+/* The stats and the CTA are siblings of the copy rather than children of it,
+   so that stacked on a phone the photo can sit between the copy and the
+   numbers -- directly under the "show more" toggle. On two columns they are
+   pinned back into the left column and the photo spans all three rows, which
+   is the same picture as when they were nested. Row spacing stays on their own
+   margins, hence row-gap:0. */
+.about{display:grid;grid-template-columns:1.05fr .95fr;column-gap:60px;row-gap:0;align-items:center}
+.about>.about__text,.about>.stats,.about>.about__cta{grid-column:1}
+.about>.about__visual{grid-column:2;grid-row:1 / span 3;align-self:center}
 .about__text h2{font-size:clamp(26px,3vw,38px);margin-bottom:8px}
 .about__text .eyebrow{margin-bottom:18px}
 .about__text p{color:var(--muted);margin-bottom:16px}
@@ -1273,7 +1281,10 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   .prod-menu{min-width:0}
 }
 @media (max-width:920px){
-  .about{grid-template-columns:1fr;gap:36px}
+  /* one column: copy, photo, numbers, button -- the photo rides up under the
+     "show more" toggle instead of sitting at the foot of the section */
+  .about{grid-template-columns:1fr;column-gap:0}
+  .about>.about__visual{grid-column:1;grid-row:auto;margin-top:36px}
   .news-grid{grid-template-columns:1fr 1fr}
   /* .prod-grid deliberately absent: it is a horizontal rail below 1040px and
      must not collapse to a column here. */
