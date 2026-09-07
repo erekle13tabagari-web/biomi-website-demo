@@ -150,7 +150,10 @@ foreach ($item in $DATA) {
         $c = $card
         $c = [regex]::Replace($c, 'src="\.\./assets/img/[^"]*"', ('src="../assets/img/' + $o.hero + '"'))
         $c = [regex]::Replace($c, '<span class="news__cat">[^<]*</span>', ('<span class="news__cat">' + $ot.cat + '</span>'))
-        $c = [regex]::Replace($c, '(?s)<h3>.*?</h3>', ('<h3>' + $ot.h1 + '</h3>'))
+        # the title links to the article as well, so hovering it shows the same
+        # "you can go there" cue as the ვრცლად link below it
+        $c = [regex]::Replace($c, '(?s)<h3>.*?</h3>',
+                              ('<h3><a href="' + $o.slug + $sfx + '">' + $ot.h1 + '</a></h3>'))
         $c = [regex]::Replace($c, '<a class="link-more" href="[^"]*"', ('<a class="link-more" href="' + $o.slug + $sfx + '"'))
         $cards += $c
       }
@@ -208,7 +211,9 @@ foreach ($lang in 'ka', 'en') {
     $c = $card
     $c = [regex]::Replace($c, 'src="assets/img/[^"]*"', ('src="assets/img/' + $o.hero + '"'))
     $c = [regex]::Replace($c, '<span class="news__cat">[^<]*</span>', ('<span class="news__cat">' + $ot.cat + '</span>'))
-    $c = [regex]::Replace($c, '(?s)<h3>.*?</h3>', ('<h3>' + $ot.h1 + '</h3>'))
+    # same as the in-article strip: the title is a link too
+    $c = [regex]::Replace($c, '(?s)<h3>.*?</h3>',
+                          ('<h3><a href="news/' + $o.slug + $sfx + '">' + $ot.h1 + '</a></h3>'))
     $c = [regex]::Replace($c, '<a class="link-more" href="[^"]*"', ('<a class="link-more" href="news/' + $o.slug + $sfx + '"'))
     $cards += $c
   }

@@ -230,11 +230,6 @@
 <!-- ===================== NEWS ===================== -->
 <section class="section section--soft" id="news">
   <div class="container">
-    <div class="section__head reveal">
-      <span class="eyebrow">სიახლები</span>
-      <h2>უახლესი სიახლეები და ბლოგი</h2>
-      <p>პროექტები, ტექნოლოგიები და გამოცდილება - ბიომის გუნდისგან.</p>
-    </div>
     <div class="rail news-rail">
         <button class="rail__arrow rail__prev" type="button" aria-label="წინა"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 6-6 6 6 6"/></svg></button>
       <div class="news-grid">
@@ -242,7 +237,7 @@
           <div class="news__img"><img src="assets/img/news-duct-production.jpg" alt=""></div>
           <div class="news__body">
             <span class="news__cat">სიახლე</span>
-            <h3>„ბიომი ჰოლდინგმა“ ჰაერსატარების წარმოების შესაძლებლობები გაზარდა</h3>
+            <h3><a href="news/duct-production.html">„ბიომი ჰოლდინგმა“ ჰაერსატარების წარმოების შესაძლებლობები გაზარდა</a></h3>
             <div class="news__foot">
               <a class="link-more" href="news/duct-production.html">ვრცლად <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
               <button class="news__share" type="button" aria-label="გაზიარება" title="გაზიარება"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
@@ -253,7 +248,7 @@
           <div class="news__img"><img src="assets/img/news-team-expansion.jpg" alt=""></div>
           <div class="news__body">
             <span class="news__cat">სიახლე</span>
-            <h3>„ბიომი ჰოლდინგმა“ საინჟინრო და საპროექტო გუნდები გააფართოვა</h3>
+            <h3><a href="news/team-expansion.html">„ბიომი ჰოლდინგმა“ საინჟინრო და საპროექტო გუნდები გააფართოვა</a></h3>
             <div class="news__foot">
               <a class="link-more" href="news/team-expansion.html">ვრცლად <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
               <button class="news__share" type="button" aria-label="გაზიარება" title="გაზიარება"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></button>
@@ -413,7 +408,7 @@
           <span class="proj__img"></span>
           <span class="proj__logo proj__logo--lockup"><img src="assets/img/clients/oro.svg" alt="ORO"></span>
           <span class="proj__info">
-            <span class="proj__meta"><span>კომერციული</span><h3>ORO</h3></span>
+            <span class="proj__meta"><span>სტუმართმასპინძლობა</span><h3>ORO</h3></span>
           </span>
         </a>
         <a class="proj proj--4 reveal" href="projects/pasha.html">
@@ -427,7 +422,7 @@
           <span class="proj__img"></span>
           <span class="proj__logo proj__logo--lockup"><img src="assets/img/clients/chateau.svg" alt="შატო"></span>
           <span class="proj__info">
-            <span class="proj__meta"><span>სასტუმრო</span><h3>შატო</h3></span>
+            <span class="proj__meta"><span>სტუმართმასპინძლობა</span><h3>შატო მეფის ქალაქი</h3></span>
           </span>
         </a>
         <a class="proj proj--6 reveal" href="projects/culinary.html">
@@ -497,36 +492,6 @@
         <div class="field">
           <label for="cfPhone">ტელეფონის ნომერი</label>
           <input id="cfPhone" type="tel" name="phone" autocomplete="tel" placeholder="+995 5xx xx xx xx" required>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="field">
-          <label for="cfService">სერვისის ტიპი</label>
-          <select id="cfService" name="service">
-            <option value="" disabled selected>აირჩიეთ</option>
-            <option>გეგმიური ტექნიკური მომსახურება</option>
-            <option>პრევენციული / სეზონური სერვისი</option>
-            <option>სისტემის დიაგნოსტიკა</option>
-            <option>ხარვეზის აღმოფხვრა</option>
-            <option>სისტემის შემოწმება და გამართვა</option>
-            <option>სხვა</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="cfFacility">ობიექტის ტიპი</label>
-          <select id="cfFacility" name="facility">
-            <option value="" disabled selected>აირჩიეთ</option>
-            <option>კერძო სახლი</option>
-            <option>ბინა</option>
-            <option>ოფისი / ბიზნესცენტრი</option>
-            <option>სავაჭრო ობიექტი</option>
-            <option>სასტუმრო / HoReCa</option>
-            <option>სამედიცინო ობიექტი</option>
-            <option>საგანმანათლებლო ობიექტი</option>
-            <option>საწარმო / სამრეწველო ობიექტი</option>
-            <option>საწყობი / ლოგისტიკური ობიექტი</option>
-            <option>სხვა</option>
-          </select>
         </div>
       </div>
       <div class="field">

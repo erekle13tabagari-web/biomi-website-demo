@@ -467,6 +467,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .news__body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1}
 .news__cat{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-600);font-weight:600}
 .news h3{font-size:18.5px;font-weight:500}
+/* the title links to the article, like the ვრცლად link below it, so hovering
+   anywhere on it shows that it can be followed */
+.news h3 a{color:inherit;transition:color .2s}
+.news h3 a:hover{color:var(--gold-600)}
+.section--dark .news h3 a:hover,.news--dark h3 a:hover{color:var(--gold-200)}
 .news__foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:8px}
 .news__share{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:8px;
   color:var(--muted);transition:background .2s,color .2s}
@@ -1224,6 +1229,9 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .article__foot{display:flex;align-items:center;justify-content:space-between;gap:14px;
   border-top:1px solid var(--line);margin-top:38px;padding-top:24px}
 .article__foot span{font-size:14.5px;color:var(--muted)}
+/* news articles carry only the share button here, so keep it on the right
+   where it sat when there was a line of text beside it */
+.article__foot .news__share{margin-left:auto}
 /* Two CTAs side by side squeeze each label onto three lines at phone width --
    the service page is the first article foot to carry two buttons rather than
    a line of text and one. Stack them and let each take the full width. */
