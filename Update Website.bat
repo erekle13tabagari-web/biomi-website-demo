@@ -39,6 +39,17 @@ echo   [1/4] Rebuilding search index and refreshing cache tags...
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0build-search-index.ps1"
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0bump-cache-version.ps1"
 
+REM --- The page generators in tools\ strip the meta block and rely on
+REM     build-meta.ps1 being run afterwards. If it was forgotten the page ships
+REM     with no canonical, hreflang or share card - invisible in a browser, so
+REM     nothing else catches it. Stop before committing rather than publish it. ---
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0check-meta.ps1"
+if errorlevel 1 (
+  echo.
+  echo   PUBLISH ABORTED - nothing was committed or pushed.
+  goto :end
+)
+
 git add -A
 git diff --cached --quiet
 if errorlevel 1 (
