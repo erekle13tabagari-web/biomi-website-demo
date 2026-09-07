@@ -1495,6 +1495,33 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .policy__note a{color:var(--gold-600);font-weight:500}
 .policy__print{display:none}
 
+/* =========================================================================
+   DUCTING gallery
+   -------------------------------------------------------------------------
+   Made-to-order parts, so this is a gallery rather than the filterable card
+   listing the brand categories use: there is nothing to filter on and nothing
+   to click through to. The renders are on white, so each sits on its own white
+   plate to keep it off the page background in both themes.
+   ========================================================================= */
+.duct__group{margin:34px 0 16px;font-size:15px;letter-spacing:.05em;color:var(--gold-600)}
+.duct__group:first-child{margin-top:0}
+.duct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px}
+.duct{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column}
+.duct__shot{display:block;background:#fff;padding:10px}
+.duct__shot img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;display:block}
+.duct figcaption{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px}
+.duct figcaption b{font-size:14.5px;font-weight:500;color:var(--ink);line-height:1.35}
+.duct figcaption ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.duct figcaption li{font-size:12.5px;line-height:1.4;color:var(--muted)}
+.duct__note{margin:34px 0 0;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  font-size:14.5px;color:var(--muted)}
+.duct__note .btn{margin-left:auto}
+@media (max-width:680px){
+  .duct-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .duct figcaption{padding:11px 12px 13px}
+  .duct__note .btn{margin-left:0;width:100%;justify-content:center}
+}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:20px}
 .pgrid__empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--muted)}
 /* padding, not margin: the button below uses margin-top:auto to bottom-align, so

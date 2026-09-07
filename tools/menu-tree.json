@@ -29,7 +29,7 @@
 ]},
 
 {"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","items":[
-  {"ka":"ჰაერსატარი","en":"Ducting","page":null,"kids":[]},
+  {"ka":"ჰაერსატარი","en":"Ducting","page":"ducting","kids":[]},
   {"ka":"ცხაურა","en":"Grilles","page":null,"kids":[]},
   {"ka":"აქსესუარები","en":"Accessories","page":null,"kids":[]}
 ]},

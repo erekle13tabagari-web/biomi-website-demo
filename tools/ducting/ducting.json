@@ -1,0 +1,70 @@
+[
+  { "group": { "ka": "ჰაერსატარი", "en": "Ducts" }, "items": [
+    { "img": "duct-rect",
+      "ka": { "name": "ჰაერსატარი – ოთხკუთხედი",
+              "spec": ["სიგრძე × სიგანე × სიმაღლე (მმ)", "საყელოთი ან საყელოს გარეშე"] },
+      "en": { "name": "Rectangular duct",
+              "spec": ["Length × width × height (mm)", "With or without collar"] } },
+    { "img": "duct-round",
+      "ka": { "name": "ჰაერსატარი – მრგვალი",
+              "spec": ["სიგრძე (მმ)", "დიამეტრი"] },
+      "en": { "name": "Round duct",
+              "spec": ["Length (mm)", "Diameter"] } },
+    { "img": "duct-oval",
+      "ka": { "name": "ჰაერსატარი – ოვალური",
+              "spec": ["სიგრძე × სიგანე × სიმაღლე (მმ)"] },
+      "en": { "name": "Oval duct",
+              "spec": ["Length × width × height (mm)"] } }
+  ]},
+
+  { "group": { "ka": "მუხლი", "en": "Elbows" }, "items": [
+    { "img": "elbow-rect",
+      "ka": { "name": "მუხლი ოთხკუთხედი", "spec": [] },
+      "en": { "name": "Rectangular elbow", "spec": [] } },
+    { "img": "elbow-round",
+      "ka": { "name": "მუხლი მრგვალი", "spec": [] },
+      "en": { "name": "Round elbow", "spec": [] } },
+    { "img": "elbow-double",
+      "ka": { "name": "ორმაგი მუხლი", "spec": [] },
+      "en": { "name": "Double elbow", "spec": [] } }
+  ]},
+
+  { "group": { "ka": "სამკაპი", "en": "Tees" }, "items": [
+    { "img": "tee-rect",
+      "ka": { "name": "სამკაპი – ოთხკუთხედი", "spec": [] },
+      "en": { "name": "Rectangular tee", "spec": [] } },
+    { "img": "tee-round",
+      "ka": { "name": "სამკაპი – მრგვალი", "spec": [] },
+      "en": { "name": "Round tee", "spec": [] } },
+    { "img": "y-branch",
+      "ka": { "name": "Y ტიპის გადამბა", "spec": [] },
+      "en": { "name": "Y-branch", "spec": [] } }
+  ]},
+
+  { "group": { "ka": "გადამყვანი", "en": "Reducers" }, "items": [
+    { "img": "reducer-round-round",
+      "ka": { "name": "გადამყვანი – მრგვალიდან მრგვალზე", "spec": [] },
+      "en": { "name": "Round to round", "spec": [] } },
+    { "img": "reducer-rect-round",
+      "ka": { "name": "გადამყვანი – ოთხკუთხედიდან მრგვალზე", "spec": [] },
+      "en": { "name": "Rectangular to round", "spec": [] } },
+    { "img": "reducer-rect-oval",
+      "ka": { "name": "გადამყვანი – ოთხკუთხედიდან ოვალურზე", "spec": [] },
+      "en": { "name": "Rectangular to oval", "spec": [] } }
+  ]},
+
+  { "group": { "ka": "მაკომპლექტებელი", "en": "Fittings and material" }, "items": [
+    { "img": "collar",
+      "ka": { "name": "საყელო", "spec": [] },
+      "en": { "name": "Collar", "spec": [] } },
+    { "img": "u-channel",
+      "ka": { "name": "U ტიპის არხი", "spec": [] },
+      "en": { "name": "U-channel", "spec": [] } },
+    { "img": "angle",
+      "ka": { "name": "თუნუქის კუთხე", "spec": [] },
+      "en": { "name": "Sheet-metal angle", "spec": [] } },
+    { "img": "sheet",
+      "ka": { "name": "თუნუქის ფურცელი", "spec": [] },
+      "en": { "name": "Sheet metal", "spec": [] } }
+  ]}
+]
