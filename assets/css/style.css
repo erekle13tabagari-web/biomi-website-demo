@@ -751,8 +751,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
   padding:7px 13px;border-radius:999px;box-shadow:0 4px 14px rgba(27,27,51,.18)}
 .contact__map .footer__map-pin svg{width:15px;height:15px;color:var(--gold-600)}
 
+/* align-self:start so the card is only as tall as the form. Stretching it to
+   match the taller column beside it left a band of empty space under the send
+   button at the widths where that column wins. */
 .contact__form{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow-sm);padding:32px}
+  box-shadow:var(--shadow-sm);padding:32px;align-self:start}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field{margin-bottom:18px;display:flex;flex-direction:column;gap:7px}
 .field label{font-size:14px;font-weight:500;color:var(--ink-strong)}
@@ -799,7 +802,18 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .filechip button svg{width:16px;height:16px}
 .filechip button:hover{background:#fff;color:#d9534f}
 
-.form-actions{display:flex;justify-content:flex-end;margin-top:6px}
+/* Consents sit to the left of the send button rather than above it, which uses
+   the width that was already there instead of making the card taller. */
+.form-actions{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:22px;margin-top:6px;flex-wrap:wrap}
+.consents{display:flex;flex-direction:column;gap:9px;min-width:0}
+.consent{display:flex;align-items:flex-start;gap:9px;cursor:pointer;
+  font-size:13.5px;line-height:1.4;color:var(--muted);max-width:46ch}
+/* aligns to the first line, not the middle of a wrapped two-line label */
+.consent input{width:16px;height:16px;flex:0 0 auto;margin-top:1px;accent-color:var(--gold)}
+.consent a{color:var(--gold-600);text-decoration:underline;text-underline-offset:2px}
+.consent a:hover{color:var(--gold)}
+.form-actions .btn{flex:0 0 auto}
 .form-msg{margin:0 0 16px;font-size:14.5px;padding:12px 14px;border-radius:8px}
 .form-msg.ok{background:rgba(37,166,93,.1);color:var(--ok);border:1px solid rgba(37,166,93,.25)}
 .form-msg.err{background:rgba(217,83,79,.1);color:var(--err);border:1px solid rgba(217,83,79,.25)}
