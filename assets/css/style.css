@@ -155,6 +155,14 @@
    the same way the desktop mega-menu does. */
 .m-sec{border-top:1px solid var(--line)}
 .m-sec:first-child{border-top:0}
+/* The route to the catalogue from the drawer. Sits above the five chapters and
+   reads as a destination rather than another thing to open: the chapter buttons
+   carry a chevron down, this carries an arrow along. */
+.m-all{display:flex;align-items:center;gap:8px;padding:11px 2px 13px;margin-bottom:2px;
+  border-bottom:1px solid var(--line);font-size:15px;font-weight:600;color:var(--ink)}
+.m-all svg{width:15px;height:15px;flex:none;color:var(--gold);transition:transform .2s var(--ease)}
+.m-all:hover{color:var(--gold-600)}
+.m-all:hover svg{transform:translateX(3px)}
 .m-sec__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
   padding:11px 2px;font-size:15px;font-weight:600;color:var(--gold-600);text-align:left;
   text-transform:uppercase;letter-spacing:.02em}
@@ -1202,6 +1210,12 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    allows. With Heating at 921px the whole catalogue fitted in two and the other
    two sat empty. Grid places one chapter per track and asks no questions. */
 .catalog{display:grid;grid-template-columns:repeat(5,1fr);gap:24px 18px;align-items:start}
+/* min-width:0, or the chapter sizes to its content instead of its track. That
+   bit twice on phones, where the cards become a scrolling rail: the chapter grew
+   to the rail's full 996px, so the rail had room for every card and never
+   overflowed - no swipe - and the heading inherited the same 996px and ran off
+   the screen instead of wrapping. */
+.catalog__chapter{min-width:0}
 /* Two lines' worth of room whether the title needs them or not, so every column
    starts its first card on the same line. "ჰაერსატარი და მაკომპლექტებელი" wraps
    at these track widths and the others do not, which had that one column's
@@ -1256,9 +1270,12 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
      sticky is bounded by .catalog__chapter, so it releases at the next one.
      The opaque background is load-bearing -- cards pass behind it. */
   /* min-height goes: one column here, so there is nothing to line up with, and
-     reserving a second line would only make the pinned bar taller. */
+     reserving a second line would only make the pinned bar taller.
+     The tracking comes in too. Mtavruli is wide before you add letter-spacing,
+     and at .05em "ᲰᲐᲔᲠᲡᲐᲢᲐᲠᲘ ᲓᲐ ᲛᲐᲙᲝᲛᲞᲚᲔᲥᲢᲔᲑᲔᲚᲘ" ran to three lines in a 319px
+     column, which is a lot of pinned bar to give one heading. */
   .catalog__chapter h3{position:sticky;top:var(--header-h);z-index:2;min-height:0;
-    background:var(--bg);margin:0;padding:9px 0 11px}
+    letter-spacing:.01em;background:var(--bg);margin:0;padding:9px 0 11px}
   /* flex-direction has to be reset: the base rule stacks these in a column, and
      a column that scrolls on x just gives full-width cards and no rail. */
   .catalog__grid{display:flex;flex-direction:row;overflow-x:auto;gap:12px;padding-bottom:2px;

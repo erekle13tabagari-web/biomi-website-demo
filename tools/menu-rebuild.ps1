@@ -98,6 +98,13 @@ foreach ($f in $files) {
   # children came to 29 links and 1548px inside a drawer 812px tall, so opening
   # Products turned the menu into one long scroll. Desktop already collapses them.
   $draw = '<div class="m-acc__panel">' + "`r`n"
+  # A way through to the catalogue itself. On desktop the "Products" nav item is
+  # a link and opens it; in the drawer that same word is the accordion's toggle
+  # button, so without this row there is no route to products.html from a phone
+  # at all -- only into the five chapters.
+  $allTxt = if ($en) { 'All products' } else { 'ყველა პროდუქტი' }
+  $draw += '          <a class="m-all" href="' + $U + 'products' + $sfx + '" data-close>' + $allTxt +
+           ' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>' + "`r`n"
   foreach ($ch in $tree) {
     $draw += '          <div class="m-sec">' + "`r`n"
     $draw += '            <button class="m-sec__btn" type="button">' + $ch.$lang + ' ' + $CARET + '</button>' + "`r`n"
