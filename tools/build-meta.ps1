@@ -23,7 +23,11 @@ $SAMEAS = @(
   # "biomi-holding" slug 404s, and sameAs is what Google reads to tie the
   # company's profiles together -- a dead URL in here is worse than no URL.
   'https://www.linkedin.com/company/biomi-holding-%E2%80%A2-%E1%83%91%E1%83%98%E1%83%9D%E1%83%9B%E1%83%98-%E1%83%B0%E1%83%9D%E1%83%9A%E1%83%93%E1%83%98%E1%83%9C%E1%83%92%E1%83%98',
-  'https://www.instagram.com/biomi.holding/'
+  'https://www.instagram.com/biomi.holding/',
+  # The handle, matching the button in the floating stack rather than adding a
+  # second address for one channel. Its permanent id, should the handle ever be
+  # renamed, is UCujeFl7hb813mSmb5JG4KtQ.
+  'https://www.youtube.com/@BiomiHolding'
 )
 
 function Esc($s) { if ($null -eq $s) { return '' }; ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '"','&quot;') }
