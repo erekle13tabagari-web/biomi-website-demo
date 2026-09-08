@@ -631,8 +631,9 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    like a stray artefact. Hidden here and replaced by the arrows below, which
    appear only while the rail actually overflows -- so at full width, where all
    five cards fit, there is nothing to show. */
-.prod-grid,.news-grid,.proj-grid{scrollbar-width:none;-ms-overflow-style:none}
-.prod-grid::-webkit-scrollbar,.news-grid::-webkit-scrollbar,.proj-grid::-webkit-scrollbar{display:none}
+.prod-grid,.news-grid,.proj-grid,.catalog__grid{scrollbar-width:none;-ms-overflow-style:none}
+.prod-grid::-webkit-scrollbar,.news-grid::-webkit-scrollbar,.proj-grid::-webkit-scrollbar,
+.catalog__grid::-webkit-scrollbar{display:none}
 .rail{position:relative}
 .rail__arrow{position:absolute;top:calc(50% - 21px);z-index:3;width:42px;height:42px;
   border-radius:50%;display:none;place-items:center;background:var(--surface);
@@ -1229,7 +1230,18 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    chips, so below roughly 240px of track the chips start wrapping one per line. */
 @media (max-width:1140px){ .catalog{grid-template-columns:repeat(3,1fr)} }
 @media (max-width:880px) { .catalog{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:620px) { .catalog{grid-template-columns:1fr;gap:22px} }
+/* On a phone the cards run along rather than down. One column of five chapters
+   and eleven cards is a very long scroll, and the site already reads its product
+   strips sideways at this width -- .prod-grid becomes the same kind of rail
+   twenty lines up, with the same snap and the same hidden scrollbar. */
+@media (max-width:620px){
+  .catalog{grid-template-columns:1fr;gap:22px}
+  /* flex-direction has to be reset: the base rule stacks these in a column, and
+     a column that scrolls on x just gives full-width cards and no rail. */
+  .catalog__grid{display:flex;flex-direction:row;overflow-x:auto;gap:12px;padding-bottom:2px;
+    scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+  .catalog__grid > .catalog__item{flex:0 0 clamp(200px,64vw,260px);scroll-snap-align:start}
+}
 
 /* ---- product detail page ---- */
 .pprice{display:inline-flex;flex-direction:column;gap:3px;background:var(--bg-soft);

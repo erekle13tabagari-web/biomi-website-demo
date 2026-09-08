@@ -1001,7 +1001,10 @@
      dim the first and last thumbnail even when there is nothing past them, so
      the state is driven from the scroll position instead. No overflow means
      neither class is set and the strip renders unmasked. */
-  document.querySelectorAll('.gallery,.prod-grid,.news-grid,.proj-grid').forEach(function (g) {
+  /* .catalog__grid is a vertical stack until 620px and a rail below it. Adding
+     it here costs nothing at full width: with no overflow neither class is set,
+     so the mask stays the no-op gradient and the column renders unfaded. */
+  document.querySelectorAll('.gallery,.prod-grid,.news-grid,.proj-grid,.catalog__grid').forEach(function (g) {
     g.classList.add('edgefade');
     function update() {
       var over = g.scrollWidth - g.clientWidth;
