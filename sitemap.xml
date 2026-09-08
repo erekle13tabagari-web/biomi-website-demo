@@ -73,6 +73,12 @@
     <lastmod>2026-09-08</lastmod>
   </url>
   <url>
+    <loc>https://erekle13tabagari-web.github.io/biomi-website-demo/products.html</loc>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://erekle13tabagari-web.github.io/biomi-website-demo/products.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://erekle13tabagari-web.github.io/biomi-website-demo/products-en.html"/>
+    <lastmod>2026-09-08</lastmod>
+  </url>
+  <url>
     <loc>https://erekle13tabagari-web.github.io/biomi-website-demo/products/beretta.html</loc>
     <xhtml:link rel="alternate" hreflang="ka" href="https://erekle13tabagari-web.github.io/biomi-website-demo/products/beretta.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://erekle13tabagari-web.github.io/biomi-website-demo/products/beretta-en.html"/>
@@ -865,6 +871,12 @@
     <lastmod>2026-09-08</lastmod>
   </url>
   <url>
+    <loc>https://erekle13tabagari-web.github.io/biomi-website-demo/products-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://erekle13tabagari-web.github.io/biomi-website-demo/products.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://erekle13tabagari-web.github.io/biomi-website-demo/products-en.html"/>
+    <lastmod>2026-09-08</lastmod>
+  </url>
+  <url>
     <loc>https://erekle13tabagari-web.github.io/biomi-website-demo/projects.html</loc>
     <xhtml:link rel="alternate" hreflang="ka" href="https://erekle13tabagari-web.github.io/biomi-website-demo/projects.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://erekle13tabagari-web.github.io/biomi-website-demo/projects-en.html"/>
@@ -970,6 +982,18 @@
     <loc>https://erekle13tabagari-web.github.io/biomi-website-demo/projects-en.html</loc>
     <xhtml:link rel="alternate" hreflang="ka" href="https://erekle13tabagari-web.github.io/biomi-website-demo/projects.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://erekle13tabagari-web.github.io/biomi-website-demo/projects-en.html"/>
+    <lastmod>2026-09-08</lastmod>
+  </url>
+  <url>
+    <loc>https://erekle13tabagari-web.github.io/biomi-website-demo/soon.html</loc>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://erekle13tabagari-web.github.io/biomi-website-demo/soon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://erekle13tabagari-web.github.io/biomi-website-demo/soon-en.html"/>
+    <lastmod>2026-09-08</lastmod>
+  </url>
+  <url>
+    <loc>https://erekle13tabagari-web.github.io/biomi-website-demo/soon-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://erekle13tabagari-web.github.io/biomi-website-demo/soon.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://erekle13tabagari-web.github.io/biomi-website-demo/soon-en.html"/>
     <lastmod>2026-09-08</lastmod>
   </url>
 </urlset>

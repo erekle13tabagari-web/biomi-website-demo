@@ -39,13 +39,19 @@ foreach ($f in $files) {
   $sfx = if ($en) { '-en.html' } else { '.html' }
   $lang = if ($en) { 'en' } else { 'ka' }
   $dir = $f.DirectoryName
-  if ($dir -eq $repo)                  { $P = 'products/';    $A = '#products' }
-  elseif ($dir -eq (Join-Path $repo 'products')) { $P = '';    $A = '../index.html#products' }
-  else                                 { $P = '../products/'; $A = '../index.html#products' }
+  # $U is the prefix back up to the site root, for the two pages that live there.
+  if ($dir -eq $repo)                  { $P = 'products/';    $U = '' }
+  elseif ($dir -eq (Join-Path $repo 'products')) { $P = '';    $U = '../' }
+  else                                 { $P = '../products/'; $U = '../' }
+  # Where an entry with no listing goes. This was #products, an anchor on a
+  # homepage section that has since been hidden, so every one of those links
+  # scrolled nowhere. soon.html says the range is coming and offers the contact
+  # form, which is what someone clicking "underfloor heating" actually needs.
+  $A = $U + 'soon' + $sfx
   $subAria = if ($en) { 'Subcategories' } else { 'ქვეკატეგორიები' }
   # Brand entries no longer have a landing page of their own: they point at
   # their category listing with ?brand=<slug>, which main.js reads and
-  # pre-ticks. Items with no page at all still fall back to the products anchor.
+  # pre-ticks. Items with no page at all fall back to the holding page.
   function Href($n) {
     if (-not $n.page) { return $A }
     $q = ''

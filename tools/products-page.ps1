@@ -1,0 +1,201 @@
+﻿# The product catalogue as a page, and the holding page behind it.
+#
+# The menu's "პროდუქტი" pointed at #products, a homepage section that has since
+# been hidden, so the top-level product link went nowhere on all 164 pages.
+# This builds the destination it should have had: the same tree the dropdown is
+# drawn from, laid out to be read rather than hovered.
+#
+# menu-tree.json is the single source for both. Add a category there and it
+# appears in the menu, the drawer and this page together; there is no second
+# list to keep in step.
+#
+# Items with "page": null are ranges we carry but have no listing for yet. They
+# used to be dead anchors. They point at soon.html now, which says so plainly
+# and offers the contact form -- a customer who wants underfloor heating should
+# reach a sentence and a way to ask, not a link that does nothing.
+$sp   = $PSScriptRoot
+$repo = Split-Path $sp -Parent
+$UTF8 = New-Object Text.UTF8Encoding($true)
+$CRLF = [string][char]13 + [char]10
+
+$TREE = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+
+# $PAGE, not $T: PowerShell variable names are case-insensitive, so $t = $PAGE[$lang]
+# inside the loop would overwrite the table with its own first entry.
+$PAGE = @{
+  ka = @{ sfx='.html'
+          crumbHome='მთავარი'; crumb='პროდუქტი'
+          eyebrow='პროდუქტი'; h2='ჩვენი პროდუქცია'
+          title='პროდუქტი - ბიომი'
+          lede='გათბობის, გაგრილების, ვენტილაციისა და წყალმომარაგების სისტემები - ბრენდების მიხედვით.'
+          desc='ბიომი ჰოლდინგის პროდუქცია - ქვაბები, ბოილერები, კონდიცირება, ვენტილაცია, ჰაერსატარები და წყალმომარაგება.'
+          soonTitle='მალე დაემატება - ბიომი'
+          soonH2='ეს პროდუქტები მალე დაემატება'
+          soonCrumb='მალე დაემატება'
+          # No claim about stock or availability here -- that is the office's to
+          # make, not the website's. It says only what is certain: the listing is
+          # not up yet, and there is someone to ask.
+          soonLede='ამ განყოფილების პროდუქცია მალე დაემატება საიტზე. თუ დღესვე გჭირდებათ, დაგვიკავშირდით.'
+          soonDesc='ბიომი ჰოლდინგის პროდუქციის ეს განყოფილება მალე დაემატება.'
+          cta='დაგვიკავშირდით'; back='პროდუქციაზე დაბრუნება' }
+  en = @{ sfx='-en.html'
+          crumbHome='Home'; crumb='Products'
+          eyebrow='Products'; h2='Our products'
+          title='Products - Biomi'
+          lede='Heating, cooling, ventilation and water-supply systems, by brand.'
+          desc='Products from Biomi Holding - boilers, water heaters, air conditioning, ventilation, ducting and water supply.'
+          soonTitle='Coming soon - Biomi'
+          soonH2='These products will be added soon'
+          soonCrumb='Coming soon'
+          soonLede='The products in this section will be added to the site soon. If you need them today, get in touch.'
+          soonDesc='This part of the Biomi Holding catalogue will be added soon.'
+          cta='Get in touch'; back='Back to products' }
+}
+
+function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '<','&lt;' -replace '>','&gt;') }
+
+$ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+
+# Build one page out of about.html's chrome. Same approach as the ducting
+# builder: take the head and the footer, drop the donor's meta block so
+# build-meta.ps1 can write a correct one, and repoint the language switch.
+function Shell([string]$title, [string]$desc, [string]$body, [string]$outName, [string]$sfx) {
+  $tpl = [IO.File]::ReadAllText((Join-Path $repo ('about' + $sfx)))
+  $i = $tpl.IndexOf('<section class="page-hero')
+  $j = $tpl.IndexOf('<!-- ===================== FOOTER')
+  if ($i -lt 0 -or $j -lt 0) { throw ('markers not found in about' + $sfx) }
+  $head = $tpl.Substring(0, $i); $tail = $tpl.Substring($j)
+
+  $head = [regex]::Replace($head, '(?s)<!-- meta:start.*?<!-- meta:end[^>]*-->\s*', '')
+  $head = [regex]::Replace($head, '(?s)<title>.*?</title>', ('<title>' + $title + '</title>'))
+  $head = [regex]::Replace($head, '<meta name="description" content="[^"]*"',
+                           ('<meta name="description" content="' + (Esc $desc) + '"'))
+  # the donor's language switch still points at the donor
+  $base = $outName -replace '(-en)?\.html$',''
+  foreach ($part in 'head','tail') {
+    $v = if ($part -eq 'head') { $head } else { $tail }
+    $v = $v.Replace('href="about.html">GEO<',    ('href="' + $base + '.html">GEO<'))
+    $v = $v.Replace('href="about-en.html">ENG<', ('href="' + $base + '-en.html">ENG<'))
+    if ($part -eq 'head') { $head = $v } else { $tail = $v }
+  }
+
+  $out = $head + $body + $tail
+  $out = [regex]::Replace($out, "`r`n|`n", $CRLF)
+  [IO.File]::WriteAllText((Join-Path $repo $outName), $out, $UTF8)
+}
+
+foreach ($lang in 'ka','en') {
+  $t = $PAGE[$lang]; $sfx = $t.sfx
+
+  # ---- the catalogue
+  $rows = New-Object System.Collections.Generic.List[string]
+  $items = 0
+  foreach ($ch in $TREE) {
+    $rows.Add('      <section class="catalog__chapter">')
+    $rows.Add('        <h3>' + (Esc $ch.$lang) + '</h3>')
+    $rows.Add('        <div class="catalog__grid">')
+    foreach ($it in $ch.items) {
+      $items++
+      $kids = @($it.kids)
+      if ($it.page) {
+        $href = 'products/' + $it.page + $sfx
+        $rows.Add('          <div class="catalog__item">')
+        $rows.Add('            <a class="catalog__name" href="' + $href + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
+        if ($kids.Count) {
+          $rows.Add('            <div class="catalog__subs">')
+          foreach ($k in $kids) {
+            # the listing pre-ticks the brand box from ?brand=, so a brand here
+            # lands on that brand's products rather than the whole category
+            $kh = if ($k.brand) { $href + '?brand=' + $k.brand }
+                  elseif ($k.page) { 'products/' + $k.page + $sfx }
+                  else { 'soon' + $sfx }
+            $rows.Add('              <a href="' + $kh + '">' + (Esc $k.$lang) + '</a>')
+          }
+          $rows.Add('            </div>')
+        }
+        $rows.Add('          </div>')
+      } else {
+        # no listing yet: the name goes to the holding page, and the sub-items
+        # stay as plain text so the customer still sees what the range covers
+        $rows.Add('          <div class="catalog__item catalog__item--soon">')
+        $rows.Add('            <a class="catalog__name" href="soon' + $sfx + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
+        if ($kids.Count) {
+          $rows.Add('            <div class="catalog__subs">')
+          foreach ($k in $kids) { $rows.Add('              <span>' + (Esc $k.$lang) + '</span>') }
+          $rows.Add('            </div>')
+        }
+        $rows.Add('          </div>')
+      }
+    }
+    $rows.Add('        </div>')
+    $rows.Add('      </section>')
+  }
+
+  $body = @'
+<section class="page-hero page-hero--brand">
+  <div class="container">
+    <nav class="crumbs" aria-label="breadcrumb">
+      <a href="index{SFX}">{CRUMBHOME}</a><span class="sep">/</span>
+      <b>{CRUMB}</b>
+    </nav>
+    <div class="section__head" style="margin-bottom:0">
+      <span class="eyebrow">{EYEBROW}</span>
+      <h2>{H2}</h2>
+      <p class="page-lede">{LEDE}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:26px">
+  <div class="container">
+    <div class="catalog">
+{ROWS}
+    </div>
+  </div>
+</section>
+
+'@
+  $body = $body.Replace('{SFX}', $sfx).Replace('{CRUMBHOME}', $t.crumbHome).
+                Replace('{CRUMB}', $t.crumb).Replace('{EYEBROW}', $t.eyebrow).
+                Replace('{H2}', $t.h2).Replace('{LEDE}', $t.lede).
+                Replace('{ROWS}', ($rows -join $CRLF))
+
+  Shell $t.title $t.desc $body ('products' + $sfx) $sfx
+  Write-Host ('  wrote products' + $sfx + ' : ' + $TREE.Count + ' chapters, ' + $items + ' categories')
+
+  # ---- the holding page
+  $soon = @'
+<section class="page-hero page-hero--brand">
+  <div class="container">
+    <nav class="crumbs" aria-label="breadcrumb">
+      <a href="index{SFX}">{CRUMBHOME}</a><span class="sep">/</span>
+      <a href="products{SFX}">{CRUMB}</a><span class="sep">/</span>
+      <b>{SOONCRUMB}</b>
+    </nav>
+    <div class="section__head" style="margin-bottom:0">
+      <span class="eyebrow">{EYEBROW}</span>
+      <h2>{SOONH2}</h2>
+      <p class="page-lede">{SOONLEDE}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:26px">
+  <div class="container">
+    <p class="duct__note">
+      <a class="btn btn--outline" href="products{SFX}">{BACK}</a>
+      <a class="btn btn--gold" href="index{SFX}#contact">{CTA}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+  </div>
+</section>
+
+'@
+  $soon = $soon.Replace('{SFX}', $sfx).Replace('{CRUMBHOME}', $t.crumbHome).
+                Replace('{CRUMB}', $t.crumb).Replace('{SOONCRUMB}', $t.soonCrumb).
+                Replace('{EYEBROW}', $t.eyebrow).Replace('{SOONH2}', $t.soonH2).
+                Replace('{SOONLEDE}', $t.soonLede).Replace('{BACK}', $t.back).
+                Replace('{CTA}', $t.cta)
+
+  Shell $t.soonTitle $t.soonDesc $soon ('soon' + $sfx) $sfx
+  Write-Host ('  wrote soon' + $sfx)
+}
