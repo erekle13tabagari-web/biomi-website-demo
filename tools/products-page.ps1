@@ -52,6 +52,10 @@ function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -r
 
 $ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
+# No renders on the cards. Only five of the eleven categories have product
+# photography at all, so six would have sat empty beside them, and the images
+# made each card tall enough that the four columns could not balance.
+
 # Build one page out of about.html's chrome. Same approach as the ducting
 # builder: take the head and the footer, drop the donor's meta block so
 # build-meta.ps1 can write a correct one, and repoint the language switch.
