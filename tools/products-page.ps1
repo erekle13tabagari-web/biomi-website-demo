@@ -27,27 +27,23 @@ $PAGE = @{
           crumbHome='მთავარი'; crumb='პროდუქტი'
           eyebrow='პროდუქტი'; h2='ჩვენი პროდუქცია'
           title='პროდუქტი - ბიომი'
-          lede='გათბობის, გაგრილების, ვენტილაციისა და წყალმომარაგების სისტემები - ბრენდების მიხედვით.'
+          # No standing lede on either page: the chapter headings below say what
+          # the catalogue holds, and the holding page's own heading is already
+          # the whole message. desc stays - that is the search-result text.
           desc='ბიომი ჰოლდინგის პროდუქცია - ქვაბები, ბოილერები, კონდიცირება, ვენტილაცია, ჰაერსატარები და წყალმომარაგება.'
           soonTitle='მალე დაემატება - ბიომი'
           soonH2='ეს პროდუქტები მალე დაემატება'
           soonCrumb='მალე დაემატება'
-          # No claim about stock or availability here -- that is the office's to
-          # make, not the website's. It says only what is certain: the listing is
-          # not up yet, and there is someone to ask.
-          soonLede='ამ განყოფილების პროდუქცია მალე დაემატება საიტზე. თუ დღესვე გჭირდებათ, დაგვიკავშირდით.'
           soonDesc='ბიომი ჰოლდინგის პროდუქციის ეს განყოფილება მალე დაემატება.'
           cta='დაგვიკავშირდით'; back='პროდუქციაზე დაბრუნება' }
   en = @{ sfx='-en.html'
           crumbHome='Home'; crumb='Products'
           eyebrow='Products'; h2='Our products'
           title='Products - Biomi'
-          lede='Heating, cooling, ventilation and water-supply systems, by brand.'
           desc='Products from Biomi Holding - boilers, water heaters, air conditioning, ventilation, ducting and water supply.'
           soonTitle='Coming soon - Biomi'
           soonH2='These products will be added soon'
           soonCrumb='Coming soon'
-          soonLede='The products in this section will be added to the site soon. If you need them today, get in touch.'
           soonDesc='This part of the Biomi Holding catalogue will be added soon.'
           cta='Get in touch'; back='Back to products' }
 }
@@ -141,7 +137,6 @@ foreach ($lang in 'ka','en') {
     <div class="section__head" style="margin-bottom:0">
       <span class="eyebrow">{EYEBROW}</span>
       <h2>{H2}</h2>
-      <p class="page-lede">{LEDE}</p>
     </div>
   </div>
 </section>
@@ -157,7 +152,7 @@ foreach ($lang in 'ka','en') {
 '@
   $body = $body.Replace('{SFX}', $sfx).Replace('{CRUMBHOME}', $t.crumbHome).
                 Replace('{CRUMB}', $t.crumb).Replace('{EYEBROW}', $t.eyebrow).
-                Replace('{H2}', $t.h2).Replace('{LEDE}', $t.lede).
+                Replace('{H2}', $t.h2).
                 Replace('{ROWS}', ($rows -join $CRLF))
 
   Shell $t.title $t.desc $body ('products' + $sfx) $sfx
@@ -175,7 +170,6 @@ foreach ($lang in 'ka','en') {
     <div class="section__head" style="margin-bottom:0">
       <span class="eyebrow">{EYEBROW}</span>
       <h2>{SOONH2}</h2>
-      <p class="page-lede">{SOONLEDE}</p>
     </div>
   </div>
 </section>
@@ -193,7 +187,7 @@ foreach ($lang in 'ka','en') {
   $soon = $soon.Replace('{SFX}', $sfx).Replace('{CRUMBHOME}', $t.crumbHome).
                 Replace('{CRUMB}', $t.crumb).Replace('{SOONCRUMB}', $t.soonCrumb).
                 Replace('{EYEBROW}', $t.eyebrow).Replace('{SOONH2}', $t.soonH2).
-                Replace('{SOONLEDE}', $t.soonLede).Replace('{BACK}', $t.back).
+                Replace('{BACK}', $t.back).
                 Replace('{CTA}', $t.cta)
 
   Shell $t.soonTitle $t.soonDesc $soon ('soon' + $sfx) $sfx
