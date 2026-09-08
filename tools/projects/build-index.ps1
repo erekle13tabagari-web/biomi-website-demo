@@ -21,7 +21,9 @@ $PAGE = @{
     crumbHome = 'მთავარი'; crumb = 'პროექტები'
     eyebrow = 'პროექტები'; h1 = 'ჩვენი პროექტები'
     title = 'პროექტები - ბიომი'
-    lead  = 'გათბობის, გაგრილების, ვენტილაციისა და წყალმომარაგების სისტემები - სავაჭრო და საოფისე სივრცეებიდან სასტუმრო, საბანკო და საგანმანათლებლო ობიექტებამდე.'
+    # No standing lede above the gallery: the projects speak for themselves and
+    # the line only restated the services listed on the home page. desc stays --
+    # it is the search-result description, which nobody reads on the page.
     desc  = 'ბიომი ჰოლდინგის განხორციელებული პროექტები - გათბობის, გაგრილების, ვენტილაციისა და წყალმომარაგების საინჟინრო სისტემები სხვადასხვა დანიშნულების ობიექტზე.'
   }
   en = @{
@@ -29,7 +31,6 @@ $PAGE = @{
     crumbHome = 'Home'; crumb = 'Projects'
     eyebrow = 'Projects'; h1 = 'Our projects'
     title = 'Projects - Biomi'
-    lead  = 'Heating, cooling, ventilation and water-supply systems - from retail and office space to hospitality, banking and educational buildings.'
     desc  = 'Projects delivered by Biomi Holding - heating, cooling, ventilation and water-supply engineering across buildings of every purpose.'
   }
 }
@@ -66,7 +67,6 @@ foreach ($lang in 'ka', 'en') {
     '',
     ('      <span class="eyebrow">' + $t.eyebrow + '</span>'),
     ('      <h1>' + $t.h1 + '</h1>'),
-    ('      <p class="article__lead">' + $t.lead + '</p>'),
     '    </article>',
     '',
     '    <div class="proj-gallery">',
