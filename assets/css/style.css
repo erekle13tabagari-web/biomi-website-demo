@@ -510,6 +510,20 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    accent is most of the drawing, so it turns white while the badge is filled. */
 .node__badge svg .ico-a{fill:var(--gold);transition:fill .35s}
 .ring__node.is-active .node__badge svg .ico-a{fill:#fff}
+
+/* The ALL IN ONE list on the about page wears these same badges instead of
+   bullet discs, so the seven marks a reader meets there are the ones they will
+   meet on the wheel. tools/ring.ps1 writes both from one list of steps.
+   Unlike the ring, this sits on the page background rather than a dark section,
+   so the disc is tinted from the accent and the artwork takes --gold-600, which
+   is the accent that holds up against a white surface. */
+.cycle{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:12px}
+.cycle li{display:flex;align-items:center;gap:13px}
+.cycle__ico{flex:0 0 auto;width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;color:var(--gold-600);
+  background:rgba(var(--accent-rgb),.16);border:1px solid rgba(var(--accent-rgb),.42)}
+.cycle__ico svg{width:56%;height:56%}
+.cycle__ico svg .ico-a{fill:var(--gold)}
 /* The label carries the step's full name -- „სერვისი და ტექნიკური მხარდაჭერა"
    rather than „სერვისი" -- so it wraps instead of running along the ring and
    into its neighbours. The cap sits below the arc between two nodes. */

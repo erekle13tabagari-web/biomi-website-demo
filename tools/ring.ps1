@@ -81,6 +81,12 @@ $STEPS = @(
              desc  = 'We provide service and technical support for the engineering systems throughout their working life' } }
 )
 
+# Which slot the cycle starts from, counted clockwise from twelve o'clock. Both
+# the first node and the pointing hand land here, so the ring reads from the
+# hand onwards. 2 of 7 puts it just past three o'clock, where the hand has
+# always sat and where a tapped node is brought to.
+$START_SLOT = 2
+
 function Esc($s) { $s -replace '&(?!(amp|lt|gt|quot|#\d+);)', '&amp;' -replace '"', '&quot;' }
 
 foreach ($lang in 'ka', 'en') {
@@ -97,11 +103,18 @@ foreach ($lang in 'ka', 'en') {
   $s = $s.Substring(0, $pa) + '<p>' + $HEAD[$lang].p + $s.Substring($pb)
 
   # ---- the nodes: evenly spaced, however many there are
+  #
+  # The cycle begins under the pointing hand rather than at twelve o'clock. The
+  # hand sits on the right-hand side, which is also where main.js brings a
+  # tapped node, so the first step is already in the reading position when the
+  # page loads and the rest follow it clockwise. $START_SLOT is the slot the
+  # hand occupies, counted clockwise from the top; the modulo wraps the last
+  # steps back around past twelve.
   $n = $STEPS.Count
   $out = ''
   for ($i = 0; $i -lt $n; $i++) {
     $t = $STEPS[$i].$lang
-    $a = [math]::Round(360.0 * $i / $n, 2)
+    $a = [math]::Round(360.0 * (($i + $START_SLOT) % $n) / $n, 2)
     $linkAttr = ''
     $out += '        <div class="ring__node" style="--a:' + $a + 'deg" data-title="' + (Esc $t.title) +
             '" data-desc="' + (Esc $t.desc) + '"' + $linkAttr + '>' + "`r`n" +
@@ -119,13 +132,13 @@ foreach ($lang in 'ka', 'en') {
   # the first node than the last one did -- six runs today had it at 56.
   $s = $s.Substring(0, $first).TrimEnd(' ') + $out + '      ' + $s.Substring($close)
 
-  # The tap hint has to sit exactly on a node, so its angle comes from the same
-  # arithmetic rather than the fixed 90deg it used to carry -- that was a node
-  # only while the ring had eight of them, and 90 is not a multiple of 360/7.
-  # HINT_ON picks which node it points at; the third sits on the right-hand
-  # side, roughly where the hint has always appeared.
-  $HINT_ON = 2
-  $ha = [math]::Round(360.0 * $HINT_ON / $n, 2)
+  # The tap hint sits on the slot the cycle starts from, which is the same
+  # arithmetic the nodes use rather than the fixed 90deg it used to carry --
+  # that was a node only while the ring had eight of them, and 90 is not a
+  # multiple of 360/7. Because the nodes are offset by the same $START_SLOT,
+  # the hand and the first step are the same place by construction: they cannot
+  # drift apart if the step count changes.
+  $ha = [math]::Round(360.0 * $START_SLOT / $n, 2)
   $s = [regex]::Replace($s, '<div class="ring"(?:\s+style="[^"]*")?>',
                         ('<div class="ring" style="--hint-a:' + $ha + 'deg">'))
 
@@ -145,4 +158,35 @@ foreach ($lang in 'ka', 'en') {
   $s = [regex]::Replace($s, "`r`n|`n", "`r`n")
   [IO.File]::WriteAllText($p, $s, $BOM)
   Write-Host ("  $file : $n nodes, " + [math]::Round(360.0 / $n, 2) + ' deg apart')
+}
+
+# ---- the same seven steps on the about page
+#
+# "ALL IN ONE მოდელი" listed the cycle as plain bullets, which is the ring's
+# content written out a second time by hand -- two places to edit and one of
+# them certain to be forgotten. The list is generated from $STEPS now, wearing
+# the ring's own artwork instead of a disc, so the two cannot say different
+# things and a reader recognises the badges from the wheel.
+#
+# Each page holds exactly one <ul>, so that is the anchor.
+foreach ($lang in 'ka', 'en') {
+  $file = if ($lang -eq 'en') { 'about-en.html' } else { 'about.html' }
+  $p = Join-Path $repo $file
+  $s = [IO.File]::ReadAllText($p)
+
+  $a = $s.IndexOf('<ul')
+  $b = $s.IndexOf('</ul>', $a)
+  if ($a -lt 0 -or $b -lt 0) { throw "cycle list not found in $file" }
+
+  $ul = '<ul class="cycle">' + "`r`n"
+  foreach ($step in $STEPS) {
+    $ul += '          <li><span class="cycle__ico">' + $step.icon + '</span>' +
+           $step.$lang.title + '</li>' + "`r`n"
+  }
+  $ul += '        '
+
+  $s = $s.Substring(0, $a) + $ul + $s.Substring($b)
+  $s = [regex]::Replace($s, "`r`n|`n", "`r`n")
+  [IO.File]::WriteAllText($p, $s, $BOM)
+  Write-Host ("  $file : " + $STEPS.Count + ' cycle steps with badges')
 }
