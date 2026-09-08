@@ -1222,8 +1222,12 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .catalog__name:hover{color:var(--gold-600)}
 .catalog__name:hover svg{transform:translateX(3px)}
 .catalog__subs{display:flex;flex-wrap:wrap;gap:6px}
-.catalog__subs a,.catalog__subs span{font-size:12px;padding:3px 9px;border-radius:100px;
-  border:1px solid var(--line);background:var(--bg-soft);color:var(--muted);line-height:1.45}
+/* 5px top and bottom, not 3. A chip that wraps to two lines had its descenders
+   sitting on the border -- Georgian drops further below the baseline than the
+   Latin these paddings were eyeballed on, and at 12px there was nowhere for it
+   to go. The line-height goes up with it so the two lines are not tight either. */
+.catalog__subs a,.catalog__subs span{font-size:12px;padding:5px 10px;border-radius:100px;
+  border:1px solid var(--line);background:var(--bg-soft);color:var(--muted);line-height:1.5}
 .catalog__subs a{transition:border-color .2s,color .2s}
 .catalog__subs a:hover{border-color:var(--gold);color:var(--gold-600)}
 /* A range we carry with no listing published yet. Dashed, like .subsoon above,
