@@ -562,8 +562,8 @@
      (the toolbar is hidden on phones). Injected rather than written into 45
      pages of markup, so a new page picks it up for free.
 
-     No stored choice means "follow the OS", and it stays that way -- the site
-     tracks the system setting live until someone actually presses the switch. */
+     The site opens dark. No stored choice means dark, whatever the machine is
+     set to; only the switch changes it, and only that is remembered. */
   (function () {
     var THEME_KEY = 'biomi-theme';
     var root = document.documentElement;
@@ -689,15 +689,11 @@
     if (foot) foot.insertBefore(make('drawer__theme', true), foot.firstElementChild);
     paint();
 
-    // with no stored preference, keep following the OS while the page is open
-    var mq = window.matchMedia('(prefers-color-scheme: dark)');
-    var onOS = function (e) {
-      var stored;
-      try { stored = localStorage.getItem(THEME_KEY); } catch (err) {}
-      if (stored !== 'dark' && stored !== 'light') set(e.matches ? 'dark' : 'light', false);
-    };
-    if (mq.addEventListener) mq.addEventListener('change', onOS);
-    else if (mq.addListener) mq.addListener(onOS);
+    /* No OS listener. The site opens dark whatever the machine is set to, so
+       following the system afterwards would undo that the moment a visitor on
+       a light desktop happened to change it -- and a page that starts dark and
+       turns light while you are reading it looks broken rather than helpful.
+       The switch still wins, and its choice is what localStorage holds. */
   })();
 
   /* ---- Site search ----
