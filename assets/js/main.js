@@ -134,7 +134,7 @@
     var en = (document.documentElement.lang || 'ka').indexOf('en') === 0;
     var T = en ? {
       title: 'Shall we call you?',
-      sub:   'Leave your number and pick a time — we will call you then.',
+      sub:   'Leave your number and pick a time - we will call you then.',
       phone: 'Phone number', day: 'Day', time: 'Time',
       send:  'Request a call', now: 'or call us now', close: 'Close',
       today: 'Today', tomorrow: 'Tomorrow',
@@ -151,7 +151,7 @@
       wd:     ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
     } : {
       title: 'გსურთ, ჩვენ დაგირეკოთ?',
-      sub:   'დატოვეთ ნომერი და აირჩიეთ დრო — დაგირეკავთ მითითებულ დროს.',
+      sub:   'დატოვეთ ნომერი და აირჩიეთ დრო - დაგირეკავთ მითითებულ დროს.',
       phone: 'ტელეფონის ნომერი', day: 'დღე', time: 'დრო',
       send:  'ველოდები ზარს', now: 'ან დაგვირეკეთ ახლავე', close: 'დახურვა',
       today: 'დღეს', tomorrow: 'ხვალ',

@@ -1,13 +1,13 @@
 [
   { "group": { "ka": "ჰაერსატარი", "en": "Ducts" }, "items": [
     { "img": "duct-rect",
-      "ka": { "name": "ჰაერსატარი – ოთხკუთხედი", "spec": [] },
+      "ka": { "name": "ჰაერსატარი - ოთხკუთხედი", "spec": [] },
       "en": { "name": "Rectangular duct", "spec": [] } },
     { "img": "duct-round",
-      "ka": { "name": "ჰაერსატარი – მრგვალი", "spec": [] },
+      "ka": { "name": "ჰაერსატარი - მრგვალი", "spec": [] },
       "en": { "name": "Round duct", "spec": [] } },
     { "img": "duct-oval",
-      "ka": { "name": "ჰაერსატარი – ოვალური", "spec": [] },
+      "ka": { "name": "ჰაერსატარი - ოვალური", "spec": [] },
       "en": { "name": "Oval duct", "spec": [] } }
   ]},
 
@@ -25,10 +25,10 @@
 
   { "group": { "ka": "სამკაპი", "en": "Tees" }, "items": [
     { "img": "tee-rect",
-      "ka": { "name": "სამკაპი – ოთხკუთხედი", "spec": [] },
+      "ka": { "name": "სამკაპი - ოთხკუთხედი", "spec": [] },
       "en": { "name": "Rectangular tee", "spec": [] } },
     { "img": "tee-round",
-      "ka": { "name": "სამკაპი – მრგვალი", "spec": [] },
+      "ka": { "name": "სამკაპი - მრგვალი", "spec": [] },
       "en": { "name": "Round tee", "spec": [] } },
     { "img": "y-branch",
       "ka": { "name": "Y ტიპის გადამბა", "spec": [] },
@@ -37,13 +37,13 @@
 
   { "group": { "ka": "გადამყვანი", "en": "Reducers" }, "items": [
     { "img": "reducer-round-round",
-      "ka": { "name": "გადამყვანი – მრგვალიდან მრგვალზე", "spec": [] },
+      "ka": { "name": "გადამყვანი - მრგვალიდან მრგვალზე", "spec": [] },
       "en": { "name": "Round to round", "spec": [] } },
     { "img": "reducer-rect-round",
-      "ka": { "name": "გადამყვანი – ოთხკუთხედიდან მრგვალზე", "spec": [] },
+      "ka": { "name": "გადამყვანი - ოთხკუთხედიდან მრგვალზე", "spec": [] },
       "en": { "name": "Rectangular to round", "spec": [] } },
     { "img": "reducer-rect-oval",
-      "ka": { "name": "გადამყვანი – ოთხკუთხედიდან ოვალურზე", "spec": [] },
+      "ka": { "name": "გადამყვანი - ოთხკუთხედიდან ოვალურზე", "spec": [] },
       "en": { "name": "Rectangular to oval", "spec": [] } }
   ]},
 
