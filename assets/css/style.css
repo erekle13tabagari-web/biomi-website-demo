@@ -155,14 +155,6 @@
    the same way the desktop mega-menu does. */
 .m-sec{border-top:1px solid var(--line)}
 .m-sec:first-child{border-top:0}
-/* The route to the catalogue from the drawer. Sits above the five chapters and
-   reads as a destination rather than another thing to open: the chapter buttons
-   carry a chevron down, this carries an arrow along. */
-.m-all{display:flex;align-items:center;gap:8px;padding:11px 2px 13px;margin-bottom:2px;
-  border-bottom:1px solid var(--line);font-size:15px;font-weight:600;color:var(--ink)}
-.m-all svg{width:15px;height:15px;flex:none;color:var(--gold);transition:transform .2s var(--ease)}
-.m-all:hover{color:var(--gold-600)}
-.m-all:hover svg{transform:translateX(3px)}
 .m-sec__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
   padding:11px 2px;font-size:15px;font-weight:600;color:var(--gold-600);text-align:left;
   text-transform:uppercase;letter-spacing:.02em}
@@ -949,6 +941,14 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 /* mobile menu matches the uppercase desktop nav (.nav__link) */
 .m-nav a,.m-acc__btn{display:flex;align-items:center;justify-content:space-between;width:100%;
   padding:15px 4px;font-size:17px;color:var(--ink-strong);text-align:left;text-transform:uppercase}
+/* "Products" is both a place and a disclosure. The word links to the catalogue
+   and the chevron beside it opens the chapters, which is the same split the
+   sub-items one level down already use (.m-itm__head). Making the whole row a
+   link would cost the chapters their toggle; making it all a button is what
+   left the catalogue unreachable from a phone. */
+.m-acc__head{display:flex;align-items:center}
+.m-acc__head > a{flex:1;min-width:0}
+.m-acc__head > .m-acc__btn{flex:none;width:46px;justify-content:center;padding:15px 0}
 .m-acc__btn svg{width:18px;height:18px;transition:transform .3s}
 .m-acc.open .m-acc__btn svg{transform:rotate(180deg)}
 .m-acc__panel{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
