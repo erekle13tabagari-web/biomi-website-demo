@@ -41,7 +41,7 @@ $DOCS = @(
              h2='Privacy Policy'
              lede='The personal-data protection policy of JSC Biomi Holding, published in Georgian.' } }
   @{ slug='consent'; body='consent-ka.html'
-     ka = @{ link='მონაცემთა დამუშავების თანხმობა'
+     ka = @{ link='თანხმობა პერსონალურ მონაცემთა დამუშავების შესახებ'
              title='თანხმობა პერსონალურ მონაცემთა დამუშავების შესახებ - ბიომი'
              h2='თანხმობა პერსონალურ მონაცემთა დამუშავების შესახებ'
              lede='რა მონაცემებს ვამუშავებთ ონლაინ ფორმიდან, რა მიზნით და რაზე გაძლევთ არჩევანს.' }
