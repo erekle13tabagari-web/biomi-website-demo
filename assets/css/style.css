@@ -1201,20 +1201,23 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    the column height and everything else packs into as few columns as that
    allows. With Heating at 921px the whole catalogue fitted in two and the other
    two sat empty. Grid places one chapter per track and asks no questions. */
-.catalog{display:grid;grid-template-columns:repeat(4,1fr);gap:26px 24px;align-items:start}
-.catalog__chapter h3{font-size:15px;letter-spacing:.05em;color:var(--gold-600);margin:0 0 14px}
-.catalog__grid{display:flex;flex-direction:column;gap:14px}
-.catalog__item{display:flex;flex-direction:column;gap:11px;padding:18px 20px;
+.catalog{display:grid;grid-template-columns:repeat(5,1fr);gap:24px 18px;align-items:start}
+.catalog__chapter h3{font-size:13.5px;letter-spacing:.05em;color:var(--gold-600);margin:0 0 11px}
+.catalog__grid{display:flex;flex-direction:column;gap:11px}
+/* Sized down so five chapters fit across the container: at 1240 with 18px gaps
+   that is a 233px track, and the longest chip ("ჰიდრავლიკური გამათანაბრებელი")
+   still gets two lines rather than three. */
+.catalog__item{display:flex;flex-direction:column;gap:9px;padding:14px 15px;
   background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
-.catalog__name{display:flex;align-items:center;gap:9px;font-size:16.5px;font-weight:500;
+.catalog__name{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500;
   color:var(--ink-strong);transition:color .2s}
-.catalog__name svg{width:17px;height:17px;flex:0 0 auto;color:var(--gold);
+.catalog__name svg{width:15px;height:15px;flex:0 0 auto;color:var(--gold);
   transition:transform .2s var(--ease)}
 .catalog__name:hover{color:var(--gold-600)}
 .catalog__name:hover svg{transform:translateX(3px)}
-.catalog__subs{display:flex;flex-wrap:wrap;gap:7px}
-.catalog__subs a,.catalog__subs span{font-size:13px;padding:4px 11px;border-radius:100px;
-  border:1px solid var(--line);background:var(--bg-soft);color:var(--muted)}
+.catalog__subs{display:flex;flex-wrap:wrap;gap:6px}
+.catalog__subs a,.catalog__subs span{font-size:12px;padding:3px 9px;border-radius:100px;
+  border:1px solid var(--line);background:var(--bg-soft);color:var(--muted);line-height:1.45}
 .catalog__subs a{transition:border-color .2s,color .2s}
 .catalog__subs a:hover{border-color:var(--gold);color:var(--gold-600)}
 /* A range we carry with no listing published yet. Dashed, like .subsoon above,
@@ -1227,15 +1230,23 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .catalog__item--soon .catalog__name:hover,
 .catalog__item--soon .catalog__name:hover svg{color:var(--gold-600)}
 /* Fewer columns as the room runs out. A card carries a name and a row of brand
-   chips, so below roughly 240px of track the chips start wrapping one per line. */
-@media (max-width:1140px){ .catalog{grid-template-columns:repeat(3,1fr)} }
-@media (max-width:880px) { .catalog{grid-template-columns:repeat(2,1fr)} }
+   chips, so below roughly 210px of track the chips start wrapping one per line. */
+@media (max-width:1180px){ .catalog{grid-template-columns:repeat(4,1fr)} }
+@media (max-width:980px) { .catalog{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:800px) { .catalog{grid-template-columns:repeat(2,1fr)} }
 /* On a phone the cards run along rather than down. One column of five chapters
    and eleven cards is a very long scroll, and the site already reads its product
    strips sideways at this width -- .prod-grid becomes the same kind of rail
    twenty lines up, with the same snap and the same hidden scrollbar. */
 @media (max-width:620px){
   .catalog{grid-template-columns:1fr;gap:22px}
+  /* The site header is fixed, so a chapter title scrolls straight up under it
+     and the rail below is left with nothing naming it. Pinning the title under
+     the header keeps it in view for exactly as long as its own chapter is:
+     sticky is bounded by .catalog__chapter, so it releases at the next one.
+     The opaque background is load-bearing -- cards pass behind it. */
+  .catalog__chapter h3{position:sticky;top:var(--header-h);z-index:2;
+    background:var(--bg);margin:0;padding:9px 0 11px}
   /* flex-direction has to be reset: the base rule stacks these in a column, and
      a column that scrolls on x just gives full-width cards and no rail. */
   .catalog__grid{display:flex;flex-direction:row;overflow-x:auto;gap:12px;padding-bottom:2px;
