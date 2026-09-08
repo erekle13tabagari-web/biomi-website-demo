@@ -1961,3 +1961,54 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
     transform:translateY(18px)}
   .cbk.is-open .cbk__panel{transform:none}
 }
+
+/* ---- Themed dropdown -------------------------------------------------------
+   A native select's popup is browser chrome: its border, its corners and the
+   scrollbar down the side of a 31-entry time list are drawn by the platform and
+   no CSS reaches them. On a panel this small that stock grey list was the one
+   part that did not look like the site, so the two pickers are built instead.
+
+   The list is position:fixed and placed by JS rather than absolute: the panel it
+   sits in scrolls when it runs out of height, and an absolutely positioned child
+   would be clipped by that. Fixed escapes the clip -- as long as no ancestor
+   carries a transform, which is why .cbk__panel resolves to transform:none once
+   it is open rather than keeping a transform at its resting state. */
+.pick{position:relative}
+/* a span, not a <label>: the control it names is a button, not a form field */
+.pick__lbl{font-size:13px;font-weight:500;color:var(--ink-strong)}
+.pick__btn{
+  display:flex;align-items:center;gap:8px;width:100%;appearance:none;
+  font-family:inherit;font-size:14px;color:var(--ink);text-align:left;
+  padding:12px 12px 12px 14px;border:1.5px solid var(--line);border-radius:8px;
+  background:var(--surface);cursor:pointer;
+  transition:border-color .2s,box-shadow .2s}
+.pick__btn:hover{border-color:var(--gray-300)}
+.pick__btn:focus-visible,.pick.is-open .pick__btn{
+  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.18)}
+.pick__val{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pick__arrow{width:16px;height:16px;flex:0 0 auto;color:#a7abb2;
+  transition:transform .2s var(--ease),color .2s}
+.pick.is-open .pick__arrow{transform:rotate(180deg);color:var(--gold)}
+.pick__list{
+  position:fixed;z-index:130;padding:5px;
+  background:var(--surface);border:1.5px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow-md);
+  max-height:236px;overflow-y:auto;overscroll-behavior:contain;
+  /* The same thin brand bar as the gallery strip -- standard properties only,
+     since ::-webkit-scrollbar is inert once scrollbar-width is in play. */
+  scrollbar-width:thin;scrollbar-color:var(--gold-600) transparent;
+  opacity:0;transform:translateY(-4px);
+  transition:opacity .16s var(--ease),transform .16s var(--ease)}
+.pick__list.is-in{opacity:1;transform:none}
+.pick__opt{
+  padding:9px 11px;border-radius:6px;font-size:14px;color:var(--ink);
+  cursor:pointer;white-space:nowrap;transition:background .12s,color .12s}
+.pick__opt.is-active{background:var(--bg-soft)}
+.pick__opt[aria-selected="true"]{
+  background:rgba(var(--accent-rgb),.1);color:var(--gold-600);font-weight:600}
+@media (hover:hover){ .pick__opt:hover{background:var(--bg-soft)} }
+@media (max-width:560px){
+  /* thumb-sized rows, and a list that cannot swallow the sheet it opens over */
+  .pick__opt{padding:12px}
+  .pick__list{max-height:44vh}
+}

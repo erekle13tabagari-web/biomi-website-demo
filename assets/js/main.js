@@ -229,6 +229,133 @@
                   : d.getDate() + ' ' + T.mo[d.getMonth()] + ', ' + T.wd[d.getDay()];
     }
 
+    /* ---- Themed dropdown ----
+       Built rather than using a <select> because the popup a select opens is
+       browser chrome: its border, its corners and the scrollbar down a 31-entry
+       time list are drawn by the platform and no CSS reaches them. Follows the
+       listbox keyboard pattern, so replacing the native control does not cost
+       the keyboard behaviour that came with it. */
+    function pickHTML(id) {
+      return '<div class="pick" data-pick="' + id + '">' +
+          '<button class="pick__btn" type="button" aria-haspopup="listbox" ' +
+                  'aria-expanded="false" aria-labelledby="' + id + 'L ' + id + 'V">' +
+            '<span class="pick__val" id="' + id + 'V"></span>' +
+            '<svg class="pick__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+                 'stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>' +
+          '</button>' +
+          '<div class="pick__list" role="listbox" tabindex="-1" hidden></div>' +
+        '</div>';
+    }
+
+    function makePick(root) {
+      var btn  = root.querySelector('.pick__btn'),
+          val  = root.querySelector('.pick__val'),
+          list = root.querySelector('.pick__list'),
+          items = [], idx = 0, onPick = null;
+
+      function isOpen() { return root.classList.contains('is-open'); }
+      function active() {
+        for (var i = 0; i < list.children.length; i++) {
+          if (list.children[i].classList.contains('is-active')) return i;
+        }
+        return idx;
+      }
+      function setActive(i) {
+        [].forEach.call(list.children, function (c, n) { c.classList.toggle('is-active', n === i); });
+        if (list.children[i]) list.children[i].scrollIntoView({ block: 'nearest' });
+      }
+      /* Measured against the viewport every time it opens, and flipped above the
+         button when there is not room below -- the normal case for the time list,
+         which sits near the bottom edge of the panel. */
+      function place() {
+        var r = btn.getBoundingClientRect();
+        list.style.left = r.left + 'px';
+        list.style.width = r.width + 'px';
+        list.style.top = '0px';                       // measure at a known offset
+        var h = list.offsetHeight, below = window.innerHeight - r.bottom - 10;
+        list.style.top = (below < h && r.top - 10 > below
+          ? Math.max(8, r.top - h - 6)
+          : r.bottom + 6) + 'px';
+      }
+      function open() {
+        if (isOpen() || !items.length) return;
+        list.hidden = false;
+        place();
+        root.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        requestAnimationFrame(function () { list.classList.add('is-in'); });
+        setActive(idx);
+        list.focus();
+      }
+      function close(focusBtn) {
+        if (!isOpen()) return;
+        root.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        list.classList.remove('is-in');
+        setTimeout(function () { if (!isOpen()) list.hidden = true; }, 170);
+        if (focusBtn) btn.focus();
+      }
+      // silent for a programmatic refill: rebuilding the time list must not look
+      // like the visitor picked a time.
+      function choose(i, silent) {
+        if (!items[i]) return;
+        idx = i;
+        val.textContent = items[i].label;
+        [].forEach.call(list.children, function (c, n) {
+          c.setAttribute('aria-selected', n === i ? 'true' : 'false');
+        });
+        if (onPick && !silent) onPick();
+      }
+
+      btn.addEventListener('click', function () { if (isOpen()) close(); else open(); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+      });
+      list.addEventListener('click', function (e) {
+        var o = e.target.closest('.pick__opt');
+        if (o) { choose([].indexOf.call(list.children, o)); close(true); }
+      });
+      list.addEventListener('keydown', function (e) {
+        var i = active(), last = items.length - 1;
+        if (e.key === 'ArrowDown')    { e.preventDefault(); setActive(Math.min(last, i + 1)); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(Math.max(0, i - 1)); }
+        else if (e.key === 'Home')    { e.preventDefault(); setActive(0); }
+        else if (e.key === 'End')     { e.preventDefault(); setActive(last); }
+        else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(i); close(true); }
+        else if (e.key === 'Escape')  { e.preventDefault(); e.stopPropagation(); close(true); }
+      });
+      document.addEventListener('click', function (e) {
+        if (isOpen() && !root.contains(e.target)) close();
+      });
+      /* Fixed to the viewport, so it would hang in place while the page moved
+         underneath it. Its own scrolling is exempt, or the list would close the
+         moment you scrolled it. */
+      window.addEventListener('scroll', function (e) {
+        if (isOpen() && !list.contains(e.target)) close();
+      }, true);
+      window.addEventListener('resize', function () { close(); });
+
+      return {
+        set: function (next) {
+          items = next;
+          list.innerHTML = '';
+          items.forEach(function (it) {
+            var o = document.createElement('div');
+            o.className = 'pick__opt';
+            o.setAttribute('role', 'option');
+            o.textContent = it.label;
+            list.appendChild(o);
+          });
+          idx = 0;
+          choose(0, true);
+        },
+        value:  function () { return items[idx] ? items[idx].value : ''; },
+        index:  function () { return idx; },
+        change: function (fn) { onPick = fn; },
+        close:  function () { close(); }
+      };
+    }
+
     var wrap = document.createElement('div');
     wrap.className = 'cbk';
     wrap.innerHTML =
@@ -246,10 +373,10 @@
             '<input id="cbkPhone" type="tel" inputmode="numeric" autocomplete="tel-national" ' +
             'placeholder="5XX XX XX XX" maxlength="13" required></div></div>' +
           '<div class="cbk__row">' +
-            '<div class="field"><label for="cbkDay">' + T.day + '</label>' +
-              '<select id="cbkDay"></select></div>' +
-            '<div class="field"><label for="cbkTime">' + T.time + '</label>' +
-              '<select id="cbkTime"></select></div>' +
+            '<div class="field"><span class="pick__lbl" id="cbkDayL">' + T.day + '</span>' +
+              pickHTML('cbkDay') + '</div>' +
+            '<div class="field"><span class="pick__lbl" id="cbkTimeL">' + T.time + '</span>' +
+              pickHTML('cbkTime') + '</div>' +
           '</div>' +
           '<button class="btn btn--primary cbk__submit" type="submit">' + T.send + '</button>' +
         '</form>' +
@@ -262,32 +389,24 @@
         msg    = wrap.querySelector('.form-msg'),
         input  = wrap.querySelector('#cbkPhone'),
         telBox = wrap.querySelector('.cbk__tel'),
-        daySel = wrap.querySelector('#cbkDay'),
-        timeSel= wrap.querySelector('#cbkTime'),
-        submit = wrap.querySelector('.cbk__submit');
+        submit = wrap.querySelector('.cbk__submit'),
+        dayPick  = makePick(wrap.querySelector('[data-pick="cbkDay"]')),
+        timePick = makePick(wrap.querySelector('[data-pick="cbkTime"]'));
 
     var days = [];
     function fillDays() {
       days = buildDays();
-      daySel.innerHTML = '';
-      days.forEach(function (d, i) {
-        var o = document.createElement('option');
-        o.value = iso(d); o.textContent = dayLabel(d); o.dataset.i = i;
-        daySel.appendChild(o);
-      });
+      dayPick.set(days.map(function (d) {
+        return { value: iso(d), label: dayLabel(d) };
+      }));
       fillTimes();
     }
     function fillTimes() {
-      var d = days[daySel.selectedIndex] || days[0];
-      timeSel.innerHTML = '';
+      var d = days[dayPick.index()] || days[0];
       if (!d) return;
-      slotsFor(d).forEach(function (t) {
-        var o = document.createElement('option');
-        o.value = t; o.textContent = t;
-        timeSel.appendChild(o);
-      });
+      timePick.set(slotsFor(d).map(function (t) { return { value: t, label: t }; }));
     }
-    daySel.addEventListener('change', fillTimes);
+    dayPick.change(fillTimes);   // a different day has a different set of slots
 
     // Group as 5XX XX XX XX while typing; the value stays 9 digits underneath.
     function digits() { return input.value.replace(/\D/g, '').slice(0, 9); }
@@ -310,6 +429,7 @@
       setTimeout(function () { input.focus(); }, 60);
     }
     function close() {
+      dayPick.close(); timePick.close();   // they are fixed, not children of the panel
       wrap.classList.remove('is-open');
       fabPh.focus();
     }
@@ -337,8 +457,8 @@
         return;
       }
 
-      var dayTxt  = dayLabel(days[daySel.selectedIndex] || days[0], true),
-          timeTxt = timeSel.value;
+      var dayTxt  = dayLabel(days[dayPick.index()] || days[0], true),
+          timeTxt = timePick.value();
 
       var data = new FormData();
       data.append('access_key', FORMS.ACCESS_KEY);
@@ -346,7 +466,7 @@
       data.append('subject', T.subject + ' - +995 ' + input.value);
       data.append('phone', '+995' + d);
       data.append('when', dayTxt + ', ' + timeTxt);
-      data.append('date', daySel.value);
+      data.append('date', dayPick.value());
       data.append('time', timeTxt);
       data.append('page', location.href);
 
