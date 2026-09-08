@@ -8,6 +8,12 @@ $repo = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $sp   = $PSScriptRoot
 $fams = Get-Content (Join-Path $sp 'families.json')      -Raw -Encoding UTF8 | ConvertFrom-Json
 $mods = Get-Content (Join-Path $sp 'boilers-pages.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+# Only the published outputs get a card -- see visible.ps1 for the threshold.
+# Filtering here rather than at the card loop also keeps $KWMIN below honest:
+# it is measured from what is actually on the page, so the "from N kW" label
+# follows the range instead of advertising a boiler nobody can reach.
+. (Join-Path $sp 'visible.ps1')
+$mods = @($mods | Where-Object { (BoilerKw $_.name) -ge $BOILER_KWMIN })
 
 $BRANDS = @(
   @{ brand='Beretta';  slug='beretta';  logo='beretta.svg'  },
@@ -19,13 +25,17 @@ function Kw($n){ $m=[regex]::Match($n,'\b(\d{2,3})\b'); if($m.Success){return [i
 # products: it is the LAWA 18 today, and a typed figure would quietly lie the
 # moment a smaller unit is added.
 $KWMIN = ($mods | ForEach-Object { Kw $_.name } | Where-Object { $_ -gt 0 } | Measure-Object -Minimum).Minimum
+# The middle band starts at the smallest output actually on sale, not at a typed
+# 36: with the small ranges held back (visible.ps1) the lowest boiler is a 50,
+# and a band advertising 36 would promise a size the page cannot show.
+$KWLO = if ($KWMIN -gt 36) { $KWMIN } else { 36 }
 $L = @{
   ka = @{ file='.html'; tpl='vortice.html'; home='მთავარი'; products='პროდუქტი'; cat='ქვაბი'
           search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'; fKw='სიმძლავრე'
-          k1="$($KWMIN) kW-დან"; k2='36-99 kW'; k3='100 kW და მეტი'; empty='პროდუქტი ვერ მოიძებნა.' }
+          k1="$($KWMIN)-35 kW"; k2="$($KWLO)-99 kW"; k3='100 kW და მეტი'; empty='პროდუქტი ვერ მოიძებნა.' }
   en = @{ file='-en.html'; tpl='vortice-en.html'; home='Home'; products='Products'; cat='Boilers'
           search='Search...'; filter='Filter'; clear='Clear'; fKw='Output'
-          k1="From $($KWMIN) kW"; k2='36-99 kW'; k3='100 kW and above'; empty='No products found.' }
+          k1="$($KWMIN)-35 kW"; k2="$($KWLO)-99 kW"; k3='100 kW and above'; empty='No products found.' }
 }
 $CARET='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
 function HtmlEnc($s){ if($null -eq $s){return ''}; $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
@@ -76,6 +86,15 @@ foreach ($b in $BRANDS) {
                 "          <span class=`"pcard__body`"><h4>$(HtmlEnc $short)</h4>$kwSpan</span>`r`n        </a>`r`n"
     }
 
+    # Only offer the bands that have something behind them. Holding the small
+    # ranges back empties the first one, and a checkbox that can only ever
+    # return "no products found" is worse than no checkbox.
+    $kwOpts = ''
+    foreach ($k in 'k1','k2','k3') {
+      if ($cards -notmatch ('data-kw="' + $k + '"')) { continue }
+      $kwOpts += "            <label><input type=`"checkbox`" name=`"kw`" value=`"$k`">$($t.$k)</label>`r`n"
+    }
+
     $body = @"
 <!-- ===================== BRAND LISTING ===================== -->
 <section class="page-hero page-hero--brand">
@@ -102,9 +121,7 @@ foreach ($b in $BRANDS) {
         <div class="pfilter__group">
           <h4>$($t.fKw) $CARET</h4>
           <div class="pfilter__opts">
-            <label><input type="checkbox" name="kw" value="k1">$($t.k1)</label>
-            <label><input type="checkbox" name="kw" value="k2">$($t.k2)</label>
-            <label><input type="checkbox" name="kw" value="k3">$($t.k3)</label>
+$kwOpts
           </div>
         </div>
       </aside>

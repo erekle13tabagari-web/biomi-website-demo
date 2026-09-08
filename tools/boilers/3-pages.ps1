@@ -13,6 +13,19 @@ $repo = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $sp   = $PSScriptRoot
 $fams = Get-Content (Join-Path $sp 'families.json')       -Raw -Encoding UTF8 | ConvertFrom-Json
 $mods = Get-Content (Join-Path $sp 'boilers-pages.json')  -Raw -Encoding UTF8 | ConvertFrom-Json
+# Only the published outputs get a page -- see visible.ps1 for the threshold.
+# A family whose models all fall below it ends up with an empty group and is
+# skipped by the existing count guard, so no page is written for it.
+. (Join-Path $sp 'visible.ps1')
+$mods = @($mods | Where-Object { (BoilerKw $_.name) -ge $BOILER_KWMIN })
+# The families list has to be narrowed as well, not just the models. The "you
+# might also like" pair at the foot of each page is picked by walking $fams by
+# index, so a held-back family left in here gets linked from a published page
+# to a page that was never written -- which is exactly what linkcheck caught.
+$fams = @($fams | Where-Object {
+  $s = $_.slug                                    # capture before $_ is rebound
+  @($mods | Where-Object { $_.slug -eq $s }).Count -gt 0
+})
 $NAMES = @('main','front','angle','detail','room')
 # model -> its own images, where the range has visually distinct units
 $gals = Get-Content (Join-Path $sp 'boilers-galleries.json') -Raw -Encoding UTF8 | ConvertFrom-Json

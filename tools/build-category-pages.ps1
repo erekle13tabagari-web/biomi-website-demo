@@ -18,6 +18,9 @@ $KWMIN = ''
 $bp = Join-Path $repo 'tools\boilers\boilers-pages.json'
 if (Test-Path $bp) {
   $bm = Get-Content $bp -Raw -Encoding UTF8 | ConvertFrom-Json
+  # Held-back outputs must not set the label either: see tools/boilers/visible.ps1.
+  . (Join-Path $repo 'tools\boilers\visible.ps1')
+  $bm = @($bm | Where-Object { (BoilerKw $_.name) -ge $BOILER_KWMIN })
   $vals = @($bm | ForEach-Object {
     $m = [regex]::Match($_.name, '\b(\d{2,3})\b')
     if ($m.Success) { [int]$m.Groups[1].Value }
@@ -61,11 +64,24 @@ $PAGES = @(
      headKa='გათბობის ქვაბი'; headEn='Heating boilers'
      crumbKa='ქვაბი'; crumbEn='Boilers'
      titleKa='გათბობის ქვაბი - ბიომი'; titleEn='Heating boilers - Biomi'
-     ledeKa='გაზის ქვაბები ბინის, კერძო სახლისა და კომერციული ობიექტისთვის - კედლის და კასკადური სერიები.'; ledeEn='Gas boilers for flats, private houses and commercial buildings - wall-hung and cascade ranges.'
-     pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან - კედლის და კომერციული სერიები.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus - wall-hung and commercial ranges.'
+     # Commercial only while the wall-hung ranges are held back: the old copy
+     # promised flats, private houses and wall-hung boilers, none of which the
+     # page can still show. The description is what a search result prints, so
+     # leaving it would have advertised products and delivered none of them.
+     # Both lines go back when tools/boilers/visible.ps1 opens the range again.
+     ledeKa='გაზის ქვაბები კომერციული ობიექტისთვის - კასკადური სერიები.'; ledeEn='Gas boilers for commercial buildings - cascade ranges.'
+     pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან - კომერციული კასკადური სერიები.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus - commercial cascade ranges.'
      # the hub cards carry data-cat="<brand slug>", so the second group would just
      # repeat the brand filter -- output band is the useful second axis here
-     series=@(@('k1','{kwmin} kW-დან','From {kwmin} kW'),@('k2','36-99 kW','36-99 kW'),@('k3','100 kW და მეტი','100 kW and above'))
+     # Bands follow the published range, the same way the brand hubs build
+     # theirs: with the small outputs held back (tools/boilers/visible.ps1) the
+     # first band has nothing in it and is dropped, and the middle one starts at
+     # the smallest boiler on sale rather than at a typed 36.
+     series=$(if ($KWMIN -and $KWMIN -gt 35) {
+                @(@('k2',"$KWMIN-99 kW","$KWMIN-99 kW"),@('k3','100 kW და მეტი','100 kW and above'))
+              } else {
+                @(@('k1','{kwmin}-35 kW','{kwmin}-35 kW'),@('k2','36-99 kW','36-99 kW'),@('k3','100 kW და მეტი','100 kW and above'))
+              })
      seriesKa='სიმძლავრე'; seriesEn='Output'; seriesName='kw'
      typeKa='წარმოშობა'; typeEn='Origin'
      types=@(@('it','იტალია','Italy'),@('tr','თურქეთი','Turkey'))
