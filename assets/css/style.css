@@ -860,6 +860,17 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .footer__map-pin svg{width:15px;height:15px;color:var(--gold-600)}
 .footer__bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:46px;padding-top:24px;
   display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:rgba(255,255,255,.5)}
+/* The sign-off, matching the studio's own footer. Futura carries no heart glyph,
+   so the mark is drawn rather than typed -- the ❤︎ character was quietly falling
+   back to a system face beside Futura letters, at whatever size and weight that
+   face happened to have. Sized to the cap height (754/1000) and filled from the
+   text colour, it sits on the line with the letters instead of riding above them. */
+.footer__made{text-transform:uppercase;letter-spacing:.14em}
+/* Georgian runs tighter. main.js converts this to Mtavruli and switches the CSS
+   transform off -- uppercase would map the capitals straight back down -- and
+   Mtavruli is wide enough already that Latin's tracking pulls it apart. */
+html[lang="ka"] .footer__made{letter-spacing:.04em}
+.footer__made .heart{height:.754em;width:auto;fill:currentColor;vertical-align:baseline}
 
 /* =========================================================================
    FLOATING chat (messenger · whatsapp · phone)
