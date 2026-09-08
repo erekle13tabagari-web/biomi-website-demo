@@ -1,20 +1,14 @@
 [
   { "group": { "ka": "ჰაერსატარი", "en": "Ducts" }, "items": [
     { "img": "duct-rect",
-      "ka": { "name": "ჰაერსატარი – ოთხკუთხედი",
-              "spec": ["სიგრძე × სიგანე × სიმაღლე (მმ)", "საყელოთი ან საყელოს გარეშე"] },
-      "en": { "name": "Rectangular duct",
-              "spec": ["Length × width × height (mm)", "With or without collar"] } },
+      "ka": { "name": "ჰაერსატარი – ოთხკუთხედი", "spec": [] },
+      "en": { "name": "Rectangular duct", "spec": [] } },
     { "img": "duct-round",
-      "ka": { "name": "ჰაერსატარი – მრგვალი",
-              "spec": ["სიგრძე (მმ)", "დიამეტრი"] },
-      "en": { "name": "Round duct",
-              "spec": ["Length (mm)", "Diameter"] } },
+      "ka": { "name": "ჰაერსატარი – მრგვალი", "spec": [] },
+      "en": { "name": "Round duct", "spec": [] } },
     { "img": "duct-oval",
-      "ka": { "name": "ჰაერსატარი – ოვალური",
-              "spec": ["სიგრძე × სიგანე × სიმაღლე (მმ)"] },
-      "en": { "name": "Oval duct",
-              "spec": ["Length × width × height (mm)"] } }
+      "ka": { "name": "ჰაერსატარი – ოვალური", "spec": [] },
+      "en": { "name": "Oval duct", "spec": [] } }
   ]},
 
   { "group": { "ka": "მუხლი", "en": "Elbows" }, "items": [
