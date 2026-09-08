@@ -1565,6 +1565,16 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    Georgian body copy reads long past that.
    ========================================================================= */
 .policy{max-width:820px;margin:0 auto;color:var(--muted);font-size:15.5px;line-height:1.75}
+/* Selection switched off on the policy body, by request.
+   What it does: stops a reader dragging across the text, stops Ctrl+A picking
+   it up, and stops iOS offering Copy on a long press.
+   What it does not do: protect the text. These are static pages on a public
+   URL, so the whole policy is one View Source, one Reader Mode or one curl
+   away, and no amount of CSS changes that.
+   Deliberately left working: printing, and screen readers, which read the DOM
+   and never touch the selection -- this is a document a data subject has a
+   right to read, so it must not become unreachable to anyone relying on those. */
+.policy{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 /* The heading block is held to the same measure, so the breadcrumb, the title
    and the first clause all start on one line rather than the heading running
    the full container while the document sits centred inside it. */
