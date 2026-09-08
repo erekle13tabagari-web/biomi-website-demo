@@ -1202,7 +1202,13 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    allows. With Heating at 921px the whole catalogue fitted in two and the other
    two sat empty. Grid places one chapter per track and asks no questions. */
 .catalog{display:grid;grid-template-columns:repeat(5,1fr);gap:24px 18px;align-items:start}
-.catalog__chapter h3{font-size:13.5px;letter-spacing:.05em;color:var(--gold-600);margin:0 0 11px}
+/* Two lines' worth of room whether the title needs them or not, so every column
+   starts its first card on the same line. "ჰაერსატარი და მაკომპლექტებელი" wraps
+   at these track widths and the others do not, which had that one column's
+   cards sitting a line lower than the rest of the row. line-height is set here
+   rather than inherited so the reserved height is derived from it, not guessed. */
+.catalog__chapter h3{font-size:13.5px;line-height:1.35;letter-spacing:.05em;
+  color:var(--gold-600);margin:0 0 11px;min-height:2.7em}
 .catalog__grid{display:flex;flex-direction:column;gap:11px}
 /* Sized down so five chapters fit across the container: at 1240 with 18px gaps
    that is a 233px track, and the longest chip ("ჰიდრავლიკური გამათანაბრებელი")
@@ -1245,7 +1251,9 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
      the header keeps it in view for exactly as long as its own chapter is:
      sticky is bounded by .catalog__chapter, so it releases at the next one.
      The opaque background is load-bearing -- cards pass behind it. */
-  .catalog__chapter h3{position:sticky;top:var(--header-h);z-index:2;
+  /* min-height goes: one column here, so there is nothing to line up with, and
+     reserving a second line would only make the pinned bar taller. */
+  .catalog__chapter h3{position:sticky;top:var(--header-h);z-index:2;min-height:0;
     background:var(--bg);margin:0;padding:9px 0 11px}
   /* flex-direction has to be reset: the base rule stacks these in a column, and
      a column that scrolls on x just gives full-width cards and no rail. */
