@@ -1516,7 +1516,12 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    ========================================================================= */
 .duct__group{margin:34px 0 16px;font-size:15px;letter-spacing:.05em;color:var(--gold-600)}
 .duct__group:first-child{margin-top:0}
-.duct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:20px}
+/* auto-fit, not auto-fill. Every group here holds three or four parts, while
+   the container has room for five tracks -- auto-fill keeps the empty ones, so
+   each row stopped short and left a dead strip down the right of the section.
+   auto-fit collapses the unused tracks and the parts stretch to the full width,
+   which also keeps every row flush with the group heading above it. */
+.duct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
 .duct{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   overflow:hidden;display:flex;flex-direction:column}
 .duct__shot{display:block;background:#fff;padding:10px}
