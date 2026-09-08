@@ -29,16 +29,20 @@ $PAGE = @{
           crumbHome='მთავარი'; crumbProd='პროდუქტი'; crumb='ჰაერსატარი'
           eyebrow='ჰაერსატარი'; h2='თუნუქის ჰაერსატარი და მაკომპლექტებელი'
           title='ჰაერსატარი და მაკომპლექტებელი - ბიომი'
-          lede='ჰაერსატარები, მუხლები, სამკაპები და გადამყვანები - მზადდება შეკვეთით, ობიექტის ზომებზე.'
+          lede='ჰაერსატარები, მუხლები, სამკაპები და გადამყვანები.'
           desc='თუნუქის ჰაერსატარი, მუხლი, სამკაპი, გადამყვანი და მაკომპლექტებელი - სს „ბიომი ჰოლდინგის“ საკუთარი წარმოება.'
+          search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'; fType='ტიპი'
+          empty='პროდუქტი ვერ მოიძებნა.'
           note='ზომები და კონფიგურაცია განისაზღვრება ობიექტის მიხედვით.'
           cta='მოითხოვეთ შეთავაზება' }
   en = @{ sfx='-en.html'; donor='ventilation-en.html'; out='ducting-en.html'
           crumbHome='Home'; crumbProd='Products'; crumb='Ducting'
           eyebrow='Ducting'; h2='Sheet-metal ducting and fittings'
           title='Ducting and fittings - Biomi'
-          lede='Ducts, elbows, tees and reducers - made to order, to the dimensions of the building.'
+          lede='Ducts, elbows, tees and reducers.'
           desc='Sheet-metal ducts, elbows, tees, reducers and fittings, made in Biomi Holding''s own plant.'
+          search='Search...'; filter='Filter'; clear='Clear'; fType='Type'
+          empty='No products found.'
           note='Sizes and configuration are set by the building.'
           cta='Request a quote' }
 }
@@ -65,15 +69,18 @@ foreach ($lang in 'ka','en') {
   $tail = $tail.Replace('href="ventilation.html">GEO<',    'href="ducting.html">GEO<')
   $tail = $tail.Replace('href="ventilation-en.html">ENG<', 'href="ducting-en.html">ENG<')
 
-  # ---- the gallery
+  # ---- the gallery: one flat grid, because the filter now does the grouping
+  # the headings used to do. Keeping both would mean a heading left standing
+  # over nothing every time its group is filtered out.
   $rows = New-Object System.Collections.Generic.List[string]
   foreach ($g in $DATA) {
-    $gt = $g.group.$lang
-    $rows.Add('      <h3 class="duct__group">' + (Esc $gt) + '</h3>')
-    $rows.Add('      <div class="duct-grid">')
     foreach ($it in $g.items) {
       $d = $it.$lang
-      $rows.Add('        <figure class="duct">')
+      # Both languages go into data-name, which is what the search box reads:
+      # the parts are ordered by people who say "elbow" as readily as "მუხლი".
+      $terms = $d.name + ' ' + $it.ka.name + ' ' + $it.en.name
+      $rows.Add('        <figure class="duct" data-type="' + $g.group.slug +
+                '" data-name="' + (Esc $terms) + '">')
       $rows.Add('          <span class="duct__shot"><img src="../assets/img/ducting/' + $it.img +
                 '.webp" alt="' + (Esc $d.name) + '" loading="lazy" width="900" height="600"></span>')
       $rows.Add('          <figcaption>')
@@ -86,7 +93,13 @@ foreach ($lang in 'ka','en') {
       $rows.Add('          </figcaption>')
       $rows.Add('        </figure>')
     }
-    $rows.Add('      </div>')
+  }
+
+  # one checkbox per group, in the order the data lists them
+  $opts = New-Object System.Collections.Generic.List[string]
+  foreach ($g in $DATA) {
+    $opts.Add('            <label><input type="checkbox" name="type" value="' + $g.group.slug +
+              '">' + (Esc $g.group.$lang) + '</label>')
   }
 
   $body = @'
@@ -106,11 +119,31 @@ foreach ($lang in 'ka','en') {
 </section>
 
 <section class="section" style="padding-top:26px">
-  <div class="container">
+  <div class="container" data-plist>
+    <div class="plist">
+      <aside class="pfilter">
+        <div class="pfilter__search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" placeholder="{SEARCH}">
+        </div>
+        <div class="pfilter__head"><span>{FILTER}</span><a data-clear>{CLEAR}</a></div>
+        <div class="pfilter__group">
+          <h4>{FTYPE} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
+          <div class="pfilter__opts">
+{OPTS}
+          </div>
+        </div>
+      </aside>
+
+      <div class="pgrid">
 {ROWS}
-      <p class="duct__note">{NOTE}
-        <a class="btn btn--outline" href="../index{SFX}#contact">{CTA}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+        <div class="pgrid__empty" style="display:none">{EMPTY}</div>
+      </div>
+    </div>
+
+    <p class="duct__note">{NOTE}
+      <a class="btn btn--outline" href="../index{SFX}#contact">{CTA}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </div>
 </section>
 
@@ -119,6 +152,10 @@ foreach ($lang in 'ka','en') {
                 Replace('{CRUMBPROD}', $t.crumbProd).Replace('{CRUMB}', $t.crumb).
                 Replace('{EYEBROW}', $t.eyebrow).Replace('{H2}', $t.h2).Replace('{LEDE}', $t.lede).
                 Replace('{NOTE}', $t.note).Replace('{CTA}', $t.cta).
+                Replace('{SEARCH}', $t.search).Replace('{FILTER}', $t.filter).
+                Replace('{CLEAR}', $t.clear).Replace('{FTYPE}', $t.fType).
+                Replace('{EMPTY}', $t.empty).
+                Replace('{OPTS}', ($opts -join $CRLF)).
                 Replace('{ROWS}', ($rows -join $CRLF))
 
   $out = $head + $body + $tail

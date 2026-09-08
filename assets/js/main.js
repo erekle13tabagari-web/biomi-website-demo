@@ -1495,7 +1495,12 @@
   'use strict';
   var list = document.querySelector('[data-plist]');
   if (list) {
-    var cards = Array.prototype.slice.call(list.querySelectorAll('.pcard[data-cat]'));
+    /* .duct as well as .pcard: the ducting parts are made to order and have no
+       page of their own, so they are figures rather than links, but they filter
+       exactly like everything else. Everything below reads data- attributes and
+       never the tag, so widening the selector is the whole change. */
+    var cards = Array.prototype.slice.call(
+      list.querySelectorAll('.pcard[data-cat], .duct[data-name]'));
     var tabs = list.querySelectorAll('.cattabs button');
     var checks = Array.prototype.slice.call(list.querySelectorAll('.pfilter input'));
     var search = list.querySelector('.pfilter__search input');

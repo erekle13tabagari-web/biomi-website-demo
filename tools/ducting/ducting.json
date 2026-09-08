@@ -1,5 +1,5 @@
 [
-  { "group": { "ka": "ჰაერსატარი", "en": "Ducts" }, "items": [
+  { "group": { "slug": "duct", "ka": "ჰაერსატარი", "en": "Ducts" }, "items": [
     { "img": "duct-rect",
       "ka": { "name": "ჰაერსატარი - ოთხკუთხედი", "spec": [] },
       "en": { "name": "Rectangular duct", "spec": [] } },
@@ -11,7 +11,7 @@
       "en": { "name": "Oval duct", "spec": [] } }
   ]},
 
-  { "group": { "ka": "მუხლი", "en": "Elbows" }, "items": [
+  { "group": { "slug": "elbow", "ka": "მუხლი", "en": "Elbows" }, "items": [
     { "img": "elbow-rect",
       "ka": { "name": "მუხლი ოთხკუთხედი", "spec": [] },
       "en": { "name": "Rectangular elbow", "spec": [] } },
@@ -23,7 +23,7 @@
       "en": { "name": "Double elbow", "spec": [] } }
   ]},
 
-  { "group": { "ka": "სამკაპი", "en": "Tees" }, "items": [
+  { "group": { "slug": "tee", "ka": "სამკაპი", "en": "Tees" }, "items": [
     { "img": "tee-rect",
       "ka": { "name": "სამკაპი - ოთხკუთხედი", "spec": [] },
       "en": { "name": "Rectangular tee", "spec": [] } },
@@ -35,7 +35,7 @@
       "en": { "name": "Y-branch", "spec": [] } }
   ]},
 
-  { "group": { "ka": "გადამყვანი", "en": "Reducers" }, "items": [
+  { "group": { "slug": "reducer", "ka": "გადამყვანი", "en": "Reducers" }, "items": [
     { "img": "reducer-round-round",
       "ka": { "name": "გადამყვანი - მრგვალიდან მრგვალზე", "spec": [] },
       "en": { "name": "Round to round", "spec": [] } },
@@ -47,7 +47,7 @@
       "en": { "name": "Rectangular to oval", "spec": [] } }
   ]},
 
-  { "group": { "ka": "მაკომპლექტებელი", "en": "Fittings and material" }, "items": [
+  { "group": { "slug": "fitting", "ka": "მაკომპლექტებელი", "en": "Fittings and material" }, "items": [
     { "img": "collar",
       "ka": { "name": "საყელო", "spec": [] },
       "en": { "name": "Collar", "spec": [] } },

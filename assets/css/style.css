@@ -1514,14 +1514,10 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    to click through to. The renders are on white, so each sits on its own white
    plate to keep it off the page background in both themes.
    ========================================================================= */
-.duct__group{margin:34px 0 16px;font-size:15px;letter-spacing:.05em;color:var(--gold-600)}
-.duct__group:first-child{margin-top:0}
-/* auto-fit, not auto-fill. Every group here holds three or four parts, while
-   the container has room for five tracks -- auto-fill keeps the empty ones, so
-   each row stopped short and left a dead strip down the right of the section.
-   auto-fit collapses the unused tracks and the parts stretch to the full width,
-   which also keeps every row flush with the group heading above it. */
-.duct-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+/* The parts sit in .pgrid beside the filter now, like every other product
+   listing, so the gallery's own grid and its group headings are gone: the
+   filter groups them, and a heading would be left standing over nothing each
+   time its group was filtered out. */
 .duct{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   overflow:hidden;display:flex;flex-direction:column}
 .duct__shot{display:block;background:#fff;padding:10px}
@@ -1534,7 +1530,6 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   font-size:14.5px;color:var(--muted)}
 .duct__note .btn{margin-left:auto}
 @media (max-width:680px){
-  .duct-grid{grid-template-columns:1fr 1fr;gap:14px}
   .duct figcaption{padding:11px 12px 13px}
   .duct__note .btn{margin-left:0;width:100%;justify-content:center}
 }
