@@ -217,100 +217,108 @@
             <label><input type="checkbox" name="type" value="fitting">Fittings and material</label>
           </div>
         </div>
+        <div class="pfilter__group">
+          <h4>Shape <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
+          <div class="pfilter__opts">
+            <label><input type="checkbox" name="shape" value="rect">Rectangular</label>
+            <label><input type="checkbox" name="shape" value="round">Round</label>
+            <label><input type="checkbox" name="shape" value="oval">Oval</label>
+          </div>
+        </div>
       </aside>
 
       <div class="pgrid">
-        <figure class="duct" data-type="duct" data-name="Rectangular duct ჰაერსატარი - ოთხკუთხედი Rectangular duct">
+        <figure class="duct" data-type="duct" data-shape="rect" data-name="Rectangular duct ჰაერსატარი - ოთხკუთხედი Rectangular duct">
           <span class="duct__shot"><img src="../assets/img/ducting/duct-rect.webp" alt="Rectangular duct" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Rectangular duct</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="duct" data-name="Round duct ჰაერსატარი - მრგვალი Round duct">
+        <figure class="duct" data-type="duct" data-shape="round" data-name="Round duct ჰაერსატარი - მრგვალი Round duct">
           <span class="duct__shot"><img src="../assets/img/ducting/duct-round.webp" alt="Round duct" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Round duct</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="duct" data-name="Oval duct ჰაერსატარი - ოვალური Oval duct">
+        <figure class="duct" data-type="duct" data-shape="oval" data-name="Oval duct ჰაერსატარი - ოვალური Oval duct">
           <span class="duct__shot"><img src="../assets/img/ducting/duct-oval.webp" alt="Oval duct" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Oval duct</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="elbow" data-name="Rectangular elbow მუხლი ოთხკუთხედი Rectangular elbow">
+        <figure class="duct" data-type="elbow" data-shape="rect" data-name="Rectangular elbow მუხლი ოთხკუთხედი Rectangular elbow">
           <span class="duct__shot"><img src="../assets/img/ducting/elbow-rect.webp" alt="Rectangular elbow" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Rectangular elbow</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="elbow" data-name="Round elbow მუხლი მრგვალი Round elbow">
+        <figure class="duct" data-type="elbow" data-shape="round" data-name="Round elbow მუხლი მრგვალი Round elbow">
           <span class="duct__shot"><img src="../assets/img/ducting/elbow-round.webp" alt="Round elbow" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Round elbow</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="elbow" data-name="Double elbow ორმაგი მუხლი Double elbow">
+        <figure class="duct" data-type="elbow" data-shape="rect" data-name="Double elbow ორმაგი მუხლი Double elbow">
           <span class="duct__shot"><img src="../assets/img/ducting/elbow-double.webp" alt="Double elbow" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Double elbow</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="tee" data-name="Rectangular tee სამკაპი - ოთხკუთხედი Rectangular tee">
+        <figure class="duct" data-type="tee" data-shape="rect" data-name="Rectangular tee სამკაპი - ოთხკუთხედი Rectangular tee">
           <span class="duct__shot"><img src="../assets/img/ducting/tee-rect.webp" alt="Rectangular tee" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Rectangular tee</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="tee" data-name="Round tee სამკაპი - მრგვალი Round tee">
+        <figure class="duct" data-type="tee" data-shape="round" data-name="Round tee სამკაპი - მრგვალი Round tee">
           <span class="duct__shot"><img src="../assets/img/ducting/tee-round.webp" alt="Round tee" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Round tee</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="tee" data-name="Y-branch Y ტიპის გადამბა Y-branch">
+        <figure class="duct" data-type="tee" data-shape="round" data-name="Y-branch Y ტიპის გადამბა Y-branch">
           <span class="duct__shot"><img src="../assets/img/ducting/y-branch.webp" alt="Y-branch" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Y-branch</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="reducer" data-name="Round to round გადამყვანი - მრგვალიდან მრგვალზე Round to round">
+        <figure class="duct" data-type="reducer" data-shape="round" data-name="Round to round გადამყვანი - მრგვალიდან მრგვალზე Round to round">
           <span class="duct__shot"><img src="../assets/img/ducting/reducer-round-round.webp" alt="Round to round" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Round to round</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="reducer" data-name="Rectangular to round გადამყვანი - ოთხკუთხედიდან მრგვალზე Rectangular to round">
+        <figure class="duct" data-type="reducer" data-shape="rect,round" data-name="Rectangular to round გადამყვანი - ოთხკუთხედიდან მრგვალზე Rectangular to round">
           <span class="duct__shot"><img src="../assets/img/ducting/reducer-rect-round.webp" alt="Rectangular to round" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Rectangular to round</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="reducer" data-name="Rectangular to oval გადამყვანი - ოთხკუთხედიდან ოვალურზე Rectangular to oval">
+        <figure class="duct" data-type="reducer" data-shape="rect,oval" data-name="Rectangular to oval გადამყვანი - ოთხკუთხედიდან ოვალურზე Rectangular to oval">
           <span class="duct__shot"><img src="../assets/img/ducting/reducer-rect-oval.webp" alt="Rectangular to oval" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Rectangular to oval</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="fitting" data-name="Collar საყელო Collar">
+        <figure class="duct" data-type="fitting" data-shape="rect" data-name="Collar საყელო Collar">
           <span class="duct__shot"><img src="../assets/img/ducting/collar.webp" alt="Collar" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Collar</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="fitting" data-name="U-channel U ტიპის არხი U-channel">
+        <figure class="duct" data-type="fitting" data-shape="" data-name="U-channel U ტიპის არხი U-channel">
           <span class="duct__shot"><img src="../assets/img/ducting/u-channel.webp" alt="U-channel" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>U-channel</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="fitting" data-name="Sheet-metal angle თუნუქის კუთხე Sheet-metal angle">
+        <figure class="duct" data-type="fitting" data-shape="" data-name="Sheet-metal angle თუნუქის კუთხე Sheet-metal angle">
           <span class="duct__shot"><img src="../assets/img/ducting/angle.webp" alt="Sheet-metal angle" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Sheet-metal angle</b>
           </figcaption>
         </figure>
-        <figure class="duct" data-type="fitting" data-name="Sheet metal თუნუქის ფურცელი Sheet metal">
+        <figure class="duct" data-type="fitting" data-shape="" data-name="Sheet metal თუნუქის ფურცელი Sheet metal">
           <span class="duct__shot"><img src="../assets/img/ducting/sheet.webp" alt="Sheet metal" loading="lazy" width="900" height="600"></span>
           <figcaption>
             <b>Sheet metal</b>

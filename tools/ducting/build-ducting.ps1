@@ -31,7 +31,8 @@ $PAGE = @{
           title='ჰაერსატარი და მაკომპლექტებელი - ბიომი'
           lede='ჰაერსატარები, მუხლები, სამკაპები და გადამყვანები.'
           desc='თუნუქის ჰაერსატარი, მუხლი, სამკაპი, გადამყვანი და მაკომპლექტებელი - სს „ბიომი ჰოლდინგის“ საკუთარი წარმოება.'
-          search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'; fType='ტიპი'
+          search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'
+          fType='ტიპი'; fShape='ფორმა'
           empty='პროდუქტი ვერ მოიძებნა.'
           note='ზომები და კონფიგურაცია განისაზღვრება ობიექტის მიხედვით.'
           cta='მოითხოვეთ შეთავაზება' }
@@ -41,13 +42,28 @@ $PAGE = @{
           title='Ducting and fittings - Biomi'
           lede='Ducts, elbows, tees and reducers.'
           desc='Sheet-metal ducts, elbows, tees, reducers and fittings, made in Biomi Holding''s own plant.'
-          search='Search...'; filter='Filter'; clear='Clear'; fType='Type'
+          search='Search...'; filter='Filter'; clear='Clear'
+          fType='Type'; fShape='Shape'
           empty='No products found.'
           note='Sizes and configuration are set by the building.'
           cta='Request a quote' }
 }
 
 function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '<','&lt;' -replace '>','&gt;') }
+
+# The shape vocabulary, fixed rather than read off the data: a shape nobody makes
+# should still be absent from the filter, not silently appear the day one part
+# gets tagged with it. A part may carry two -- a reducer is rectangular at one
+# end and round at the other, and belongs under both.
+#
+# The U-channel, the angle and the sheet carry none. They are profile and raw
+# material rather than a shaped part, so a shape filter drops them, which is the
+# honest answer rather than filing them under a shape they do not have.
+$SHAPES = @(
+  @{ slug = 'rect';  ka = 'ოთხკუთხედი'; en = 'Rectangular' },
+  @{ slug = 'round'; ka = 'მრგვალი';    en = 'Round' },
+  @{ slug = 'oval';  ka = 'ოვალური';    en = 'Oval' }
+)
 
 foreach ($lang in 'ka','en') {
   $t = $PAGE[$lang]
@@ -80,6 +96,7 @@ foreach ($lang in 'ka','en') {
       # the parts are ordered by people who say "elbow" as readily as "მუხლი".
       $terms = $d.name + ' ' + $it.ka.name + ' ' + $it.en.name
       $rows.Add('        <figure class="duct" data-type="' + $g.group.slug +
+                '" data-shape="' + ($it.shape -join ',') +
                 '" data-name="' + (Esc $terms) + '">')
       $rows.Add('          <span class="duct__shot"><img src="../assets/img/ducting/' + $it.img +
                 '.webp" alt="' + (Esc $d.name) + '" loading="lazy" width="900" height="600"></span>')
@@ -100,6 +117,11 @@ foreach ($lang in 'ka','en') {
   foreach ($g in $DATA) {
     $opts.Add('            <label><input type="checkbox" name="type" value="' + $g.group.slug +
               '">' + (Esc $g.group.$lang) + '</label>')
+  }
+  $sopts = New-Object System.Collections.Generic.List[string]
+  foreach ($sh in $SHAPES) {
+    $sopts.Add('            <label><input type="checkbox" name="shape" value="' + $sh.slug +
+               '">' + (Esc $sh.$lang) + '</label>')
   }
 
   $body = @'
@@ -133,6 +155,12 @@ foreach ($lang in 'ka','en') {
 {OPTS}
           </div>
         </div>
+        <div class="pfilter__group">
+          <h4>{FSHAPE} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
+          <div class="pfilter__opts">
+{SOPTS}
+          </div>
+        </div>
       </aside>
 
       <div class="pgrid">
@@ -154,8 +182,9 @@ foreach ($lang in 'ka','en') {
                 Replace('{NOTE}', $t.note).Replace('{CTA}', $t.cta).
                 Replace('{SEARCH}', $t.search).Replace('{FILTER}', $t.filter).
                 Replace('{CLEAR}', $t.clear).Replace('{FTYPE}', $t.fType).
-                Replace('{EMPTY}', $t.empty).
+                Replace('{FSHAPE}', $t.fShape).Replace('{EMPTY}', $t.empty).
                 Replace('{OPTS}', ($opts -join $CRLF)).
+                Replace('{SOPTS}', ($sopts -join $CRLF)).
                 Replace('{ROWS}', ($rows -join $CRLF))
 
   $out = $head + $body + $tail

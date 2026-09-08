@@ -1522,10 +1522,15 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   overflow:hidden;display:flex;flex-direction:column}
 .duct__shot{display:block;background:#fff;padding:10px}
 .duct__shot img{width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;display:block}
-.duct figcaption{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px}
-.duct figcaption b{font-size:14.5px;font-weight:500;color:var(--ink);line-height:1.35}
+/* Brand navy in both themes, exactly like .pcard__body above: the render sits on
+   a white panel, and in light mode the name band is what gives that panel an
+   edge to stop against. Letting it follow the surface token would leave a white
+   caption under a white photo and the card would lose its bottom. */
+.duct figcaption{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px;
+  background:var(--navy);color:#fff}
+.duct figcaption b{font-size:14.5px;font-weight:500;color:#fff;line-height:1.35}
 .duct figcaption ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
-.duct figcaption li{font-size:12.5px;line-height:1.4;color:var(--muted)}
+.duct figcaption li{font-size:12.5px;line-height:1.4;color:rgba(255,255,255,.72)}
 .duct__note{margin:34px 0 0;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
   font-size:14.5px;color:var(--muted)}
 .duct__note .btn{margin-left:auto}
