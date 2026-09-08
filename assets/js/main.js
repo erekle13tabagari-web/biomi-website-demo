@@ -2,6 +2,24 @@
 (function () {
   'use strict';
 
+  /* ---- Form delivery: one place for both the contact form and the call-back
+     panel. The site is static, so there is no server of ours to post to and no
+     way to send mail from the page itself; everything goes through a form-relay
+     service, which takes the POST and emails it on.
+
+     ACCESS_KEY is the only thing that has to be filled in: get it from
+     web3forms.com by entering the recipient address below, and paste it here.
+     It is deliberately shared rather than pasted into each form, so the two
+     cannot drift apart. Until it is filled in BOTH forms refuse and say so --
+     answering "received" while sending nothing is worse than an error, because
+     a customer would walk away believing they had been in touch. */
+  var FORMS = {
+    ACCESS_KEY: '',                                 // <- paste the Web3Forms access key here
+    RELAY:      'https://api.web3forms.com/submit',
+    RECIPIENT:  'Marketing@maxcomfort.ge',
+    TEL:        '+995322151115'
+  };
+
   /* ---- Georgian caps (Mtavruli) wherever CSS asks for uppercase ---- */
   /* CSS text-transform:uppercase handles Latin but does nothing for Georgian, so
      Mkhedruli text nodes are converted to Mtavruli (U+10D0-U+10FF -> +0xBC0).
@@ -11,37 +29,45 @@
      Style a new element uppercase in CSS and it is covered automatically.
      aria-label keeps the readable Mkhedruli text for screen readers. The regex
      matches only Mkhedruli, so already-Mtavruli source and re-runs are no-ops. */
-  (function () {
+  var georgianCaps = (function () {
     // Mkhedruli (lowercase) OR Mtavruli (caps) -- some titles are authored in
     // Mtavruli already, and those still need the CSS transform switched off.
     var GEORGIAN = /[ა-ჿᲐ-Ჿ]/;
     function isUpper(el) {
       return el && el.nodeType === 1 && getComputedStyle(el).textTransform === 'uppercase';
     }
-    document.querySelectorAll('*').forEach(function (el) {
-      if (!isUpper(el)) return;
-      // text-transform inherits, so let the outermost uppercase element handle
-      // its subtree in one pass instead of converting each descendant again.
-      if (isUpper(el.parentElement)) return;
-      if (el.dataset.caps) return;
+    /* Returned rather than run once and forgotten: anything assembled later in
+       JS -- the call-back panel below is built after this first pass -- has to
+       go through the same conversion. Skip it and that markup renders exactly
+       as CSS leaves it, which for Georgian means visibly un-capitalised while
+       the English beside it is in caps. */
+    return function (root) {
+      (root || document).querySelectorAll('*').forEach(function (el) {
+        if (!isUpper(el)) return;
+        // text-transform inherits, so let the outermost uppercase element handle
+        // its subtree in one pass instead of converting each descendant again.
+        if (isUpper(el.parentElement)) return;
+        if (el.dataset.caps) return;
 
-      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-      var nodes = [], n;
-      while ((n = walker.nextNode())) nodes.push(n);
-      // Latin-only elements are left to CSS, so caps still work with JS disabled.
-      if (!nodes.some(function (t) { return GEORGIAN.test(t.nodeValue); })) return;
+        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+        var nodes = [], n;
+        while ((n = walker.nextNode())) nodes.push(n);
+        // Latin-only elements are left to CSS, so caps still work with JS disabled.
+        if (!nodes.some(function (t) { return GEORGIAN.test(t.nodeValue); })) return;
 
-      el.dataset.caps = '1';
-      if (!el.getAttribute('aria-label')) el.setAttribute('aria-label', el.textContent.trim());
-      // toUpperCase does the Unicode mapping for both scripts: Mkhedruli -> Mtavruli
-      // and Latin -> caps, leaving text that is already Mtavruli untouched.
-      nodes.forEach(function (t) { t.nodeValue = t.nodeValue.toUpperCase(); });
-      // Critical: CSS text-transform:uppercase maps Mtavruli *back down* to
-      // Mkhedruli, silently undoing the conversion. Now that this element's text
-      // is already cased, switch the CSS transform off so it cannot reverse it.
-      el.style.textTransform = 'none';
-    });
+        el.dataset.caps = '1';
+        if (!el.getAttribute('aria-label')) el.setAttribute('aria-label', el.textContent.trim());
+        // toUpperCase does the Unicode mapping for both scripts: Mkhedruli -> Mtavruli
+        // and Latin -> caps, leaving text that is already Mtavruli untouched.
+        nodes.forEach(function (t) { t.nodeValue = t.nodeValue.toUpperCase(); });
+        // Critical: CSS text-transform:uppercase maps Mtavruli *back down* to
+        // Mkhedruli, silently undoing the conversion. Now that this element's text
+        // is already cased, switch the CSS transform off so it cannot reverse it.
+        el.style.textTransform = 'none';
+      });
+    };
   })();
+  georgianCaps(document);
 
   /* ---- Floating buttons: group socials into one capsule; order below it:
          messenger, phone (call CTA), back-to-top ---- */
@@ -80,6 +106,266 @@
     if (ms) fab.appendChild(ms);   // Messenger (blue, like the call button)
     if (ph) fab.appendChild(ph);   // Phone - call CTA
     if (top) fab.appendChild(top); // Back to top
+  })();
+
+  /* ---- Call-back request ------------------------------------------------
+     The phone button used to be a bare tel: link, which does nothing at all in
+     a desktop browser -- roughly half the visitors got a dead button. It now
+     opens a panel where a visitor leaves a number and picks when to be called,
+     with the direct-dial link kept inside for anyone who would rather call.
+
+     Built here rather than in markup so all 185 pages get it without being
+     edited one by one, the same reason the social capsule above is assembled
+     in JS. Delivery goes through the shared FORMS relay at the top of the file. */
+  (function () {
+    var fabPh = document.querySelector('.fab__ph');
+    if (!fabPh) return;
+
+    /* The window call-backs are offered in, as minutes past midnight, plus the
+       step between slots. LEAD is how far ahead the first slot on the current
+       day has to be, so nobody books a call for two minutes from now. Change
+       these and the whole picker follows -- nothing else hard-codes a time. */
+    var OPEN_MIN  = 10 * 60 + 15,   // 10:15
+        CLOSE_MIN = 17 * 60 + 45,   // 17:45
+        STEP_MIN  = 15,
+        LEAD_MIN  = 60,
+        DAYS_AHEAD = 5;
+
+    var en = (document.documentElement.lang || 'ka').indexOf('en') === 0;
+    var T = en ? {
+      title: 'Shall we call you?',
+      sub:   'Leave your number and pick a time — we will call you then.',
+      phone: 'Phone number', day: 'Day', time: 'Time',
+      send:  'Request a call', now: 'or call us now', close: 'Close',
+      today: 'Today', tomorrow: 'Tomorrow',
+      bad:   'Please enter a 9-digit Georgian mobile number, starting with 5.',
+      sending: 'Sending…',
+      ok:    'Thank you. We will call you {d} at {t}.',
+      fail:  'The request could not be sent. Please call +995 322 15 11 15.',
+      unwired: 'The form is not connected yet. Please call +995 322 15 11 15.',
+      subject: 'Call-back request',
+      months: ['January','February','March','April','May','June','July',
+               'August','September','October','November','December'],
+      wdays:  ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+      mo:     ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      wd:     ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+    } : {
+      title: 'გსურთ, ჩვენ დაგირეკოთ?',
+      sub:   'დატოვეთ ნომერი და აირჩიეთ დრო — დაგირეკავთ მითითებულ დროს.',
+      phone: 'ტელეფონის ნომერი', day: 'დღე', time: 'დრო',
+      send:  'ველოდები ზარს', now: 'ან დაგვირეკეთ ახლავე', close: 'დახურვა',
+      today: 'დღეს', tomorrow: 'ხვალ',
+      bad:   'მიუთითეთ 9-ნიშნა ნომერი, 5-ით დაწყებული.',
+      sending: 'იგზავნება…',
+      ok:    'მადლობა! დაგირეკავთ {d}, {t} საათზე.',
+      fail:  'მოთხოვნა ვერ გაიგზავნა. დაგვირეკეთ +995 322 15 11 15.',
+      unwired: 'ფორმა ჯერ არ არის დაკავშირებული. დაგვირეკეთ +995 322 15 11 15.',
+      subject: 'ზარის მოთხოვნა',
+      months: ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი',
+               'აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'],
+      wdays:  ['კვირა','ორშაბათი','სამშაბათი','ოთხშაბათი','ხუთშაბათი','პარასკევი','შაბათი'],
+      mo:     ['იან','თებ','მარ','აპრ','მაი','ივნ','ივლ','აგვ','სექ','ოქტ','ნოე','დეკ'],
+      wd:     ['კვი','ორშ','სამ','ოთხ','ხუთ','პარ','შაბ']
+    };
+
+    /* Georgian flag, drawn rather than an emoji: Windows renders the regional
+       indicator pair as the letters "GE", not a flag. */
+    var FLAG =
+      '<svg class="cbk__flag" viewBox="0 0 30 20" aria-hidden="true">' +
+      '<rect width="30" height="20" fill="#fff"/>' +
+      '<rect x="12.5" width="5" height="20" fill="#e8112d"/>' +
+      '<rect y="7.5" width="30" height="5" fill="#e8112d"/><g fill="#e8112d">' +
+      '<rect x="5.65" y="2.15" width="1.2" height="3.2"/><rect x="4.65" y="3.15" width="3.2" height="1.2"/>' +
+      '<rect x="23.15" y="2.15" width="1.2" height="3.2"/><rect x="22.15" y="3.15" width="3.2" height="1.2"/>' +
+      '<rect x="5.65" y="14.65" width="1.2" height="3.2"/><rect x="4.65" y="15.65" width="3.2" height="1.2"/>' +
+      '<rect x="23.15" y="14.65" width="1.2" height="3.2"/><rect x="22.15" y="15.65" width="3.2" height="1.2"/>' +
+      '</g></svg>';
+
+    function sameDay(a, b) {
+      return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() &&
+             a.getDate() === b.getDate();
+    }
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function iso(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+
+    /* Slots left on a given day. Today starts at the next step boundary that is
+       at least LEAD_MIN away, so late in the afternoon the day empties out and
+       drops off the picker by itself rather than offering a call that has
+       already passed. */
+    function slotsFor(d) {
+      var out = [], now = new Date(), first = OPEN_MIN;
+      if (sameDay(d, now)) {
+        var lead = now.getHours() * 60 + now.getMinutes() + LEAD_MIN;
+        first = Math.max(OPEN_MIN, Math.ceil(lead / STEP_MIN) * STEP_MIN);
+      }
+      for (var m = first; m <= CLOSE_MIN; m += STEP_MIN) {
+        out.push(pad(Math.floor(m / 60)) + ':' + pad(m % 60));
+      }
+      return out;
+    }
+
+    // Weekdays only, and only those with a slot left -- so the list never offers
+    // a day that has nothing behind it.
+    function buildDays() {
+      var out = [], d = new Date(), guard = 0;
+      while (out.length < DAYS_AHEAD && guard++ < 21) {
+        var wd = d.getDay();
+        if (wd !== 0 && wd !== 6 && slotsFor(d).length) out.push(new Date(d));
+        d.setDate(d.getDate() + 1);
+        d.setHours(0, 0, 0, 0);   // past today, days start at the top
+      }
+      return out;
+    }
+
+    /* Two forms of the same date. The picker column is narrow, so the options
+       get the short one ("12 სექ, პარ"); the confirmation and the mail that
+       reaches the office get the full one, where there is room and no reason to
+       make somebody decode an abbreviation. */
+    function dayLabel(d, long) {
+      var now = new Date(), tm = new Date(); tm.setDate(tm.getDate() + 1);
+      if (sameDay(d, now)) return T.today;
+      if (sameDay(d, tm))  return T.tomorrow;
+      return long ? d.getDate() + ' ' + T.months[d.getMonth()] + ', ' + T.wdays[d.getDay()]
+                  : d.getDate() + ' ' + T.mo[d.getMonth()] + ', ' + T.wd[d.getDay()];
+    }
+
+    var wrap = document.createElement('div');
+    wrap.className = 'cbk';
+    wrap.innerHTML =
+      '<div class="cbk__scrim" data-cbk-close></div>' +
+      '<div class="cbk__panel" role="dialog" aria-modal="true" aria-labelledby="cbkTitle">' +
+        '<button class="cbk__close" type="button" data-cbk-close aria-label="' + T.close + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">' +
+          '<path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
+        '<h3 id="cbkTitle">' + T.title + '</h3>' +
+        '<p class="cbk__sub">' + T.sub + '</p>' +
+        '<form class="cbk__form" novalidate>' +
+          '<p class="form-msg" hidden></p>' +
+          '<div class="field"><label for="cbkPhone">' + T.phone + '</label>' +
+            '<div class="cbk__tel"><span class="cbk__cc">' + FLAG + '+995</span>' +
+            '<input id="cbkPhone" type="tel" inputmode="numeric" autocomplete="tel-national" ' +
+            'placeholder="5XX XX XX XX" maxlength="13" required></div></div>' +
+          '<div class="cbk__row">' +
+            '<div class="field"><label for="cbkDay">' + T.day + '</label>' +
+              '<select id="cbkDay"></select></div>' +
+            '<div class="field"><label for="cbkTime">' + T.time + '</label>' +
+              '<select id="cbkTime"></select></div>' +
+          '</div>' +
+          '<button class="btn btn--primary cbk__submit" type="submit">' + T.send + '</button>' +
+        '</form>' +
+        '<a class="cbk__now" href="tel:' + FORMS.TEL + '">' + T.now + '</a>' +
+      '</div>';
+    document.body.appendChild(wrap);
+    georgianCaps(wrap);   // assembled after the first pass, so convert it here
+
+    var form   = wrap.querySelector('.cbk__form'),
+        msg    = wrap.querySelector('.form-msg'),
+        input  = wrap.querySelector('#cbkPhone'),
+        telBox = wrap.querySelector('.cbk__tel'),
+        daySel = wrap.querySelector('#cbkDay'),
+        timeSel= wrap.querySelector('#cbkTime'),
+        submit = wrap.querySelector('.cbk__submit');
+
+    var days = [];
+    function fillDays() {
+      days = buildDays();
+      daySel.innerHTML = '';
+      days.forEach(function (d, i) {
+        var o = document.createElement('option');
+        o.value = iso(d); o.textContent = dayLabel(d); o.dataset.i = i;
+        daySel.appendChild(o);
+      });
+      fillTimes();
+    }
+    function fillTimes() {
+      var d = days[daySel.selectedIndex] || days[0];
+      timeSel.innerHTML = '';
+      if (!d) return;
+      slotsFor(d).forEach(function (t) {
+        var o = document.createElement('option');
+        o.value = t; o.textContent = t;
+        timeSel.appendChild(o);
+      });
+    }
+    daySel.addEventListener('change', fillTimes);
+
+    // Group as 5XX XX XX XX while typing; the value stays 9 digits underneath.
+    function digits() { return input.value.replace(/\D/g, '').slice(0, 9); }
+    input.addEventListener('input', function () {
+      var d = digits(), p = [d.slice(0, 3), d.slice(3, 5), d.slice(5, 7), d.slice(7, 9)];
+      input.value = p.filter(Boolean).join(' ');
+      telBox.classList.remove('is-bad');
+      if (!msg.hidden && msg.classList.contains('err')) hideMsg();
+    });
+
+    function flash(text, type) {
+      msg.hidden = false; msg.textContent = text; msg.className = 'form-msg ' + type;
+    }
+    function hideMsg() { msg.hidden = true; msg.textContent = ''; msg.className = 'form-msg'; }
+
+    function open() {
+      fillDays();                 // rebuilt each time: a page left open goes stale
+      hideMsg();
+      wrap.classList.add('is-open');
+      setTimeout(function () { input.focus(); }, 60);
+    }
+    function close() {
+      wrap.classList.remove('is-open');
+      fabPh.focus();
+    }
+
+    fabPh.addEventListener('click', function (e) { e.preventDefault(); open(); });
+    wrap.addEventListener('click', function (e) {
+      if (e.target.closest('[data-cbk-close]')) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && wrap.classList.contains('is-open')) close();
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d = digits();
+      if (d.length !== 9 || d.charAt(0) !== '5') {
+        telBox.classList.add('is-bad');
+        flash(T.bad, 'err');
+        input.focus();
+        return;
+      }
+      if (!FORMS.ACCESS_KEY) {
+        flash(T.unwired, 'err');
+        if (window.console) console.warn('call-back: FORMS.ACCESS_KEY is empty, nothing was sent');
+        return;
+      }
+
+      var dayTxt  = dayLabel(days[daySel.selectedIndex] || days[0], true),
+          timeTxt = timeSel.value;
+
+      var data = new FormData();
+      data.append('access_key', FORMS.ACCESS_KEY);
+      data.append('to', FORMS.RECIPIENT);
+      data.append('subject', T.subject + ' - +995 ' + input.value);
+      data.append('phone', '+995' + d);
+      data.append('when', dayTxt + ', ' + timeTxt);
+      data.append('date', daySel.value);
+      data.append('time', timeTxt);
+      data.append('page', location.href);
+
+      submit.disabled = true;
+      flash(T.sending, 'ok');
+      fetch(FORMS.RELAY, { method: 'POST', body: data })
+        .then(function (r) { return r.json().catch(function () { return { success: r.ok }; }); })
+        .then(function (res) {
+          if (!res || !res.success) throw new Error((res && res.message) || 'relay refused');
+          flash(T.ok.replace('{d}', dayTxt).replace('{t}', timeTxt), 'ok');
+          form.reset();
+          setTimeout(close, 2600);
+        })
+        .catch(function (err) {
+          flash(T.fail, 'err');
+          if (window.console) console.error('call-back:', err);
+        })
+        .then(function () { submit.disabled = false; });
+    });
   })();
 
   var header = document.getElementById('header');
@@ -884,20 +1170,11 @@
       if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
     });
 
-    /* ---- Delivery ----
-       The site is static (GitHub Pages), so there is no server of ours to post
-       to and no way to send mail from the page itself. Everything below goes
-       through a form-relay service, which takes the POST and emails it on.
-       ACCESS_KEY is the only thing that has to be filled in: get it from
-       web3forms.com by entering the recipient address below, and paste it here.
-
-       Until it is filled in the form refuses to pretend. It used to answer every
-       submission with "your request has been received" while sending nothing at
-       all, which is worse than an error -- a customer would have walked away
-       believing they had been in touch. */
-    var ACCESS_KEY = '';   // <- paste the Web3Forms access key here
-    var RELAY      = 'https://api.web3forms.com/submit';
-    var RECIPIENT  = 'Marketing@maxcomfort.ge';
+    /* ---- Delivery ---- see the FORMS block at the top of this file: the key
+       and recipient are shared with the call-back panel. */
+    var ACCESS_KEY = FORMS.ACCESS_KEY;
+    var RELAY      = FORMS.RELAY;
+    var RECIPIENT  = FORMS.RECIPIENT;
 
     var en = (document.documentElement.lang || 'ka').indexOf('en') === 0;
     var T = en ? {

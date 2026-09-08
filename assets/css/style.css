@@ -1896,3 +1896,68 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 /* Vortice is a stacked badge, not a wide lockup, so 22px leaves its wordmark
    illegible; it gets its own height and the flag follows suit. */
 .pbuy__brand--tall img{height:36px}
+
+/* ---- Call-back panel -------------------------------------------------------
+   Opened from the phone button in the floating stack. A tel: link does nothing
+   on a desktop browser, so the button opens this instead and keeps the direct
+   dial link inside it for anyone who would rather just call. The markup is
+   assembled in main.js, so every page gets it without being edited -- same
+   reason the social capsule above it is built there. */
+.cbk{position:fixed;inset:0;z-index:120;display:none}
+.cbk.is-open{display:block}
+.cbk__scrim{position:absolute;inset:0;background:rgba(27,27,51,.45);
+  opacity:0;transition:opacity .22s var(--ease)}
+.cbk.is-open .cbk__scrim{opacity:1}
+.cbk__panel{position:absolute;right:20px;bottom:88px;width:344px;
+  max-width:calc(100vw - 40px);max-height:calc(100vh - 110px);overflow-y:auto;
+  background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow-md);
+  padding:22px 22px 18px;
+  opacity:0;transform:translateY(10px) scale(.985);
+  transition:opacity .22s var(--ease),transform .22s var(--ease)}
+.cbk.is-open .cbk__panel{opacity:1;transform:none}
+.cbk__close{position:absolute;top:9px;right:9px;width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;color:var(--muted);transition:background .2s,color .2s}
+.cbk__close:hover{background:var(--bg-soft);color:var(--ink-strong)}
+.cbk__close svg{width:15px;height:15px}
+.cbk__panel h3{font-size:18px;line-height:1.3;margin:0 26px 6px 0}
+.cbk__sub{font-size:13.5px;color:var(--muted);line-height:1.5;margin:0 0 16px}
+.cbk .field{margin-bottom:13px}
+.cbk .field label{font-size:13px}
+/* min-width:0 on both: a grid item sizes to its content by default, and the
+   longest date option ("12 September, Friday") would otherwise widen the column
+   past the panel and put a scrollbar under it. */
+.cbk__row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cbk__row .field{min-width:0}
+.cbk__row select{min-width:0;width:100%;font-size:14px;padding-right:32px}
+/* The country code is fixed: the form is for Georgian numbers, so the prefix is
+   chrome rather than an editable field, and the input holds only the 9 digits. */
+.cbk__tel{display:flex;align-items:stretch;overflow:hidden;
+  border:1.5px solid var(--line);border-radius:8px;background:var(--surface);
+  transition:border-color .2s,box-shadow .2s}
+.cbk__tel:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.18)}
+.cbk__tel.is-bad{border-color:#d9534f}
+.cbk__cc{display:flex;align-items:center;gap:7px;padding:0 11px;white-space:nowrap;
+  background:var(--bg-soft);border-right:1.5px solid var(--line);
+  font-size:14px;color:var(--ink)}
+.cbk__flag{width:21px;height:14px;border-radius:2px;flex:0 0 auto;
+  box-shadow:0 0 0 1px rgba(27,27,51,.14)}
+.cbk__tel input{flex:1;min-width:0;border:0;background:transparent;
+  padding:12px 13px;font-family:inherit;font-size:15px;color:var(--ink);
+  letter-spacing:.02em}
+.cbk__tel input:focus{outline:none}
+.cbk__tel input::placeholder{color:#a7abb2;letter-spacing:normal}
+.cbk__submit{width:100%;justify-content:center;margin-top:3px}
+.cbk__now{display:block;text-align:center;margin-top:11px;font-size:13.5px;
+  color:var(--gold-600);text-decoration:underline;text-underline-offset:3px}
+.cbk__now:hover{color:var(--gold)}
+.cbk .form-msg{margin:0 0 12px;font-size:13.5px;padding:10px 12px}
+/* On a phone the popover would crowd the button it came from, so it becomes a
+   sheet on the bottom edge -- where the thumb already is. */
+@media (max-width:560px){
+  .cbk__panel{right:0;left:0;bottom:0;width:auto;max-width:none;
+    max-height:calc(100vh - 70px);
+    border-radius:var(--radius) var(--radius) 0 0;
+    padding:20px 18px calc(18px + env(safe-area-inset-bottom));
+    transform:translateY(18px)}
+  .cbk.is-open .cbk__panel{transform:none}
+}
