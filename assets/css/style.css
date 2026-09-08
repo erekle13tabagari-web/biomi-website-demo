@@ -520,10 +520,11 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .cycle{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:12px}
 .cycle li{display:flex;align-items:center;gap:13px}
 .cycle__ico{flex:0 0 auto;width:34px;height:34px;border-radius:50%;
-  display:grid;place-items:center;color:var(--gold-600);
-  background:rgba(var(--accent-rgb),.16);border:1px solid rgba(var(--accent-rgb),.42)}
+  display:grid;place-items:center;
+  background:var(--navy);border:1px solid rgba(255,255,255,.16);
+  color:var(--gold-200)}
 .cycle__ico svg{width:56%;height:56%}
-.cycle__ico svg .ico-a{fill:var(--gold)}
+.cycle__ico svg .ico-a{fill:var(--gold-200)}
 /* The label carries the step's full name -- „სერვისი და ტექნიკური მხარდაჭერა"
    rather than „სერვისი" -- so it wraps instead of running along the ring and
    into its neighbours. The cap sits below the arc between two nodes. */
