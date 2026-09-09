@@ -32,25 +32,30 @@ $TREE = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | Conve
 # is what would otherwise argue for inlining them.
 $ICODIR = 'assets/img/cat-icons/'
 
-# The product shown beside each chapter's categories, keyed on the chapter's own
-# icon slug so a chapter cannot end up with a pictogram and no shot.
+# What each chapter shows beside its categories, keyed on the chapter's own icon
+# slug so a chapter cannot end up with a pictogram and no picture.
 #
-# Four of the five are our own product renders, taken straight from the listings
-# they belong to -- so the picture beside "გათბობა" is a boiler we actually sell.
-# The prod-*.jpg stock shots that used to be here could not do that: there were
-# three distinct photographs for five chapters, and the one filed under heating
-# was a roof of condensing units, which is cooling.
+# Two layers. photo is the scene -- one of our own installations wherever there
+# is one, which is four of the five. hero is the product standing in front of
+# it: a transparent cut-out written by tools/cutout.ps1 from the render the
+# listing already uses, so the boiler in front of "გათბობა" is a boiler we sell.
+# The renders themselves are shot on solid white and cannot be laid over a
+# photograph as they are -- that script is what makes them into a cut-out.
 #
-# fit='fit' is a render cut out on white and sits inside the tile; fit='crop'
-# is a photograph and fills it. Water supply has no listing yet, so it is the
-# one photograph -- pipework, which is what the chapter covers.
+# Water supply has no listing yet and so no product to stand there; its panel is
+# the photograph alone, and the layout closes the gap under it.
 # Paths have no prefix: products.html sits at the site root.
-$SHOT = @{
-  'heating'     = @{ src = 'assets/img/products/warmhaus-viwa/main.avif';           fit = 'fit'  }
-  'cooling'     = @{ src = 'assets/img/products/samsung-dvm-outdoor/main.avif';     fit = 'fit'  }
-  'ventilation' = @{ src = 'assets/img/products/vortice-lineo/main.avif';           fit = 'fit'  }
-  'ducting'     = @{ src = 'assets/img/ducting/elbow-round.webp';                   fit = 'fit'  }
-  'water'       = @{ src = 'assets/img/prod-water.jpg';                             fit = 'crop' }
+$MEDIA = @{
+  'heating'     = @{ photo = 'assets/img/terminal-gallery/terminal-7.avif'
+                     hero  = 'assets/img/cutouts/heating.png' }
+  'cooling'     = @{ photo = 'assets/img/prod-cooling.jpg'
+                     hero  = 'assets/img/cutouts/cooling.png' }
+  'ventilation' = @{ photo = 'assets/img/terminal-gallery/terminal-5.avif'
+                     hero  = 'assets/img/cutouts/ventilation.png' }
+  'ducting'     = @{ photo = 'assets/img/news-duct-production.jpg'
+                     hero  = 'assets/img/cutouts/ducting.png' }
+  'water'       = @{ photo = 'assets/img/prod-water.jpg'
+                     hero  = '' }
 }
 
 # $PAGE, not $T: PowerShell variable names are case-insensitive, so $t = $PAGE[$lang]
@@ -181,13 +186,25 @@ foreach ($lang in 'ka','en') {
     # The pictogram is the rail's job now -- it names the chapter there, beside
     # the tab it belongs to, and repeating it over the heading it already sits
     # next to said the same thing twice.
-    if ($SHOT.ContainsKey([string]$ch.icon)) {
-      $s = $SHOT[[string]$ch.icon]
-      # No loading="lazy" on the first: it is the one shot in the opening
-      # viewport, and deferring it only made it arrive late.
+    #
+    # Both pictures are decorative: the heading beside them names the chapter
+    # and the list under it names every category, so alt text here would only
+    # repeat what a screen reader has already read.
+    if ($MEDIA.ContainsKey([string]$ch.icon)) {
+      $m = $MEDIA[[string]$ch.icon]
+      # Only the open chapter's pictures are wanted up front. The other four
+      # panels are display:none until their tab is chosen, and a lazy image
+      # inside one is not fetched until it is -- which is the whole reason the
+      # cut-outs can be PNGs at all.
       $lazy = if ($on) { '' } else { ' loading="lazy"' }
-      $rows.Add('        <img class="catalog__shot catalog__shot--' + $s.fit + '" src="' +
-                $s.src + '" alt=""' + $lazy + '>')
+      $plain = if ($m.hero) { '' } else { ' catalog__media--plain' }
+      $rows.Add('        <div class="catalog__media' + $plain + '">')
+      $rows.Add('          <div class="catalog__frame"><img class="catalog__photo" src="' +
+                $m.photo + '" alt=""' + $lazy + '></div>')
+      if ($m.hero) {
+        $rows.Add('          <img class="catalog__hero" src="' + $m.hero + '" alt=""' + $lazy + '>')
+      }
+      $rows.Add('        </div>')
     }
     $rows.Add('        <div class="catalog__grid">')
     foreach ($it in $ch.items) {

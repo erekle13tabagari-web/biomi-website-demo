@@ -1218,15 +1218,15 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .catalog__view{display:flex;flex-direction:column;gap:54px}
 
 /* ---- the stage ------------------------------------------------------------
-   Name across the top, categories under it, the product beside both. The shot
-   is its own column rather than part of the heading so it can run the height of
-   the panel instead of being pinned to one line of it.
-   min-width:0 on the panel and minmax(0,1fr) on the text column: a grid item is
+   Name and categories down the left, the pictures down the right: one of our
+   own installations, with the product standing in front of it and breaking out
+   of the bottom of the frame.
+   min-width:0 on the panel and minmax(0,1fr) on both tracks: a grid item is
    min-width:auto by default and sizes to its content, which on this page means
    a long chapter name setting the column width rather than fitting inside it. */
-.catalog__chapter{min-width:0;display:grid;gap:0 34px;
-  grid-template-columns:minmax(0,1fr) clamp(210px,26%,320px);
-  grid-template-areas:"head shot" "grid shot"}
+.catalog__chapter{min-width:0;display:grid;gap:0 42px;align-items:start;
+  grid-template-columns:minmax(0,.92fr) minmax(0,1.22fr);
+  grid-template-areas:"head media" "grid media"}
 /* Uppercase, which for Georgian means Mtavruli: main.js reads the computed
    text-transform, converts the Mkhedruli in place and then switches the CSS
    transform off on the element, because uppercase would otherwise map Mtavruli
@@ -1235,23 +1235,31 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .catalog__chapter > h3{grid-area:head;margin:0 0 26px;padding-bottom:18px;
   font-size:clamp(21px,2.3vw,30px);line-height:1.15;letter-spacing:.02em;
   text-transform:uppercase;color:var(--ink-strong);border-bottom:1px solid var(--line)}
-/* One product from the chapter. Cut out on white like every other product shot
-   on the site, so the tile is painted white in both themes -- the same
-   treatment .pcard__img gets, and for the same reason.
-   align-self:start so a short chapter does not stretch the tile out of square. */
-.catalog__shot{grid-area:shot;width:100%;aspect-ratio:4/5;align-self:start;
-  border:1px solid var(--line);border-radius:var(--radius);background:#fff}
-.catalog__shot--fit{object-fit:contain;padding:20px}
-/* The one photograph rather than a render -- water supply has no listing to
-   take a product from yet. A photograph fills the tile and wants no white. */
-.catalog__shot--crop{object-fit:cover;background:var(--bg-soft);border-color:transparent}
-/* align-content:start so the rows sit under the heading rather than spreading
-   down a panel that is as tall as the shot beside it. */
-.catalog__grid{grid-area:grid;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:22px 30px;align-content:start}
-/* A hairline under each rather than a rule between the columns: the categories
-   are a two-column list now, and a vertical rule down the middle of one panel
-   would only divide four items from four others. */
+/* The pictures. The padding under the frame is the room the product hangs into
+   -- it is what makes the product read as standing in front of the scene rather
+   than being pasted inside it. A chapter with no product of its own closes that
+   gap (.catalog__media--plain) so the photograph does not float above a hole. */
+.catalog__media{grid-area:media;position:relative;padding-bottom:14%}
+.catalog__media--plain{padding-bottom:0}
+/* The frame clips its own corners, which is why the photograph is wrapped
+   rather than rounded itself: the scrim below has to be clipped with it. */
+.catalog__frame{position:relative;border-radius:var(--radius);overflow:hidden}
+/* Darkened towards the foot of the frame. Without it the product's shadow falls
+   on whatever the photograph happens to be doing down there, and against a pale
+   one -- the duct production line is nearly white -- it disappears. */
+.catalog__frame::after{content:"";position:absolute;inset:auto 0 0 0;height:58%;
+  background:linear-gradient(to bottom,rgba(11,11,26,0),rgba(11,11,26,.55))}
+.catalog__photo{display:block;width:100%;aspect-ratio:5/4;object-fit:cover}
+/* Sized from its height, not its width: these cut-outs run from a 367x620
+   boiler to a 620x581 duct elbow, and one width would leave the boiler twice as
+   tall as the frame. The cap stops the widest of them filling the panel.
+   Percentages resolve against .catalog__media, which is the containing block --
+   the frame plus the overhang it hangs into. */
+.catalog__hero{position:absolute;right:6%;bottom:0;height:88%;width:auto;max-width:60%;
+  object-fit:contain;filter:drop-shadow(0 26px 30px rgba(0,0,0,.5))}
+/* One column. The categories share the panel with a picture now, so the space
+   left for them is half of what a two-column list wanted. */
+.catalog__grid{grid-area:grid;display:flex;flex-direction:column;gap:22px}
 .catalog__item{display:flex;flex-direction:column;gap:9px;min-width:0;
   padding-bottom:18px;border-bottom:1px solid var(--line)}
 .catalog__name{display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:500;
@@ -1282,15 +1290,15 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    font:inherit because a button does not inherit type by default, and these are
    two lines of a list rather than a control's label -- which is also why the
    text is aligned left against the browser's centred default. */
-.catalog--tabs{display:grid;grid-template-columns:clamp(230px,24vw,310px) minmax(0,1fr);
-  gap:0 48px;align-items:start}
+.catalog--tabs{display:grid;grid-template-columns:clamp(210px,21vw,280px) minmax(0,1fr);
+  gap:0 44px;align-items:start}
 .catalog--tabs .catalog__rail{display:flex;flex-direction:column;
   position:sticky;top:calc(var(--header-h) + 20px)}
 .catalog--tabs .catalog__chapter{display:none}
 .catalog--tabs .catalog__chapter.is-on{display:grid}
 /* Room for the tallest chapter, so picking a shorter one does not pull the
    footer up the page under the pointer that is still on the rail. */
-.catalog--tabs .catalog__view{min-height:430px}
+.catalog--tabs .catalog__view{min-height:470px}
 .cat-tab{position:relative;display:flex;align-items:center;gap:14px;width:100%;
   padding:16px 14px 16px 18px;text-align:left;font:inherit;color:inherit;
   background:none;border:0;border-bottom:1px solid var(--line);cursor:pointer;
@@ -1324,9 +1332,15 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    on their own each time one is: an element coming back from display:none runs
    its animation again with no help from script. */
 @keyframes cat-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@keyframes cat-shot{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes cat-fade{from{opacity:0}to{opacity:1}}
+/* The photograph settles rather than appears: it is already a touch oversized
+   when the panel opens and comes to rest over the next second. */
+@keyframes cat-zoom{from{transform:scale(1.07)}to{transform:none}}
+@keyframes cat-hero{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
 .catalog--tabs .catalog__chapter.is-on > h3{animation:cat-rise .34s var(--ease) both}
-.catalog--tabs .catalog__chapter.is-on .catalog__shot{animation:cat-shot .55s var(--ease) .03s both}
+.catalog--tabs .catalog__chapter.is-on .catalog__frame{animation:cat-fade .4s var(--ease) both}
+.catalog--tabs .catalog__chapter.is-on .catalog__photo{animation:cat-zoom 1.1s var(--ease) both}
+.catalog--tabs .catalog__chapter.is-on .catalog__hero{animation:cat-hero .62s var(--ease) .07s both}
 .catalog--tabs .catalog__chapter.is-on .catalog__item{animation:cat-rise .4s var(--ease) both}
 .catalog--tabs .catalog__chapter.is-on .catalog__item:nth-child(1){animation-delay:.06s}
 .catalog--tabs .catalog__chapter.is-on .catalog__item:nth-child(2){animation-delay:.11s}
@@ -1334,18 +1348,17 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .catalog--tabs .catalog__chapter.is-on .catalog__item:nth-child(4){animation-delay:.21s}
 @media (prefers-reduced-motion:reduce){
   .catalog--tabs .catalog__chapter.is-on > h3,
-  .catalog--tabs .catalog__chapter.is-on .catalog__shot,
+  .catalog--tabs .catalog__chapter.is-on .catalog__frame,
+  .catalog--tabs .catalog__chapter.is-on .catalog__photo,
+  .catalog--tabs .catalog__chapter.is-on .catalog__hero,
   .catalog--tabs .catalog__chapter.is-on .catalog__item{animation:none}
   .cat-tab,.cat-tab::before,.cat-tab__ico{transition:none}
 }
 
-/* The rail gives up width before the stage does, and the shot follows it down.
-   Below this the two columns of categories would be under 200px each, which is
-   where the brand chips start wrapping one per line. */
+/* The rail gives up width before the stage does. */
 @media (max-width:1120px){
   .catalog--tabs{grid-template-columns:clamp(200px,25vw,260px) minmax(0,1fr);gap:0 34px}
-  .catalog__chapter{gap:0 26px;grid-template-columns:minmax(0,1fr) clamp(150px,21%,210px)}
-  .catalog__shot--fit{padding:15px}
+  .catalog__chapter{gap:0 30px}
 }
 /* Tablet and phone: the rail turns and sits along the top. It is pinned under
    the site header, so the chapter being read is always one tap from the next --
@@ -1366,18 +1379,14 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .cat-tab__ico{width:24px;height:24px}
   .cat-tab__txt small{display:none}
   .cat-tab__txt b{font-size:12px;white-space:nowrap}
-  /* The shot moves up beside the heading: a column of its own would leave the
-     categories in half the screen. */
-  .catalog__chapter{gap:0 18px;grid-template-columns:minmax(0,1fr) clamp(92px,25vw,150px);
-    grid-template-areas:"head shot" "grid grid"}
-  /* The rule moves off the heading and on to the top of the list, so it runs
-     the full width instead of stopping where the shot beside it begins -- which
-     at this width is a stub about as long as the title itself. */
-  .catalog__chapter > h3{margin-bottom:16px;padding-bottom:0;border-bottom:0;
+  /* One column, and the pictures move between the heading and the categories --
+     which is the order they are read in on a phone anyway. */
+  .catalog__chapter{gap:0;grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"head" "media" "grid"}
+  .catalog__chapter > h3{margin-bottom:16px;padding-bottom:14px;
     font-size:clamp(19px,4.6vw,26px)}
-  .catalog__shot--fit{padding:10px}
-  .catalog__grid{grid-template-columns:1fr;gap:16px;padding-top:18px;
-    border-top:1px solid var(--line)}
+  .catalog__media{padding-bottom:13%;margin-bottom:22px}
+  .catalog__grid{gap:16px}
   .catalog--tabs .catalog__view{min-height:0}
 }
 
