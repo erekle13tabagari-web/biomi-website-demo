@@ -1251,12 +1251,12 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 /* text-transform:none against the global h1-h4 rule: Mtavruli is for the small
    tracked labels, and at this size the chapter name reads as a heading in the
    ordinary script -- which is also how the pictogram above it is drawn. */
-/* --purple, not the accent: this is the brand's secondary tone and it is the
-   one token that stays purple in both themes -- the accent goes blue on light.
-   It carries its own lightened value on dark for contrast, so the heading
-   clears 5.8:1 on light and 8.3:1 on dark either way. */
+/* --gold-600, the accent-text token: blue on light, purple on dark, which is
+   how every other accent on the site behaves and exactly what the .eyebrow
+   above these headings uses. --purple was wrong here -- it is the one token
+   that stays purple in both themes, so light mode kept the dark-mode colour. */
 .catalog__chapter h3{font-size:17px;line-height:1.3;letter-spacing:-.01em;text-transform:none;
-  color:var(--purple);margin:0 0 20px;min-height:2.6em}
+  color:var(--gold-600);margin:0 0 20px;min-height:2.6em}
 /* The pictogram. Sized here so a replacement file needs no dimensions of its
    own, only a square viewBox. No colour is set: each one is a brand-coloured
    ring that is meant to read the same in both themes. 40px rather than the 32
