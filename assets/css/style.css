@@ -1377,13 +1377,22 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    there is nothing to scroll back up to. */
 @media (max-width:900px){
   .catalog--tabs{grid-template-columns:1fr;gap:18px 0}
-  .catalog--tabs .catalog__rail{position:static;flex-direction:row;flex-wrap:wrap;
-    gap:7px;padding:0;overflow:visible;background:none}
-  /* A row of pills rather than a list: the bar, the hairlines and the hover
-     indent all belong to a column and read as nothing lying on its side.
-     flex:0 1 auto, so the one long chapter name can give width back and wrap
-     inside its own pill rather than pushing the row past the screen. */
-  .cat-tab{flex:0 1 auto;width:auto;gap:8px;padding:7px 12px;border-radius:100px;
+  /* A grid, not a wrapped row: sized to their labels the pills came out five
+     different widths, which reads as five different kinds of thing rather than
+     five chapters of one list. Every cell is the same width now.
+     auto-fit rather than a column count, because the count that fits changes
+     with the chapter names: two 156px columns could not hold
+     "ᲛᲐᲙᲝᲛᲞᲚᲔᲥᲢᲔᲑᲔᲚᲘ" on any line -- one unbreakable word wants 137px against
+     102px of room -- so on a phone the five run one per row and get the full
+     width, and a tablet fits two or three. */
+  .catalog--tabs .catalog__rail{position:static;display:grid;gap:7px;padding:0;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    overflow:visible;background:none}
+  /* A pill rather than a list row: the bar, the hairlines and the hover indent
+     all belong to a column and read as nothing lying on its side.
+     min-height so a one-line label and a two-line one still stand the same
+     height, rather than the row growing around the longest name in it. */
+  .cat-tab{width:auto;min-height:46px;gap:9px;padding:6px 14px;border-radius:100px;
     border:1px solid var(--line);background:var(--surface)}
   .cat-tab:first-child{border-top:1px solid var(--line)}
   .cat-tab:hover,.cat-tab.is-on{padding-left:12px;background:var(--bg-soft)}
@@ -1391,7 +1400,10 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .cat-tab::before{display:none}
   .cat-tab__ico{width:20px;height:20px}
   .cat-tab__txt small{display:none}
-  .cat-tab__txt b{font-size:11px;line-height:1.25}
+  /* 10.5, not 11: at 11 the longest chapter name needed 259px of a 259px box on
+     a 375px screen, so the slightest difference in how the face renders tipped
+     it onto a second line and that one pill stood taller than the other four. */
+  .cat-tab__txt b{font-size:10.5px;line-height:1.25}
   /* One column, and the pictures move between the heading and the categories --
      which is the order they are read in on a phone anyway. */
   .catalog__chapter{gap:0;grid-template-columns:minmax(0,1fr);
