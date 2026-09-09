@@ -992,15 +992,104 @@
     sync();
   })();
 
+  /* ---- Product catalogue: the chapter rail (products.html) ----
+     The five chapters are a rail beside one open panel rather than five columns
+     side by side. Every panel is in the markup; this adds the class the CSS
+     hangs the whole behaviour off, so with the script off the rail is never
+     shown and the page stays five stacked chapters.
+
+     The tab roles are written here rather than in the generated markup for the
+     same reason: buttons that switch nothing are not tabs, and that is exactly
+     what they would be if this never ran. */
+  (function () {
+    var wrap = document.querySelector('.catalog');
+    if (!wrap) return;
+    var rail = wrap.querySelector('.catalog__rail');
+    var tabs = [].slice.call(wrap.querySelectorAll('.cat-tab'));
+    var panels = [].slice.call(wrap.querySelectorAll('.catalog__chapter'));
+    if (!rail || !tabs.length || !panels.length) return;
+
+    wrap.classList.add('catalog--tabs');
+    rail.setAttribute('role', 'tablist');
+    // vertical while the rail is a column; the media query turns it at 900px
+    rail.setAttribute('aria-orientation', 'vertical');
+    panels.forEach(function (p) {
+      var ch = p.getAttribute('data-ch');
+      if (!p.id) p.id = 'catp-' + ch;
+      p.setAttribute('role', 'tabpanel');
+    });
+    tabs.forEach(function (t) {
+      var ch = t.getAttribute('data-ch');
+      var panel = panels.filter(function (p) { return p.getAttribute('data-ch') === ch; })[0];
+      if (!t.id) t.id = 'catt-' + ch;
+      t.setAttribute('role', 'tab');
+      if (panel) {
+        t.setAttribute('aria-controls', panel.id);
+        panel.setAttribute('aria-labelledby', t.id);
+      }
+    });
+
+    function show(ch, focus) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-ch') === ch;
+        t.classList.toggle('is-on', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        /* Roving tabindex: one stop for the whole rail, and the arrows move
+           within it. Five separate tab stops in front of the page's content is
+           what a tablist exists to avoid. */
+        t.tabIndex = on ? 0 : -1;
+        if (on && focus) t.focus();
+      });
+      panels.forEach(function (p) {
+        p.classList.toggle('is-on', p.getAttribute('data-ch') === ch);
+      });
+    }
+
+    tabs.forEach(function (t, i) {
+      var ch = t.getAttribute('data-ch');
+      t.addEventListener('click', function () { show(ch); });
+      /* Hover switches as well, which is the whole point of a rail: the panel
+         is where the pointer is already heading. Guarded on a hovering pointer
+         so a tap on a touchscreen does not fire this and the click both. */
+      t.addEventListener('mouseenter', function () {
+        if (window.matchMedia('(hover:hover)').matches) show(ch);
+      });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key, n = -1;
+        if (k === 'ArrowDown' || k === 'ArrowRight') n = (i + 1) % tabs.length;
+        else if (k === 'ArrowUp' || k === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') n = 0;
+        else if (k === 'End') n = tabs.length - 1;
+        if (n < 0) return;
+        e.preventDefault();
+        show(tabs[n].getAttribute('data-ch'), true);
+      });
+    });
+
+    /* products.html#ventilation opens that chapter, on arrival and on a link
+       followed while the page is already open -- a hash-only change loads
+       nothing, so without the listener the rail would ignore it. Read only:
+       switching does not write the hash back, or hovering down the rail would
+       fill the history with chapters nobody chose. */
+    function fromHash(fallback) {
+      var want = decodeURIComponent(location.hash.replace('#', ''));
+      var hit = tabs.filter(function (t) { return t.getAttribute('data-ch') === want; })[0];
+      if (hit) show(want);
+      else if (fallback) show(tabs[0].getAttribute('data-ch'));
+    }
+    window.addEventListener('hashchange', function () { fromHash(false); });
+    fromHash(true);
+  })();
+
   /* ---- Horizontal strips: fade whichever edge still has content beyond it ----
      A permanent fade on both sides (the treatment the logo marquee uses) would
      dim the first and last thumbnail even when there is nothing past them, so
      the state is driven from the scroll position instead. No overflow means
      neither class is set and the strip renders unmasked. */
-  /* .catalog__grid is a vertical stack until 620px and a rail below it. Adding
-     it here costs nothing at full width: with no overflow neither class is set,
-     so the mask stays the no-op gradient and the column renders unfaded. */
-  document.querySelectorAll('.gallery,.prod-grid,.news-grid,.proj-grid,.catalog__grid').forEach(function (g) {
+  /* .catalog__rail is a column until 900px and a row of chapter pills below it.
+     Adding it here costs nothing at full width: with no overflow neither class
+     is set, so the mask stays the no-op gradient and the column renders unfaded. */
+  document.querySelectorAll('.gallery,.prod-grid,.news-grid,.proj-grid,.catalog__rail').forEach(function (g) {
     g.classList.add('edgefade');
     function update() {
       var over = g.scrollWidth - g.clientWidth;

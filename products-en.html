@@ -234,9 +234,32 @@
 <section class="section" style="padding-top:26px">
   <div class="container">
     <div class="catalog">
-      <section class="catalog__chapter">
-        <img class="catalog__ico" src="assets/img/cat-icons/heating.svg" alt="" width="40" height="40">
+      <div class="catalog__rail">
+        <button class="cat-tab is-on" type="button" data-ch="heating">
+          <img class="cat-tab__ico" src="assets/img/cat-icons/heating.svg" alt="" width="34" height="34">
+          <span class="cat-tab__txt"><b>Heating</b><small>Boilers · Water heaters · Underfloor heating · Accessories</small></span>
+        </button>
+        <button class="cat-tab" type="button" data-ch="cooling">
+          <img class="cat-tab__ico" src="assets/img/cat-icons/cooling.svg" alt="" width="34" height="34">
+          <span class="cat-tab__txt"><b>Cooling</b><small>Multisplit / VRV / VRF</small></span>
+        </button>
+        <button class="cat-tab" type="button" data-ch="ventilation">
+          <img class="cat-tab__ico" src="assets/img/cat-icons/ventilation.svg" alt="" width="34" height="34">
+          <span class="cat-tab__txt"><b>Ventilation</b><small>Heat recovery · Commercial · In-line · Residential</small></span>
+        </button>
+        <button class="cat-tab" type="button" data-ch="ducting">
+          <img class="cat-tab__ico" src="assets/img/cat-icons/ducting.svg" alt="" width="34" height="34">
+          <span class="cat-tab__txt"><b>Ducting &amp; fittings</b><small>Ducting · Grilles · Accessories</small></span>
+        </button>
+        <button class="cat-tab" type="button" data-ch="water">
+          <img class="cat-tab__ico" src="assets/img/cat-icons/water.svg" alt="" width="34" height="34">
+          <span class="cat-tab__txt"><b>Water supply</b><small>Pipes · Pumps</small></span>
+        </button>
+      </div>
+      <div class="catalog__view">
+      <section class="catalog__chapter is-on" data-ch="heating">
         <h3>Heating</h3>
+        <img class="catalog__shot catalog__shot--fit" src="assets/img/products/warmhaus-viwa/main.avif" alt="">
         <div class="catalog__grid">
           <div class="catalog__item">
             <a class="catalog__name" href="products/boilers-en.html">Boilers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -272,9 +295,9 @@
           </div>
         </div>
       </section>
-      <section class="catalog__chapter">
-        <img class="catalog__ico" src="assets/img/cat-icons/cooling.svg" alt="" width="40" height="40">
+      <section class="catalog__chapter" data-ch="cooling">
         <h3>Cooling</h3>
+        <img class="catalog__shot catalog__shot--fit" src="assets/img/products/samsung-dvm-outdoor/main.avif" alt="" loading="lazy">
         <div class="catalog__grid">
           <div class="catalog__item">
             <a class="catalog__name" href="products/vrf-vrv-en.html">Multisplit / VRV / VRF <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -285,9 +308,9 @@
           </div>
         </div>
       </section>
-      <section class="catalog__chapter">
-        <img class="catalog__ico" src="assets/img/cat-icons/ventilation.svg" alt="" width="40" height="40">
+      <section class="catalog__chapter" data-ch="ventilation">
         <h3>Ventilation</h3>
+        <img class="catalog__shot catalog__shot--fit" src="assets/img/products/vortice-lineo/main.avif" alt="" loading="lazy">
         <div class="catalog__grid">
           <div class="catalog__item">
             <a class="catalog__name" href="products/ventilation-en.html?cat=hrv">Heat recovery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -315,9 +338,9 @@
           </div>
         </div>
       </section>
-      <section class="catalog__chapter">
-        <img class="catalog__ico" src="assets/img/cat-icons/ducting.svg" alt="" width="40" height="40">
+      <section class="catalog__chapter" data-ch="ducting">
         <h3>Ducting &amp; fittings</h3>
+        <img class="catalog__shot catalog__shot--fit" src="assets/img/ducting/elbow-round.webp" alt="" loading="lazy">
         <div class="catalog__grid">
           <div class="catalog__item">
             <a class="catalog__name" href="products/ducting-en.html">Ducting <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -330,9 +353,9 @@
           </div>
         </div>
       </section>
-      <section class="catalog__chapter">
-        <img class="catalog__ico" src="assets/img/cat-icons/water.svg" alt="" width="40" height="40">
+      <section class="catalog__chapter" data-ch="water">
         <h3>Water supply</h3>
+        <img class="catalog__shot catalog__shot--crop" src="assets/img/prod-water.jpg" alt="" loading="lazy">
         <div class="catalog__grid">
           <div class="catalog__item catalog__item--soon">
             <a class="catalog__name" href="soon-en.html">Pipes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -350,6 +373,7 @@
           </div>
         </div>
       </section>
+      </div>
     </div>
   </div>
 </section>

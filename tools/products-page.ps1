@@ -32,6 +32,27 @@ $TREE = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | Conve
 # is what would otherwise argue for inlining them.
 $ICODIR = 'assets/img/cat-icons/'
 
+# The product shown beside each chapter's categories, keyed on the chapter's own
+# icon slug so a chapter cannot end up with a pictogram and no shot.
+#
+# Four of the five are our own product renders, taken straight from the listings
+# they belong to -- so the picture beside "გათბობა" is a boiler we actually sell.
+# The prod-*.jpg stock shots that used to be here could not do that: there were
+# three distinct photographs for five chapters, and the one filed under heating
+# was a roof of condensing units, which is cooling.
+#
+# fit='fit' is a render cut out on white and sits inside the tile; fit='crop'
+# is a photograph and fills it. Water supply has no listing yet, so it is the
+# one photograph -- pipework, which is what the chapter covers.
+# Paths have no prefix: products.html sits at the site root.
+$SHOT = @{
+  'heating'     = @{ src = 'assets/img/products/warmhaus-viwa/main.avif';           fit = 'fit'  }
+  'cooling'     = @{ src = 'assets/img/products/samsung-dvm-outdoor/main.avif';     fit = 'fit'  }
+  'ventilation' = @{ src = 'assets/img/products/vortice-lineo/main.avif';           fit = 'fit'  }
+  'ducting'     = @{ src = 'assets/img/ducting/elbow-round.webp';                   fit = 'fit'  }
+  'water'       = @{ src = 'assets/img/prod-water.jpg';                             fit = 'crop' }
+}
+
 # $PAGE, not $T: PowerShell variable names are case-insensitive, so $t = $PAGE[$lang]
 # inside the loop would overwrite the table with its own first entry.
 $PAGE = @{
@@ -113,20 +134,61 @@ function Shell([string]$title, [string]$desc, [string]$body, [string]$outName, [
 foreach ($lang in 'ka','en') {
   $t = $PAGE[$lang]; $sfx = $t.sfx
 
-  # ---- the catalogue
+  # ---- the catalogue: a rail of chapters, and a panel for the highlighted one
+  #
+  # The five chapters were five columns side by side, which meant reading across
+  # a wall of every category at once. They are a rail now, with one chapter at a
+  # time beside it: its name, its categories and one of its products.
+  #
+  # Every panel is in the markup either way. main.js adds .catalog--tabs, and
+  # only under that class does the rail appear and the inactive panels go away.
+  # With no JavaScript the rail -- five buttons that would do nothing -- is never
+  # shown and the five chapters stack, which is what the page was before and what
+  # a crawler reads regardless.
+  #
+  # No roles or aria-selected here for the same reason: the tab semantics are
+  # only true once the script has run, so main.js is what writes them.
   $rows = New-Object System.Collections.Generic.List[string]
   $items = 0
+
+  $rows.Add('      <div class="catalog__rail">')
+  $first = $true
   foreach ($ch in $TREE) {
-    $rows.Add('      <section class="catalog__chapter">')
-    # Empty alt, not a description: the pictogram repeats the heading right
-    # beneath it, so anything here would only say the chapter name twice.
+    $on  = if ($first) { ' is-on' } else { '' }
+    # the subtitle previews what is inside rather than repeating the chapter
+    $names = (($ch.items | ForEach-Object { $_.$lang }) -join ' · ')
+    $rows.Add('        <button class="cat-tab' + $on + '" type="button" data-ch="' + $ch.icon + '">')
     if ($ch.icon) {
-      # No loading="lazy": the catalogue is the top of this page's content, so
-      # all five are in the first viewport and deferring them only made them
-      # arrive late. width/height are set so the row does not reflow around them.
-      $rows.Add('        <img class="catalog__ico" src="' + $ICODIR + $ch.icon + '.svg" alt="" width="40" height="40">')
+      # Empty alt: the chapter name is right beside it, so a description here
+      # would only say the same thing twice.
+      $rows.Add('          <img class="cat-tab__ico" src="' + $ICODIR + $ch.icon +
+                '.svg" alt="" width="34" height="34">')
     }
+    $rows.Add('          <span class="cat-tab__txt"><b>' + (Esc $ch.$lang) + '</b><small>' +
+              (Esc $names) + '</small></span>')
+    $rows.Add('        </button>')
+    $first = $false
+  }
+  $rows.Add('      </div>')
+
+  $rows.Add('      <div class="catalog__view">')
+  $first = $true
+  foreach ($ch in $TREE) {
+    $on = if ($first) { ' is-on' } else { '' }
+    $first = $false
+    $rows.Add('      <section class="catalog__chapter' + $on + '" data-ch="' + $ch.icon + '">')
     $rows.Add('        <h3>' + (Esc $ch.$lang) + '</h3>')
+    # The pictogram is the rail's job now -- it names the chapter there, beside
+    # the tab it belongs to, and repeating it over the heading it already sits
+    # next to said the same thing twice.
+    if ($SHOT.ContainsKey([string]$ch.icon)) {
+      $s = $SHOT[[string]$ch.icon]
+      # No loading="lazy" on the first: it is the one shot in the opening
+      # viewport, and deferring it only made it arrive late.
+      $lazy = if ($on) { '' } else { ' loading="lazy"' }
+      $rows.Add('        <img class="catalog__shot catalog__shot--' + $s.fit + '" src="' +
+                $s.src + '" alt=""' + $lazy + '>')
+    }
     $rows.Add('        <div class="catalog__grid">')
     foreach ($it in $ch.items) {
       $items++
@@ -164,6 +226,7 @@ foreach ($lang in 'ka','en') {
     $rows.Add('        </div>')
     $rows.Add('      </section>')
   }
+  $rows.Add('      </div>')
 
   $body = @'
 <section class="page-hero page-hero--brand">

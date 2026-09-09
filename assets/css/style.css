@@ -631,9 +631,9 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    like a stray artefact. Hidden here and replaced by the arrows below, which
    appear only while the rail actually overflows -- so at full width, where all
    five cards fit, there is nothing to show. */
-.prod-grid,.news-grid,.proj-grid,.catalog__grid{scrollbar-width:none;-ms-overflow-style:none}
+.prod-grid,.news-grid,.proj-grid,.catalog__rail{scrollbar-width:none;-ms-overflow-style:none}
 .prod-grid::-webkit-scrollbar,.news-grid::-webkit-scrollbar,.proj-grid::-webkit-scrollbar,
-.catalog__grid::-webkit-scrollbar{display:none}
+.catalog__rail::-webkit-scrollbar{display:none}
 .rail{position:relative}
 .rail__arrow{position:absolute;top:calc(50% - 21px);z-index:3;width:42px;height:42px;
   border-radius:50%;display:none;place-items:center;background:var(--surface);
@@ -1199,83 +1199,62 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   padding:34px;text-align:center;color:var(--muted)}
 
 /* ---- Product catalogue (products.html) ------------------------------------
-   The dropdown laid out to be read instead of hovered. One block per chapter of
+   The dropdown laid out to be read instead of hovered. One panel per chapter of
    menu-tree.json, written by tools/products-page.ps1 from the same tree the
    menu and the drawer are drawn from, so a category cannot exist in one and not
-   the others. */
-/* Four columns, one chapter each, read down rather than across -- which is what
-   the dropdown this page replaces already looks like.
-   Grid, not CSS columns: columns balance by height, so the tallest chapter sets
-   the column height and everything else packs into as few columns as that
-   allows. With Heating at 921px the whole catalogue fitted in two and the other
-   two sat empty. Grid places one chapter per track and asks no questions. */
-/* align-items:stretch, not start: the rules between columns run down the item
-   lists, and a list only as tall as its own items leaves a rule that stops
-   short. Stretched, every chapter in a row is the height of the tallest, and
-   the list is told to fill it below. Content still sits at the top. */
-/* Only enough padding to keep the pictograms off the heading. The 36px that
-   used to be here was the room above the rule that ran across the top of the
-   block; with the rule gone it was just a gap, and the section this sits in
-   already contributes its own space above. */
-.catalog{display:grid;grid-template-columns:repeat(5,1fr);gap:38px 0;align-items:stretch;
-  padding-top:12px;margin-inline:-24px}
-/* Every chapter carries the same horizontal padding, so all five content boxes
-   are the width of their track less the same amount and the columns stay even.
-   The grid then pulls itself out by that padding (margin-inline above) so the
-   first column's icon and heading still line up with the h1, rather than the
-   whole catalogue sitting 24px in from everything above it.
-   Flex column so the item list can be told to fill the height left under the
-   heading -- see .catalog__grid{flex:1} below. */
-.catalog__chapter{padding:0 24px;display:flex;flex-direction:column}
-/* The rules between columns start level with the first item, not at the top of
-   the pictogram, so they belong to the item list rather than the chapter. The
-   list sits inside the chapter's 24px padding, so it is pulled back out to the
-   chapter's edge -- where the rule needs to sit, centred in the gutter -- and
-   the padding is restored on the inside to leave the items where they were.
-   Restated at each breakpoint below rather than overridden, because the count
-   in nth-child changes with the column count and a plain rule could not win
-   against this one's specificity anyway. */
-.catalog__chapter:not(:nth-child(5n+1)) .catalog__grid{
-  border-left:1px solid var(--line);margin-left:-24px;padding-left:24px}
-/* min-width:0, or the chapter sizes to its content instead of its track. That
-   bit twice on phones, where the cards become a scrolling rail: the chapter grew
-   to the rail's full 996px, so the rail had room for every card and never
-   overflowed - no swipe - and the heading inherited the same 996px and ran off
-   the screen instead of wrapping. */
-.catalog__chapter{min-width:0}
-/* Two lines' worth of room whether the title needs them or not, so every column
-   starts its first card on the same line. "ჰაერსატარი და მაკომპლექტებელი" wraps
-   at these track widths and the others do not, which had that one column's
-   cards sitting a line lower than the rest of the row. line-height is set here
-   rather than inherited so the reserved height is derived from it, not guessed. */
-/* text-transform:none against the global h1-h4 rule: Mtavruli is for the small
-   tracked labels, and at this size the chapter name reads as a heading in the
-   ordinary script -- which is also how the pictogram above it is drawn. */
-/* --gold-600, the accent-text token: blue on light, purple on dark, which is
-   how every other accent on the site behaves and exactly what the .eyebrow
-   above these headings uses. --purple was wrong here -- it is the one token
-   that stays purple in both themes, so light mode kept the dark-mode colour. */
+   the others.
+
+   Five chapters as five columns asked the reader to take in every category the
+   company sells at once. It is an index and a stage now: the chapters run down
+   the left, and the one being pointed at fills the space beside them with its
+   name, its categories and one of its products.
+
+   Progressive enhancement, and the reason the rail starts hidden: main.js adds
+   .catalog--tabs, and only under that class does the rail appear and the
+   inactive panels go away. With no JavaScript the rail -- five buttons that
+   would do nothing -- is never drawn and all five chapters stack, which is what
+   this page was before and what a crawler reads either way. */
+.catalog__rail{display:none}
+.catalog__view{display:flex;flex-direction:column;gap:54px}
+
+/* ---- the stage ------------------------------------------------------------
+   Name across the top, categories under it, the product beside both. The shot
+   is its own column rather than part of the heading so it can run the height of
+   the panel instead of being pinned to one line of it.
+   min-width:0 on the panel and minmax(0,1fr) on the text column: a grid item is
+   min-width:auto by default and sizes to its content, which on this page means
+   a long chapter name setting the column width rather than fitting inside it. */
+.catalog__chapter{min-width:0;display:grid;gap:0 34px;
+  grid-template-columns:minmax(0,1fr) clamp(210px,26%,320px);
+  grid-template-areas:"head shot" "grid shot"}
 /* Uppercase, which for Georgian means Mtavruli: main.js reads the computed
    text-transform, converts the Mkhedruli in place and then switches the CSS
    transform off on the element, because uppercase would otherwise map Mtavruli
    straight back down. Setting it here is the whole opt-in.
-   The tracking turns positive with it -- caps set at -.01em run together. */
-.catalog__chapter h3{font-size:17px;line-height:1.3;letter-spacing:.02em;text-transform:uppercase;
-  color:var(--gold-600);margin:0 0 20px;min-height:2.6em}
-/* The pictogram. Sized here so a replacement file needs no dimensions of its
-   own, only a square viewBox. No colour is set: each one is a brand-coloured
-   ring that is meant to read the same in both themes. 40px rather than the 32
-   the flat placeholders wanted -- a ring carries far less ink than a solid
-   glyph and looked slight beside the headings at that size. */
-.catalog__ico{display:block;width:40px;height:40px;margin:0 0 16px}
-/* flex:1 so the list fills the height the stretched chapter leaves under the
-   heading, which is what carries its rule to the foot of the block. */
-.catalog__grid{display:flex;flex-direction:column;gap:19px;flex:1}
-/* Sized down so five chapters fit across the container: at 1240 with 18px gaps
-   that is a 233px track, and the longest chip ("ჰიდრავლიკური გამათანაბრებელი")
-   still gets two lines rather than three. */
-.catalog__item{display:flex;flex-direction:column;gap:9px}
-.catalog__name{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500;
+   The tracking turns positive with it -- caps set tight run together. */
+.catalog__chapter > h3{grid-area:head;margin:0 0 26px;padding-bottom:18px;
+  font-size:clamp(21px,2.3vw,30px);line-height:1.15;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--ink-strong);border-bottom:1px solid var(--line)}
+/* One product from the chapter. Cut out on white like every other product shot
+   on the site, so the tile is painted white in both themes -- the same
+   treatment .pcard__img gets, and for the same reason.
+   align-self:start so a short chapter does not stretch the tile out of square. */
+.catalog__shot{grid-area:shot;width:100%;aspect-ratio:4/5;align-self:start;
+  border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+.catalog__shot--fit{object-fit:contain;padding:20px}
+/* The one photograph rather than a render -- water supply has no listing to
+   take a product from yet. A photograph fills the tile and wants no white. */
+.catalog__shot--crop{object-fit:cover;background:var(--bg-soft);border-color:transparent}
+/* align-content:start so the rows sit under the heading rather than spreading
+   down a panel that is as tall as the shot beside it. */
+.catalog__grid{grid-area:grid;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px 30px;align-content:start}
+/* A hairline under each rather than a rule between the columns: the categories
+   are a two-column list now, and a vertical rule down the middle of one panel
+   would only divide four items from four others. */
+.catalog__item{display:flex;flex-direction:column;gap:9px;min-width:0;
+  padding-bottom:18px;border-bottom:1px solid var(--line)}
+.catalog__name{display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:500;
   color:var(--ink-strong);transition:color .2s}
 .catalog__name svg{width:15px;height:15px;flex:0 0 auto;color:var(--gold);
   transition:transform .2s var(--ease)}
@@ -1290,73 +1269,116 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   border:1px solid var(--line);background:var(--bg-soft);color:var(--muted);line-height:1.5}
 .catalog__subs a{transition:border-color .2s,color .2s}
 .catalog__subs a:hover{border-color:var(--gold);color:var(--gold-600)}
-/* A range we carry with no listing published yet. There is no card to dash now
-   that the items are plain rows, so the muted name and arrow carry it alone --
-   the name still goes somewhere, to the holding page, while its sub-items stay
-   plain text because there is nothing behind them to click yet. The dashed
-   border comes back with the card at phone widths, at the foot of this block. */
+/* A range we carry with no listing published yet. The muted name and arrow
+   carry it: the name still goes somewhere, to the holding page, while its
+   sub-items stay plain text because there is nothing behind them to click. */
 .catalog__item--soon .catalog__name,
 .catalog__item--soon .catalog__name svg{color:var(--muted)}
 .catalog__item--soon .catalog__name:hover,
 .catalog__item--soon .catalog__name:hover svg{color:var(--gold-600)}
-/* Fewer columns as the room runs out. A card carries a name and a row of brand
-   chips, so below roughly 210px of track the chips start wrapping one per line. */
-@media (max-width:1180px){
-  .catalog{grid-template-columns:repeat(4,1fr)}
-  .catalog__chapter:not(:nth-child(4n+1)) .catalog__grid{
-    border-left:1px solid var(--line);margin-left:-24px;padding-left:24px}
-  .catalog__chapter:nth-child(4n+1) .catalog__grid{border-left:0;margin-left:0;padding-left:0}
+
+/* ---- the rail -------------------------------------------------------------
+   Buttons, not links: they move the panel beside them, they do not navigate.
+   font:inherit because a button does not inherit type by default, and these are
+   two lines of a list rather than a control's label -- which is also why the
+   text is aligned left against the browser's centred default. */
+.catalog--tabs{display:grid;grid-template-columns:clamp(230px,24vw,310px) minmax(0,1fr);
+  gap:0 48px;align-items:start}
+.catalog--tabs .catalog__rail{display:flex;flex-direction:column;
+  position:sticky;top:calc(var(--header-h) + 20px)}
+.catalog--tabs .catalog__chapter{display:none}
+.catalog--tabs .catalog__chapter.is-on{display:grid}
+/* Room for the tallest chapter, so picking a shorter one does not pull the
+   footer up the page under the pointer that is still on the rail. */
+.catalog--tabs .catalog__view{min-height:430px}
+.cat-tab{position:relative;display:flex;align-items:center;gap:14px;width:100%;
+  padding:16px 14px 16px 18px;text-align:left;font:inherit;color:inherit;
+  background:none;border:0;border-bottom:1px solid var(--line);cursor:pointer;
+  transition:background .3s var(--ease),padding-left .3s var(--ease)}
+.cat-tab:first-child{border-top:1px solid var(--line)}
+/* The indicator is drawn on each row rather than travelling between them: one
+   moving bar would have to be positioned from script, and this animates the
+   same way for nothing. It grows from the top, and covers the hairlines above
+   and below so the bar reads as one piece. */
+.cat-tab::before{content:"";position:absolute;left:0;top:-1px;bottom:-1px;width:2px;
+  background:var(--gold);transform:scaleY(0);transform-origin:top;
+  transition:transform .4s var(--ease)}
+.cat-tab:hover,.cat-tab.is-on{background:var(--bg-soft);padding-left:26px}
+.cat-tab:hover::before,.cat-tab.is-on::before{transform:scaleY(1)}
+.cat-tab:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.cat-tab__ico{flex:0 0 auto;width:34px;height:34px;transition:transform .4s var(--ease)}
+.cat-tab.is-on .cat-tab__ico{transform:scale(1.12)}
+/* min-width:0, or the flex child sizes to the longest unbroken word and pushes
+   the row wider than the rail. */
+.cat-tab__txt{min-width:0;display:flex;flex-direction:column;gap:4px}
+.cat-tab__txt b{font-size:13px;font-weight:600;letter-spacing:.04em;line-height:1.35;
+  text-transform:uppercase;color:var(--ink-strong);transition:color .3s}
+.cat-tab.is-on .cat-tab__txt b{color:var(--gold-600)}
+/* What the chapter holds, clamped to two lines. It is there to say what is
+   inside, not to be read in full -- that is the panel's job. */
+.cat-tab__txt small{font-size:11.5px;line-height:1.45;color:var(--muted);overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical}
+
+/* ---- switching ------------------------------------------------------------
+   The panel is display:none until its tab is chosen, so the animations restart
+   on their own each time one is: an element coming back from display:none runs
+   its animation again with no help from script. */
+@keyframes cat-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes cat-shot{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.catalog--tabs .catalog__chapter.is-on > h3{animation:cat-rise .34s var(--ease) both}
+.catalog--tabs .catalog__chapter.is-on .catalog__shot{animation:cat-shot .55s var(--ease) .03s both}
+.catalog--tabs .catalog__chapter.is-on .catalog__item{animation:cat-rise .4s var(--ease) both}
+.catalog--tabs .catalog__chapter.is-on .catalog__item:nth-child(1){animation-delay:.06s}
+.catalog--tabs .catalog__chapter.is-on .catalog__item:nth-child(2){animation-delay:.11s}
+.catalog--tabs .catalog__chapter.is-on .catalog__item:nth-child(3){animation-delay:.16s}
+.catalog--tabs .catalog__chapter.is-on .catalog__item:nth-child(4){animation-delay:.21s}
+@media (prefers-reduced-motion:reduce){
+  .catalog--tabs .catalog__chapter.is-on > h3,
+  .catalog--tabs .catalog__chapter.is-on .catalog__shot,
+  .catalog--tabs .catalog__chapter.is-on .catalog__item{animation:none}
+  .cat-tab,.cat-tab::before,.cat-tab__ico{transition:none}
 }
-@media (max-width:980px){
-  .catalog{grid-template-columns:repeat(3,1fr)}
-  .catalog__chapter:not(:nth-child(3n+1)) .catalog__grid{
-    border-left:1px solid var(--line);margin-left:-24px;padding-left:24px}
-  .catalog__chapter:nth-child(3n+1) .catalog__grid{border-left:0;margin-left:0;padding-left:0}
+
+/* The rail gives up width before the stage does, and the shot follows it down.
+   Below this the two columns of categories would be under 200px each, which is
+   where the brand chips start wrapping one per line. */
+@media (max-width:1120px){
+  .catalog--tabs{grid-template-columns:clamp(200px,25vw,260px) minmax(0,1fr);gap:0 34px}
+  .catalog__chapter{gap:0 26px;grid-template-columns:minmax(0,1fr) clamp(150px,21%,210px)}
+  .catalog__shot--fit{padding:15px}
 }
-@media (max-width:800px){
-  .catalog{grid-template-columns:repeat(2,1fr)}
-  .catalog__chapter:not(:nth-child(2n+1)) .catalog__grid{
-    border-left:1px solid var(--line);margin-left:-24px;padding-left:24px}
-  .catalog__chapter:nth-child(2n+1) .catalog__grid{border-left:0;margin-left:0;padding-left:0}
-}
-/* On a phone the cards run along rather than down. One column of five chapters
-   and eleven cards is a very long scroll, and the site already reads its product
-   strips sideways at this width -- .prod-grid becomes the same kind of rail
-   twenty lines up, with the same snap and the same hidden scrollbar. */
-@media (max-width:620px){
-  /* One column, so there are no rules to draw and nothing to pull out for.
-     display:block back on the chapter: the sticky heading below is simpler to
-     reason about outside a flex context, and there is no height to fill here. */
-  .catalog{grid-template-columns:1fr;gap:22px;margin-inline:0;padding-top:0}
-  .catalog__chapter{padding:0;display:block}
-  .catalog__chapter:not(:nth-child(5n+1)) .catalog__grid{
-    border-left:0;margin-left:0;padding-left:0}
-  /* The site header is fixed, so a chapter title scrolls straight up under it
-     and the rail below is left with nothing naming it. Pinning the title under
-     the header keeps it in view for exactly as long as its own chapter is:
-     sticky is bounded by .catalog__chapter, so it releases at the next one.
-     The opaque background is load-bearing -- cards pass behind it. */
-  /* min-height goes: one column here, so there is nothing to line up with, and
-     reserving a second line would only make the pinned bar taller.
-     The tracking comes in too. Mtavruli is wide before you add letter-spacing,
-     and at .05em "ᲰᲐᲔᲠᲡᲐᲢᲐᲠᲘ ᲓᲐ ᲛᲐᲙᲝᲛᲞᲚᲔᲥᲢᲔᲑᲔᲚᲘ" ran to three lines in a 319px
-     column, which is a lot of pinned bar to give one heading. */
-  .catalog__chapter h3{position:sticky;top:var(--header-h);z-index:2;min-height:0;
-    letter-spacing:.01em;background:var(--bg);margin:0;padding:9px 0 11px}
-  /* flex-direction has to be reset: the base rule stacks these in a column, and
-     a column that scrolls on x just gives full-width cards and no rail. */
-  .catalog__grid{display:flex;flex-direction:row;overflow-x:auto;gap:12px;padding-bottom:2px;
+/* Tablet and phone: the rail turns and sits along the top. It is pinned under
+   the site header, so the chapter being read is always one tap from the next --
+   the site reads its other strips sideways at this width too. */
+@media (max-width:900px){
+  .catalog--tabs{grid-template-columns:1fr;gap:18px 0}
+  .catalog--tabs .catalog__rail{flex-direction:row;gap:8px;top:var(--header-h);z-index:3;
+    padding:10px 0;overflow-x:auto;background:var(--bg);
     scroll-snap-type:x proximity;overscroll-behavior-x:contain}
-  .catalog__grid > .catalog__item{flex:0 0 clamp(200px,64vw,260px);scroll-snap-align:start}
-  /* The cards come back for the rail. Four borderless rows side by side in a
-     sideways scroll are just floating text with no edge to say where one ends
-     and the next begins -- the flat treatment reads only in a vertical column
-     with a rule beside it, and there is neither here. */
-  .catalog__item{padding:14px 15px;background:var(--surface);
-    border:1px solid var(--line);border-radius:var(--radius)}
-  .catalog__item--soon{border-style:dashed}
-  /* The pinned title sits tight to the rail, so the icon carries the gap. */
-  .catalog__ico{width:34px;height:34px;margin:0 0 10px}
+  /* A row of pills rather than a list: the bar, the hairlines and the hover
+     indent all belong to a column and read as nothing lying on its side. */
+  .cat-tab{flex:0 0 auto;width:auto;gap:9px;padding:9px 15px;border-radius:100px;
+    border:1px solid var(--line);background:var(--surface);scroll-snap-align:start}
+  .cat-tab:first-child{border-top:1px solid var(--line)}
+  .cat-tab:hover,.cat-tab.is-on{padding-left:15px;background:var(--bg-soft)}
+  .cat-tab.is-on{border-color:var(--gold)}
+  .cat-tab::before{display:none}
+  .cat-tab__ico{width:24px;height:24px}
+  .cat-tab__txt small{display:none}
+  .cat-tab__txt b{font-size:12px;white-space:nowrap}
+  /* The shot moves up beside the heading: a column of its own would leave the
+     categories in half the screen. */
+  .catalog__chapter{gap:0 18px;grid-template-columns:minmax(0,1fr) clamp(92px,25vw,150px);
+    grid-template-areas:"head shot" "grid grid"}
+  /* The rule moves off the heading and on to the top of the list, so it runs
+     the full width instead of stopping where the shot beside it begins -- which
+     at this width is a stub about as long as the title itself. */
+  .catalog__chapter > h3{margin-bottom:16px;padding-bottom:0;border-bottom:0;
+    font-size:clamp(19px,4.6vw,26px)}
+  .catalog__shot--fit{padding:10px}
+  .catalog__grid{grid-template-columns:1fr;gap:16px;padding-top:18px;
+    border-top:1px solid var(--line)}
+  .catalog--tabs .catalog__view{min-height:0}
 }
 
 /* ---- product detail page ---- */
