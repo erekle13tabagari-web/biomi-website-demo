@@ -20,6 +20,18 @@ $CRLF = [string][char]13 + [char]10
 
 $TREE = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 
+# One pictogram per chapter, at assets/img/cat-icons/<icon>.svg, where <icon> is
+# the chapter's "icon" field in menu-tree.json. To swap one, replace that file.
+#
+# Linked rather than inlined, which matters here: these are Illustrator exports
+# and all five declare the same .st0-.st76 class names in their own <style>
+# block. Inline, those blocks are global to the page and the last one read would
+# restyle the other four. As <img> each file is its own document, so the classes
+# and the clip-path ids stay inside it. They are brand-coloured by design -- a
+# ring and a symbol per category -- so they want no colour from the page, which
+# is what would otherwise argue for inlining them.
+$ICODIR = 'assets/img/cat-icons/'
+
 # $PAGE, not $T: PowerShell variable names are case-insensitive, so $t = $PAGE[$lang]
 # inside the loop would overwrite the table with its own first entry.
 $PAGE = @{
@@ -32,7 +44,7 @@ $PAGE = @{
           # the whole message. desc stays - that is the search-result text.
           desc='ბიომი ჰოლდინგის პროდუქცია - ქვაბები, ბოილერები, კონდიცირება, ვენტილაცია, ჰაერსატარები და წყალმომარაგება.'
           soonTitle='მალე დაემატება - ბიომი'
-          soonH2='ეს პროდუქტები მალე დაემატება'
+          soonH2='პროდუქტები მალე დაემატება'
           soonCrumb='მალე დაემატება'
           soonDesc='ბიომი ჰოლდინგის პროდუქციის ეს განყოფილება მალე დაემატება.'
           cta='დაგვიკავშირდით'; back='პროდუქციაზე დაბრუნება' }
@@ -42,13 +54,27 @@ $PAGE = @{
           title='Products - Biomi'
           desc='Products from Biomi Holding - boilers, water heaters, air conditioning, ventilation, ducting and water supply.'
           soonTitle='Coming soon - Biomi'
-          soonH2='These products will be added soon'
+          soonH2='Products will be added soon'
           soonCrumb='Coming soon'
           soonDesc='This part of the Biomi Holding catalogue will be added soon.'
           cta='Get in touch'; back='Back to products' }
 }
 
 function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '<','&lt;' -replace '>','&gt;') }
+
+# A node can pin any of the listing's filters: ?cat= for a section of the range,
+# ?brand= for a make, the two together for a make within a section. The listing
+# ticks the matching boxes from the query string, so this is the whole mechanism.
+# Same shape as Href in tools/menu-rebuild.ps1, which reads the same tree.
+function Query($n) {
+  $q = @()
+  if ($n.cat)   { $q += 'cat='   + $n.cat }
+  if ($n.brand) { $q += 'brand=' + $n.brand }
+  # &amp;, not &: the result only ever goes into an href attribute, and a bare
+  # ampersand there is an unterminated character reference.
+  if ($q.Count) { return '?' + ($q -join '&amp;') }
+  return ''
+}
 
 $ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
@@ -92,22 +118,30 @@ foreach ($lang in 'ka','en') {
   $items = 0
   foreach ($ch in $TREE) {
     $rows.Add('      <section class="catalog__chapter">')
+    # Empty alt, not a description: the pictogram repeats the heading right
+    # beneath it, so anything here would only say the chapter name twice.
+    if ($ch.icon) {
+      # No loading="lazy": the catalogue is the top of this page's content, so
+      # all five are in the first viewport and deferring them only made them
+      # arrive late. width/height are set so the row does not reflow around them.
+      $rows.Add('        <img class="catalog__ico" src="' + $ICODIR + $ch.icon + '.svg" alt="" width="40" height="40">')
+    }
     $rows.Add('        <h3>' + (Esc $ch.$lang) + '</h3>')
     $rows.Add('        <div class="catalog__grid">')
     foreach ($it in $ch.items) {
       $items++
       $kids = @($it.kids)
       if ($it.page) {
-        $href = 'products/' + $it.page + $sfx
+        $href = 'products/' + $it.page + $sfx + (Query $it)
         $rows.Add('          <div class="catalog__item">')
         $rows.Add('            <a class="catalog__name" href="' + $href + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
         if ($kids.Count) {
           $rows.Add('            <div class="catalog__subs">')
           foreach ($k in $kids) {
-            # the listing pre-ticks the brand box from ?brand=, so a brand here
-            # lands on that brand's products rather than the whole category
-            $kh = if ($k.brand) { $href + '?brand=' + $k.brand }
-                  elseif ($k.page) { 'products/' + $k.page + $sfx }
+            # the listing pre-ticks from the query, so a brand here lands on that
+            # brand's products rather than the whole category -- and a kid that
+            # also carries a section lands inside it
+            $kh = if ($k.page) { 'products/' + $k.page + $sfx + (Query $k) }
                   else { 'soon' + $sfx }
             $rows.Add('              <a href="' + $kh + '">' + (Esc $k.$lang) + '</a>')
           }

@@ -43,7 +43,11 @@ foreach ($f in $files) {
   })
 
   if ($txt -ne $orig) {
-    [IO.File]::WriteAllText($f.FullName, $txt, (New-Object Text.UTF8Encoding($false)))
+    # With the BOM, like the pages themselves: stamping a page must not also
+    # strip its BOM, or a four-card fix arrives as four whole-file diffs. Safe
+    # against the generators that read pages back as templates -- both
+    # ReadAllText and Get-Content -Raw -Encoding UTF8 consume the BOM on read.
+    [IO.File]::WriteAllText($f.FullName, $txt, (New-Object Text.UTF8Encoding($true)))
     $pages++
   }
 }

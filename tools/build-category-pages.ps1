@@ -97,7 +97,9 @@ $PAGES = @(
      pdescKa='სავენტილაციო სისტემები და ტექნიკა Vortice-ისგან.'; pdescEn='Ventilation systems and equipment from Vortice.'
      series=@(@('home','საყოფაცხოვრებო','Residential'),@('duct','არხული','In-line'),
               @('ind','სამრეწველო','Commercial'),@('hrv','რეკუპერაცია','Heat recovery'))
-     seriesKa='კატეგორია'; seriesEn='Category'
+     # Sections rather than a facet: these four are the parts the range divides
+     # into, so they lead the panel and the filters follow.
+     seriesKa='კატეგორია'; seriesEn='Category'; seriesFirst=$true
      typeKa='ტიპი'; typeEn='Type'
      types=@(@('wall','კედლის','Wall'),@('ceiling','ჭერის','Ceiling'),@('duct','არხული','In-duct'),
              @('window','ფანჯრის','Window'),@('roof','სახურავის','Roof'),@('centrifugal','ცენტრიდანული','Centrifugal'))
@@ -107,17 +109,20 @@ $PAGES = @(
 )
 $L = @{
   ka = @{ sfx='.html'; home='მთავარი'; products='პროდუქტი'; search='ძებნა...'
-          filter='ფილტრი'; clear='გასუფთავება'; brand='ბრენდი'; empty='პროდუქტი ვერ მოიძებნა.' }
+          filter='ფილტრი'; clear='გასუფთავება'; brand='ბრენდი'
+          empty='პროდუქტი ვერ მოიძებნა.' }
   en = @{ sfx='-en.html'; home='Home'; products='Products'; search='Search...'
-          filter='Filter'; clear='Clear'; brand='Brand'; empty='No products found.' }
+          filter='Filter'; clear='Clear'; brand='Brand'
+          empty='No products found.' }
 }
 $CARET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
 
-function FilterGroup($label, $name, $opts, $li) {
+function FilterGroup($label, $name, $opts, $li, $cls) {
   # a group with nothing in it renders as a dead heading, so drop it entirely.
   # Not every category has four useful axes.
   if (-not $opts -or -not @($opts).Count -or -not $name) { return '' }
-  $s = "        <div class=`"pfilter__group`">`r`n          <h4>$label $CARET</h4>`r`n          <div class=`"pfilter__opts`">`r`n"
+  $extra = if ($cls) { ' ' + $cls } else { '' }
+  $s = "        <div class=`"pfilter__group$extra`">`r`n          <h4>$label $CARET</h4>`r`n          <div class=`"pfilter__opts`">`r`n"
   foreach ($o in $opts) {
     $txt = if ($li -eq 'ka') { $o[1] } else { $o[2] }
     if ($KWMIN) { $txt = $txt.Replace('{kwmin}', [string]$KWMIN) }
@@ -172,6 +177,17 @@ foreach ($p in $PAGES) {
     $seriesLbl = if ($lang -eq 'ka') { $p.seriesKa } else { $p.seriesEn }
     $typeLbl = if ($lang -eq 'ka') { $p.typeKa } else { $p.typeEn }
     $extraLbl = if ($lang -eq 'ka') { $p.extraKa } else { $p.extraEn }
+    # Checkboxes like every other group -- the sections are set apart by coming
+    # first and by the wider rule under them (.pfilter__group--cats), not by a
+    # control of their own. Ticking none means all, so there is no "all" option:
+    # a box that only undoes the others is one more thing to read past.
+    $seriesCls = if ($p.seriesFirst) { 'pfilter__group--cats' } else { '' }
+    $seriesGrp = FilterGroup $seriesLbl $(if ($p.seriesName) { $p.seriesName } else { 'cat' }) $p.series $lang $seriesCls
+    # You pick the part of the catalogue first, then narrow what is in it, so the
+    # sections lead. vrf-vrv's series are ranges rather than sections -- DVM, CAC,
+    # Mr Slim -- and stay where they were, after the brand.
+    $grpBrand = FilterGroup $t.brand 'brand' $brandOpts $lang
+    $grpTop = if ($p.seriesFirst) { $seriesGrp + $grpBrand } else { $grpBrand + $seriesGrp }
 
     $body = @"
 <!-- ===================== CATEGORY LISTING ===================== -->
@@ -179,7 +195,7 @@ foreach ($p in $PAGES) {
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="../index.html">$($t.home)</a><span class="sep">/</span>
-      <a href="../index.html#products">$($t.products)</a><span class="sep">/</span>
+      <a href="../products$($t.sfx)">$($t.products)</a><span class="sep">/</span>
       <b>$crumb</b>
     </nav>
     <div class="section__head" style="margin-bottom:0">
@@ -198,7 +214,7 @@ foreach ($p in $PAGES) {
           <input type="search" placeholder="$($t.search)">
         </div>
         <div class="pfilter__head"><span>$($t.filter)</span><a data-clear>$($t.clear)</a></div>
-$(FilterGroup $t.brand 'brand' $brandOpts $lang)$(FilterGroup $seriesLbl $(if($p.seriesName){$p.seriesName}else{'cat'}) $p.series $lang)$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)      </aside>
+$grpTop$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)      </aside>
 
       <div class="pgrid">
 $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
@@ -226,7 +242,10 @@ $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
         param($m) ($m.Value -replace 'href="[^"]*-en\.html"', ('href="' + $p.out + '-en.html"') `
                              -replace 'href="(?!.*-en\.html)[^"]*\.html"', ('href="' + $p.out + '.html"')) })
     }
-    [IO.File]::WriteAllText($file, $txt, (New-Object Text.UTF8Encoding($false)))
+    # With the BOM: every other page on the site carries one, and writing these
+    # six without it stripped theirs on every run -- a diff in six files that had
+    # nothing to do with whatever was being rebuilt.
+    [IO.File]::WriteAllText($file, $txt, (New-Object Text.UTF8Encoding($true)))
   }
 }
 Write-Host 'category listings rebuilt'

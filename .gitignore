@@ -57,3 +57,7 @@ desktop.ini
 /fonts/Futura 100 Georgian/OTF/
 /fonts/Futura 100/Variable/*Oblique*
 /fonts/Futura 100 Georgian/Variable/*Oblique*
+
+# Pictogram source for the products page (the five served copies live in
+# assets/img/cat-icons/, named for the chapter's "icon" key in menu-tree.json)
+/pictograms for product menu/

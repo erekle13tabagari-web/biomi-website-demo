@@ -29,6 +29,11 @@ $CAT = @{
   'vortice-ar-p'=@{g='home';t='window'}
   'vortice-ca-v0'=@{g='duct';t='duct'};      'vortice-ca-md'=@{g='duct';t='duct'}
   'vortice-ca-il'=@{g='duct';t='duct'};      'vortice-lineo'=@{g='duct';t='duct'}
+  # LINEO QUIET was missing here, so it carried no category and no type and fell
+  # out of every filter -- visible only with nothing ticked. It is the acoustically
+  # jacketed LINEO, named "LINEO QUIET duct fan" in vortice-families.json, so it
+  # takes the same pair as the LINEO beside it.
+  'vortice-lineo-quiet'=@{g='duct';t='duct'}
   'vortice-qbk'=@{g='ind';t='centrifugal'};  'vortice-qbk-sal'=@{g='ind';t='centrifugal'}
   'vortice-cms'=@{g='ind';t='centrifugal'};  'vortice-roof'=@{g='ind';t='roof'}
   'vortice-hri'=@{g='hrv';t='ceiling'}
@@ -184,7 +189,7 @@ $($cards -join "`r`n")
 
 "@
   $out = Join-Path $repo ('products\vortice' + $sfx)
-  [IO.File]::WriteAllText($out, (Splice (Join-Path $repo ('products\' + $t.hubTpl)) '<!-- ===================== BRAND LISTING' $hubBody $t.hubTitle $t.hubDesc ('vortice' + $sfx) 'mitsubishi-electric'), (New-Object Text.UTF8Encoding($false)))
+  [IO.File]::WriteAllText($out, (Splice (Join-Path $repo ('products\' + $t.hubTpl)) '<!-- ===================== BRAND LISTING' $hubBody $t.hubTitle $t.hubDesc ('vortice' + $sfx) 'mitsubishi-electric'), (New-Object Text.UTF8Encoding($true)))
 
   # The Ventilation category page used to be built here too, as a brand picker
   # spliced off vrf-vrv.html. Both are now real product listings owned by

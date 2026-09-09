@@ -54,9 +54,17 @@ foreach ($f in $files) {
   # pre-ticks. Items with no page at all fall back to the holding page.
   function Href($n) {
     if (-not $n.page) { return $A }
-    $q = ''
-    if ($n.brand) { $q = '?brand=' + $n.brand }
-    return $P + $n.page + $sfx + $q
+    # A node can pin any of the listing's filters: ?cat= for a section of the
+    # range, ?brand= for a make, the two together for a make within a section.
+    # main.js ticks boxes by name from the query string, so a pair needs nothing
+    # special there.
+    $q = @()
+    if ($n.cat)   { $q += 'cat='   + $n.cat }
+    if ($n.brand) { $q += 'brand=' + $n.brand }
+    # &amp;, not &: this only ever lands in an href attribute, and a bare
+    # ampersand there is an unterminated character reference.
+    $qs = if ($q.Count) { '?' + ($q -join '&amp;') } else { '' }
+    return $P + $n.page + $sfx + $qs
   }
 
   # ------------------------------------------------------- desktop mega-menu
@@ -148,7 +156,10 @@ foreach ($f in $files) {
   if (-not $found) { $missDrawer += $f.Name }
 
   if ($txt -ne $orig) {
-    [IO.File]::WriteAllText($f.FullName, $txt, (New-Object Text.UTF8Encoding($false)))
+    # With the BOM, which is what the pages carry. Without it this stripped the
+    # BOM from all 171 of them on every run, so a one-line menu change arrived as
+    # a whole-site diff and the real edit was impossible to see in review.
+    [IO.File]::WriteAllText($f.FullName, $txt, (New-Object Text.UTF8Encoding($true)))
     $done++
   }
 }

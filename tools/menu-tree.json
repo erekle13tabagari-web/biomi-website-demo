@@ -1,5 +1,5 @@
 [
-{"ka":"გათბობა","en":"Heating","items":[
+{"ka":"გათბობა","en":"Heating","icon":"heating","items":[
   {"ka":"ქვაბი","en":"Boilers","page":"boilers","kids":[
     {"ka":"Beretta","en":"Beretta","page":"boilers","brand":"beretta"},
     {"ka":"Riello","en":"Riello","page":"boilers","brand":"riello"},
@@ -18,23 +18,30 @@
     {"ka":"მაკომპლექტებელი","en":"Fittings","page":null}]}
 ]},
 
-{"ka":"გაგრილება","en":"Cooling","items":[
+{"ka":"გაგრილება","en":"Cooling","icon":"cooling","items":[
   {"ka":"Multisplit / VRV / VRF","en":"Multisplit / VRV / VRF","page":"vrf-vrv","kids":[
     {"ka":"Samsung","en":"Samsung","page":"vrf-vrv","brand":"samsung"},
     {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"vrf-vrv","brand":"mitsubishi"}]}
 ]},
 
-{"ka":"ვენტილაცია","en":"Ventilation","items":[
-  {"ka":"Vortice","en":"Vortice","page":"ventilation","brand":"vortice","kids":[]}
+{"ka":"ვენტილაცია","en":"Ventilation","icon":"ventilation","items":[
+  {"ka":"რეკუპერაცია","en":"Heat recovery","page":"ventilation","cat":"hrv","kids":[
+    {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"hrv","brand":"vortice"}]},
+  {"ka":"სამრეწველო","en":"Commercial","page":"ventilation","cat":"ind","kids":[
+    {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"ind","brand":"vortice"}]},
+  {"ka":"არხული","en":"In-line","page":"ventilation","cat":"duct","kids":[
+    {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"duct","brand":"vortice"}]},
+  {"ka":"საყოფაცხოვრებო","en":"Residential","page":"ventilation","cat":"home","kids":[
+    {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"home","brand":"vortice"}]}
 ]},
 
-{"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","items":[
+{"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","icon":"ducting","items":[
   {"ka":"ჰაერსატარი","en":"Ducting","page":"ducting","kids":[]},
   {"ka":"ცხაურა","en":"Grilles","page":null,"kids":[]},
   {"ka":"აქსესუარები","en":"Accessories","page":null,"kids":[]}
 ]},
 
-{"ka":"წყალმომარაგება","en":"Water supply","items":[
+{"ka":"წყალმომარაგება","en":"Water supply","icon":"water","items":[
   {"ka":"მილები","en":"Pipes","page":null,"kids":[
     {"ka":"Tiemme","en":"Tiemme","page":null},
     {"ka":"Botti","en":"Botti","page":null},

@@ -1209,7 +1209,34 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    the column height and everything else packs into as few columns as that
    allows. With Heating at 921px the whole catalogue fitted in two and the other
    two sat empty. Grid places one chapter per track and asks no questions. */
-.catalog{display:grid;grid-template-columns:repeat(5,1fr);gap:24px 18px;align-items:start}
+/* align-items:stretch, not start: the rules between columns run down the item
+   lists, and a list only as tall as its own items leaves a rule that stops
+   short. Stretched, every chapter in a row is the height of the tallest, and
+   the list is told to fill it below. Content still sits at the top. */
+/* Only enough padding to keep the pictograms off the heading. The 36px that
+   used to be here was the room above the rule that ran across the top of the
+   block; with the rule gone it was just a gap, and the section this sits in
+   already contributes its own space above. */
+.catalog{display:grid;grid-template-columns:repeat(5,1fr);gap:38px 0;align-items:stretch;
+  padding-top:12px;margin-inline:-24px}
+/* Every chapter carries the same horizontal padding, so all five content boxes
+   are the width of their track less the same amount and the columns stay even.
+   The grid then pulls itself out by that padding (margin-inline above) so the
+   first column's icon and heading still line up with the h1, rather than the
+   whole catalogue sitting 24px in from everything above it.
+   Flex column so the item list can be told to fill the height left under the
+   heading -- see .catalog__grid{flex:1} below. */
+.catalog__chapter{padding:0 24px;display:flex;flex-direction:column}
+/* The rules between columns start level with the first item, not at the top of
+   the pictogram, so they belong to the item list rather than the chapter. The
+   list sits inside the chapter's 24px padding, so it is pulled back out to the
+   chapter's edge -- where the rule needs to sit, centred in the gutter -- and
+   the padding is restored on the inside to leave the items where they were.
+   Restated at each breakpoint below rather than overridden, because the count
+   in nth-child changes with the column count and a plain rule could not win
+   against this one's specificity anyway. */
+.catalog__chapter:not(:nth-child(5n+1)) .catalog__grid{
+  border-left:1px solid var(--line);margin-left:-24px;padding-left:24px}
 /* min-width:0, or the chapter sizes to its content instead of its track. That
    bit twice on phones, where the cards become a scrolling rail: the chapter grew
    to the rail's full 996px, so the rail had room for every card and never
@@ -1221,14 +1248,28 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    at these track widths and the others do not, which had that one column's
    cards sitting a line lower than the rest of the row. line-height is set here
    rather than inherited so the reserved height is derived from it, not guessed. */
-.catalog__chapter h3{font-size:13.5px;line-height:1.35;letter-spacing:.05em;
-  color:var(--gold-600);margin:0 0 11px;min-height:2.7em}
-.catalog__grid{display:flex;flex-direction:column;gap:11px}
+/* text-transform:none against the global h1-h4 rule: Mtavruli is for the small
+   tracked labels, and at this size the chapter name reads as a heading in the
+   ordinary script -- which is also how the pictogram above it is drawn. */
+/* --purple, not the accent: this is the brand's secondary tone and it is the
+   one token that stays purple in both themes -- the accent goes blue on light.
+   It carries its own lightened value on dark for contrast, so the heading
+   clears 5.8:1 on light and 8.3:1 on dark either way. */
+.catalog__chapter h3{font-size:17px;line-height:1.3;letter-spacing:-.01em;text-transform:none;
+  color:var(--purple);margin:0 0 20px;min-height:2.6em}
+/* The pictogram. Sized here so a replacement file needs no dimensions of its
+   own, only a square viewBox. No colour is set: each one is a brand-coloured
+   ring that is meant to read the same in both themes. 40px rather than the 32
+   the flat placeholders wanted -- a ring carries far less ink than a solid
+   glyph and looked slight beside the headings at that size. */
+.catalog__ico{display:block;width:40px;height:40px;margin:0 0 16px}
+/* flex:1 so the list fills the height the stretched chapter leaves under the
+   heading, which is what carries its rule to the foot of the block. */
+.catalog__grid{display:flex;flex-direction:column;gap:19px;flex:1}
 /* Sized down so five chapters fit across the container: at 1240 with 18px gaps
    that is a 233px track, and the longest chip ("ჰიდრავლიკური გამათანაბრებელი")
    still gets two lines rather than three. */
-.catalog__item{display:flex;flex-direction:column;gap:9px;padding:14px 15px;
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.catalog__item{display:flex;flex-direction:column;gap:9px}
 .catalog__name{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500;
   color:var(--ink-strong);transition:color .2s}
 .catalog__name svg{width:15px;height:15px;flex:0 0 auto;color:var(--gold);
@@ -1244,26 +1285,47 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   border:1px solid var(--line);background:var(--bg-soft);color:var(--muted);line-height:1.5}
 .catalog__subs a{transition:border-color .2s,color .2s}
 .catalog__subs a:hover{border-color:var(--gold);color:var(--gold-600)}
-/* A range we carry with no listing published yet. Dashed, like .subsoon above,
-   so it reads as pending rather than broken -- the name still goes somewhere,
-   to the holding page, while its sub-items stay plain text because there is
-   nothing behind them to click yet. */
-.catalog__item--soon{border-style:dashed}
+/* A range we carry with no listing published yet. There is no card to dash now
+   that the items are plain rows, so the muted name and arrow carry it alone --
+   the name still goes somewhere, to the holding page, while its sub-items stay
+   plain text because there is nothing behind them to click yet. The dashed
+   border comes back with the card at phone widths, at the foot of this block. */
 .catalog__item--soon .catalog__name,
 .catalog__item--soon .catalog__name svg{color:var(--muted)}
 .catalog__item--soon .catalog__name:hover,
 .catalog__item--soon .catalog__name:hover svg{color:var(--gold-600)}
 /* Fewer columns as the room runs out. A card carries a name and a row of brand
    chips, so below roughly 210px of track the chips start wrapping one per line. */
-@media (max-width:1180px){ .catalog{grid-template-columns:repeat(4,1fr)} }
-@media (max-width:980px) { .catalog{grid-template-columns:repeat(3,1fr)} }
-@media (max-width:800px) { .catalog{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:1180px){
+  .catalog{grid-template-columns:repeat(4,1fr)}
+  .catalog__chapter:not(:nth-child(4n+1)) .catalog__grid{
+    border-left:1px solid var(--line);margin-left:-24px;padding-left:24px}
+  .catalog__chapter:nth-child(4n+1) .catalog__grid{border-left:0;margin-left:0;padding-left:0}
+}
+@media (max-width:980px){
+  .catalog{grid-template-columns:repeat(3,1fr)}
+  .catalog__chapter:not(:nth-child(3n+1)) .catalog__grid{
+    border-left:1px solid var(--line);margin-left:-24px;padding-left:24px}
+  .catalog__chapter:nth-child(3n+1) .catalog__grid{border-left:0;margin-left:0;padding-left:0}
+}
+@media (max-width:800px){
+  .catalog{grid-template-columns:repeat(2,1fr)}
+  .catalog__chapter:not(:nth-child(2n+1)) .catalog__grid{
+    border-left:1px solid var(--line);margin-left:-24px;padding-left:24px}
+  .catalog__chapter:nth-child(2n+1) .catalog__grid{border-left:0;margin-left:0;padding-left:0}
+}
 /* On a phone the cards run along rather than down. One column of five chapters
    and eleven cards is a very long scroll, and the site already reads its product
    strips sideways at this width -- .prod-grid becomes the same kind of rail
    twenty lines up, with the same snap and the same hidden scrollbar. */
 @media (max-width:620px){
-  .catalog{grid-template-columns:1fr;gap:22px}
+  /* One column, so there are no rules to draw and nothing to pull out for.
+     display:block back on the chapter: the sticky heading below is simpler to
+     reason about outside a flex context, and there is no height to fill here. */
+  .catalog{grid-template-columns:1fr;gap:22px;margin-inline:0;padding-top:0}
+  .catalog__chapter{padding:0;display:block}
+  .catalog__chapter:not(:nth-child(5n+1)) .catalog__grid{
+    border-left:0;margin-left:0;padding-left:0}
   /* The site header is fixed, so a chapter title scrolls straight up under it
      and the rail below is left with nothing naming it. Pinning the title under
      the header keeps it in view for exactly as long as its own chapter is:
@@ -1281,6 +1343,15 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .catalog__grid{display:flex;flex-direction:row;overflow-x:auto;gap:12px;padding-bottom:2px;
     scroll-snap-type:x proximity;overscroll-behavior-x:contain}
   .catalog__grid > .catalog__item{flex:0 0 clamp(200px,64vw,260px);scroll-snap-align:start}
+  /* The cards come back for the rail. Four borderless rows side by side in a
+     sideways scroll are just floating text with no edge to say where one ends
+     and the next begins -- the flat treatment reads only in a vertical column
+     with a rule beside it, and there is neither here. */
+  .catalog__item{padding:14px 15px;background:var(--surface);
+    border:1px solid var(--line);border-radius:var(--radius)}
+  .catalog__item--soon{border-style:dashed}
+  /* The pinned title sits tight to the rail, so the icon carries the gap. */
+  .catalog__ico{width:34px;height:34px;margin:0 0 10px}
 }
 
 /* ---- product detail page ---- */
@@ -1543,6 +1614,10 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .pfilter__toggle{display:none}
 .pfilter__head a{font-size:13px;color:var(--gold);font-weight:500;cursor:pointer}
 .pfilter__group{border-top:1px solid var(--line);padding:14px 0}
+/* The sections lead the panel and the filters follow it. Same checkboxes either
+   way, so the break has to come from the spacing: a wider gap under the sections
+   than between the filter groups themselves. */
+.pfilter__group--cats{padding-bottom:24px}
 .pfilter__group h4{display:flex;justify-content:space-between;align-items:center;font-size:15px;cursor:pointer;margin:0}
 .pfilter__group h4 svg{width:16px;height:16px;transition:transform .25s}
 .pfilter__group.closed h4 svg{transform:rotate(-90deg)}
@@ -1652,10 +1727,17 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .duct figcaption li{font-size:12.5px;line-height:1.4;color:rgba(255,255,255,.72)}
 .duct__note{margin:34px 0 0;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
   font-size:14.5px;color:var(--muted)}
-.duct__note .btn{margin-left:auto}
+/* Only the last button is pushed right. On the ducting page that is the single
+   button after the note, which is the intent; on the holding page, where the row
+   is two buttons and no text, "auto" on both split the gap between them and left
+   the first one floating in the middle instead of under the heading. */
+.duct__note .btn:last-child{margin-left:auto}
 @media (max-width:680px){
   .duct figcaption{padding:11px 12px 13px}
-  .duct__note .btn{margin-left:0;width:100%;justify-content:center}
+  /* :last-child here too -- a media query adds no specificity, so plain
+     .duct__note .btn would lose to the rule above and stay pushed right */
+  .duct__note .btn{width:100%;justify-content:center}
+  .duct__note .btn:last-child{margin-left:0}
 }
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:20px}
 .pgrid__empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--muted)}
