@@ -1250,13 +1250,14 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .catalog__frame::after{content:"";position:absolute;inset:auto 0 0 0;height:58%;
   background:linear-gradient(to bottom,rgba(11,11,26,0),rgba(11,11,26,.55))}
 .catalog__photo{display:block;width:100%;aspect-ratio:5/4;object-fit:cover}
-/* Sized from its height, not its width: these cut-outs run from a 367x620
-   boiler to a 620x581 duct elbow, and one width would leave the boiler twice as
-   tall as the frame. The cap stops the widest of them filling the panel.
+/* Two caps and no set size, so the picture scales to whichever it meets first
+   and keeps its own proportions. These cut-outs run from a 398x700 boiler to a
+   700x411 wall unit: setting a height would stretch the wide ones, and setting
+   a width would leave the boiler taller than the frame.
    Percentages resolve against .catalog__media, which is the containing block --
-   the frame plus the overhang it hangs into. */
-.catalog__hero{position:absolute;right:6%;bottom:0;height:88%;width:auto;max-width:60%;
-  object-fit:contain;filter:drop-shadow(0 26px 30px rgba(0,0,0,.5))}
+   the frame plus the overhang the product hangs into. */
+.catalog__hero{position:absolute;right:6%;bottom:0;max-height:88%;max-width:70%;
+  filter:drop-shadow(0 26px 30px rgba(0,0,0,.5))}
 /* One column. The categories share the panel with a picture now, so the space
    left for them is half of what a two-column list wanted. */
 .catalog__grid{grid-area:grid;display:flex;flex-direction:column;gap:22px}

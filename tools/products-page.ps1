@@ -37,10 +37,10 @@ $ICODIR = 'assets/img/cat-icons/'
 #
 # Two layers. photo is the scene -- one of our own installations wherever there
 # is one, which is four of the five. hero is the product standing in front of
-# it: a transparent cut-out written by tools/cutout.ps1 from the render the
-# listing already uses, so the boiler in front of "გათბობა" is a boiler we sell.
-# The renders themselves are shot on solid white and cannot be laid over a
-# photograph as they are -- that script is what makes them into a cut-out.
+# it, and is not listed here at all: tools/cutout.ps1 writes one per chapter,
+# named after the chapter's icon slug, from the pictures dropped in the
+# menu-images folder. To change the boiler in front of "გათბობა", replace the
+# picture in that folder and re-run the script -- this table stays put.
 #
 # Water supply has no listing yet and so no product to stand there; its panel is
 # the photograph alone, and the layout closes the gap under it.

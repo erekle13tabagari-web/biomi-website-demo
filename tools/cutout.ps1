@@ -1,57 +1,73 @@
-﻿# Cut a product render out of its white background and write a transparent PNG.
+﻿# Turn the pictures dropped in the menu-images folder into the catalogue page's
+# product cut-outs: trimmed to the product, sized for the page, one PNG per
+# chapter at assets/img/cutouts/<icon>.png.
 #
-# Every product image on the site is shot on solid white and saved opaque -- a
-# corner pixel of all of them reads 255,255,255 at alpha 255. That is right for
-# a card with a white photo panel, which is what they have always sat in, but it
-# cannot be laid over a photograph: the render arrives as a white rectangle.
+# The drop folder holds one sub-folder per chapter, named after the chapter, and
+# whatever picture belongs there. Nothing else has to be told about it: the
+# sub-folder is matched to menu-tree.json by name, and the chapter's own icon
+# slug becomes the output filename -- which is what products-page.ps1 already
+# points at. Drop a new picture in and re-run.
 #
-# The catalogue page stands the product in front of an installation shot, so the
-# white has to go. Three things make that safe here:
+# Two kinds of source, decided per file rather than declared:
 #
-#  * Flood fill from the border, not a colour key. Half these products are white
-#    themselves -- a Beretta boiler, a Samsung wall unit -- and keying every
-#    white pixel punches holes straight through them. Only white that is
-#    connected to the edge of the frame is background.
+#  * Already cut out. Anything with an alpha channel is trusted as it is and
+#    only trimmed. The pictures supplied for the menu are all of this kind.
 #
-#  * A soft edge. The render is anti-aliased against white, so its outline is a
-#    band of pale pixels. They are given partial alpha from how pale they are,
-#    which is what stops the cut-out reading as a sticker.
+#  * Shot on white. Every product render on the site is, and saved opaque -- a
+#    corner pixel of all of them reads 255,255,255 at alpha 255 -- so laid over
+#    a photograph each one arrives as a white rectangle. Those are keyed:
 #
-#  * The colour under that band is recovered rather than kept. An edge pixel is
-#    observed = a*C + (1-a)*255, so C = (observed - (1-a)*255)/a. Keep the
-#    observed value instead and every edge carries a white fringe, which is
-#    exactly what shows against a dark photograph.
+#      - Flood fill from the border, not a colour key. Half these products are
+#        white themselves, and keying every white pixel punches holes through
+#        them. Only white connected to the edge of the frame is background.
+#      - The anti-aliased outline gets partial alpha from how pale it is, which
+#        is what stops the cut-out reading as a sticker.
+#      - The colour under that band is recovered: a pixel there is
+#        observed = a*C + (1-a)*255, so C = (observed - (1-a)*255)/a. Keep the
+#        observed value and every edge carries a white fringe, which is exactly
+#        what shows against a dark photograph.
 #
-# The result is cropped to the product with a small margin, so the PNG has no
-# dead space to position around.
-#
-# WPF imaging rather than System.Drawing: the sources are AVIF and WebP, and
+# WPF imaging rather than System.Drawing: sources include AVIF and WebP, and
 # GDI+ decodes neither -- new Bitmap(path) throws "Parameter is not valid" on
 # both. WIC, which is what BitmapDecoder sits on, reads them on this machine.
 #
 # Run:  powershell -ExecutionPolicy Bypass -File tools\cutout.ps1
+param(
+  # The drop folder. Found rather than named, because its name is Georgian and a
+  # .ps1 has to carry a BOM for PowerShell 5.1 to read that as anything but
+  # ANSI -- one save through the wrong editor and the literal is mojibake and
+  # the path silently misses. A codepoint range in a regex cannot rot that way.
+  [string]$Drop
+)
 $sp   = $PSScriptRoot
 $repo = Split-Path $sp -Parent
-$OUT  = Join-Path $repo 'assets\img\cutouts'
+$OUTDIR = Join-Path $repo 'assets\img\cutouts'
 
-# The renders the catalogue page stands in front of its chapter photographs.
-# Source is whatever the listing already uses; the name is what products.html
-# asks for. Add a line here and re-run -- nothing else knows about the list.
-# lum is the brightness a pixel has to reach to count as background, 250 unless
-# a render carries a soft grey shadow on its white -- the ducting photographs
-# do, and at 250 the fill stops at the shadow and leaves a pale blob under the
-# product. 236 eats it and still stops at galvanised steel.
-$JOBS = @(
-  @{ src = 'assets\img\products\warmhaus-viwa-50-65\main.avif';          out = 'heating.png'     }
-  @{ src = 'assets\img\products\samsung-cac-outdoor\ac140bxadeh-1.avif'; out = 'cooling.png'     }
-  @{ src = 'assets\img\products\vortice-lineo\main.avif';                out = 'ventilation.png' }
-  @{ src = 'assets\img\ducting\elbow-round.webp';                        out = 'ducting.png'; lum = 236 }
-)
+$MARGIN  = 4
+# The cut-out is never drawn wider than about 300 CSS pixels, so this is a
+# little over 2x. PNG is the only alpha format every browser reads and it is a
+# poor container for photographed metal -- the duct is the one to watch.
+$MAXEDGE = 700
+
+if (-not $Drop) {
+  # Escapes, not the letters themselves: the point is that this line survives
+  # being read as ANSI, and a literal Georgian character class would not.
+  $cands = @(Get-ChildItem -LiteralPath $repo -Directory |
+             Where-Object { $_.Name -match '[\u10A0-\u10FF\u1C90-\u1CBF]' })
+  if ($cands.Count -ne 1) {
+    throw ("expected one Georgian-named folder in the repo root, found " + $cands.Count +
+           " -- pass -Drop <path>")
+  }
+  $Drop = $cands[0].FullName
+}
+if (-not (Test-Path -LiteralPath $Drop)) { throw ("drop folder not found: " + $Drop) }
+
+$TREE = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 
 Add-Type -AssemblyName PresentationCore, WindowsBase
 
-# C# for the pixel work: the largest of these is 1100x825, and a per-pixel loop
-# in PowerShell over 900,000 pixels takes minutes. Compiled it is instant.
+# C# for the pixel work: the boiler is 2109x3508, and a per-pixel loop in
+# PowerShell over 7 million pixels takes minutes. Compiled it is instant.
 $cs = @'
 using System;
 using System.Collections.Generic;
@@ -65,6 +81,9 @@ public class Cutout {
   // Where the anti-aliased edge is taken to run from: 255 is fully background,
   // EDGE_LUM and below is fully product.
   const int EDGE_LUM = 228;
+  // Below this a pixel is too faint to be worth keeping in the crop -- the
+  // outermost ring of a soft shadow, mostly.
+  const int BOX_ALPHA = 8;
 
   // BGRA in memory, so index 0 is blue and 2 is red.
   static int Lum(byte[] p, int o) { return (p[o + 2] * 299 + p[o + 1] * 587 + p[o] * 114) / 1000; }
@@ -97,8 +116,30 @@ public class Cutout {
     return false;
   }
 
-  // Rewrites px in place and returns the bounding box of what survived.
-  public static int[] Key(byte[] px, int w, int h, int stride, int bgLum) {
+  // True if anything in the picture is not fully opaque.
+  public static bool HasAlpha(byte[] px, int w, int h, int stride) {
+    for (int y = 0; y < h; y++)
+      for (int x = 0; x < w; x++)
+        if (px[y * stride + x * 4 + 3] < 250) return true;
+    return false;
+  }
+
+  // The box around everything worth keeping, as {minX, minY, maxX, maxY}.
+  public static int[] Box(byte[] px, int w, int h, int stride) {
+    int minX = w, minY = h, maxX = -1, maxY = -1;
+    for (int y = 0; y < h; y++)
+      for (int x = 0; x < w; x++)
+        if (px[y * stride + x * 4 + 3] > BOX_ALPHA) {
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
+    return new int[] { minX, minY, maxX, maxY };
+  }
+
+  // Rewrites px in place, cutting the white background away.
+  public static void Key(byte[] px, int w, int h, int stride, int bgLum) {
     BG_LUM = bgLum;
     // Whiten the outermost ring first. Several of these AVIFs decode with a
     // black final row -- warmhaus-viwa/main is one -- and one bad row is enough
@@ -129,7 +170,6 @@ public class Cutout {
       }
     }
 
-    int minX = w, minY = h, maxX = -1, maxY = -1;
     for (int y = 0; y < h; y++)
       for (int x = 0; x < w; x++) {
         int i = y * w + x, o = y * stride + x * 4;
@@ -153,41 +193,52 @@ public class Cutout {
           }
         }
         px[o + 3] = (byte)a;
-        if (a > 8) {
-          if (x < minX) minX = x;
-          if (x > maxX) maxX = x;
-          if (y < minY) minY = y;
-          if (y > maxY) maxY = y;
-        }
       }
-    return new int[] { minX, minY, maxX, maxY };
   }
 }
 '@
 
 Add-Type -TypeDefinition $cs
 
-if (-not (Test-Path $OUT)) { New-Item -ItemType Directory -Path $OUT | Out-Null }
+if (-not (Test-Path $OUTDIR)) { New-Item -ItemType Directory -Path $OUTDIR | Out-Null }
 
-$MARGIN  = 6
-$MAXEDGE = 620
-foreach ($j in $JOBS) {
-  $in = Join-Path $repo $j.src
-  if (-not (Test-Path $in)) { Write-Host ('  missing : ' + $j.src); continue }
+# A chapter folder is matched on the name, either way round: the ducting one is
+# named for the first word of a chapter called "ჰაერსატარი და მაკომპლექტებელი".
+function IconFor([string]$folder) {
+  foreach ($ch in $TREE) {
+    if (-not $ch.icon) { continue }
+    if ($ch.ka -eq $folder -or $ch.ka.StartsWith($folder) -or $folder.StartsWith($ch.ka)) {
+      return [string]$ch.icon
+    }
+  }
+  return ''
+}
 
-  $uri = New-Object System.Uri((Resolve-Path $in).Path)
+$done = 0
+foreach ($dir in (Get-ChildItem -LiteralPath $Drop -Directory | Sort-Object Name)) {
+  $icon = IconFor $dir.Name
+  if (-not $icon) { Write-Host ('  no chapter matches folder: ' + $dir.Name); continue }
+
+  $img = Get-ChildItem -LiteralPath $dir.FullName -File |
+         Where-Object { $_.Extension -match '^\.(png|jpg|jpeg|webp|avif|tif|tiff|bmp)$' } |
+         Sort-Object Name | Select-Object -First 1
+  if (-not $img) { Write-Host ('  ' + $icon.PadRight(14) + 'no picture yet'); continue }
+
+  $uri = New-Object System.Uri($img.FullName)
   $dec = [System.Windows.Media.Imaging.BitmapDecoder]::Create($uri, 'None', 'OnLoad')
-  # to straight-alpha BGRA, which is both what the keying below assumes and what
-  # the PNG encoder wants
+  # to straight-alpha BGRA, which is both what the keying assumes and what the
+  # PNG encoder wants
   $bmp = New-Object System.Windows.Media.Imaging.FormatConvertedBitmap(
            $dec.Frames[0], [System.Windows.Media.PixelFormats]::Bgra32, $null, 0)
   $w = $bmp.PixelWidth; $h = $bmp.PixelHeight; $stride = $w * 4
   $px = New-Object byte[] ($stride * $h)
   $bmp.CopyPixels($px, $stride, 0)
 
-  $lum = if ($j.lum) { [int]$j.lum } else { 250 }
-  $box = [Cutout]::Key($px, $w, $h, $stride, $lum)
-  if ($box[2] -lt $box[0]) { Write-Host ('  ' + $j.out + ' : nothing left after keying'); continue }
+  $cut = [Cutout]::HasAlpha($px, $w, $h, $stride)
+  if (-not $cut) { [Cutout]::Key($px, $w, $h, $stride, 250) }
+
+  $box = [Cutout]::Box($px, $w, $h, $stride)
+  if ($box[2] -lt $box[0]) { Write-Host ('  ' + $icon + ' : nothing left after keying'); continue }
 
   $x0 = [Math]::Max(0, $box[0] - $MARGIN); $y0 = [Math]::Max(0, $box[1] - $MARGIN)
   $x1 = [Math]::Min($w - 1, $box[2] + $MARGIN); $y1 = [Math]::Min($h - 1, $box[3] + $MARGIN)
@@ -195,28 +246,25 @@ foreach ($j in $JOBS) {
   $src = [System.Windows.Media.Imaging.BitmapSource]::Create(
            $w, $h, 96, 96, [System.Windows.Media.PixelFormats]::Bgra32, $null, $px, $stride)
   $rect = New-Object System.Windows.Int32Rect($x0, $y0, ($x1 - $x0 + 1), ($y1 - $y0 + 1))
-  $crop = New-Object System.Windows.Media.Imaging.CroppedBitmap($src, $rect)
+  $pic = New-Object System.Windows.Media.Imaging.CroppedBitmap($src, $rect)
 
-  # Capped at $MAXEDGE. A cut-out is a PNG -- there is no lossy option with an
-  # alpha channel that every browser reads -- and PNG is a poor container for a
-  # photographed metal surface: the ducting elbow came to 558 KB at its native
-  # 772px. Nothing here is ever drawn wider than about 300 CSS pixels, so this
-  # is still twice what a 2x screen asks for.
-  if ($crop.PixelWidth -gt $MAXEDGE -or $crop.PixelHeight -gt $MAXEDGE) {
-    $k = $MAXEDGE / [Math]::Max($crop.PixelWidth, $crop.PixelHeight)
-    $crop = New-Object System.Windows.Media.Imaging.TransformedBitmap(
-              $crop, (New-Object System.Windows.Media.ScaleTransform($k, $k)))
+  if ($pic.PixelWidth -gt $MAXEDGE -or $pic.PixelHeight -gt $MAXEDGE) {
+    $k = $MAXEDGE / [Math]::Max($pic.PixelWidth, $pic.PixelHeight)
+    $pic = New-Object System.Windows.Media.Imaging.TransformedBitmap(
+             $pic, (New-Object System.Windows.Media.ScaleTransform($k, $k)))
   }
 
   $enc = New-Object System.Windows.Media.Imaging.PngBitmapEncoder
-  $enc.Frames.Add([System.Windows.Media.Imaging.BitmapFrame]::Create($crop))
-  $dst = Join-Path $OUT $j.out
+  $enc.Frames.Add([System.Windows.Media.Imaging.BitmapFrame]::Create($pic))
+  $dst = Join-Path $OUTDIR ($icon + '.png')
   $fs = [IO.File]::Open($dst, 'Create')
   $enc.Save($fs)
   $fs.Close()
 
   $kb = [math]::Round((Get-Item $dst).Length / 1kb)
-  Write-Host ('  ' + $j.out.PadRight(18) + $crop.PixelWidth + 'x' + $crop.PixelHeight +
-              '  (from ' + $w + 'x' + $h + ')  ' + $kb + ' KB')
+  $how = if ($cut) { 'trimmed' } else { 'keyed  ' }
+  Write-Host ('  ' + ($icon + '.png').PadRight(18) + $how + '  ' +
+              $pic.PixelWidth + 'x' + $pic.PixelHeight + ' (from ' + $w + 'x' + $h + ')  ' + $kb + ' KB')
+  $done++
 }
-
+Write-Host ("cut-outs written : $done")
