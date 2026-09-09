@@ -1224,8 +1224,14 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    min-width:0 on the panel and minmax(0,1fr) on both tracks: a grid item is
    min-width:auto by default and sizes to its content, which on this page means
    a long chapter name setting the column width rather than fitting inside it. */
+/* auto 1fr, not two auto rows. The pictures span both rows and are taller than
+   the heading and the list together, and a spanning item hands its spare height
+   to every row it crosses -- so the heading's row grew too and the list started
+   a third of the way down the panel. Pinning the first row to the heading sends
+   all of that spare height to the second, where it belongs. */
 .catalog__chapter{min-width:0;display:grid;gap:0 42px;align-items:start;
   grid-template-columns:minmax(0,.92fr) minmax(0,1.22fr);
+  grid-template-rows:auto 1fr;
   grid-template-areas:"head media" "grid media"}
 /* Uppercase, which for Georgian means Mtavruli: main.js reads the computed
    text-transform, converts the Mkhedruli in place and then switches the CSS
@@ -1406,7 +1412,9 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .cat-tab__txt b{font-size:10.5px;line-height:1.25}
   /* One column, and the pictures move between the heading and the categories --
      which is the order they are read in on a phone anyway. */
+  /* Three rows here and nothing spanning them, so they all size to content. */
   .catalog__chapter{gap:0;grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto auto auto;
     grid-template-areas:"head" "media" "grid"}
   .catalog__chapter > h3{margin-bottom:16px;padding-bottom:14px;
     font-size:clamp(18px,4.4vw,24px)}
