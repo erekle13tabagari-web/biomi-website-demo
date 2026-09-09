@@ -1255,7 +1255,12 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    how every other accent on the site behaves and exactly what the .eyebrow
    above these headings uses. --purple was wrong here -- it is the one token
    that stays purple in both themes, so light mode kept the dark-mode colour. */
-.catalog__chapter h3{font-size:17px;line-height:1.3;letter-spacing:-.01em;text-transform:none;
+/* Uppercase, which for Georgian means Mtavruli: main.js reads the computed
+   text-transform, converts the Mkhedruli in place and then switches the CSS
+   transform off on the element, because uppercase would otherwise map Mtavruli
+   straight back down. Setting it here is the whole opt-in.
+   The tracking turns positive with it -- caps set at -.01em run together. */
+.catalog__chapter h3{font-size:17px;line-height:1.3;letter-spacing:.02em;text-transform:uppercase;
   color:var(--gold-600);margin:0 0 20px;min-height:2.6em}
 /* The pictogram. Sized here so a replacement file needs no dimensions of its
    own, only a square viewBox. No colour is set: each one is a brand-coloured
