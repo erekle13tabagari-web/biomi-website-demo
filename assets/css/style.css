@@ -1367,25 +1367,31 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .catalog--tabs{grid-template-columns:clamp(200px,25vw,260px) minmax(0,1fr);gap:0 34px}
   .catalog__chapter{gap:0 30px}
 }
-/* Tablet and phone: the rail turns and sits along the top. It is pinned under
-   the site header, so the chapter being read is always one tap from the next --
-   the site reads its other strips sideways at this width too. */
+/* Tablet and phone: the rail turns and sits along the top, wrapped so all five
+   chapters are in view at once. It scrolled sideways at first, which put the
+   last two off the edge of the screen -- and a chapter nobody can see is a
+   chapter nobody opens. Small enough that the five come to three rows on a
+   375px screen and the panel below still starts in the first viewport.
+   Not pinned any more: three rows of pills held under the header would take a
+   sixth of a phone screen for the whole scroll, and with none of them hidden
+   there is nothing to scroll back up to. */
 @media (max-width:900px){
   .catalog--tabs{grid-template-columns:1fr;gap:18px 0}
-  .catalog--tabs .catalog__rail{flex-direction:row;gap:8px;top:var(--header-h);z-index:3;
-    padding:10px 0;overflow-x:auto;background:var(--bg);
-    scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+  .catalog--tabs .catalog__rail{position:static;flex-direction:row;flex-wrap:wrap;
+    gap:7px;padding:0;overflow:visible;background:none}
   /* A row of pills rather than a list: the bar, the hairlines and the hover
-     indent all belong to a column and read as nothing lying on its side. */
-  .cat-tab{flex:0 0 auto;width:auto;gap:9px;padding:9px 15px;border-radius:100px;
-    border:1px solid var(--line);background:var(--surface);scroll-snap-align:start}
+     indent all belong to a column and read as nothing lying on its side.
+     flex:0 1 auto, so the one long chapter name can give width back and wrap
+     inside its own pill rather than pushing the row past the screen. */
+  .cat-tab{flex:0 1 auto;width:auto;gap:8px;padding:7px 12px;border-radius:100px;
+    border:1px solid var(--line);background:var(--surface)}
   .cat-tab:first-child{border-top:1px solid var(--line)}
-  .cat-tab:hover,.cat-tab.is-on{padding-left:15px;background:var(--bg-soft)}
+  .cat-tab:hover,.cat-tab.is-on{padding-left:12px;background:var(--bg-soft)}
   .cat-tab.is-on{border-color:var(--gold)}
   .cat-tab::before{display:none}
-  .cat-tab__ico{width:24px;height:24px}
+  .cat-tab__ico{width:20px;height:20px}
   .cat-tab__txt small{display:none}
-  .cat-tab__txt b{font-size:12px;white-space:nowrap}
+  .cat-tab__txt b{font-size:11px;line-height:1.25}
   /* One column, and the pictures move between the heading and the categories --
      which is the order they are read in on a phone anyway. */
   .catalog__chapter{gap:0;grid-template-columns:minmax(0,1fr);
