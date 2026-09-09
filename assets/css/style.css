@@ -1232,8 +1232,14 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    transform off on the element, because uppercase would otherwise map Mtavruli
    straight back down. Setting it here is the whole opt-in.
    The tracking turns positive with it -- caps set tight run together. */
+/* Sized to the longest word rather than to taste. "ᲛᲐᲙᲝᲛᲞᲚᲔᲥᲢᲔᲑᲔᲚᲘ" is one
+   unbreakable 16-character run, and Mtavruli is wide: at 30px it measured
+   311px against a 283px column and the tail of it lay across the photograph.
+   break-word is the backstop for a column narrower than any size can cover --
+   it only ever fires when the alternative is spilling out of the panel. */
 .catalog__chapter > h3{grid-area:head;margin:0 0 26px;padding-bottom:18px;
-  font-size:clamp(21px,2.3vw,30px);line-height:1.15;letter-spacing:.02em;
+  font-size:clamp(18px,1.8vw,24px);line-height:1.2;letter-spacing:.02em;
+  overflow-wrap:break-word;
   text-transform:uppercase;color:var(--ink-strong);border-bottom:1px solid var(--line)}
 /* The pictures. The padding under the frame is the room the product hangs into
    -- it is what makes the product read as standing in front of the scene rather
@@ -1385,7 +1391,7 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .catalog__chapter{gap:0;grid-template-columns:minmax(0,1fr);
     grid-template-areas:"head" "media" "grid"}
   .catalog__chapter > h3{margin-bottom:16px;padding-bottom:14px;
-    font-size:clamp(19px,4.6vw,26px)}
+    font-size:clamp(18px,4.4vw,24px)}
   .catalog__media{padding-bottom:13%;margin-bottom:22px}
   .catalog__grid{gap:16px}
   .catalog--tabs .catalog__view{min-height:0}
