@@ -502,30 +502,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-
-  /* ---- The scrollbar shows itself, then goes again ----
-     Drawn transparent in CSS until <html> carries .is-bar. It comes on while
-     the page is moving and while the pointer is within reach of the right
-     edge, and goes a moment after both stop -- so the bar is there to grab
-     when it is wanted and is not part of the page when it is not.
-     No timer while the pointer is over it: a bar that vanished under the
-     hand about to drag it would be worse than one that never appeared. */
-  (function () {
-    var root = document.documentElement, timer = null;
-    var NEAR = 34;            // px from the right edge that counts as reaching for it
-    function hide() { timer = null; root.classList.remove('is-bar'); }
-    function show(hold) {
-      root.classList.add('is-bar');
-      clearTimeout(timer); timer = null;
-      if (!hold) timer = setTimeout(hide, 1100);
-    }
-    window.addEventListener('scroll', function () { show(false); }, { passive: true });
-    window.addEventListener('mousemove', function (e) {
-      if (window.innerWidth - e.clientX < NEAR) show(true);
-      else if (!timer && root.classList.contains('is-bar')) timer = setTimeout(hide, 400);
-    }, { passive: true });
-  })();
-
   /* ---- Hero: infinite auto-carousel; mouse-move direction steers it ---- */
   (function () {
     var vp = document.querySelector('.hero__viewport');

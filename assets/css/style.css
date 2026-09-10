@@ -229,27 +229,18 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 :focus-visible{outline:2px solid var(--gold-600);outline-offset:3px;border-radius:4px}
 
 /* ---- the scrollbar ---------------------------------------------------------
-   Chrome draws a 15px grey trough down the right edge of every page, and it
-   belongs to no part of this design. It is not taken away altogether: with no
-   bar at all a reader has no idea how much page is left, and no way to drag
-   through it. It is drawn as a thin brand-coloured thumb on an invisible
-   trough instead, and it is invisible itself until the pointer comes near it
-   or the page moves -- main.js puts .is-bar on <html> for both, and takes it
-   off a moment after they stop. The gutter is reserved either way, so nothing
-   on the page shifts when it appears.
-   The border with background-clip is how a webkit thumb is made narrower than
-   its own track: there is no width property on it, so the padding box is the
-   only way in. */
-::-webkit-scrollbar{width:11px;height:11px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-corner{background:transparent}
-::-webkit-scrollbar-thumb{background-color:transparent;background-clip:content-box;
-  border:3px solid transparent;border-radius:99px}
-:root.is-bar ::-webkit-scrollbar-thumb{background-color:rgba(var(--accent-rgb),.42)}
-::-webkit-scrollbar-thumb:hover{background-color:rgba(var(--accent-rgb),.78)}
-/* Firefox has no pseudo-elements for this, only the two properties. */
-:root{scrollbar-width:thin;scrollbar-color:transparent transparent}
-:root.is-bar{scrollbar-color:rgba(var(--accent-rgb),.45) transparent}
+   Chrome draws a grey trough down the right edge of every page, and it belongs
+   to no part of this design. It is taken off: the wheel, the trackpad, the
+   keyboard and a finger on a touchscreen all still scroll the page, which
+   loses the bar and nothing else.
+   scrollbar-width is what does it, not ::-webkit-scrollbar. The pseudo-elements
+   are inert in current Chromium once the standard property is in play -- the
+   same reason the two scrollers styled further down this file are written with
+   the standard properties -- and the property is not inherited, so naming :root
+   takes the page's own bar and leaves those two alone.
+   The webkit line is for the older engines that read neither. */
+:root{scrollbar-width:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 
 /* ---- Layout helpers ---------------------------------------------------- */
 .container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:28px}
@@ -369,7 +360,6 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
    deeper than the `> a` selector, so they keep their lighter weight. */
 .prod-menu__panel > a,
 .prod-menu__panel .prod-sub__btn{font-weight:600}
-}
 /* tools */
 .nav__tools{display:flex;align-items:center;gap:8px;margin-left:6px}
 .lang{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;
