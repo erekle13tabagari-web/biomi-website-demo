@@ -107,6 +107,23 @@ $BRAND_CHIPS  = $false
 
 function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '<','&lt;' -replace '>','&gt;') }
 
+# A chapter's name on its pill in the rail, with the "and ..." half of it marked
+# so the stylesheet can drop that half on a phone, where the pill is half the
+# width of the screen -- see .cat-tab__tail. Split at the conjunction rather
+# than at a width: what is left has to still name the chapter, and
+# "ჰაერსატარი" / "Ducting" does, where the first ten characters would not.
+$CONJ = @(' და ', ' and ', ' & ')
+function PillName([string]$name) {
+  foreach ($c in $CONJ) {
+    $i = $name.IndexOf($c)
+    if ($i -ge 0) {
+      return (Esc $name.Substring(0, $i)) +
+             '<span class="cat-tab__tail">' + (Esc $name.Substring($i)) + '</span>'
+    }
+  }
+  return (Esc $name)
+}
+
 # A node can pin any of the listing's filters: ?cat= for a section of the range,
 # ?brand= for a make, the two together for a make within a section. The listing
 # ticks the matching boxes from the query string, so this is the whole mechanism.
@@ -191,7 +208,7 @@ foreach ($lang in 'ka','en') {
     if ($RAIL_PREVIEW) {
       $prev = '<small>' + (Esc (($ch.items | ForEach-Object { $_.$lang }) -join ' · ')) + '</small>'
     }
-    $rows.Add('          <span class="cat-tab__txt"><b>' + (Esc $ch.$lang) + '</b>' + $prev + '</span>')
+    $rows.Add('          <span class="cat-tab__txt"><b>' + (PillName $ch.$lang) + '</b>' + $prev + '</span>')
     $rows.Add('        </button>')
     $first = $false
   }

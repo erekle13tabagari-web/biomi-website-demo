@@ -1407,14 +1407,14 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   /* A grid, not a wrapped row: sized to their labels the pills came out five
      different widths, which reads as five different kinds of thing rather than
      five chapters of one list. Every cell is the same width now.
-     auto-fit rather than a column count, because the count that fits changes
-     with the chapter names: two 156px columns could not hold
-     "ᲛᲐᲙᲝᲛᲞᲚᲔᲥᲢᲔᲑᲔᲚᲘ" on any line -- one unbreakable word wants 137px against
-     102px of room -- so on a phone the five run one per row and get the full
-     width, and a tablet fits two or three. */
+     Two columns, and five chapters leave one over: it takes the width of both
+     rather than standing half a row on its own. :last-child on its own would
+     span a sixth pill as readily as a fifth -- :nth-child(odd) is the part
+     that says "the one with no partner". */
   .catalog--tabs .catalog__rail{position:static;display:grid;gap:7px;padding:0;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    grid-template-columns:repeat(2,minmax(0,1fr));
     overflow:visible;background:none}
+  .cat-tab:nth-child(odd):last-child{grid-column:1/-1}
   /* A pill rather than a list row: the bar, the hairlines and the hover indent
      all belong to a column and read as nothing lying on its side.
      min-height so a one-line label and a two-line one still stand the same
@@ -1427,9 +1427,10 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .cat-tab::before{display:none}
   .cat-tab__ico{width:20px;height:20px}
   .cat-tab__txt small{display:none}
-  /* 10.5, not 11: at 11 the longest chapter name needed 259px of a 259px box on
-     a 375px screen, so the slightest difference in how the face renders tipped
-     it onto a second line and that one pill stood taller than the other four. */
+  /* 10.5, not 11: half a pill on a 375px screen leaves 99px for a label and
+     the longest name that stays whole there wants 88 of it. At 11 it wants 92,
+     which is room enough until the face renders a hair wider somewhere and one
+     name goes onto two lines while the four beside it stay on one. */
   .cat-tab__txt b{font-size:10.5px;line-height:1.25}
   /* One column, and the pictures move between the heading and the categories --
      which is the order they are read in on a phone anyway. */
@@ -1444,6 +1445,18 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .catalog__media{aspect-ratio:4/3;margin-bottom:18px}
   .catalog__grid{gap:16px}
   .catalog--tabs .catalog__view{min-height:0}
+}
+
+/* Half a phone's width leaves 99px for a label, and the fourth chapter's name
+   ends in a single 137px word. Georgian does not hyphenate and nothing in the
+   word breaks, so it would hang out of its pill rather than wrap. The "and ..."
+   half of a name goes below 560px: what is left is the chapter either way --
+   "Ducting", "ჰაერსატარი" -- and the panel heading right below it carries the
+   name in full the moment it is open. On the Georgian page the button still
+   announces the whole of it: main.js copies the label, hidden half included,
+   into aria-label when it converts the caps. */
+@media (max-width:560px){
+  .cat-tab__tail{display:none}
 }
 
 /* ---- product detail page ---- */
