@@ -43,11 +43,20 @@ $sp   = $PSScriptRoot
 $repo = Split-Path $sp -Parent
 $OUTDIR = Join-Path $repo 'assets\img\cutouts'
 
+$BGOUT    = Join-Path $repo 'assets\img\cat-bg'
+# The sub-folder of the drop that holds the chapter backgrounds rather than a
+# chapter's products.
+$BGFOLDER = 'Backgrounds'
+
 $MARGIN  = 4
 # The cut-out is never drawn wider than about 300 CSS pixels, so this is a
 # little over 2x. PNG is the only alpha format every browser reads and it is a
 # poor container for photographed metal -- the duct is the one to watch.
 $MAXEDGE = 700
+# The wash spans the window, so it is sized for a large screen rather than for
+# the element. A blurred gradient survives being stretched, which is why this
+# can be well under a 2x retina width.
+$BGEDGE  = 1600
 
 if (-not $Drop) {
   # Escapes, not the letters themselves: the point is that this line survives
@@ -214,16 +223,29 @@ function IconFor([string]$folder) {
   return ''
 }
 
-$done = 0
-foreach ($dir in (Get-ChildItem -LiteralPath $Drop -Directory | Sort-Object Name)) {
-  $icon = IconFor $dir.Name
-  if (-not $icon) { Write-Host ('  no chapter matches folder: ' + $dir.Name); continue }
+# A sub-folder inside a chapter is one of its categories, named in English:
+# "Boiler", "water heater", "in-line". Loosely, because those are typed by hand
+# and the tree says "Boilers", "Water heaters", "In-line" -- so case, spacing,
+# hyphens and a trailing s are all ignored.
+#
+# The key that comes back is what the page asks for the file by: a category's
+# own filter slug where it has one (the four ventilation categories all live on
+# the same listing and are told apart by cat=), otherwise its page.
+function Norm([string]$s) { ($s -replace '[^a-z0-9]', '').TrimEnd('s') }
+function KeyFor($chapter, [string]$folder) {
+  $want = Norm $folder.ToLower()
+  foreach ($it in $chapter.items) {
+    if ((Norm $it.en.ToLower()) -eq $want) {
+      if ($it.cat)  { return [string]$it.cat }
+      if ($it.page) { return [string]$it.page }
+    }
+  }
+  return ''
+}
 
-  $img = Get-ChildItem -LiteralPath $dir.FullName -File |
-         Where-Object { $_.Extension -match '^\.(png|jpg|jpeg|webp|avif|tif|tiff|bmp)$' } |
-         Sort-Object Name | Select-Object -First 1
-  if (-not $img) { Write-Host ('  ' + $icon.PadRight(14) + 'no picture yet'); continue }
-
+# One picture out of a folder, cut out if it needs it, trimmed to what is left,
+# capped, and written as a PNG. Returns the size line for the log.
+function WriteCutout([IO.FileInfo]$img, [string]$name) {
   $uri = New-Object System.Uri($img.FullName)
   $dec = [System.Windows.Media.Imaging.BitmapDecoder]::Create($uri, 'None', 'OnLoad')
   # to straight-alpha BGRA, which is both what the keying assumes and what the
@@ -238,7 +260,7 @@ foreach ($dir in (Get-ChildItem -LiteralPath $Drop -Directory | Sort-Object Name
   if (-not $cut) { [Cutout]::Key($px, $w, $h, $stride, 250) }
 
   $box = [Cutout]::Box($px, $w, $h, $stride)
-  if ($box[2] -lt $box[0]) { Write-Host ('  ' + $icon + ' : nothing left after keying'); continue }
+  if ($box[2] -lt $box[0]) { return ($name + ' : nothing left after keying') }
 
   $x0 = [Math]::Max(0, $box[0] - $MARGIN); $y0 = [Math]::Max(0, $box[1] - $MARGIN)
   $x1 = [Math]::Min($w - 1, $box[2] + $MARGIN); $y1 = [Math]::Min($h - 1, $box[3] + $MARGIN)
@@ -256,15 +278,93 @@ foreach ($dir in (Get-ChildItem -LiteralPath $Drop -Directory | Sort-Object Name
 
   $enc = New-Object System.Windows.Media.Imaging.PngBitmapEncoder
   $enc.Frames.Add([System.Windows.Media.Imaging.BitmapFrame]::Create($pic))
-  $dst = Join-Path $OUTDIR ($icon + '.png')
+  $dst = Join-Path $OUTDIR ($name + '.png')
   $fs = [IO.File]::Open($dst, 'Create')
   $enc.Save($fs)
   $fs.Close()
 
   $kb = [math]::Round((Get-Item $dst).Length / 1kb)
   $how = if ($cut) { 'trimmed' } else { 'keyed  ' }
-  Write-Host ('  ' + ($icon + '.png').PadRight(18) + $how + '  ' +
-              $pic.PixelWidth + 'x' + $pic.PixelHeight + ' (from ' + $w + 'x' + $h + ')  ' + $kb + ' KB')
-  $done++
+  return (($name + '.png').PadRight(24) + $how + '  ' + $pic.PixelWidth + 'x' + $pic.PixelHeight +
+          ' (from ' + $w + 'x' + $h + ')  ' + $kb + ' KB')
 }
-Write-Host ("cut-outs written : $done")
+
+function Pictures([string]$dir) {
+  Get-ChildItem -LiteralPath $dir -File |
+    Where-Object { $_.Extension -match '^\.(png|jpg|jpeg|webp|avif|tif|tiff|bmp)$' } |
+    Sort-Object Name
+}
+
+$done = 0
+foreach ($dir in (Get-ChildItem -LiteralPath $Drop -Directory | Sort-Object Name)) {
+  if ($dir.Name -eq $BGFOLDER) { continue }
+  $icon = IconFor $dir.Name
+  if (-not $icon) { Write-Host ('  no chapter matches folder: ' + $dir.Name); continue }
+  $chapter = $TREE | Where-Object { [string]$_.icon -eq $icon } | Select-Object -First 1
+
+  # A picture sitting loose in the chapter folder is the chapter's own product.
+  # Where there is none the page falls back to the first category that has one,
+  # so heating opens on its boiler without anything having to say so.
+  $loose = @(Pictures $dir.FullName)
+  if ($loose.Count) { Write-Host ('  ' + (WriteCutout $loose[0] $icon)); $done++ }
+
+  # Each sub-folder is one category of that chapter.
+  foreach ($sub in (Get-ChildItem -LiteralPath $dir.FullName -Directory | Sort-Object Name)) {
+    $key = KeyFor $chapter $sub.Name
+    if (-not $key) {
+      Write-Host ('  no category in ' + $icon + ' matches sub-folder: ' + $sub.Name); continue
+    }
+    $pics = @(Pictures $sub.FullName)
+    if (-not $pics.Count) { Write-Host ('  ' + ($icon + '-' + $key).PadRight(24) + 'no picture yet'); continue }
+    Write-Host ('  ' + (WriteCutout $pics[0] ($icon + '-' + $key)))
+    $done++
+  }
+}
+
+# ---- the backgrounds
+#
+# The wash behind the catalogue band, one per chapter. Not cut-outs: these are
+# full-frame gradients, so they are only resized and re-encoded.
+#
+# JPEG, not PNG. PNG stores a smooth gradient badly -- these arrived at 1.1 MB
+# each and come out around a tenth of that as JPEG, with nothing to see in the
+# difference on a gradient.
+#
+# Matched by filename because they are named in English and do not correspond to
+# anything in the tree: "Air ducts" is the chapter the tree calls
+# "Ducting & fittings". Rename a file and add a line here.
+$BGMAP = @{ 'heating' = 'heating'; 'cooling' = 'cooling'; 'ventilation' = 'ventilation'
+            'air ducts' = 'ducting'; 'water supply' = 'water' }
+$bgDir = Join-Path $Drop $BGFOLDER
+if (Test-Path -LiteralPath $bgDir) {
+  if (-not (Test-Path $BGOUT)) { New-Item -ItemType Directory -Path $BGOUT | Out-Null }
+  foreach ($img in (Pictures $bgDir)) {
+    $key = $img.BaseName.ToLower()
+    if (-not $BGMAP.ContainsKey($key)) { Write-Host ('  no chapter for background: ' + $img.Name); continue }
+    $icon = $BGMAP[$key]
+
+    $uri = New-Object System.Uri($img.FullName)
+    $dec = [System.Windows.Media.Imaging.BitmapDecoder]::Create($uri, 'None', 'OnLoad')
+    $pic = $dec.Frames[0]
+    $w0 = $pic.PixelWidth; $h0 = $pic.PixelHeight
+    if ($pic.PixelWidth -gt $BGEDGE) {
+      $k = $BGEDGE / $pic.PixelWidth
+      $pic = New-Object System.Windows.Media.Imaging.TransformedBitmap(
+               $pic, (New-Object System.Windows.Media.ScaleTransform($k, $k)))
+    }
+    $enc = New-Object System.Windows.Media.Imaging.JpegBitmapEncoder
+    $enc.QualityLevel = 82
+    $enc.Frames.Add([System.Windows.Media.Imaging.BitmapFrame]::Create($pic))
+    $dst = Join-Path $BGOUT ($icon + '.jpg')
+    $fs = [IO.File]::Open($dst, 'Create')
+    $enc.Save($fs)
+    $fs.Close()
+
+    $kb = [math]::Round((Get-Item $dst).Length / 1kb)
+    Write-Host ('  ' + ($icon + '.jpg').PadRight(24) + 'wash     ' + $pic.PixelWidth + 'x' +
+                $pic.PixelHeight + ' (from ' + $w0 + 'x' + $h0 + ')  ' + $kb + ' KB')
+    $done++
+  }
+}
+
+Write-Host ("pictures written : $done")

@@ -32,30 +32,36 @@ $TREE = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | Conve
 # is what would otherwise argue for inlining them.
 $ICODIR = 'assets/img/cat-icons/'
 
-# What each chapter shows beside its categories, keyed on the chapter's own icon
-# slug so a chapter cannot end up with a pictogram and no picture.
+# ---- the pictures -----------------------------------------------------------
 #
-# Two layers. photo is the scene -- one of our own installations wherever there
-# is one, which is four of the five. hero is the product standing in front of
-# it, and is not listed here at all: tools/cutout.ps1 writes one per chapter,
-# named after the chapter's icon slug, from the pictures dropped in the
-# menu-images folder. To change the boiler in front of "გათბობა", replace the
-# picture in that folder and re-run the script -- this table stays put.
+# All of them are written by tools/cutout.ps1 out of the menu-images folder, and
+# all of them are found here by name rather than listed in a table. Drop a
+# picture into the right folder, re-run that script, and this one picks it up:
 #
-# Water supply has no listing yet and so no product to stand there; its panel is
-# the photograph alone, and the layout closes the gap under it.
+#   assets/img/cat-bg/<icon>.jpg          the wash behind the whole band
+#   assets/img/cutouts/<icon>.png         the chapter's own product
+#   assets/img/cutouts/<icon>-<key>.png   one category's product, <key> being
+#                                         the category's cat= filter where it
+#                                         has one and its page otherwise
+#
+# A chapter with no product of its own opens on the first of its categories that
+# has one, so heating shows its boiler without anything having to say so.
 # Paths have no prefix: products.html sits at the site root.
-$MEDIA = @{
-  'heating'     = @{ photo = 'assets/img/terminal-gallery/terminal-7.avif'
-                     hero  = 'assets/img/cutouts/heating.png' }
-  'cooling'     = @{ photo = 'assets/img/prod-cooling.jpg'
-                     hero  = 'assets/img/cutouts/cooling.png' }
-  'ventilation' = @{ photo = 'assets/img/terminal-gallery/terminal-5.avif'
-                     hero  = 'assets/img/cutouts/ventilation.png' }
-  'ducting'     = @{ photo = 'assets/img/news-duct-production.jpg'
-                     hero  = 'assets/img/cutouts/ducting.png' }
-  'water'       = @{ photo = 'assets/img/prod-water.jpg'
-                     hero  = '' }
+$CUTDIR = 'assets/img/cutouts/'
+$BGDIR  = 'assets/img/cat-bg/'
+
+# The slug a category's picture is filed under. The four ventilation categories
+# share one listing and are told apart by cat=, so that comes first.
+function PicKey($it) {
+  if ($it.cat)  { return [string]$it.cat }
+  if ($it.page) { return [string]$it.page }
+  return ''
+}
+# Returns the path if the file is actually there, and '' if it is not -- so a
+# category with no picture yet simply has none, rather than a broken image.
+function PicFor([string]$rel) {
+  if ($rel -and (Test-Path (Join-Path $repo ($rel -replace '/','\')))) { return $rel }
+  return ''
 }
 
 # $PAGE, not $T: PowerShell variable names are case-insensitive, so $t = $PAGE[$lang]
@@ -196,38 +202,51 @@ foreach ($lang in 'ka','en') {
   foreach ($ch in $TREE) {
     $on = if ($first) { ' is-on' } else { '' }
     $first = $false
-    $rows.Add('      <section class="catalog__chapter' + $on + '" data-ch="' + $ch.icon + '">')
+    # data-bg is the wash for the whole band, which main.js cross-fades behind
+    # the rail as well as the panel -- so it lives on the chapter rather than in
+    # it, and there is nothing to draw here.
+    $bg = PicFor ($BGDIR + $ch.icon + '.jpg')
+    $bgAttr = if ($bg) { ' data-bg="' + $bg + '"' } else { '' }
+    $rows.Add('      <section class="catalog__chapter' + $on + '" data-ch="' + $ch.icon + '"' + $bgAttr + '>')
     $rows.Add('        <h3>' + (Esc $ch.$lang) + '</h3>')
-    # The pictogram is the rail's job now -- it names the chapter there, beside
-    # the tab it belongs to, and repeating it over the heading it already sits
-    # next to said the same thing twice.
-    #
-    # Both pictures are decorative: the heading beside them names the chapter
-    # and the list under it names every category, so alt text here would only
-    # repeat what a screen reader has already read.
-    if ($MEDIA.ContainsKey([string]$ch.icon)) {
-      $m = $MEDIA[[string]$ch.icon]
-      # Only the open chapter's pictures are wanted up front. The other four
-      # panels are display:none until their tab is chosen, and a lazy image
-      # inside one is not fetched until it is -- which is the whole reason the
-      # cut-outs can be PNGs at all.
-      $lazy = if ($on) { '' } else { ' loading="lazy"' }
-      $plain = if ($m.hero) { '' } else { ' catalog__media--plain' }
-      $rows.Add('        <div class="catalog__media' + $plain + '">')
-      $rows.Add('          <div class="catalog__frame"><img class="catalog__photo" src="' +
-                $m.photo + '" alt=""' + $lazy + '></div>')
-      if ($m.hero) {
-        $rows.Add('          <img class="catalog__hero" src="' + $m.hero + '" alt=""' + $lazy + '>')
+
+    # The chapter's own product, or the first category's where it has none.
+    # The pictogram is the rail's job -- it names the chapter there, beside the
+    # tab it belongs to, and repeating it over the heading said it twice.
+    $hero = PicFor ($CUTDIR + $ch.icon + '.png')
+    if (-not $hero) {
+      foreach ($it in $ch.items) {
+        $hero = PicFor ($CUTDIR + $ch.icon + '-' + (PicKey $it) + '.png')
+        if ($hero) { break }
       }
+    }
+    if ($hero) {
+      # Decorative: the heading beside it names the chapter and the list under
+      # it names every category, so alt text would only repeat what a screen
+      # reader has already read.
+      #
+      # Only the open chapter's picture is wanted up front. The other four
+      # panels are display:none until their tab is chosen, and a lazy image
+      # inside one is not fetched until it is -- which is the whole reason
+      # these can be PNGs at all.
+      $lazy = if ($on) { '' } else { ' loading="lazy"' }
+      $rows.Add('        <div class="catalog__media">')
+      $rows.Add('          <img class="catalog__hero" src="' + $hero + '" alt=""' + $lazy + '>')
       $rows.Add('        </div>')
     }
     $rows.Add('        <div class="catalog__grid">')
     foreach ($it in $ch.items) {
       $items++
       $kids = @($it.kids)
+      # A category with a product of its own puts it on the row, and main.js
+      # swaps the picture to it while the pointer or the keyboard is there.
+      # Absent, the row leaves the chapter's picture where it is rather than
+      # blanking it -- a category with no photograph yet should cost nothing.
+      $ihero = PicFor ($CUTDIR + $ch.icon + '-' + (PicKey $it) + '.png')
+      $iheroAttr = if ($ihero) { ' data-hero="' + $ihero + '"' } else { '' }
       if ($it.page) {
         $href = 'products/' + $it.page + $sfx + (Query $it)
-        $rows.Add('          <div class="catalog__item">')
+        $rows.Add('          <div class="catalog__item"' + $iheroAttr + '>')
         $rows.Add('            <a class="catalog__name" href="' + $href + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
         if ($BRAND_CHIPS -and $kids.Count) {
           $rows.Add('            <div class="catalog__subs">')
@@ -246,7 +265,7 @@ foreach ($lang in 'ka','en') {
         # no listing yet: the name goes to the holding page, and its sub-items
         # are plain text rather than links, there being nothing behind them yet
         # (when $BRAND_CHIPS is on -- see the switch at the top)
-        $rows.Add('          <div class="catalog__item catalog__item--soon">')
+        $rows.Add('          <div class="catalog__item catalog__item--soon"' + $iheroAttr + '>')
         $rows.Add('            <a class="catalog__name" href="soon' + $sfx + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
         if ($BRAND_CHIPS -and $kids.Count) {
           $rows.Add('            <div class="catalog__subs">')
@@ -275,7 +294,8 @@ foreach ($lang in 'ka','en') {
   </div>
 </section>
 
-<section class="section" style="padding-top:26px">
+<section class="section catalog-band" style="padding-top:26px">
+  <div class="catalog-band__bg" aria-hidden="true"><i></i><i></i></div>
   <div class="container">
     <div class="catalog">
 {ROWS}

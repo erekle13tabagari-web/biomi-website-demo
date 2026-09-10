@@ -1017,6 +1017,30 @@
       var ch = p.getAttribute('data-ch');
       if (!p.id) p.id = 'catp-' + ch;
       p.setAttribute('role', 'tabpanel');
+
+      /* The picture the chapter opens on, remembered so a row can hand it back
+         when the pointer leaves. */
+      var img = p.querySelector('.catalog__hero');
+      if (img) p.dataset.hero0 = img.getAttribute('src');
+
+      var grid = p.querySelector('.catalog__grid');
+      if (!grid || !img) return;
+      /* A category with a picture of its own shows it while it is being read.
+         Rows without one are left alone rather than blanking the picture -- a
+         category we have no photograph for yet should cost nothing.
+         focusin as well as mouseenter, so tabbing the list does the same thing
+         as running a pointer down it. */
+      [].slice.call(grid.querySelectorAll('.catalog__item[data-hero]')).forEach(function (row) {
+        function enter() { setHero(p, row.getAttribute('data-hero')); }
+        row.addEventListener('mouseenter', enter);
+        row.addEventListener('focusin', enter);
+      });
+      function back() { setHero(p, p.dataset.hero0); }
+      grid.addEventListener('mouseleave', back);
+      grid.addEventListener('focusout', function (e) {
+        // only when focus has actually left the list, not moved within it
+        if (!grid.contains(e.relatedTarget)) back();
+      });
     });
     tabs.forEach(function (t) {
       var ch = t.getAttribute('data-ch');
@@ -1028,6 +1052,40 @@
         panel.setAttribute('aria-labelledby', t.id);
       }
     });
+
+    /* ---- the wash behind the band ----
+       Two layers cross-fading, so a chapter change reads as one picture
+       dissolving into the next rather than flashing the page between them. The
+       band only takes its dark text colours once there is a picture to carry
+       them, which is why the class is added here and not in the markup. */
+    var band = wrap.closest('.catalog-band');
+    var bgWrap = band && band.querySelector('.catalog-band__bg');
+    var layers = bgWrap ? [].slice.call(bgWrap.querySelectorAll('i')) : [];
+    var front = 0;
+    function setBg(src) {
+      if (layers.length < 2 || !src) return;
+      if (layers[front].dataset.src === src) return;
+      var back = 1 - front;
+      layers[back].style.backgroundImage = 'url("' + src + '")';
+      layers[back].dataset.src = src;
+      layers[back].classList.add('is-on');
+      layers[front].classList.remove('is-on');
+      front = back;
+      band.classList.add('catalog-band--washed');
+    }
+
+    /* ---- the product ----
+       Restarting the arrival animation takes clearing the property, forcing a
+       reflow so the browser notices it has gone, and putting it back. Setting
+       src alone swaps the picture with no movement at all. */
+    function setHero(panel, src) {
+      var img = panel.querySelector('.catalog__hero');
+      if (!img || !src || img.getAttribute('src') === src) return;
+      img.setAttribute('src', src);
+      img.style.animation = 'none';
+      void img.offsetWidth;
+      img.style.animation = '';
+    }
 
     function show(ch, focus) {
       tabs.forEach(function (t) {
@@ -1041,7 +1099,12 @@
         if (on && focus) t.focus();
       });
       panels.forEach(function (p) {
-        p.classList.toggle('is-on', p.getAttribute('data-ch') === ch);
+        var on = p.getAttribute('data-ch') === ch;
+        p.classList.toggle('is-on', on);
+        if (!on) return;
+        setBg(p.getAttribute('data-bg'));
+        // back to the chapter's own product, whatever a row last put there
+        setHero(p, p.dataset.hero0);
       });
     }
 
