@@ -11,11 +11,7 @@
   {"ka":"იატაკის გათბობა","en":"Underfloor heating","page":null,"kids":[
     {"ka":"მილები","en":"Pipes","page":null},
     {"ka":"იატაკის საფენი","en":"Floor underlay","page":null},
-    {"ka":"კოლექტორი","en":"Manifold","page":null}]},
-  {"ka":"აქსესუარები","en":"Accessories","page":null,"kids":[
-    {"ka":"ჰიდრავლიკური გამათანაბრებელი","en":"Hydraulic separator","page":null},
-    {"ka":"ტუმბო (Dab, Wilo)","en":"Pump (Dab, Wilo)","page":null},
-    {"ka":"მაკომპლექტებელი","en":"Fittings","page":null}]}
+    {"ka":"კოლექტორი","en":"Manifold","page":null}]}
 ]},
 
 {"ka":"გაგრილება","en":"Cooling","icon":"cooling","items":[
@@ -38,15 +34,11 @@
 {"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","icon":"ducting","items":[
   {"ka":"ჰაერსატარი","en":"Ducting","page":"ducting","kids":[]},
   {"ka":"ცხაურა","en":"Grilles","page":null,"kids":[]},
-  {"ka":"აქსესუარები","en":"Accessories","page":null,"kids":[]}
+  {"ka":"აქსესუარები","en":"Accessories","page":"accessories","kids":[]}
 ]},
 
 {"ka":"წყალმომარაგება","en":"Water supply","icon":"water","items":[
-  {"ka":"მილები","en":"Pipes","page":null,"kids":[
-    {"ka":"Tiemme","en":"Tiemme","page":null},
-    {"ka":"Botti","en":"Botti","page":null},
-    {"ka":"Aquappa","en":"Aquappa","page":null}]},
-  {"ka":"ტუმბოები","en":"Pumps","page":null,"kids":[
+  {"ka":"სატუმბო სადგური","en":"Pumping station","page":null,"kids":[
     {"ka":"Dab","en":"Dab","page":null}]}
 ]}
 ]

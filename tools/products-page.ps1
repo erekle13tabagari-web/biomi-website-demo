@@ -31,23 +31,27 @@ $TREE = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | Conve
 # ring and a symbol per category -- so they want no colour from the page, which
 # is what would otherwise argue for inlining them.
 $ICODIR = 'assets/img/cat-icons/'
-
 # ---- the pictures -----------------------------------------------------------
 #
 # All of them are written by tools/cutout.ps1 out of the menu-images folder, and
 # all of them are found here by name rather than listed in a table. Drop a
 # picture into the right folder, re-run that script, and this one picks it up:
 #
-#   assets/img/cat-bg/<icon>.jpg          the wash behind the whole band
-#   assets/img/cutouts/<icon>.png         the chapter's own product
-#   assets/img/cutouts/<icon>-<key>.png   one category's product, <key> being
-#                                         the category's cat= filter where it
-#                                         has one and its page otherwise
+#   assets/img/cat-bg/<icon>.jpg             the wash behind the whole band
+#   assets/img/cutouts/sm/<icon>.png         the chapter's own product
+#   assets/img/cutouts/sm/<icon>-<key>.png   one category's product, <key> being
+#                                            the category's cat= filter where it
+#                                            has one and its page otherwise
 #
-# A chapter with no product of its own opens on the first of its categories that
-# has one, so heating shows its boiler without anything having to say so.
+# The sm copies, not the full-size ones beside them: a card is about 280px wide
+# and a chapter shows several at once, where the full cut-out is sized to be one
+# picture filling half a page.
+#
+# A chapter with no product of its own lends it to the first of its categories
+# that has none, so heating's boiler and cooling's outdoor unit land where they
+# belong without anything having to say so.
 # Paths have no prefix: products.html sits at the site root.
-$CUTDIR = 'assets/img/cutouts/'
+$SMDIR = 'assets/img/cutouts/sm/'
 $BGDIR  = 'assets/img/cat-bg/'
 
 # The slug a category's picture is filed under. The four ventilation categories
@@ -220,77 +224,46 @@ foreach ($lang in 'ka','en') {
     $on = if ($first) { ' is-on' } else { '' }
     $first = $false
     # data-bg is the wash for the whole band, which main.js cross-fades behind
-    # the rail as well as the panel -- so it lives on the chapter rather than in
+    # the tabs as well as the panel -- so it lives on the chapter rather than in
     # it, and there is nothing to draw here.
     $bg = PicFor ($BGDIR + $ch.icon + '.jpg')
     $bgAttr = if ($bg) { ' data-bg="' + $bg + '"' } else { '' }
     $rows.Add('      <section class="catalog__chapter' + $on + '" data-ch="' + $ch.icon + '"' + $bgAttr + '>')
     $rows.Add('        <h3>' + (Esc $ch.$lang) + '</h3>')
-
-    # The chapter's own product, or the first category's where it has none.
-    # The pictogram is the rail's job -- it names the chapter there, beside the
-    # tab it belongs to, and repeating it over the heading said it twice.
-    $hero = PicFor ($CUTDIR + $ch.icon + '.png')
-    if (-not $hero) {
-      foreach ($it in $ch.items) {
-        $hero = PicFor ($CUTDIR + $ch.icon + '-' + (PicKey $it) + '.png')
-        if ($hero) { break }
-      }
-    }
-    if ($hero) {
-      # Decorative: the heading beside it names the chapter and the list under
-      # it names every category, so alt text would only repeat what a screen
-      # reader has already read.
-      #
-      # Only the open chapter's picture is wanted up front. The other four
+    $rows.Add('        <div class="catalog__grid">')
+    # A card per category: its own product, its name, an arrow. The pictures are
+    # the menu-size copies -- a card is 280px wide and the full cut-out is half
+    # a megabyte, which is a price worth paying for one hero and not for twelve.
+    $head = $true
+    foreach ($it in $ch.items) {
+      $items++
+      $pic = PicFor ($SMDIR + $ch.icon + '-' + (PicKey $it) + '.png')
+      # A chapter's own picture is a picture of the first thing under it -- the
+      # duct for ducting, the outdoor unit for cooling -- so it stands in there
+      # and nowhere else, rather than repeating down the row.
+      if (-not $pic -and $head) { $pic = PicFor ($SMDIR + $ch.icon + '.png') }
+      $head = $false
+      # Only the open chapter's pictures are wanted up front. The other four
       # panels are display:none until their tab is chosen, and a lazy image
       # inside one is not fetched until it is -- which is the whole reason
       # these can be PNGs at all.
       $lazy = if ($on) { '' } else { ' loading="lazy"' }
-      $rows.Add('        <div class="catalog__media">')
-      $rows.Add('          <img class="catalog__hero" src="' + $hero + '" alt=""' + $lazy + '>')
-      $rows.Add('        </div>')
-    }
-    $rows.Add('        <div class="catalog__grid">')
-    foreach ($it in $ch.items) {
-      $items++
-      $kids = @($it.kids)
-      # A category with a product of its own puts it on the row, and main.js
-      # swaps the picture to it while the pointer or the keyboard is there.
-      # Absent, the row leaves the chapter's picture where it is rather than
-      # blanking it -- a category with no photograph yet should cost nothing.
-      $ihero = PicFor ($CUTDIR + $ch.icon + '-' + (PicKey $it) + '.png')
-      $iheroAttr = if ($ihero) { ' data-hero="' + $ihero + '"' } else { '' }
+      # Decorative: the name is on the card under it, and the heading above
+      # names the chapter, so alt text would only say it a third time.
+      $img = if ($pic) { '<img src="' + $pic + '" alt=""' + $lazy + '>' } else { '' }
+      # A range we carry but have no listing for yet goes to the holding page,
+      # and its name is grey until it has one.
       if ($it.page) {
         $href = 'products/' + $it.page + $sfx + (Query $it)
-        $rows.Add('          <div class="catalog__item"' + $iheroAttr + '>')
-        $rows.Add('            <a class="catalog__name" href="' + $href + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
-        if ($BRAND_CHIPS -and $kids.Count) {
-          $rows.Add('            <div class="catalog__subs">')
-          foreach ($k in $kids) {
-            # the listing pre-ticks from the query, so a brand here lands on that
-            # brand's products rather than the whole category -- and a kid that
-            # also carries a section lands inside it
-            $kh = if ($k.page) { 'products/' + $k.page + $sfx + (Query $k) }
-                  else { 'soon' + $sfx }
-            $rows.Add('              <a href="' + $kh + '">' + (Esc $k.$lang) + '</a>')
-          }
-          $rows.Add('            </div>')
-        }
-        $rows.Add('          </div>')
+        $soon = ''
       } else {
-        # no listing yet: the name goes to the holding page, and its sub-items
-        # are plain text rather than links, there being nothing behind them yet
-        # (when $BRAND_CHIPS is on -- see the switch at the top)
-        $rows.Add('          <div class="catalog__item catalog__item--soon"' + $iheroAttr + '>')
-        $rows.Add('            <a class="catalog__name" href="soon' + $sfx + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
-        if ($BRAND_CHIPS -and $kids.Count) {
-          $rows.Add('            <div class="catalog__subs">')
-          foreach ($k in $kids) { $rows.Add('              <span>' + (Esc $k.$lang) + '</span>') }
-          $rows.Add('            </div>')
-        }
-        $rows.Add('          </div>')
+        $href = 'soon' + $sfx
+        $soon = ' catalog__card--soon'
       }
+      $rows.Add('          <a class="catalog__card' + $soon + '" href="' + $href + '">')
+      $rows.Add('            <span class="catalog__pic">' + $img + '</span>')
+      $rows.Add('            <span class="catalog__name">' + (Esc $it.$lang) + ' ' + $ARROW + '</span>')
+      $rows.Add('          </a>')
     }
     $rows.Add('        </div>')
     $rows.Add('      </section>')

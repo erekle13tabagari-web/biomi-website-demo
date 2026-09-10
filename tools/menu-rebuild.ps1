@@ -13,18 +13,6 @@ $sp   = $PSScriptRoot
 $tree = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 
 $CARET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
-# The card arrow, and the one on the "all products" link. Same mark the
-# catalogue's category rows carry, so the two pages read as one list.
-$ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
-
-# A picture's path if the file is really there, and '' if it is not: a category
-# with nothing photographed yet gets a card with the chapter's wash and no
-# product, rather than a broken image. Drop the picture in, run tools/cutout.ps1
-# and the card fills itself in -- there is no list of them here.
-function Pic([string]$rel) {
-  if (Test-Path (Join-Path $repo ($rel -replace '/','\'))) { return $rel }
-  return ''
-}
 
 # Return the index just past the </div> that closes the <div> starting at $i.
 function DivEnd([string]$s, [int]$i) {
@@ -61,7 +49,6 @@ foreach ($f in $files) {
   # form, which is what someone clicking "underfloor heating" actually needs.
   $A = $U + 'soon' + $sfx
   $subAria = if ($en) { 'Subcategories' } else { 'ქვეკატეგორიები' }
-  $allTxt  = if ($en) { 'View all products' } else { 'ყველა პროდუქტის ნახვა' }
   # Brand entries no longer have a landing page of their own: they point at
   # their category listing with ?brand=<slug>, which main.js reads and
   # pre-ticks. Items with no page at all fall back to the holding page.
@@ -81,69 +68,32 @@ foreach ($f in $files) {
   }
 
   # ------------------------------------------------------- desktop mega-menu
-  #
-  # A row of chapters, and under whichever one is up, a card for each of its
-  # categories: the picture the catalogue shows for that category, its name and
-  # an arrow. What was here before was five accordions of nested lists -- three
-  # clicks from the menu to a brand, and not a picture of anything in it.
-  #
-  # Brands are not on this row. They are still a level down in the drawer and a
-  # filter on every listing, and a card has no line to carry three of them
-  # without turning back into the list this replaces.
-  #
-  # No tab roles written here: as on the catalogue, the tabs are only real once
-  # the script has run, so main.js writes the roles and the class that shows one
-  # panel at a time. With no JavaScript the five panels stand one under another
-  # -- a longer menu, but every link in it still works.
   $menu = '<div class="dropdown prod-menu">' + "`r`n"
-  $menu += '          <div class="prod-menu__tabs">' + "`r`n"
-  $fi = $true
   foreach ($ch in $tree) {
-    $on = if ($fi) { ' is-on' } else { '' }
-    $fi = $false
-    $menu += '            <button class="pm-tab' + $on + '" type="button" data-ch="' + $ch.icon + '">' +
-             $ch.$lang + '</button>' + "`r`n"
-  }
-  $menu += '          </div>' + "`r`n"
-  $menu += '          <div class="prod-menu__body">' + "`r`n"
-  $fi = $true
-  foreach ($ch in $tree) {
-    $on = if ($fi) { ' is-on' } else { '' }
-    $fi = $false
-    $menu += '            <div class="pm-panel' + $on + '" data-ch="' + $ch.icon + '">' + "`r`n"
-    # The chapter's wash behind every card, its products on top: the pair the
-    # catalogue uses, at menu size. Both are held in data- attributes rather
-    # than src, because a dropdown that is only hidden -- not display:none --
-    # fetches everything in it on page load whether or not anyone opens it, and
-    # that is two and a half megabytes of product on all 168 pages.
-    $wash = Pic ('assets/img/cat-bg/' + $ch.icon + '.jpg')
-    $head = $true
+    $menu += '          <div class="prod-menu__chapter">' + "`r`n"
+    $menu += '            <button class="prod-menu__btn" type="button">' + $ch.$lang + "`r`n"
+    $menu += '              ' + $CARET + "`r`n"
+    $menu += '            </button>' + "`r`n"
+    $menu += '            <div class="prod-menu__panel">' + "`r`n"
     foreach ($it in $ch.items) {
-      $key = ''
-      if ($it.cat)      { $key = [string]$it.cat }
-      elseif ($it.page) { $key = [string]$it.page }
-      $pic = ''
-      if ($key) { $pic = Pic ('assets/img/cutouts/sm/' + $ch.icon + '-' + $key + '.png') }
-      # A chapter's own picture is a picture of the first thing under it -- the
-      # duct for ducting, the outdoor unit for cooling -- so it stands in there
-      # and nowhere else, rather than repeating down the row.
-      if (-not $pic -and $head) { $pic = Pic ('assets/img/cutouts/sm/' + $ch.icon + '.png') }
-      $head = $false
-      $bg  = if ($wash) { ' data-bg="' + $U + $wash + '"' } else { '' }
-      $img = if ($pic)  { '<img data-src="' + $U + $pic + '" alt="">' } else { '' }
-      # A range we carry but have no listing for yet goes to the holding page,
-      # and its name is muted here the way the catalogue mutes its row.
-      $soon = if ($it.page) { '' } else { ' pm-card--soon' }
-      $menu += '              <a class="pm-card' + $soon + '" href="' + (Href $it) + '">' + "`r`n"
-      $menu += '                <span class="pm-card__pic"' + $bg + '>' + $img + '</span>' + "`r`n"
-      $menu += '                <span class="pm-card__name">' + $it.$lang + ' ' + $ARROW + '</span>' + "`r`n"
-      $menu += '              </a>' + "`r`n"
+      $kids = @($it.kids)
+      if ($kids.Count) {
+        $menu += '              <div class="prod-sub">' + "`r`n"
+        $menu += '                <div class="prod-sub__head">' + "`r`n"
+        $menu += '                  <a class="prod-sub__btn" href="' + (Href $it) + '">' + $it.$lang + '</a>' + "`r`n"
+        $menu += '                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="' + $subAria + '">' + $CARET + '</button>' + "`r`n"
+        $menu += '                </div>' + "`r`n"
+        $menu += '                <div class="prod-sub__panel">' + "`r`n"
+        foreach ($k in $kids) { $menu += '                  <a href="' + (Href $k) + '">' + $k.$lang + '</a>' + "`r`n" }
+        $menu += '                </div>' + "`r`n"
+        $menu += '              </div>' + "`r`n"
+      } else {
+        $menu += '              <a href="' + (Href $it) + '">' + $it.$lang + '</a>' + "`r`n"
+      }
     }
     $menu += '            </div>' + "`r`n"
+    $menu += '          </div>' + "`r`n"
   }
-  $menu += '          </div>' + "`r`n"
-  $menu += '          <a class="prod-menu__all" href="' + $U + 'products' + $sfx + '">' +
-           $allTxt + ' ' + $ARROW + '</a>' + "`r`n"
   $menu += '        </div>'
 
   $i = $txt.IndexOf('<div class="dropdown prod-menu">')

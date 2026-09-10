@@ -5,10 +5,7 @@
       "en": { "name": "Rectangular duct", "spec": [] } },
     { "img": "duct-round", "shape": ["round"],
       "ka": { "name": "ჰაერსატარი - მრგვალი", "spec": [] },
-      "en": { "name": "Round duct", "spec": [] } },
-    { "img": "duct-oval", "shape": ["oval"],
-      "ka": { "name": "ჰაერსატარი - ოვალური", "spec": [] },
-      "en": { "name": "Oval duct", "spec": [] } }
+      "en": { "name": "Round duct", "spec": [] } }
   ]},
 
   { "group": { "slug": "elbow", "ka": "მუხლი", "en": "Elbows" }, "items": [
@@ -41,10 +38,7 @@
       "en": { "name": "Round to round", "spec": [] } },
     { "img": "reducer-rect-round", "shape": ["rect", "round"],
       "ka": { "name": "გადამყვანი - ოთხკუთხედიდან მრგვალზე", "spec": [] },
-      "en": { "name": "Rectangular to round", "spec": [] } },
-    { "img": "reducer-rect-oval", "shape": ["rect", "oval"],
-      "ka": { "name": "გადამყვანი - ოთხკუთხედიდან ოვალურზე", "spec": [] },
-      "en": { "name": "Rectangular to oval", "spec": [] } }
+      "en": { "name": "Rectangular to round", "spec": [] } }
   ]},
 
   { "group": { "slug": "fitting", "ka": "მაკომპლექტებელი", "en": "Fittings and material" }, "items": [

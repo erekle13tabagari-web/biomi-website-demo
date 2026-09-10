@@ -27,26 +27,36 @@ $DATA = Get-Content (Join-Path $sp 'ducting.json') -Raw -Encoding UTF8 | Convert
 $PAGE = @{
   ka = @{ sfx='.html'; donor='ventilation.html'; out='ducting.html'
           crumbHome='მთავარი'; crumbProd='პროდუქტი'; crumb='ჰაერსატარი'
-          eyebrow='ჰაერსატარი'; h2='თუნუქის ჰაერსატარი და მაკომპლექტებელი'
-          title='ჰაერსატარი და მაკომპლექტებელი - ბიომი'
+          eyebrow='ჰაერსატარი'; h2='თუნუქის ჰაერსატარი'
+          title='ჰაერსატარი - ბიომი'
           lede='ჰაერსატარები, მუხლები, სამკაპები და გადამყვანები.'
-          desc='თუნუქის ჰაერსატარი, მუხლი, სამკაპი, გადამყვანი და მაკომპლექტებელი - სს „ბიომი ჰოლდინგის“ საკუთარი წარმოება.'
+          desc='თუნუქის ჰაერსატარი, მუხლი, სამკაპი და გადამყვანი - სს „ბიომი ჰოლდინგის“ საკუთარი წარმოება.'
           search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'
           fType='ტიპი'; fShape='ფორმა'
           empty='პროდუქტი ვერ მოიძებნა.'
           note='ზომები და კონფიგურაცია განისაზღვრება ობიექტის მიხედვით.'
-          cta='მოითხოვეთ შეთავაზება' }
+          cta='მოითხოვეთ შეთავაზება'
+          accOut='accessories.html'; accCrumb='აქსესუარები'; accEyebrow='აქსესუარები'
+          accH2='ჰაერსატარის აქსესუარები'
+          accTitle='ჰაერსატარის აქსესუარები - ბიომი'
+          accLede='საყელო, U ტიპის არხი, თუნუქის კუთხე და ფურცელი.'
+          accDesc='ჰაერსატარის აქსესუარები - საყელო, U ტიპის არხი, თუნუქის კუთხე და თუნუქის ფურცელი, სს „ბიომი ჰოლდინგის“ საკუთარი წარმოება.' }
   en = @{ sfx='-en.html'; donor='ventilation-en.html'; out='ducting-en.html'
           crumbHome='Home'; crumbProd='Products'; crumb='Ducting'
-          eyebrow='Ducting'; h2='Sheet-metal ducting and fittings'
-          title='Ducting and fittings - Biomi'
+          eyebrow='Ducting'; h2='Sheet-metal ducting'
+          title='Ducting - Biomi'
           lede='Ducts, elbows, tees and reducers.'
-          desc='Sheet-metal ducts, elbows, tees, reducers and fittings, made in Biomi Holding''s own plant.'
+          desc='Sheet-metal ducts, elbows, tees and reducers, made in Biomi Holding''s own plant.'
           search='Search...'; filter='Filter'; clear='Clear'
           fType='Type'; fShape='Shape'
           empty='No products found.'
           note='Sizes and configuration are set by the building.'
-          cta='Request a quote' }
+          cta='Request a quote'
+          accOut='accessories-en.html'; accCrumb='Accessories'; accEyebrow='Accessories'
+          accH2='Ducting accessories'
+          accTitle='Ducting accessories - Biomi'
+          accLede='Collars, U-channel, sheet-metal angle and sheet.'
+          accDesc='Ducting accessories - collar, U-channel, sheet-metal angle and sheet metal, made in Biomi Holding''s own plant.' }
 }
 
 function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '<','&lt;' -replace '>','&gt;') }
@@ -56,16 +66,29 @@ function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -r
 # gets tagged with it. A part may carry two -- a reducer is rectangular at one
 # end and round at the other, and belongs under both.
 #
+# Oval is gone, filter option and both oval parts with it: the range is
+# rectangular and round now.
+#
 # The U-channel, the angle and the sheet carry none. They are profile and raw
 # material rather than a shaped part, so a shape filter drops them, which is the
 # honest answer rather than filing them under a shape they do not have.
 $SHAPES = @(
   @{ slug = 'rect';  ka = 'ოთხკუთხედი'; en = 'Rectangular' },
-  @{ slug = 'round'; ka = 'მრგვალი';    en = 'Round' },
-  @{ slug = 'oval';  ka = 'ოვალური';    en = 'Oval' }
+  @{ slug = 'round'; ka = 'მრგვალი';    en = 'Round' }
 )
 
-foreach ($lang in 'ka','en') {
+
+# Two pages out of one file. The parts that go in a duct run -- ducts, elbows,
+# tees, reducers -- are the ducting listing; the collar, the U-channel, the
+# angle and the sheet are the accessories page the menu points at. They were one
+# grid, which put a sheet of metal between two reducers.
+$DUCT = @($DATA | Where-Object { $_.group.slug -ne 'fitting' })
+$ACC  = @($DATA | Where-Object { $_.group.slug -eq 'fitting' })
+
+# The page furniture -- everything above the hero and everything from the footer
+# down -- lifted off a page that already carries it, with the donor's own title,
+# description and language switch replaced. Both pages come through here.
+function Shell([string]$lang, [string]$title, [string]$desc, [string]$slug) {
   $t = $PAGE[$lang]
   $tpl = [IO.File]::ReadAllText((Join-Path $repo ('products\' + $t.donor)))
   $i = $tpl.IndexOf('<section class="page-hero')
@@ -76,20 +99,23 @@ foreach ($lang in 'ka','en') {
   # the meta block belongs to tools/build-meta.ps1; drop the donor's copy so
   # this page does not inherit its canonical URL and description
   $head = [regex]::Replace($head, '(?s)<!-- meta:start.*?<!-- meta:end[^>]*-->\s*', '')
-  $head = [regex]::Replace($head, '(?s)<title>.*?</title>', ('<title>' + $t.title + '</title>'))
+  $head = [regex]::Replace($head, '(?s)<title>.*?</title>', ('<title>' + $title + '</title>'))
   $head = [regex]::Replace($head, '<meta name="description" content="[^"]*"',
-                           ('<meta name="description" content="' + (Esc $t.desc) + '"'))
+                           ('<meta name="description" content="' + (Esc $desc) + '"'))
   # the donor's language switch still points at the donor
-  $head = $head.Replace('href="ventilation.html">GEO<',    'href="ducting.html">GEO<')
-  $head = $head.Replace('href="ventilation-en.html">ENG<', 'href="ducting-en.html">ENG<')
-  $tail = $tail.Replace('href="ventilation.html">GEO<',    'href="ducting.html">GEO<')
-  $tail = $tail.Replace('href="ventilation-en.html">ENG<', 'href="ducting-en.html">ENG<')
+  $head = $head.Replace('href="ventilation.html">GEO<',    'href="' + $slug + '.html">GEO<')
+  $head = $head.Replace('href="ventilation-en.html">ENG<', 'href="' + $slug + '-en.html">ENG<')
+  $tail = $tail.Replace('href="ventilation.html">GEO<',    'href="' + $slug + '.html">GEO<')
+  $tail = $tail.Replace('href="ventilation-en.html">ENG<', 'href="' + $slug + '-en.html">ENG<')
+  return @($head, $tail)
+}
 
-  # ---- the gallery: one flat grid, because the filter now does the grouping
-  # the headings used to do. Keeping both would mean a heading left standing
-  # over nothing every time its group is filtered out.
+# One card per part, and the same card on both pages -- a function rather than
+# two copies of it: the ducting page hands it four groups and the accessories
+# page hands it one.
+function Cards($groups, [string]$lang) {
   $rows = New-Object System.Collections.Generic.List[string]
-  foreach ($g in $DATA) {
+  foreach ($g in $groups) {
     foreach ($it in $g.items) {
       $d = $it.$lang
       # Both languages go into data-name, which is what the search box reads:
@@ -98,8 +124,11 @@ foreach ($lang in 'ka','en') {
       $rows.Add('        <figure class="duct" data-type="' + $g.group.slug +
                 '" data-shape="' + ($it.shape -join ',') +
                 '" data-name="' + (Esc $terms) + '">')
+      # data-lightbox: the renders are the whole content of a card, and at
+      # 228px a sheet-metal part is a grey shape. Clicking one opens it big,
+      # and the arrows walk the range from there.
       $rows.Add('          <span class="duct__shot"><img src="../assets/img/ducting/' + $it.img +
-                '.webp" alt="' + (Esc $d.name) + '" loading="lazy" width="900" height="600"></span>')
+                '.webp" alt="' + (Esc $d.name) + '" loading="lazy" width="900" height="600" data-lightbox></span>')
       $rows.Add('          <figcaption>')
       $rows.Add('            <b>' + (Esc $d.name) + '</b>')
       if ($d.spec.Count) {
@@ -111,10 +140,22 @@ foreach ($lang in 'ka','en') {
       $rows.Add('        </figure>')
     }
   }
+  return ,$rows
+}
+
+foreach ($lang in 'ka','en') {
+  $t = $PAGE[$lang]
+  $shell = Shell $lang $t.title $t.desc 'ducting'
+  $head = $shell[0]; $tail = $shell[1]
+
+  # ---- the gallery: one flat grid, because the filter now does the grouping
+  # the headings used to do. Keeping both would mean a heading left standing
+  # over nothing every time its group is filtered out.
+  $rows = Cards $DUCT $lang
 
   # one checkbox per group, in the order the data lists them
   $opts = New-Object System.Collections.Generic.List[string]
-  foreach ($g in $DATA) {
+  foreach ($g in $DUCT) {
     $opts.Add('            <label><input type="checkbox" name="type" value="' + $g.group.slug +
               '">' + (Esc $g.group.$lang) + '</label>')
   }
@@ -129,7 +170,7 @@ foreach ($lang in 'ka','en') {
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="../index{SFX}">{CRUMBHOME}</a><span class="sep">/</span>
-      <a href="ventilation{SFX}">{CRUMBPROD}</a><span class="sep">/</span>
+      <a href="../products{SFX}">{CRUMBPROD}</a><span class="sep">/</span>
       <b>{CRUMB}</b>
     </nav>
     <div class="section__head" style="margin-bottom:0">
@@ -190,6 +231,59 @@ foreach ($lang in 'ka','en') {
   $out = $head + $body + $tail
   $out = [regex]::Replace($out, "`r`n|`n", $CRLF)
   [IO.File]::WriteAllText((Join-Path $repo ('products\' + $t.out)), $out, $UTF8)
-  Write-Host ('  wrote products\' + $t.out + ' : ' + (($DATA | ForEach-Object { $_.items.Count }) |
+  Write-Host ('  wrote products\' + $t.out + ' : ' + (($DUCT | ForEach-Object { $_.items.Count }) |
+              Measure-Object -Sum).Sum + ' items')
+}
+
+# ---- the accessories page ---------------------------------------------------
+# Four parts, one group, and no shape between them: a filter column here would
+# be a search box and two lists that never change anything. It is the grid on
+# its own.
+foreach ($lang in 'ka','en') {
+  $t = $PAGE[$lang]
+  $shell = Shell $lang $t.accTitle $t.accDesc 'accessories'
+  $head = $shell[0]; $tail = $shell[1]
+  $rows = Cards $ACC $lang
+
+  $body = @'
+<section class="page-hero page-hero--brand">
+  <div class="container">
+    <nav class="crumbs" aria-label="breadcrumb">
+      <a href="../index{SFX}">{CRUMBHOME}</a><span class="sep">/</span>
+      <a href="../products{SFX}">{CRUMBPROD}</a><span class="sep">/</span>
+      <b>{CRUMB}</b>
+    </nav>
+    <div class="section__head" style="margin-bottom:0">
+      <span class="eyebrow">{EYEBROW}</span>
+      <h2>{H2}</h2>
+      <p class="page-lede">{LEDE}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:26px">
+  <div class="container">
+    <div class="pgrid">
+{ROWS}
+    </div>
+
+    <p class="duct__note">{NOTE}
+      <a class="btn btn--outline" href="../index{SFX}#contact">{CTA}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+  </div>
+</section>
+
+'@
+  $body = $body.Replace('{SFX}', $t.sfx).Replace('{CRUMBHOME}', $t.crumbHome).
+                Replace('{CRUMBPROD}', $t.crumbProd).Replace('{CRUMB}', $t.accCrumb).
+                Replace('{EYEBROW}', $t.accEyebrow).Replace('{H2}', $t.accH2).
+                Replace('{LEDE}', $t.accLede).
+                Replace('{NOTE}', $t.note).Replace('{CTA}', $t.cta).
+                Replace('{ROWS}', ($rows -join $CRLF))
+
+  $out = $head + $body + $tail
+  $out = [regex]::Replace($out, "`r`n|`n", $CRLF)
+  [IO.File]::WriteAllText((Join-Path $repo ('products\' + $t.accOut)), $out, $UTF8)
+  Write-Host ('  wrote products\' + $t.accOut + ' : ' + (($ACC | ForEach-Object { $_.items.Count }) |
               Measure-Object -Sum).Sum + ' items')
 }
