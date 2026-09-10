@@ -1030,27 +1030,6 @@
       }
     });
 
-    /* ---- the wash behind the band ----
-       Two layers cross-fading, so a chapter change reads as one picture
-       dissolving into the next rather than flashing the page between them. The
-       band only takes its dark text colours once there is a picture to carry
-       them, which is why the class is added here and not in the markup. */
-    var band = wrap.closest('.catalog-band');
-    var bgWrap = band && band.querySelector('.catalog-band__bg');
-    var layers = bgWrap ? [].slice.call(bgWrap.querySelectorAll('i')) : [];
-    var front = 0;
-    function setBg(src) {
-      if (layers.length < 2 || !src) return;
-      if (layers[front].dataset.src === src) return;
-      var back = 1 - front;
-      layers[back].style.backgroundImage = 'url("' + src + '")';
-      layers[back].dataset.src = src;
-      layers[back].classList.add('is-on');
-      layers[front].classList.remove('is-on');
-      front = back;
-      band.classList.add('catalog-band--washed');
-    }
-
     function show(ch, focus) {
       tabs.forEach(function (t) {
         var on = t.getAttribute('data-ch') === ch;
@@ -1063,10 +1042,7 @@
         if (on && focus) t.focus();
       });
       panels.forEach(function (p) {
-        var on = p.getAttribute('data-ch') === ch;
-        p.classList.toggle('is-on', on);
-        if (!on) return;
-        setBg(p.getAttribute('data-bg'));
+        p.classList.toggle('is-on', p.getAttribute('data-ch') === ch);
       });
     }
 

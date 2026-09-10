@@ -223,12 +223,14 @@ foreach ($lang in 'ka','en') {
   foreach ($ch in $TREE) {
     $on = if ($first) { ' is-on' } else { '' }
     $first = $false
-    # data-bg is the wash for the whole band, which main.js cross-fades behind
-    # the tabs as well as the panel -- so it lives on the chapter rather than in
-    # it, and there is nothing to draw here.
+    # The chapter's wash goes behind its products rather than behind the page:
+    # one picture spread across the whole band turned every page it was on into
+    # a dark section, where the cards are the only thing that wants a ground.
+    # Written into the card itself rather than set from script, so it is there
+    # with the stylesheet alone.
     $bg = PicFor ($BGDIR + $ch.icon + '.jpg')
-    $bgAttr = if ($bg) { ' data-bg="' + $bg + '"' } else { '' }
-    $rows.Add('      <section class="catalog__chapter' + $on + '" data-ch="' + $ch.icon + '"' + $bgAttr + '>')
+    $bgStyle = if ($bg) { ' style="background-image:url(' + $bg + ')"' } else { '' }
+    $rows.Add('      <section class="catalog__chapter' + $on + '" data-ch="' + $ch.icon + '">')
     $rows.Add('        <h3>' + (Esc $ch.$lang) + '</h3>')
     $rows.Add('        <div class="catalog__grid">')
     # A card per category: its own product, its name, an arrow. The pictures are
@@ -261,7 +263,7 @@ foreach ($lang in 'ka','en') {
         $soon = ' catalog__card--soon'
       }
       $rows.Add('          <a class="catalog__card' + $soon + '" href="' + $href + '">')
-      $rows.Add('            <span class="catalog__pic">' + $img + '</span>')
+      $rows.Add('            <span class="catalog__pic"' + $bgStyle + '>' + $img + '</span>')
       $rows.Add('            <span class="catalog__name">' + (Esc $it.$lang) + ' ' + $ARROW + '</span>')
       $rows.Add('          </a>')
     }
@@ -271,7 +273,7 @@ foreach ($lang in 'ka','en') {
   $rows.Add('      </div>')
 
   $body = @'
-<section class="page-hero page-hero--brand">
+<section class="page-hero page-hero--brand page-hero--tight">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="index{SFX}">{CRUMBHOME}</a><span class="sep">/</span>
@@ -284,8 +286,7 @@ foreach ($lang in 'ka','en') {
   </div>
 </section>
 
-<section class="section catalog-band" style="padding-top:26px">
-  <div class="catalog-band__bg" aria-hidden="true"><i></i><i></i></div>
+<section class="section" style="padding-top:22px">
   <div class="container">
     <div class="catalog">
 {ROWS}
