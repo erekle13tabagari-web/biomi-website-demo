@@ -296,57 +296,87 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 .nav__link .caret{width:13px;height:13px;transition:transform .25s;opacity:.7}
 .nav__item:hover .nav__link .caret{transform:rotate(180deg)}
 
-/* dropdown / mega */
-.dropdown{
-  position:absolute;top:calc(100% + 10px);left:50%;transform:translate(-50%,8px);
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow-md);padding:12px;min-width:230px;opacity:0;visibility:hidden;
-  transition:opacity .22s var(--ease),transform .22s var(--ease);z-index:70;
-}
-.dropdown::before{content:"";position:absolute;top:-10px;left:0;right:0;height:10px}
-.nav__item:hover .dropdown{opacity:1;visibility:visible;transform:translate(-50%,0)}
-.dropdown a{display:block;padding:9px 13px;border-radius:8px;color:var(--gold-600);font-weight:500;font-size:15px;transition:.18s}
-.dropdown a:hover{background:var(--bg-soft);color:var(--gold)}
-/* products chapter links stay ink (chapter titles carry the accent) */
-.prod-menu__panel a{color:var(--ink);font-weight:400}
-.prod-menu__panel a:hover{color:var(--gold-600)}
-/* products dropdown — chapters first, click to expand */
-.prod-menu{min-width:300px;padding:8px}
-.prod-menu__chapter{border-bottom:1px solid var(--line)}
-.prod-menu__chapter:last-child{border-bottom:0}
-.prod-menu__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
-  padding:12px 13px;font-size:14.5px;font-weight:600;letter-spacing:.02em;color:var(--gold-600);
-  text-align:left;border-radius:8px;transition:background .2s;text-transform:uppercase}
-.prod-menu__btn:hover{background:var(--bg-soft)}
-.prod-menu__btn svg{width:15px;height:15px;flex:none;opacity:.65;transition:transform .3s}
-.prod-menu__chapter.open .prod-menu__btn svg{transform:rotate(180deg)}
-.prod-menu__panel{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
-.prod-menu__panel a{display:block;padding:9px 13px 9px 22px;border-radius:8px;color:var(--ink);
-  font-size:14.5px;transition:.18s}
-.prod-menu__panel a:hover{background:var(--bg-soft);color:var(--gold-600)}
-/* nested brand submenu under VRF/VRV
-   The label is a link to the VRF/VRV page (same as the mobile menu); the
-   chevron beside it is a separate button that expands the brand list. */
-.prod-sub__head{display:flex;align-items:center;border-radius:8px;transition:.18s}
-.prod-sub__head:hover{background:var(--bg-soft)}
-.prod-sub__head:hover .prod-sub__btn{color:var(--gold-600)}
-.prod-sub__btn{flex:1;display:block;
-  padding:9px 4px 9px 22px;font-size:14.5px;color:var(--ink);text-align:left;transition:.18s}
-.prod-sub__toggle{display:grid;place-items:center;flex:none;align-self:stretch;
-  padding:0 13px;color:inherit;border-radius:8px}
-.prod-sub__toggle svg{width:13px;height:13px;flex:none;opacity:.6;transition:transform .3s}
-.prod-sub__toggle:hover svg{opacity:1}
-.prod-sub.open .prod-sub__toggle svg{transform:rotate(180deg)}
-.prod-sub__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
-.prod-menu__panel .prod-sub__panel a{padding-left:38px}
-/* Subsection labels carry weight on the desktop menu too, matching the drawer:
-   chapter = blue uppercase, subsection = bold ink, brand = light. Scoped
-   through .prod-menu__panel because the plain `.prod-menu__panel a` rule above
-   sets weight 400 and would otherwise win on source order. Brand links sit
-   deeper than the `> a` selector, so they keep their lighter weight. */
-.prod-menu__panel > a,
-.prod-menu__panel .prod-sub__btn{font-weight:600}
+/* ---- products mega-menu ----------------------------------------------------
+   A row of chapters across the top and, under whichever one is up, a card for
+   each of its categories: the picture, the name, an arrow.
 
+   It is as wide as the page rather than as wide as the link it hangs from, so
+   it is placed against the window instead of against the nav item -- fixed,
+   centred, hanging from the bottom edge of the header. The header is 12px
+   shorter once the page is scrolled, and --header-h is re-set on .is-solid, so
+   the panel follows it without a second number to keep in step. */
+.dropdown{
+  position:fixed;top:calc(var(--header-h) - 2px);left:50%;
+  width:min(var(--container),calc(100vw - 24px));
+  max-height:calc(100vh - var(--header-h) - 18px);overflow:auto;
+  display:flex;flex-direction:column;
+  transform:translate(-50%,8px);
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-md);padding:14px 22px 14px;opacity:0;visibility:hidden;
+  transition:opacity .22s var(--ease),transform .22s var(--ease),top .3s var(--ease);
+  z-index:70;
+}
+/* Opened by focus as well as by hover. Nothing inside a visibility:hidden panel
+   can be tabbed to, so the whole menu was unreachable from a keyboard: focus on
+   the link above it is what opens it, and Tab then walks into the cards. */
+.nav__item:hover .dropdown,
+.nav__item:focus-within .dropdown{opacity:1;visibility:visible;transform:translate(-50%,0)}
+
+/* The chapters. Hidden until main.js has made them work -- with no script all
+   five panels stand one under another, and a row of buttons that switched
+   nothing would be a lie about what the page does. */
+.prod-menu__tabs{display:none;gap:4px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+.prod-menu--tabs .prod-menu__tabs{display:flex}
+.pm-tab{margin-bottom:-12px;padding:8px 14px 11px;
+  font:inherit;font-size:14px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;
+  color:var(--body);background:none;border:0;border-bottom:2px solid transparent;
+  white-space:nowrap;cursor:pointer;
+  transition:color .22s var(--ease),border-color .22s var(--ease)}
+.pm-tab:hover{color:var(--ink-strong)}
+.pm-tab.is-on{color:var(--gold-600);border-bottom-color:var(--gold)}
+.pm-tab:focus-visible{outline:2px solid var(--gold);outline-offset:-3px;border-radius:6px}
+
+/* One chapter's categories. Four columns whatever the chapter holds, so a card
+   is the same size in the chapter with one category as in the one with four:
+   tracks that shared the row out between them would draw cooling's single
+   category the width of the window. */
+.prod-menu__body{padding-top:15px}
+.pm-panel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.pm-panel + .pm-panel{margin-top:15px}
+.prod-menu--tabs .pm-panel{display:none}
+.prod-menu--tabs .pm-panel.is-on{display:grid}
+
+.pm-card{display:flex;flex-direction:column;padding:0;border-radius:13px;overflow:hidden;
+  border:1px solid var(--line);background:var(--bg-soft);
+  transition:border-color .22s var(--ease),transform .22s var(--ease),box-shadow .22s var(--ease)}
+.pm-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+/* The wash sits on the box and the product on top of it, the same pair the
+   catalogue draws, so the card can lift the product on hover on its own. */
+.pm-card__pic{position:relative;display:block;aspect-ratio:4/3;
+  background:var(--navy) center/cover no-repeat}
+.pm-card__pic img{position:absolute;inset:0;margin:auto;max-width:74%;max-height:78%;
+  filter:drop-shadow(0 12px 16px rgba(0,0,0,.45));transition:transform .35s var(--ease)}
+.pm-card:hover .pm-card__pic img{transform:scale(1.05)}
+.pm-card__name{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:11px 13px;font-size:13.8px;font-weight:600;line-height:1.3;color:var(--ink-strong)}
+.pm-card__name svg{width:16px;height:16px;flex:0 0 auto;color:var(--gold-600);
+  transition:transform .22s var(--ease)}
+.pm-card:hover .pm-card__name svg{transform:translateX(4px)}
+/* A range we carry but have no listing for yet: the card goes to the holding
+   page and its name is grey until it does, which is how the catalogue marks
+   the same four. */
+.pm-card--soon .pm-card__name,
+.pm-card--soon .pm-card__name svg{color:var(--muted)}
+.pm-card--soon:hover .pm-card__name{color:var(--ink-strong)}
+.pm-card--soon:hover .pm-card__name svg{color:var(--gold-600)}
+
+.prod-menu__all{align-self:flex-end;display:inline-flex;align-items:center;gap:7px;
+  margin-top:13px;padding:6px 2px;font-size:13.5px;font-weight:600;color:var(--gold-600)}
+.prod-menu__all svg{width:16px;height:16px;transition:transform .22s var(--ease)}
+.prod-menu__all:hover svg{transform:translateX(4px)}
+@media (prefers-reduced-motion:reduce){
+  .pm-card,.pm-card__pic img,.pm-card__name svg,.pm-tab,.prod-menu__all svg{transition:none}
+}
 /* tools */
 .nav__tools{display:flex;align-items:center;gap:8px;margin-left:6px}
 .lang{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;
@@ -404,7 +434,7 @@ h1,h2,h3,h4{line-height:1.18;font-weight:700;letter-spacing:-.01em;text-transfor
 
 /* scrolled — navy background, white content */
 .header.is-solid{background:var(--navy);border-bottom-color:transparent;
-  box-shadow:0 8px 30px rgba(27,27,51,.18);height:66px}
+  box-shadow:0 8px 30px rgba(27,27,51,.18);--header-h:66px;height:var(--header-h)}
 /* no knock-out: main.js swaps in the real dark-mode lockup while the header is
    solid, so the blue mark survives the scroll instead of going flat white */
 .header.is-solid .brand__logo{height:34px}
@@ -1590,7 +1620,6 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .header__inner{justify-content:space-between}
   .brand{order:-1}
   .nav__tools{margin-left:auto}
-  .prod-menu{min-width:0}
 }
 @media (max-width:920px){
   /* one column: copy, photo, numbers, button -- the photo rides up under the

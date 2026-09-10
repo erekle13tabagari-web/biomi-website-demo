@@ -53,6 +53,11 @@ $MARGIN  = 4
 # little over 2x. PNG is the only alpha format every browser reads and it is a
 # poor container for photographed metal -- the duct is the one to watch.
 $MAXEDGE = 700
+# And once more at menu size, into cutouts/sm. The dropdown draws the same
+# products at 260px, four to a panel; the file above is sized for the
+# catalogue's hero and would be a quarter of a megabyte per card there.
+$SMDIR  = Join-Path $OUTDIR 'sm'
+$SMEDGE = 300
 # The wash spans the window, so it is sized for a large screen rather than for
 # the element. A blurred gradient survives being stretched, which is why this
 # can be well under a 2x retina width.
@@ -210,6 +215,7 @@ public class Cutout {
 Add-Type -TypeDefinition $cs
 
 if (-not (Test-Path $OUTDIR)) { New-Item -ItemType Directory -Path $OUTDIR | Out-Null }
+if (-not (Test-Path $SMDIR))  { New-Item -ItemType Directory -Path $SMDIR  | Out-Null }
 
 # A chapter folder is matched on the name, either way round: the ducting one is
 # named for the first word of a chapter called "ჰაერსატარი და მაკომპლექტებელი".
@@ -282,6 +288,22 @@ function WriteCutout([IO.FileInfo]$img, [string]$name) {
   $fs = [IO.File]::Open($dst, 'Create')
   $enc.Save($fs)
   $fs.Close()
+
+  # The same picture again at menu size. The card in the dropdown is 260px
+  # wide and a panel shows four at once, so the full-size cut-out -- half a
+  # megabyte of photographed metal in a format with no lossy mode -- is the
+  # wrong file to hang on a hover.
+  $sm = $pic
+  if ($sm.PixelWidth -gt $SMEDGE -or $sm.PixelHeight -gt $SMEDGE) {
+    $k = $SMEDGE / [Math]::Max($sm.PixelWidth, $sm.PixelHeight)
+    $sm = New-Object System.Windows.Media.Imaging.TransformedBitmap(
+            $sm, (New-Object System.Windows.Media.ScaleTransform($k, $k)))
+  }
+  $encsm = New-Object System.Windows.Media.Imaging.PngBitmapEncoder
+  $encsm.Frames.Add([System.Windows.Media.Imaging.BitmapFrame]::Create($sm))
+  $fssm = [IO.File]::Open((Join-Path $SMDIR ($name + '.png')), 'Create')
+  $encsm.Save($fssm)
+  $fssm.Close()
 
   $kb = [math]::Round((Get-Item $dst).Length / 1kb)
   $how = if ($cut) { 'trimmed' } else { 'keyed  ' }

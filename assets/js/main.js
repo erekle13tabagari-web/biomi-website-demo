@@ -848,69 +848,110 @@
     if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
   });
 
-  /* How tall a chapter panel needs to be, given which of its subs are open.
-     It cannot just read scrollHeight: a sub that was opened by the click being
-     handled is mid-transition on its own max-height, so it still measures zero
-     and the chapter would be sized to clip it. Summing each row's own height
-     (which never animates) with the content height of every open sub gives a
-     stable answer, and stays correct with several subs open at once. */
-  function chapterHeight(panel) {
-    var h = 0;
-    Array.prototype.forEach.call(panel.children, function (el) {
-      if (el.classList.contains('prod-sub')) {
-        var head = el.querySelector('.prod-sub__head');
-        var pan = el.querySelector('.prod-sub__panel');
-        if (head) h += head.offsetHeight;
-        if (pan && el.classList.contains('open')) h += pan.scrollHeight;
-      } else {
-        h += el.offsetHeight;
+  /* ---- Products mega-menu: chapters, and a card row for the one that is up --
+     The same shape as the catalogue on products.html. Every panel is in the
+     markup; this adds the class the CSS hangs the behaviour off, so with the
+     script off the chapters never appear as tabs and the five panels stand one
+     under another with every link in them still working. The tab roles are
+     written here for that reason too -- a button that switches nothing is not
+     a tab. */
+  document.querySelectorAll('.prod-menu').forEach(function (menu) {
+    var list = menu.querySelector('.prod-menu__tabs');
+    var tabs = [].slice.call(menu.querySelectorAll('.pm-tab'));
+    var panels = [].slice.call(menu.querySelectorAll('.pm-panel'));
+    if (!list || !tabs.length || !panels.length) return;
+    var all = menu.querySelector('.prod-menu__all');
+    var allHref = all ? all.getAttribute('href') : '';
+
+    menu.classList.add('prod-menu--tabs');
+    list.setAttribute('role', 'tablist');
+    panels.forEach(function (p) {
+      var ch = p.getAttribute('data-ch');
+      if (!p.id) p.id = 'pmp-' + ch;
+      p.setAttribute('role', 'tabpanel');
+    });
+    tabs.forEach(function (t) {
+      var ch = t.getAttribute('data-ch');
+      var panel = panels.filter(function (p) { return p.getAttribute('data-ch') === ch; })[0];
+      if (!t.id) t.id = 'pmt-' + ch;
+      t.setAttribute('role', 'tab');
+      if (panel) {
+        t.setAttribute('aria-controls', panel.id);
+        panel.setAttribute('aria-labelledby', t.id);
       }
     });
-    return h;
-  }
 
-  /* ---- Products dropdown: chapter accordion (one open at a time) ---- */
-  document.querySelectorAll('.prod-menu').forEach(function (menu) {
-    var chapters = menu.querySelectorAll('.prod-menu__chapter');
-    chapters.forEach(function (ch) {
-      var btn = ch.querySelector('.prod-menu__btn');
-      var panel = ch.querySelector('.prod-menu__panel');
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var wasOpen = ch.classList.contains('open');
-        chapters.forEach(function (o) {
-          o.classList.remove('open');
-          o.querySelector('.prod-menu__panel').style.maxHeight = '0';
-        });
-        if (!wasOpen) {
-          ch.classList.add('open');
-          panel.style.maxHeight = chapterHeight(panel) + 'px';
-        }
+    /* The pictures are hung on the cards the first time a chapter is shown. A
+       dropdown is hidden but not display:none, so anything carrying a src is
+       fetched on page load whether or not the menu is ever opened -- and that
+       is two and a half megabytes of product on all 168 pages. */
+    function fill(panel) {
+      if (panel.dataset.filled) return;
+      panel.dataset.filled = '1';
+      [].slice.call(panel.querySelectorAll('.pm-card__pic')).forEach(function (pic) {
+        var bg = pic.getAttribute('data-bg');
+        if (bg) pic.style.backgroundImage = 'url("' + bg + '")';
+        var img = pic.querySelector('img[data-src]');
+        if (img) img.setAttribute('src', img.getAttribute('data-src'));
+      });
+    }
+
+    function show(ch, focus) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-ch') === ch;
+        t.classList.toggle('is-on', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        /* Roving tabindex: the row is one stop and the arrows move within it,
+           rather than five stops between the menu and the cards under it. */
+        t.tabIndex = on ? 0 : -1;
+        if (on && focus) t.focus();
+      });
+      panels.forEach(function (p) {
+        var on = p.getAttribute('data-ch') === ch;
+        p.classList.toggle('is-on', on);
+        if (on && opened) fill(p);
+      });
+      /* The link at the foot follows the chapter: products.html#ventilation
+         opens the catalogue on the one that was being read. */
+      if (all && allHref) all.setAttribute('href', ch ? allHref + '#' + ch : allHref);
+    }
+
+    tabs.forEach(function (t, i) {
+      var ch = t.getAttribute('data-ch');
+      t.addEventListener('click', function () { show(ch); });
+      /* Hover switches as well: the pointer is already inside the menu and on
+         its way down to the cards. Guarded on a hovering pointer so a tap does
+         not fire this and the click both. */
+      t.addEventListener('mouseenter', function () {
+        if (window.matchMedia('(hover:hover)').matches) show(ch);
+      });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key, n = -1;
+        if (k === 'ArrowRight' || k === 'ArrowDown') n = (i + 1) % tabs.length;
+        else if (k === 'ArrowLeft' || k === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') n = 0;
+        else if (k === 'End') n = tabs.length - 1;
+        if (n < 0) return;
+        e.preventDefault();
+        show(tabs[n].getAttribute('data-ch'), true);
       });
     });
-  });
 
-  /* ---- Nested submenu inside products dropdown ----
-     The label itself is a plain link to the category page (matching the mobile
-     menu), so only the chevron toggles the child list open. */
-  document.querySelectorAll('.prod-sub').forEach(function (sub) {
-    var btn = sub.querySelector('.prod-sub__toggle');
-    var panel = sub.querySelector('.prod-sub__panel');
-    if (!btn || !panel) return;
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var open = sub.classList.toggle('open');
-      panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0';
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    /* Nothing is fetched until the pointer reaches the menu -- or focus does.
+       mouseenter on the whole nav item rather than on the panel, so the fetch
+       starts while the panel is still fading in. */
+    var opened = false;
+    var item = menu.closest('.nav__item') || menu;
+    function wake() {
+      if (opened) return;
+      opened = true;
+      panels.forEach(function (p) { if (p.classList.contains('is-on')) fill(p); });
+    }
+    item.addEventListener('mouseenter', wake);
+    item.addEventListener('focusin', wake);
 
-      /* Regrow the enclosing chapter so nothing is clipped. Recomputed from
-         scratch rather than adding/subtracting this sub's height: the chapter
-         is itself max-height clipped, so the old arithmetic worked from a
-         stale figure and collapsed the chapter to a single row whenever a sub
-         was closed. */
-      var chap = sub.closest('.prod-menu__panel');
-      if (chap) chap.style.maxHeight = chapterHeight(chap) + 'px';
-    });
+    show((tabs.filter(function (t) { return t.classList.contains('is-on'); })[0] || tabs[0])
+         .getAttribute('data-ch'));
   });
 
   /* ---- Homepage products rail ----
