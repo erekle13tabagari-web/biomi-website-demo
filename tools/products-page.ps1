@@ -86,6 +86,19 @@ $PAGE = @{
           cta='Get in touch'; back='Back to products' }
 }
 
+# Two things the page can carry under a name, both off for now:
+#
+#   RAIL_PREVIEW  the categories of a chapter, listed small under its name in
+#                 the rail -- "ქვაბი · ბოილერები · იატაკის გათბობა · აქსესუარები"
+#   BRAND_CHIPS   the makes under each category in the panel, as pill links that
+#                 land on that make's products
+#
+# Set either back to $true and re-run; the CSS for both is still in place, so
+# nothing else has to change. Kept as switches rather than deleted because this
+# is a "for now", not a decision.
+$RAIL_PREVIEW = $false
+$BRAND_CHIPS  = $false
+
 function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '<','&lt;' -replace '>','&gt;') }
 
 # A node can pin any of the listing's filters: ?cat= for a section of the range,
@@ -160,8 +173,6 @@ foreach ($lang in 'ka','en') {
   $first = $true
   foreach ($ch in $TREE) {
     $on  = if ($first) { ' is-on' } else { '' }
-    # the subtitle previews what is inside rather than repeating the chapter
-    $names = (($ch.items | ForEach-Object { $_.$lang }) -join ' · ')
     $rows.Add('        <button class="cat-tab' + $on + '" type="button" data-ch="' + $ch.icon + '">')
     if ($ch.icon) {
       # Empty alt: the chapter name is right beside it, so a description here
@@ -169,8 +180,12 @@ foreach ($lang in 'ka','en') {
       $rows.Add('          <img class="cat-tab__ico" src="' + $ICODIR + $ch.icon +
                 '.svg" alt="" width="34" height="34">')
     }
-    $rows.Add('          <span class="cat-tab__txt"><b>' + (Esc $ch.$lang) + '</b><small>' +
-              (Esc $names) + '</small></span>')
+    # the preview lists what is inside rather than repeating the chapter
+    $prev = ''
+    if ($RAIL_PREVIEW) {
+      $prev = '<small>' + (Esc (($ch.items | ForEach-Object { $_.$lang }) -join ' · ')) + '</small>'
+    }
+    $rows.Add('          <span class="cat-tab__txt"><b>' + (Esc $ch.$lang) + '</b>' + $prev + '</span>')
     $rows.Add('        </button>')
     $first = $false
   }
@@ -214,7 +229,7 @@ foreach ($lang in 'ka','en') {
         $href = 'products/' + $it.page + $sfx + (Query $it)
         $rows.Add('          <div class="catalog__item">')
         $rows.Add('            <a class="catalog__name" href="' + $href + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
-        if ($kids.Count) {
+        if ($BRAND_CHIPS -and $kids.Count) {
           $rows.Add('            <div class="catalog__subs">')
           foreach ($k in $kids) {
             # the listing pre-ticks from the query, so a brand here lands on that
@@ -228,11 +243,12 @@ foreach ($lang in 'ka','en') {
         }
         $rows.Add('          </div>')
       } else {
-        # no listing yet: the name goes to the holding page, and the sub-items
-        # stay as plain text so the customer still sees what the range covers
+        # no listing yet: the name goes to the holding page, and its sub-items
+        # are plain text rather than links, there being nothing behind them yet
+        # (when $BRAND_CHIPS is on -- see the switch at the top)
         $rows.Add('          <div class="catalog__item catalog__item--soon">')
         $rows.Add('            <a class="catalog__name" href="soon' + $sfx + '">' + (Esc $it.$lang) + ' ' + $ARROW + '</a>')
-        if ($kids.Count) {
+        if ($BRAND_CHIPS -and $kids.Count) {
           $rows.Add('            <div class="catalog__subs">')
           foreach ($k in $kids) { $rows.Add('              <span>' + (Esc $k.$lang) + '</span>') }
           $rows.Add('            </div>')
