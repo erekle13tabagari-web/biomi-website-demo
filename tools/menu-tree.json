@@ -33,7 +33,7 @@
 
 {"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","icon":"ducting","items":[
   {"ka":"ჰაერსატარი","en":"Ducting","page":"ducting","kids":[]},
-  {"ka":"ცხაურა","en":"Grilles","page":null,"kids":[]},
+  {"ka":"ცხაურა","en":"Grilles","page":"grilles","kids":[]},
   {"ka":"აქსესუარები","en":"Accessories","page":"accessories","kids":[]}
 ]},
 

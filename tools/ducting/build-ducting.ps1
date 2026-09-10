@@ -36,11 +36,20 @@ $PAGE = @{
           empty='პროდუქტი ვერ მოიძებნა.'
           note='ზომები და კონფიგურაცია განისაზღვრება ობიექტის მიხედვით.'
           cta='მოითხოვეთ შეთავაზება'
-          accOut='accessories.html'; accCrumb='აქსესუარები'; accEyebrow='აქსესუარები'
-          accH2='ჰაერსატარის აქსესუარები'
-          accTitle='ჰაერსატარის აქსესუარები - ბიომი'
-          accLede='საყელო, U ტიპის არხი, თუნუქის კუთხე და ფურცელი.'
-          accDesc='ჰაერსატარის აქსესუარები - საყელო, U ტიპის არხი, თუნუქის კუთხე და თუნუქის ფურცელი, სს „ბიომი ჰოლდინგის“ საკუთარი წარმოება.' }
+          # A group in ducting.json that names a page gets one of its own, keyed
+          # here by that name; the ducting listing keeps whatever is left over.
+          own=[ordered]@{
+            accessories=@{ out='accessories.html'; crumb='აქსესუარები'; eyebrow='აქსესუარები'
+                           h2='ჰაერსატარის აქსესუარები'
+                           title='ჰაერსატარის აქსესუარები - ბიომი'
+                           lede='გადაბმა, დამჭერები, გამოსასვლელი ყუთები და თუნუქის მასალა.'
+                           desc='ჰაერსატარის აქსესუარები - გადაბმა, დამჭერები, გამოსასვლელი ყუთები, რეგულატორი და თუნუქის მასალა.' }
+            grilles=@{     out='grilles.html'; crumb='ცხაურა'; eyebrow='ცხაურა'
+                           h2='ცხაურები'
+                           title='ცხაურები - ბიომი'
+                           lede='ცხაურები ჰაერსატარისა და სავენტილაციო სისტემებისთვის.'
+                           desc='ცხაურები ჰაერსატარისა და სავენტილაციო სისტემებისთვის - სს „ბიომი ჰოლდინგი“.' }
+          } }
   en = @{ sfx='-en.html'; donor='ventilation-en.html'; out='ducting-en.html'
           crumbHome='Home'; crumbProd='Products'; crumb='Ducting'
           eyebrow='Ducting'; h2='Sheet-metal ducting'
@@ -52,11 +61,18 @@ $PAGE = @{
           empty='No products found.'
           note='Sizes and configuration are set by the building.'
           cta='Request a quote'
-          accOut='accessories-en.html'; accCrumb='Accessories'; accEyebrow='Accessories'
-          accH2='Ducting accessories'
-          accTitle='Ducting accessories - Biomi'
-          accLede='Collars, U-channel, sheet-metal angle and sheet.'
-          accDesc='Ducting accessories - collar, U-channel, sheet-metal angle and sheet metal, made in Biomi Holding''s own plant.' }
+          own=[ordered]@{
+            accessories=@{ out='accessories-en.html'; crumb='Accessories'; eyebrow='Accessories'
+                           h2='Ducting accessories'
+                           title='Ducting accessories - Biomi'
+                           lede='Flange connectors, brackets, outlet boxes and sheet material.'
+                           desc='Ducting accessories - flange connectors, brackets, outlet boxes, damper regulators and sheet material.' }
+            grilles=@{     out='grilles-en.html'; crumb='Grilles'; eyebrow='Grilles'
+                           h2='Grilles'
+                           title='Grilles - Biomi'
+                           lede='Grilles for duct and ventilation systems.'
+                           desc='Grilles for duct and ventilation systems, from Biomi Holding.' }
+          } }
 }
 
 function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '<','&lt;' -replace '>','&gt;') }
@@ -78,12 +94,24 @@ $SHAPES = @(
 )
 
 
-# Two pages out of one file. The parts that go in a duct run -- ducts, elbows,
-# tees, reducers -- are the ducting listing; the collar, the U-channel, the
-# angle and the sheet are the accessories page the menu points at. They were one
-# grid, which put a sheet of metal between two reducers.
-$DUCT = @($DATA | Where-Object { $_.group.slug -ne 'fitting' })
-$ACC  = @($DATA | Where-Object { $_.group.slug -eq 'fitting' })
+# Three pages out of one file, and it is the data that says which. A group that
+# names a "page" gets one of its own -- the accessories the menu points at, the
+# grilles beside them -- and whatever is left is the ducting listing: the parts
+# that go in a duct run. They were one grid, which put a sheet of metal between
+# two reducers and 23 grilles after it.
+$DUCT = @($DATA | Where-Object { -not $_.group.page })
+$OWN  = @($DATA | Where-Object { $_.group.page })
+
+# .webp or .jpg, whichever is on disk. The first shots were supplied as WebP;
+# the ones after them are written as JPEG by tools/ducting/import.ps1, there
+# being no WebP encoder on this machine. Neither the data nor the page has to
+# know which is which.
+function Shot([string]$img) {
+  foreach ($ext in '.webp', '.jpg') {
+    if (Test-Path (Join-Path $repo ('assets\img\ducting\' + $img + $ext))) { return ($img + $ext) }
+  }
+  return ($img + '.webp')
+}
 
 # The page furniture -- everything above the hero and everything from the footer
 # down -- lifted off a page that already carries it, with the donor's own title,
@@ -127,8 +155,8 @@ function Cards($groups, [string]$lang) {
       # data-lightbox: the renders are the whole content of a card, and at
       # 228px a sheet-metal part is a grey shape. Clicking one opens it big,
       # and the arrows walk the range from there.
-      $rows.Add('          <span class="duct__shot"><img src="../assets/img/ducting/' + $it.img +
-                '.webp" alt="' + (Esc $d.name) + '" loading="lazy" width="900" height="600" data-lightbox></span>')
+      $rows.Add('          <span class="duct__shot"><img src="../assets/img/ducting/' + (Shot $it.img) +
+                '" alt="' + (Esc $d.name) + '" loading="lazy" width="900" height="600" data-lightbox></span>')
       $rows.Add('          <figcaption>')
       $rows.Add('            <b>' + (Esc $d.name) + '</b>')
       if ($d.spec.Count) {
@@ -235,15 +263,19 @@ foreach ($lang in 'ka','en') {
               Measure-Object -Sum).Sum + ' items')
 }
 
-# ---- the accessories page ---------------------------------------------------
-# Four parts, one group, and no shape between them: a filter column here would
-# be a search box and two lists that never change anything. It is the grid on
-# its own.
-foreach ($lang in 'ka','en') {
-  $t = $PAGE[$lang]
-  $shell = Shell $lang $t.accTitle $t.accDesc 'accessories'
-  $head = $shell[0]; $tail = $shell[1]
-  $rows = Cards $ACC $lang
+# ---- the pages a group asks for ---------------------------------------------
+# One group each, and no shape between the parts in them: a filter column here
+# would be a search box and two lists that never change anything. It is the grid
+# on its own.
+foreach ($g in $OWN) {
+  $key = [string]$g.group.page
+  foreach ($lang in 'ka','en') {
+    $t = $PAGE[$lang]
+    $p = $t.own[$key]
+    if (-not $p) { throw ('no page strings for "' + $key + '" in ' + $lang) }
+    $shell = Shell $lang $p.title $p.desc ($p.out -replace '(-en)?\.html$','')
+    $head = $shell[0]; $tail = $shell[1]
+    $rows = Cards @($g) $lang
 
   $body = @'
 <section class="page-hero page-hero--brand">
@@ -274,16 +306,16 @@ foreach ($lang in 'ka','en') {
 </section>
 
 '@
-  $body = $body.Replace('{SFX}', $t.sfx).Replace('{CRUMBHOME}', $t.crumbHome).
-                Replace('{CRUMBPROD}', $t.crumbProd).Replace('{CRUMB}', $t.accCrumb).
-                Replace('{EYEBROW}', $t.accEyebrow).Replace('{H2}', $t.accH2).
-                Replace('{LEDE}', $t.accLede).
-                Replace('{NOTE}', $t.note).Replace('{CTA}', $t.cta).
-                Replace('{ROWS}', ($rows -join $CRLF))
+    $body = $body.Replace('{SFX}', $t.sfx).Replace('{CRUMBHOME}', $t.crumbHome).
+                  Replace('{CRUMBPROD}', $t.crumbProd).Replace('{CRUMB}', $p.crumb).
+                  Replace('{EYEBROW}', $p.eyebrow).Replace('{H2}', $p.h2).
+                  Replace('{LEDE}', $p.lede).
+                  Replace('{NOTE}', $t.note).Replace('{CTA}', $t.cta).
+                  Replace('{ROWS}', ($rows -join $CRLF))
 
-  $out = $head + $body + $tail
-  $out = [regex]::Replace($out, "`r`n|`n", $CRLF)
-  [IO.File]::WriteAllText((Join-Path $repo ('products\' + $t.accOut)), $out, $UTF8)
-  Write-Host ('  wrote products\' + $t.accOut + ' : ' + (($ACC | ForEach-Object { $_.items.Count }) |
-              Measure-Object -Sum).Sum + ' items')
+    $out = $head + $body + $tail
+    $out = [regex]::Replace($out, "`r`n|`n", $CRLF)
+    [IO.File]::WriteAllText((Join-Path $repo ('products\' + $p.out)), $out, $UTF8)
+    Write-Host ('  wrote products\' + $p.out + ' : ' + $g.items.Count + ' items')
+  }
 }
