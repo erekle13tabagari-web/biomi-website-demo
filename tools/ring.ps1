@@ -83,8 +83,8 @@ $STEPS = @(
 
 # Which slot the cycle starts from, counted clockwise from twelve o'clock. Both
 # the first node and the pointing hand land here, so the ring reads from the
-# hand onwards. 2 of 7 puts it just past three o'clock, where the hand has
-# always sat and where a tapped node is brought to.
+# hand onwards -- the right-hand side, which is also where main.js brings a
+# tapped node.
 $START_SLOT = 2
 
 function Esc($s) { $s -replace '&(?!(amp|lt|gt|quot|#\d+);)', '&amp;' -replace '"', '&quot;' }
@@ -110,11 +110,19 @@ foreach ($lang in 'ka', 'en') {
   # page loads and the rest follow it clockwise. $START_SLOT is the slot the
   # hand occupies, counted clockwise from the top; the modulo wraps the last
   # steps back around past twelve.
+  #
+  # $OFFSET turns the whole ring so that slot lands exactly on three o'clock.
+  # Seven slots do not divide the circle into quarters -- slot 2 of 7 falls at
+  # 102.86deg, a quarter of a step below the horizontal, which is near enough to
+  # centred to look like a mistake rather than a decision. Every step keeps its
+  # spacing; the first one just starts on the centre line, which is also the
+  # line a tapped step is brought to, so the wheel opens where it already sits.
   $n = $STEPS.Count
+  $OFFSET = 90.0 - 360.0 * $START_SLOT / $n
   $out = ''
   for ($i = 0; $i -lt $n; $i++) {
     $t = $STEPS[$i].$lang
-    $a = [math]::Round(360.0 * (($i + $START_SLOT) % $n) / $n, 2)
+    $a = [math]::Round(360.0 * (($i + $START_SLOT) % $n) / $n + $OFFSET, 2)
     $linkAttr = ''
     $out += '        <div class="ring__node" style="--a:' + $a + 'deg" data-title="' + (Esc $t.title) +
             '" data-desc="' + (Esc $t.desc) + '"' + $linkAttr + '>' + "`r`n" +
@@ -132,13 +140,13 @@ foreach ($lang in 'ka', 'en') {
   # the first node than the last one did -- six runs today had it at 56.
   $s = $s.Substring(0, $first).TrimEnd(' ') + $out + '      ' + $s.Substring($close)
 
-  # The tap hint sits on the slot the cycle starts from, which is the same
-  # arithmetic the nodes use rather than the fixed 90deg it used to carry --
-  # that was a node only while the ring had eight of them, and 90 is not a
-  # multiple of 360/7. Because the nodes are offset by the same $START_SLOT,
-  # the hand and the first step are the same place by construction: they cannot
-  # drift apart if the step count changes.
-  $ha = [math]::Round(360.0 * $START_SLOT / $n, 2)
+  # The tap hint sits on the slot the cycle starts from, worked out with the
+  # same arithmetic and the same $OFFSET the nodes use rather than the fixed
+  # 90deg it used to carry -- that was a node only while the ring had eight of
+  # them. It comes back to 90 now that the ring is turned onto three o'clock,
+  # but by construction rather than by coincidence: the hand and the first step
+  # cannot drift apart if the step count changes.
+  $ha = [math]::Round(360.0 * $START_SLOT / $n + $OFFSET, 2)
   $s = [regex]::Replace($s, '<div class="ring"(?:\s+style="[^"]*")?>',
                         ('<div class="ring" style="--hint-a:' + $ha + 'deg">'))
 
