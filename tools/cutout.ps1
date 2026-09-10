@@ -229,10 +229,28 @@ function IconFor([string]$folder) {
   return ''
 }
 
-# A sub-folder inside a chapter is one of its categories, named in English:
-# "Boiler", "water heater", "in-line". Loosely, because those are typed by hand
-# and the tree says "Boilers", "Water heaters", "In-line" -- so case, spacing,
-# hyphens and a trailing s are all ignored.
+# A sub-folder inside a chapter is one of its categories, named either way:
+# "Boiler", "water heater", "in-line" in English, or the Georgian name the menu
+# uses. Loosely, because these are typed by hand and the tree says "Boilers",
+# "Water heaters", "In-line" -- so on the English, case, spacing, hyphens and a
+# trailing s are all ignored.
+#
+# The Georgian needs more than a trailing letter trimmed. A plural puts -eb-
+# in front of the case ending rather than after the stem, so the singular is
+# not a prefix of the plural and neither StartsWith nor a trimmed final letter
+# will match them: the ducting folders are singular where the tree is plural.
+# Dropping the ending and then the plural marker leaves both as the same stem.
+# The two suffixes are written by codepoint for the reason the whole file
+# avoids Georgian in its code: one save through the wrong editor and a literal
+# is mojibake, and a match that silently stops matching is worse than one that
+# was never written.
+$KA_I  = [char]0x10D8                            # the case ending -i
+$KA_EB = [string][char]0x10D4 + [char]0x10D1     # the plural marker -eb-
+function Stem([string]$s) {
+  $s = $s.Trim().TrimEnd($KA_I)
+  if ($s.EndsWith($KA_EB)) { $s = $s.Substring(0, $s.Length - 2) }
+  return $s
+}
 #
 # The key that comes back is what the page asks for the file by: a category's
 # own filter slug where it has one (the four ventilation categories all live on
@@ -240,8 +258,11 @@ function IconFor([string]$folder) {
 function Norm([string]$s) { ($s -replace '[^a-z0-9]', '').TrimEnd('s') }
 function KeyFor($chapter, [string]$folder) {
   $want = Norm $folder.ToLower()
+  $stem = Stem $folder
   foreach ($it in $chapter.items) {
-    if ((Norm $it.en.ToLower()) -eq $want) {
+    $hit = ($want -and (Norm $it.en.ToLower()) -eq $want) -or
+           ($stem -and (Stem $it.ka) -eq $stem)
+    if ($hit) {
       if ($it.cat)  { return [string]$it.cat }
       if ($it.page) { return [string]$it.page }
     }

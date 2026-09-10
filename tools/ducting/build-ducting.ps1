@@ -42,8 +42,8 @@ $PAGE = @{
             accessories=@{ out='accessories.html'; crumb='აქსესუარები'; eyebrow='აქსესუარები'
                            h2='ჰაერსატარის აქსესუარები'
                            title='ჰაერსატარის აქსესუარები - ბიომი'
-                           lede='გადაბმა, დამჭერები, გამოსასვლელი ყუთები და თუნუქის მასალა.'
-                           desc='ჰაერსატარის აქსესუარები - გადაბმა, დამჭერები, გამოსასვლელი ყუთები, რეგულატორი და თუნუქის მასალა.' }
+                           lede='გამოსასვლელი ყუთები, თუნუქის მასალა, გადაბმა და დამჭერები.'
+                           desc='ჰაერსატარის აქსესუარები - გამოსასვლელი ყუთები, თუნუქის მასალა, გადაბმა, დამჭერები და რეგულატორი.' }
             grilles=@{     out='grilles.html'; crumb='ცხაურა'; eyebrow='ცხაურა'
                            h2='ცხაურები'
                            title='ცხაურები - ბიომი'
@@ -65,8 +65,8 @@ $PAGE = @{
             accessories=@{ out='accessories-en.html'; crumb='Accessories'; eyebrow='Accessories'
                            h2='Ducting accessories'
                            title='Ducting accessories - Biomi'
-                           lede='Flange connectors, brackets, outlet boxes and sheet material.'
-                           desc='Ducting accessories - flange connectors, brackets, outlet boxes, damper regulators and sheet material.' }
+                           lede='Outlet boxes, sheet material, flange connectors and brackets.'
+                           desc='Ducting accessories - outlet boxes, sheet material, flange connectors, brackets and damper regulators.' }
             grilles=@{     out='grilles-en.html'; crumb='Grilles'; eyebrow='Grilles'
                            h2='Grilles'
                            title='Grilles - Biomi'
