@@ -131,8 +131,10 @@ foreach ($lang in 'ka','en') {
     }
     $short = if ($shortWords.Count) { $shortWords -join ' ' } else { ($name -split ' ')[0] }
 
-    # airflow, then diameter for a tie: CA IL 150 Q and 160 Q are both 350 m3/h
-    $g = @($mods | Where-Object { $_.slug -eq $f.slug } | Sort-Object { [double]$_.airflow }, { [double]('0' + $_.diameter) })
+    # airflow, then diameter for a tie: CA IL 150 Q and 160 Q are both 350 m3/h.
+    # The name last, so a pair that ties on both -- HRW 40 MONO EVO HCS and its
+    # WiFi twin -- comes out in the same order every run.
+    $g = @($mods | Where-Object { $_.slug -eq $f.slug } | Sort-Object { [double]$_.airflow }, { [double]('0' + $_.diameter) }, { $_.model })
     # One model has nothing to be told apart from, and CommonPrefix of a single
     # name strips all but its last word -- "LINEO 100 QUIET ES" came out as "ES".
     $prefix = if ($g.Count -gt 1) { CommonPrefix (@($g | ForEach-Object { $_.model })) } else { '' }

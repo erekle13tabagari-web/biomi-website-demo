@@ -54,6 +54,8 @@ $CAT = @{
   'vortice-ca-rm-es'=@{g='duct';t='duct'};   'vortice-lineo-q'=@{g='duct';t='duct'}
   'vortice-lineo-quiet-es'=@{g='duct';t='duct'}; 'vortice-lineo-t-quiet'=@{g='duct';t='duct'}
   'vortice-hr-neti'=@{g='hrv';t='wall'}
+  # the HRW units are through-the-wall, decentralised: heat recovery, wall
+  'vortice-hrw-all'=@{g='hrv';t='wall'};     'vortice-hrw-mono'=@{g='hrv';t='wall'}
   'vortice-qbk'=@{g='ind';t='centrifugal'};  'vortice-qbk-sal'=@{g='ind';t='centrifugal'}
   'vortice-cms'=@{g='ind';t='centrifugal'};  'vortice-roof'=@{g='ind';t='roof'}
   'vortice-hri'=@{g='hrv';t='ceiling'}

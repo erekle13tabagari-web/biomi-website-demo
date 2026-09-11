@@ -18,7 +18,10 @@ $models = (Get-Content (Join-Path $sp 'vortice-models.json') -Raw | ConvertFrom-
 # drops out with the same filter.
 $extra = Join-Path $sp 'vortice-extra.json'
 if (Test-Path $extra) {
-  $models = @($models) + @(Get-Content $extra -Raw -Encoding UTF8 | ConvertFrom-Json | Where-Object { $_.airflow })
+  # Parenthesised before the pipe: ConvertFrom-Json hands the whole JSON array
+  # down the pipeline as one object, so without them the seven rows arrived as a
+  # single "model" whose fields were arrays.
+  $models = @($models) + @((Get-Content $extra -Raw -Encoding UTF8 | ConvertFrom-Json) | Where-Object { $_.airflow })
 }
 
 # Matched loosely, not by exact name: the off-limits folder has been renamed

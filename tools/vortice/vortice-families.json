@@ -154,5 +154,19 @@
  "tagKa":"კედელზე ან იატაკზე · 300 მ³/სთ","tagEn":"Wall or floor · 300 m³/h",
  "typeKa":"სითბოს რეკუპერაციის დანადგარი","typeEn":"Heat recovery ventilation unit",
  "descKa":"კედელზე ან იატაკზე დასამონტაჟებელი რეკუპერატორი IoT მართვით - თბური ეფექტურობა 92.5%-მდე, 300 მ³/სთ. Passive House სერტიფიკატით.",
- "descEn":"A heat recovery unit for wall or floor mounting, with IoT control - up to 92.5% thermal efficiency at 300 m³/h. Passive House certified."}
+ "descEn":"A heat recovery unit for wall or floor mounting, with IoT control - up to 92.5% thermal efficiency at 300 m³/h. Passive House certified."},
+
+{"slug":"vortice-hrw-all","line":"hr","match":"^VORT HRW-ALL","imgdirs":["VORT HRW-ALL 100 DF_"],
+ "nameKa":"VORT HRW-ALL 100 DF რეკუპერატორი","nameEn":"VORT HRW-ALL 100 DF heat recovery unit",
+ "tagKa":"კედლის · 90-130 მ³/სთ","tagEn":"Wall unit · 90-130 m³/h",
+ "typeKa":"დეცენტრალიზებული რეკუპერატორი","typeEn":"Decentralised heat recovery unit",
+ "descKa":"დეცენტრალიზებული ორნაკადიანი ვენტილაცია ენთალპიური თბოცვლელით - კედელზე (W), ნახევრად ჩაშენებული (SR) ან ჩაშენებული (R) ვერსიებში. მართვა HMI პანელით ან Vortice HRU აპლიკაციით, ჩაშენებული Wi-Fi-ით.",
+ "descEn":"Decentralised double-flow ventilation with an enthalpy heat exchanger - wall-mounted (W), semi-recessed (SR) or recessed (R). Controlled from the HMI panel or the Vortice HRU app, with built-in Wi-Fi."},
+
+{"slug":"vortice-hrw-mono","line":"hr","match":"^VORT HRW \\d+ MONO","imgdirs":["VORT HRW MONO EVO HCS_"],
+ "nameKa":"VORT HRW MONO EVO HCS რეკუპერატორი","nameEn":"VORT HRW MONO EVO HCS heat recovery unit",
+ "tagKa":"ერთი ოთახისთვის · 40-60 მ³/სთ","tagEn":"Single room · 40-60 m³/h",
+ "typeKa":"ერთი ოთახის რეკუპერატორი","typeEn":"Single-room heat recovery unit",
+ "descKa":"ერთი ოთახის რეკუპერატორი კერამიკული თბოცვლელით - სითბოს 90%-მდე უბრუნებს, EC ძრავა ხუთი სიჩქარით და ტენიანობის სენსორი (HCS). Wi-Fi ვერსიები რამდენიმე მოწყობილობას ერთ ქსელში აერთიანებს.",
+ "descEn":"A single-room heat recovery unit with a ceramic heat exchanger - recovers up to 90% of the heat, with a five-speed EC motor and a humidity sensor (HCS). The Wi-Fi versions link several units in one mesh network."}
 ]
