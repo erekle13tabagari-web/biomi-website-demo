@@ -9,6 +9,11 @@
 #   1. the numbered PNG studio shots on white   (_01.png, _02.png ...)
 #   2. the gallery JPGs (detail shots)
 #   3. the ambiente JPGs (in-room photography)
+#
+# -Only <slug>,<slug> encodes those pages alone and leaves the rest as they are.
+param([string[]]$Only)
+# through powershell -File, "a,b" arrives as the one string "a,b"
+$Only = @($Only | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
 . (Join-Path $PSScriptRoot 'config.ps1')
 $root = $LIBRARY
 $repo = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
@@ -24,6 +29,7 @@ function Rank($f) {
 
 $report = New-Object System.Collections.ArrayList
 foreach ($fam in $fams) {
+  if ($Only.Count -and $Only -notcontains $fam.slug) { continue }
   # pool every photo under every source folder for this page
   # imgfilter guards against mis-stocked folders: the MF folder holds only
   # code 11110's photos, which are the MG (Punto Ghost), and the real MF

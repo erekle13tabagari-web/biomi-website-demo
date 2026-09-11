@@ -34,6 +34,11 @@ $CAT = @{
   # jacketed LINEO, named "LINEO QUIET duct fan" in vortice-families.json, so it
   # takes the same pair as the LINEO beside it.
   'vortice-lineo-quiet'=@{g='duct';t='duct'}
+  # The ranges split out of CA IL, LINEO, LINEO QUIET and VORT HR / HRI take
+  # the pair of the page they left; the HR 300 is a wall or floor unit.
+  'vortice-ca-rm-es'=@{g='duct';t='duct'};   'vortice-lineo-q'=@{g='duct';t='duct'}
+  'vortice-lineo-quiet-es'=@{g='duct';t='duct'}; 'vortice-lineo-t-quiet'=@{g='duct';t='duct'}
+  'vortice-hr-neti'=@{g='hrv';t='wall'}
   'vortice-qbk'=@{g='ind';t='centrifugal'};  'vortice-qbk-sal'=@{g='ind';t='centrifugal'}
   'vortice-cms'=@{g='ind';t='centrifugal'};  'vortice-roof'=@{g='ind';t='roof'}
   'vortice-hri'=@{g='hrv';t='ceiling'}
@@ -129,7 +134,7 @@ foreach ($lang in 'ka','en') {
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="../index.html">$($t.home)</a><span class="sep">/</span>
-      <a href="../index.html#products">$($t.products)</a><span class="sep">/</span>
+      <a href="../products$sfx">$($t.products)</a><span class="sep">/</span>
       <a href="ventilation$sfx">$($t.vent)</a><span class="sep">/</span>
       <b>Vortice</b>
     </nav>

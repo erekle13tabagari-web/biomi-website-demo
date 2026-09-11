@@ -61,57 +61,6 @@
                                         "s2-5.avif"
                                     ]
                       },
-    "vortice-me":  {
-                       "11307":  [
-                                     "s2-1.avif",
-                                     "s2-2.avif",
-                                     "s2-3.avif",
-                                     "s2-4.avif",
-                                     "s2-5.avif"
-                                 ],
-                       "11270":  [
-                                     "s2-1.avif",
-                                     "s2-2.avif",
-                                     "s2-3.avif",
-                                     "s2-4.avif",
-                                     "s2-5.avif"
-                                 ],
-                       "11201":  [
-                                     "main.avif",
-                                     "front.avif",
-                                     "angle.avif",
-                                     "detail.avif",
-                                     "room.avif"
-                                 ],
-                       "11309":  [
-                                     "s2-1.avif",
-                                     "s2-2.avif",
-                                     "s2-3.avif",
-                                     "s2-4.avif",
-                                     "s2-5.avif"
-                                 ],
-                       "11260":  [
-                                     "s2-1.avif",
-                                     "s2-2.avif",
-                                     "s2-3.avif",
-                                     "s2-4.avif",
-                                     "s2-5.avif"
-                                 ],
-                       "11308":  [
-                                     "s2-1.avif",
-                                     "s2-2.avif",
-                                     "s2-3.avif",
-                                     "s2-4.avif",
-                                     "s2-5.avif"
-                                 ],
-                       "11261":  [
-                                     "s2-1.avif",
-                                     "s2-2.avif",
-                                     "s2-3.avif",
-                                     "s2-4.avif",
-                                     "s2-5.avif"
-                                 ]
-                   },
     "vortice-ca-v0":  {
                           "16028":  [
                                         "main.avif",
@@ -168,35 +117,57 @@
                                         "room.avif"
                                     ]
                       },
-    "vortice-lineo-quiet":  {
-                                "17162":  [
-                                              "main.avif"
-                                          ],
-                                "17192":  [
-                                              "main.avif"
-                                          ],
-                                "17165":  [
-                                              "main.avif"
-                                          ],
-                                "17160":  [
-                                              "main.avif"
-                                          ],
-                                "17164":  [
-                                              "main.avif"
-                                          ],
-                                "17194":  [
-                                              "main.avif"
-                                          ],
-                                "17166":  [
-                                              "main.avif"
-                                          ],
-                                "17170":  [
-                                              "s2-1.avif"
-                                          ],
-                                "17161":  [
-                                              "main.avif"
-                                          ]
-                            },
+    "vortice-me":  {
+                       "11307":  [
+                                     "s2-1.avif",
+                                     "s2-2.avif",
+                                     "s2-3.avif",
+                                     "s2-4.avif",
+                                     "s2-5.avif"
+                                 ],
+                       "11270":  [
+                                     "s2-1.avif",
+                                     "s2-2.avif",
+                                     "s2-3.avif",
+                                     "s2-4.avif",
+                                     "s2-5.avif"
+                                 ],
+                       "11201":  [
+                                     "main.avif",
+                                     "front.avif",
+                                     "angle.avif",
+                                     "detail.avif",
+                                     "room.avif"
+                                 ],
+                       "11309":  [
+                                     "s2-1.avif",
+                                     "s2-2.avif",
+                                     "s2-3.avif",
+                                     "s2-4.avif",
+                                     "s2-5.avif"
+                                 ],
+                       "11260":  [
+                                     "s2-1.avif",
+                                     "s2-2.avif",
+                                     "s2-3.avif",
+                                     "s2-4.avif",
+                                     "s2-5.avif"
+                                 ],
+                       "11308":  [
+                                     "s2-1.avif",
+                                     "s2-2.avif",
+                                     "s2-3.avif",
+                                     "s2-4.avif",
+                                     "s2-5.avif"
+                                 ],
+                       "11261":  [
+                                     "s2-1.avif",
+                                     "s2-2.avif",
+                                     "s2-3.avif",
+                                     "s2-4.avif",
+                                     "s2-5.avif"
+                                 ]
+                   },
     "vortice-qbk":  {
                         "45793":  [
                                       "main.avif",
@@ -240,59 +211,47 @@
                                       "room.avif"
                                   ]
                     },
+    "vortice-lineo-q":  {
+                            "17148":  [
+                                          "s2-1.avif",
+                                          "s2-2.avif"
+                                      ],
+                            "17197":  [
+                                          "s3-1.avif",
+                                          "s3-2.avif"
+                                      ],
+                            "17143":  [
+                                          "main.avif"
+                                      ],
+                            "17149":  [
+                                          "s3-1.avif",
+                                          "s3-2.avif"
+                                      ]
+                        },
     "vortice-ca-il":  {
-                          "16253":  [
-                                        "s2-1.avif",
-                                        "s2-2.avif",
-                                        "s2-3.avif",
-                                        "s2-4.avif",
-                                        "s2-5.avif"
-                                    ],
-                          "16279":  "s3-1.avif",
                           "16252":  [
-                                        "main.avif"
+                                        "s2-1.avif"
                                     ],
-                          "16280":  "s3-1.avif",
                           "16256":  [
-                                        "main.avif"
+                                        "s2-1.avif"
                                     ],
-                          "16281":  [
-                                        "s3-1.avif"
-                                    ],
-                          "16278":  "s3-1.avif"
-                      },
-    "vortice-lineo":  {
-                          "17197":  [
-                                        "s5-1.avif",
-                                        "s5-2.avif"
-                                    ],
-                          "17149":  [
-                                        "s5-1.avif",
-                                        "s5-2.avif"
-                                    ],
-                          "17148":  [
-                                        "s4-1.avif",
-                                        "s4-2.avif"
-                                    ],
-                          "17145":  [
-                                        "s2-1.avif",
-                                        "s2-2.avif"
-                                    ],
-                          "17146":  [
-                                        "s3-1.avif",
-                                        "s3-2.avif",
-                                        "s3-3.avif"
-                                    ],
-                          "17143":  [
-                                        "main.avif"
+                          "16253":  [
+                                        "main.avif",
+                                        "front.avif",
+                                        "angle.avif",
+                                        "detail.avif",
+                                        "room.avif"
                                     ]
                       },
-    "vortice-hri":  {
-                        "10924":  [
-                                      "main.avif"
-                                  ],
-                        "11282":  [
-                                      "s2-1.avif"
-                                  ]
-                    }
+    "vortice-lineo":  {
+                          "17146":  [
+                                        "s2-1.avif",
+                                        "s2-2.avif",
+                                        "s2-3.avif"
+                                    ],
+                          "17145":  [
+                                        "main.avif",
+                                        "front.avif"
+                                    ]
+                      }
 }

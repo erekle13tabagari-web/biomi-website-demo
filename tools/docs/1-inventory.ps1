@@ -83,6 +83,26 @@ foreach ($shared in ($MAP | Group-Object { $_.cat + '\' + $_.dir } | Where-Objec
   }
 }
 
+# ---- Vortice: the article code beats the folder
+# The Vortice library files each model in a folder of its own, named for its
+# article code ("17170 LINEO 100 QUIET ES ..."), inside a range folder that can
+# feed several pages -- LINEO_Q holds LINEO, LINEO Q, LINEO QUIET, QUIET ES and
+# T QUIET. The code in the path is the more specific of the two, so where the
+# priced list knows it, the page that code's model is on gets the document; the
+# folder table above only decides for files outside a model folder (range
+# brochures) and for codes nobody prices.
+$VCODE = @{}
+foreach ($vm in (Get-Content (Join-Path $repo 'tools\vortice\vortice-pages.json') -Raw -Encoding UTF8 | ConvertFrom-Json)) {
+  if ($vm.slug) { $VCODE[[string]$vm.code] = [string]$vm.slug }
+}
+function CodeSlug($rel) {
+  foreach ($seg in ($rel -split '\\')) {
+    $cm = [regex]::Match($seg, '^(\d{4,6}) ')
+    if ($cm.Success -and $VCODE.ContainsKey($cm.Groups[1].Value)) { return $VCODE[$cm.Groups[1].Value] }
+  }
+  return ''
+}
+
 # ---- classify by filename. Order matters: a Vortice safety leaflet is called
 #      "…Libretti_Istruzioni_838-Avvertenze_Sicurezza…", so safety is tested
 #      before the instruction booklet it is named after.
@@ -116,6 +136,10 @@ foreach ($catName in $CATS.Keys) {
     # path below the category folder, which is what the map matches against
     $rel = $pdf.FullName.Substring($catRoot.Length).TrimStart('\')
     $hit = $MAP | Where-Object { $_.cat -eq $catName -and $rel.StartsWith($_.dir) } | Select-Object -First 1
+    if ($catName -eq 'ვენტილაცია') {
+      $cs = CodeSlug $rel
+      if ($cs) { $hit = @{ slugs = @($cs) } }
+    }
     $h = (Get-FileHash -LiteralPath $pdf.FullName -Algorithm MD5).Hash
     if (-not $hit) {
       [void]$unmapped.Add([pscustomobject]@{ cat = $catName; rel = $rel; mb = [math]::Round($pdf.Length/1MB,1) })

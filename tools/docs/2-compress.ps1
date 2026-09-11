@@ -14,6 +14,13 @@
 #
 # A file that comes out no smaller is copied across untouched, so a
 # well-optimised original is never made worse.
+#
+# A document already published under the same name from the same source file
+# is kept as it is, not compressed again: Ghostscript stamps fresh dates and IDs
+# on every run, so recompressing all 244 turned each run into 244 changed PDFs
+# with nothing in them changed. -Force redoes every file -- for new settings,
+# or a source that was replaced under the same name.
+param([switch]$Force)
 $sp   = $PSScriptRoot
 $repo = Split-Path (Split-Path $sp -Parent) -Parent
 $GS   = 'C:\Program Files\gs\gs10.03.1\bin\gswin64c.exe'
@@ -42,6 +49,12 @@ $GSARGS = @(
 )
 
 $docs = Get-Content (Join-Path $sp 'docs.json')      -Raw -Encoding UTF8 | ConvertFrom-Json
+# published file -> the source it was made from, to know when one can be kept
+$WAS = @{}
+$pubPath = Join-Path $sp 'published.json'
+if (Test-Path $pubPath) {
+  foreach ($e in (Get-Content $pubPath -Raw -Encoding UTF8 | ConvertFrom-Json)) { $WAS[[string]$e.file] = [string]$e.name }
+}
 $ovr  = Get-Content (Join-Path $sp 'overrides.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 
 function Slug($s) {
@@ -125,7 +138,11 @@ foreach ($g in $groups) {
   $taken[$n] = $true
   $dst = Join-Path $out ($n + '.pdf')
 
-  if ($o -and $o.pages) {
+  # Same name, same source, already on disk: nothing to redo (see the top).
+  $reuse = (-not $Force) -and (Test-Path $dst) -and ($WAS[($n + '.pdf')] -eq $r.name)
+  if ($reuse) {
+    # kept as published
+  } elseif ($o -and $o.pages) {
     # keep only the wanted page ranges, then stitch them back together
     $parts = @()
     $p = 0
@@ -145,7 +162,7 @@ foreach ($g in $groups) {
   }
 
   $srcLen = (Get-Item -LiteralPath $r.src).Length
-  if ((-not (Test-Path $dst)) -or ((Get-Item $dst).Length -ge $srcLen -and -not $o)) {
+  if (-not $reuse -and ((-not (Test-Path $dst)) -or ((Get-Item $dst).Length -ge $srcLen -and -not $o))) {
     Copy-Item -LiteralPath $r.src -Destination $dst -Force
   }
   $mb = [math]::Round((Get-Item $dst).Length / 1MB, 2)

@@ -13,6 +13,13 @@
 $root = $LIBRARY
 $sp   = $PSScriptRoot
 $models = (Get-Content (Join-Path $sp 'vortice-models.json') -Raw | ConvertFrom-Json) | Where-Object { $_.airflow }
+# Models carried but not in the price list yet (the HRW heat recovery units),
+# in the same fields -- see vortice-extra.json. The note row has no airflow and
+# drops out with the same filter.
+$extra = Join-Path $sp 'vortice-extra.json'
+if (Test-Path $extra) {
+  $models = @($models) + @(Get-Content $extra -Raw -Encoding UTF8 | ConvertFrom-Json | Where-Object { $_.airflow })
+}
 
 # Matched loosely, not by exact name: the off-limits folder has been renamed
 # once already ("... DO NOT TOUCH CLAUDE"), and an exact-match skip silently

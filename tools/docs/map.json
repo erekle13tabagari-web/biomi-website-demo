@@ -16,7 +16,11 @@
     "Each pin keeps the page the documents were first published on (2026-09-03). Two of",
     "them hold more than their name says: LINEO_Q also contains the plain LINEO models",
     "(17143-17149), and MFO_ contains MF 1506 T HCS LL (11176), so those documents sit on",
-    "the LINEO QUIET and MFO pages. Splitting them by article code is a separate change."
+    "the LINEO QUIET and MFO pages. Splitting them by article code is a separate change.",
+    "",
+    "Since done (2026-09-11): for Vortice, 1-inventory.ps1 now sends a document in a model",
+    "folder (\"17170 LINEO 100 QUIET ES ...\") to the page that article code is on, so the",
+    "LINEO_Q and MFO_ pins only decide for files outside a model folder."
   ],
 
   "ქვაბები": [
@@ -26,7 +30,7 @@
   ],
 
   "ვენტილაცია": [
-    { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Lineo_Range",        "slugs": ["vortice-lineo", "vortice-lineo-quiet"] },
+    { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Lineo_Range",        "slugs": ["vortice-lineo", "vortice-lineo-q", "vortice-lineo-quiet", "vortice-lineo-quiet-es", "vortice-lineo-t-quiet"] },
     { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Vort_QBK_HE_Range",  "slugs": ["vortice-qbk"] },
     { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Vort_QBK_SAL-KC_EVO", "slugs": ["vortice-qbk-sal"] },
     { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_VORTICENT_CMS_RANGE", "slugs": ["vortice-cms"] },

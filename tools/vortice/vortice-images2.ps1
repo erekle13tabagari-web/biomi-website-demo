@@ -13,6 +13,12 @@
 # A model with no photos of its own borrows from the model it shares the most
 # leading name tokens with: CA-RM 125 ES takes CA-RM 200 ES rather than the
 # CA IL shots, and TORRETTA TRM 70 takes the other TORRETTA, not TIRACAMINO.
+#
+# -Only <slug>,<slug> encodes those pages' pictures alone. The gallery map is
+# still worked out for every page, since vortice-galleries.json is rewritten
+# whole, but the other pages' AVIFs are not re-encoded to the same picture.
+param([string[]]$Only)
+$Only = @($Only | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
 . (Join-Path $PSScriptRoot 'config.ps1')
 $root = $LIBRARY
 $repo = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
@@ -58,6 +64,7 @@ foreach ($f in $fams) {
 
   # write each group's images
   $out = Join-Path $repo ('assets\img\products\' + $f.slug)
+  $doWrite = (-not $Only.Count) -or ($Only -contains $f.slug)
   $names = @{}
   for ($k = 0; $k -lt $groups.Count; $k++) {
     $seen = @{}; $pick = @()
@@ -69,8 +76,10 @@ foreach ($f in $fams) {
     $written = @()
     for ($i = 0; $i -lt $pick.Count; $i++) {
       $name = if ($k -eq 0) { $BASE[$i] + '.avif' } else { 's' + ($k+1) + '-' + ($i+1) + '.avif' }
-      & magick $pick[$i] -resize 1100x825 -background white -alpha remove -alpha off `
-               -gravity center -extent 1100x825 -quality 50 (Join-Path $out $name)
+      if ($doWrite) {
+        & magick $pick[$i] -resize 1100x825 -background white -alpha remove -alpha off `
+                 -gravity center -extent 1100x825 -quality 50 (Join-Path $out $name)
+      }
       $written += $name
     }
     $names[$groups[$k].key] = $written

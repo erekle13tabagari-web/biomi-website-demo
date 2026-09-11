@@ -131,8 +131,11 @@ foreach ($lang in 'ka','en') {
     }
     $short = if ($shortWords.Count) { $shortWords -join ' ' } else { ($name -split ' ')[0] }
 
-    $g = @($mods | Where-Object { $_.slug -eq $f.slug } | Sort-Object { [double]$_.airflow })
-    $prefix = CommonPrefix (@($g | ForEach-Object { $_.model }))
+    # airflow, then diameter for a tie: CA IL 150 Q and 160 Q are both 350 m3/h
+    $g = @($mods | Where-Object { $_.slug -eq $f.slug } | Sort-Object { [double]$_.airflow }, { [double]('0' + $_.diameter) })
+    # One model has nothing to be told apart from, and CommonPrefix of a single
+    # name strips all but its last word -- "LINEO 100 QUIET ES" came out as "ES".
+    $prefix = if ($g.Count -gt 1) { CommonPrefix (@($g | ForEach-Object { $_.model })) } else { '' }
 
     # ---- gallery
     # On a switching page the opening gallery is the first chip's set, so the
@@ -173,17 +176,20 @@ foreach ($lang in 'ka','en') {
       $cls = if ($i -eq 0) { 'chip active' } else { 'chip' }
       $dia = if ($m.diameter) { $m.diameter + ' ' + $t.uMm } else { '-' }
       $db  = if ($m.db)       { $m.db + ' ' + $t.uDb }       else { '-' }
+      # blank where Vortice publishes no figure (the HRW units): a dash, not " W"
+      $watt = if ($m.watts)   { $m.watts + ' ' + $t.uW }     else { '-' }
       $imgAttr = ''
       $lst = GalFor $gal $m.code
       if ($lst) { $imgAttr = '" data-alt="' + (HtmlEnc $m.model) + '" data-imgs="' + ($lst -join ',') }
       $chips += '          <button class="' + $cls + '" type="button" data-model="' + (HtmlEnc $m.model) +
                 '" data-code="' + $m.code + '" data-air="' + $m.airflow + ' ' + $t.uAir +
-                '" data-watt="' + $m.watts + ' ' + $t.uW + '" data-dia="' + $dia +
+                '" data-watt="' + $watt + '" data-dia="' + $dia +
                 '" data-db="' + $db + $imgAttr + '">' + (HtmlEnc $labels[$m.code]) + '</button>'
     }
     $first = $g[0]
     $fDia = if ($first.diameter) { $first.diameter + ' ' + $t.uMm } else { '-' }
     $fDb  = if ($first.db)       { $first.db + ' ' + $t.uDb }       else { '-' }
+    $fWatt = if ($first.watts)   { $first.watts + ' ' + $t.uW }     else { '-' }
     $lo = [double]($g[0].airflow); $hi = [double]($g[-1].airflow)
     $range = if ($g.Count -gt 1) { "$lo-$hi $($t.uAir)" } else { "$lo $($t.uAir)" }
     $power = if ($MIXED -contains $f.slug) { $t.phMix } else { $t.ph1 }
@@ -229,7 +235,7 @@ foreach ($lang in 'ka','en') {
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="../index.html">$($t.home)</a><span class="sep">/</span>
-      <a href="../index.html#products">$($t.products)</a><span class="sep">/</span>
+      <a href="../products$($t.file)">$($t.products)</a><span class="sep">/</span>
       <a href="ventilation$($t.file)">$($t.vent)</a><span class="sep">/</span>
       <a href="ventilation$($t.file)?brand=vortice">Vortice</a><span class="sep">/</span>
       <b>$(HtmlEnc $short)</b>
@@ -280,7 +286,7 @@ $($chips -join "`r`n")
           <tr><th>$($t.thCode)</th><td data-spec="code">$($first.code)</td></tr>
           <tr><th>$($t.thType)</th><td>$(HtmlEnc $type)</td></tr>
           <tr><th>$($t.thAir)</th><td data-spec="air">$($first.airflow) $($t.uAir)</td></tr>
-          <tr><th>$($t.thWatt)</th><td data-spec="watt">$($first.watts) $($t.uW)</td></tr>
+          <tr><th>$($t.thWatt)</th><td data-spec="watt">$fWatt</td></tr>
           <tr><th>$($t.thDia)</th><td data-spec="dia">$fDia</td></tr>
           <tr><th>$($t.thNoise)</th><td data-spec="db">$fDb</td></tr>
           <tr><th>$($t.thPower)</th><td>$power</td></tr>
@@ -327,7 +333,10 @@ $cmpRows
     $h = [regex]::Replace($h, '(?s)<title>.*?</title>', ('<title>' + (HtmlEnc $name) + ' - ' + $(if ($lang -eq 'ka') { 'ბიომი' } else { 'Biomi' }) + '</title>'))
     $h = [regex]::Replace($h, '(?s)(<meta name="description" content=").*?(">)', ('${1}' + (HtmlEnc $desc) + '${2}'))
     $out = Join-Path $repo ('products\' + $f.slug + $t.file)
-    [IO.File]::WriteAllText($out, ($h + $body + $tl), (New-Object Text.UTF8Encoding($false)))
+    # With the BOM the live pages carry. Not finished pages yet: run
+    # tools/add-card-brands.ps1 (card logos) and tools/docs/3-pages.ps1
+    # (documents tab) after this, then the hub.
+    [IO.File]::WriteAllText($out, ($h + $body + $tl), (New-Object Text.UTF8Encoding($true)))
     $made += ($f.slug + $t.file)
   }
 }
