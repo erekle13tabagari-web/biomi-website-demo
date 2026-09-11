@@ -40,7 +40,8 @@
 ]},
 
 {"ka":"წყალმომარაგება","en":"Water supply","icon":"water","items":[
-  {"ka":"სატუმბო სადგური","en":"Pumping station","page":null,"kids":[
-    {"ka":"Dab","en":"Dab","page":null}]}
+  {"ka":"სატუმბო სადგური","en":"Pumping station","page":"pumping-stations","kids":[
+    {"ka":"DAB","en":"DAB","page":"pumping-stations","brand":"dab"},
+    {"ka":"Wilo","en":"Wilo","page":"pumping-stations","brand":"wilo"}]}
 ]}
 ]

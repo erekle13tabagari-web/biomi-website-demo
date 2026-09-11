@@ -53,6 +53,9 @@ $ICODIR = 'assets/img/cat-icons/'
 # Paths have no prefix: products.html sits at the site root.
 $SMDIR = 'assets/img/cutouts/sm/'
 $BGDIR  = 'assets/img/cat-bg/'
+# A category photographed in place rather than cut out, as a 4:3 JPEG -- see
+# tools/water/build-water.ps1. Only looked at where there is no cut-out.
+$PHOTODIR = 'assets/img/cat-photo/'
 
 # The slug a category's picture is filed under. The four ventilation categories
 # share one listing and are told apart by cat=, so that comes first.
@@ -245,6 +248,12 @@ foreach ($lang in 'ka','en') {
       # and nowhere else, rather than repeating down the row.
       if (-not $pic -and $head) { $pic = PicFor ($SMDIR + $ch.icon + '.png') }
       $head = $false
+      # Failing both, a photograph, drawn to cover the card (.catalog__pic--photo)
+      $photoCls = ''
+      if (-not $pic) {
+        $pic = PicFor ($PHOTODIR + $ch.icon + '-' + (PicKey $it) + '.jpg')
+        if ($pic) { $photoCls = ' catalog__pic--photo' }
+      }
       # Only the open chapter's pictures are wanted up front. The other four
       # panels are display:none until their tab is chosen, and a lazy image
       # inside one is not fetched until it is -- which is the whole reason
@@ -263,7 +272,7 @@ foreach ($lang in 'ka','en') {
         $soon = ' catalog__card--soon'
       }
       $rows.Add('          <a class="catalog__card' + $soon + '" href="' + $href + '">')
-      $rows.Add('            <span class="catalog__pic"' + $bgStyle + '>' + $img + '</span>')
+      $rows.Add('            <span class="catalog__pic' + $photoCls + '"' + $bgStyle + '>' + $img + '</span>')
       $rows.Add('            <span class="catalog__name">' + (Esc $it.$lang) + ' ' + $ARROW + '</span>')
       $rows.Add('          </a>')
     }

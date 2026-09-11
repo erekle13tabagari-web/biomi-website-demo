@@ -1125,7 +1125,7 @@
       // had nowhere to go. The ducting grid is the same case: every card is its
       // own <span>, so the whole range groups on .pgrid instead and the arrows
       // walk it. Anything outside both still groups by its own container.
-      var parent = im.closest('.article') || im.closest('.pgrid') || im.parentElement;
+      var parent = im.closest('.article') || im.closest('.pgrid') || im.closest('.pstations') || im.parentElement;
       var g = null;
       for (var i = 0; i < groups.length; i++) { if (groups[i].parent === parent) { g = groups[i]; break; } }
       if (!g) { g = { parent: parent, items: [] }; groups.push(g); }

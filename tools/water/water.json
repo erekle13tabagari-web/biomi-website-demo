@@ -1,0 +1,29 @@
+{
+  "_note": "Everything build-water.ps1 prints, Georgian included, so the script itself stays ASCII. The Georgian lede is the supplied intro text (შესავალი.docx in the drop folder), word for word.",
+
+  "drop": "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\წყალმომარავგება",
+  "slug": "pumping-stations",
+
+  "ka": { "title": "სატუმბო სადგური - ბიომი",
+          "desc": "DAB-ისა და Wilo-ს სატუმბი სადგურების მონტაჟი - სს „ბიომი ჰოლდინგი“.",
+          "home": "მთავარი", "prod": "პროდუქტი", "crumb": "სატუმბო სადგური",
+          "eyebrow": "წყალმომარაგება", "h2": "სატუმბო სადგური",
+          "lede": "„ბიომი ჰოლდინგი“ უზრუნველყოფს DAB-ისა და Wilo-ს სატუმბი სადგურების პროფესიულ მონტაჟს - წყალმომარაგების სისტემის საიმედო და გამართული მუშაობისთვის.",
+          "note": "სადგურის სიმძლავრე და კომპლექტაცია შეირჩევა ობიექტის მიხედვით.",
+          "cta": "მოითხოვეთ შეთავაზება", "site": "ოფიციალური საიტი" },
+
+  "en": { "title": "Pumping stations - Biomi",
+          "desc": "Installation of DAB and Wilo pumping stations - Biomi Holding.",
+          "home": "Home", "prod": "Products", "crumb": "Pumping stations",
+          "eyebrow": "Water supply", "h2": "Pumping stations",
+          "lede": "Biomi Holding provides professional installation of DAB and Wilo pumping stations, so the water supply system runs reliably and smoothly.",
+          "note": "Station capacity and configuration are chosen for the building.",
+          "cta": "Request a quote", "site": "Official website" },
+
+  "items": [
+    { "slug": "dab",  "brand": "DAB",  "logo": "dab.svg",  "src": "DAB.png",  "url": "https://www.dabpumps.com/",
+      "ka": { "sub": "სატუმბო სადგური" }, "en": { "sub": "Pumping station" } },
+    { "slug": "wilo", "brand": "Wilo", "logo": "wilo.svg", "src": "WILO.png", "url": "https://wilo.com/",
+      "ka": { "sub": "სატუმბო სადგური" }, "en": { "sub": "Pumping station" } }
+  ]
+}
