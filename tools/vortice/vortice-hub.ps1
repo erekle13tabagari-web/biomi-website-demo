@@ -8,18 +8,33 @@ $sp   = $PSScriptRoot
 $fams = Get-Content (Join-Path $sp 'vortice-families.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $mods = Get-Content (Join-Path $sp 'vortice-pages.json')    -Raw -Encoding UTF8 | ConvertFrom-Json
 
-# Listing order: biggest first. The range runs from an 85 m3/h bathroom fan to
-# an 18,152 m3/h industrial unit, and airflow is the one measure that spans all
-# of it, so it sorts on each family's highest-rated model.
+# Listing order: by product line, then biggest first. The range runs from an
+# 85 m3/h bathroom fan to an 18,152 m3/h industrial unit, and airflow is the one
+# measure that spans all of it -- but sorting each page on its own airflow
+# scattered a line across the grid once LINEO and CA were split into several
+# pages: LINEO T QUIET sat three rows from LINEO QUIET, CA MD beside CMS. So the
+# pages are grouped by "line" in families.json (a page without one is a line of
+# its own), the lines ordered on their largest model, biggest first, and the
+# pages within a line the same way.
 #
 # families.json keeps its own order untouched: that file drives generation and
-# model-to-page matching, where sequence is load-bearing -- LINEO QUIET has to
-# be tested before LINEO or every QUIET model lands on the wrong page.
-$ordered = @($fams | Sort-Object -Descending -Property @{ e = {
-  $slug = $_.slug
-  ($mods | Where-Object { $_.slug -eq $slug } | ForEach-Object { [double]$_.airflow } |
-    Measure-Object -Maximum).Maximum
-}})
+# model-to-page matching.
+function MaxAir($slug) {
+  ($mods | Where-Object { $_.slug -eq $slug } | ForEach-Object { [double]$_.airflow } | Measure-Object -Maximum).Maximum
+}
+$lineOf = @{}; $lineMax = @{}
+foreach ($f in $fams) {
+  $ln = if ($f.line) { [string]$f.line } else { [string]$f.slug }
+  $lineOf[$f.slug] = $ln
+  $mx = MaxAir $f.slug
+  if (-not $lineMax.ContainsKey($ln) -or $mx -gt $lineMax[$ln]) { $lineMax[$ln] = $mx }
+}
+# the line name and then the slug break ties, so two lines with the same top
+# model cannot interleave and the order is the same on every run
+$ordered = @($fams | Sort-Object -Property @{ e = { $lineMax[$lineOf[$_.slug]] }; Descending = $true },
+                                           @{ e = { $lineOf[$_.slug] } },
+                                           @{ e = { MaxAir $_.slug }; Descending = $true },
+                                           @{ e = { $_.slug } })
 
 # page -> listing group and filter facets
 $CAT = @{
