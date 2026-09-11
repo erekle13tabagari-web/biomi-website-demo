@@ -20,11 +20,9 @@ if (Test-Path $bp) {
   $bm = Get-Content $bp -Raw -Encoding UTF8 | ConvertFrom-Json
   # Held-back outputs must not set the label either: see tools/boilers/visible.ps1.
   . (Join-Path $repo 'tools\boilers\visible.ps1')
-  $bm = @($bm | Where-Object { (BoilerKw $_.name) -ge $BOILER_KWMIN })
-  $vals = @($bm | ForEach-Object {
-    $m = [regex]::Match($_.name, '\b(\d{2,3})\b')
-    if ($m.Success) { [int]$m.Groups[1].Value }
-  } | Where-Object { $_ -gt 0 })
+  # The burners share that file but are not boilers and have no band here.
+  $bm = @($bm | Where-Object { (Visible $_) -and $_.cat -ne 'burners' })
+  $vals = @($bm | ForEach-Object { BoilerKw $_ } | Where-Object { $_ -gt 0 })
   if ($vals.Count) { $KWMIN = ($vals | Measure-Object -Minimum).Minimum }
 }
 
@@ -69,8 +67,10 @@ $PAGES = @(
      # page can still show. The description is what a search result prints, so
      # leaving it would have advertised products and delivered none of them.
      # Both lines go back when tools/boilers/visible.ps1 opens the range again.
-     ledeKa='გაზის ქვაბები კომერციული ობიექტისთვის - კასკადური სერიები.'; ledeEn='Gas boilers for commercial buildings - cascade ranges.'
-     pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან - კომერციული კასკადური სერიები.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus - commercial cascade ranges.'
+     # "Gas" came off when RTQ 3S arrived: it takes a separate burner, and the
+     # burner can be an oil one.
+     ledeKa='ქვაბები კომერციული ობიექტისთვის - კასკადური სერიები და ფოლადის ქვაბი ცალკე სანთურასთან სამუშაოდ.'; ledeEn='Boilers for commercial buildings - cascade ranges, and a steel boiler that takes a separate burner.'
+     pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან - კომერციული კასკადური სერიები და ფოლადის ქვაბები სანთურისთვის.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus - commercial cascade ranges and steel boilers for a separate burner.'
      # the hub cards carry data-cat="<brand slug>", so the second group would just
      # repeat the brand filter -- output band is the useful second axis here
      # Bands follow the published range, the same way the brand hubs build
@@ -85,6 +85,22 @@ $PAGES = @(
      seriesKa='სიმძლავრე'; seriesEn='Output'; seriesName='kw'
      typeKa='წარმოშობა'; typeEn='Origin'
      types=@(@('it','იტალია','Italy'),@('tr','თურქეთი','Turkey'))
+     extraKa=''; extraEn=''; extraName=''; extras=@() },
+
+  # Burners, the other half of RTQ 3S. One brand today, so the brand group
+  # holds a single box; the fuel is the axis worth filtering on, and the hub
+  # carries it on data-type.
+  @{ out='burners'; from=@(
+       @{ hub='riello-burners'; brand='riello'; ka='Riello'; en='Riello' })
+     eyebrowKa='გათბობა'; eyebrowEn='Heating'
+     headKa='სანთურები'; headEn='Burners'
+     crumbKa='სანთურები'; crumbEn='Burners'
+     titleKa='სანთურები - ბიომი'; titleEn='Burners - Biomi'
+     ledeKa='ვენტილატორიანი სანთურები ქვაბისთვის - ბუნებრივ აირზე და დიზელის საწვავზე.'; ledeEn='Forced-draught burners for boilers - natural gas and light oil.'
+     pdescKa='Riello-ს სანთურები ქვაბისთვის - ბუნებრივ აირზე და დიზელის საწვავზე.'; pdescEn='Riello burners for boilers - natural gas and light oil.'
+     series=@(); seriesKa=''; seriesEn=''
+     typeKa='საწვავი'; typeEn='Fuel'
+     types=@(@('gas','ბუნებრივი აირი','Natural gas'),@('oil','დიზელის საწვავი','Light oil'))
      extraKa=''; extraEn=''; extraName=''; extras=@() },
 
   @{ out='ventilation'; from=@(

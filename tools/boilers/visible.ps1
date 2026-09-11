@@ -32,8 +32,21 @@ $BOILER_KWMIN = 50
 # the filter bands already use: CITY 24 -> 24, VIWA S 150 -> 150. The six-digit
 # manufacturer codes that lead some names cannot match, since \b(\d{2,3})\b
 # needs a boundary on both sides.
-function BoilerKw($name) {
-  $m = [regex]::Match($name, '\b(\d{2,3})\b')
+#
+# Some names carry no output at all -- "RTQ 3S", "GULLIVER BS2" -- and their
+# family states it instead, as a range, which 2-images.ps1 copies onto the
+# model as .kw. The top of that range is what counts here: RTQ 3S runs from 35
+# to 4000 kW, and it is a commercial boiler, not one of the small ones held back.
+function BoilerKw($rec) {
+  if ($rec.kw) { return [int](([string]$rec.kw -split '-')[-1]) }
+  $m = [regex]::Match([string]$rec.name, '\b(\d{2,3})\b')
   if ($m.Success) { return [int]$m.Groups[1].Value }
   return 0
+}
+
+# The threshold is about the domestic wall-hung boilers. A burner is not one,
+# whatever its output, so it is always published.
+function Visible($rec) {
+  if ($rec.cat -eq 'burners') { return $true }
+  return (BoilerKw $rec) -ge $BOILER_KWMIN
 }

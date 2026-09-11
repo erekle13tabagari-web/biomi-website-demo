@@ -207,6 +207,15 @@
         "kit":  false
     },
     {
+        "brand":  "Riello",
+        "code":  "101197",
+        "name":  "3736450 სანთურა BURNER RG1R/50 RIELLO",
+        "mfr":  "3736450",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false
+    },
+    {
         "brand":  "Warmhaus",
         "code":  "271112",
         "name":  "LAWA HO 24 SYSTEM გათბობის ქვაბი(კომპლექტში) WARMHAUS",
@@ -214,6 +223,15 @@
         "country":  "თურქეთი",
         "dummy":  false,
         "kit":  true
+    },
+    {
+        "brand":  "Riello",
+        "code":  "101198",
+        "name":  "3761258 სანთურა BURNER GULLIVER BS2 DB DGT RIELLO",
+        "mfr":  "3761258",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false
     },
     {
         "brand":  "Warmhaus",

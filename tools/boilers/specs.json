@@ -8,7 +8,11 @@
     "VIWA 90-150  https://www.warmhaus.com/en/products/commercial-boilers/aluminum-heat-exchanger-boilers/viwa-aluminum-heat-exchanger-wall-mounted-boiler",
     "VIWA S       https://www.warmhaus.com/en/products/commercial-boilers/steel-heat-exchanger-boilers/viwa-s",
     "Dimensions and weight are deliberately absent: the combi page and the system page disagree on the 28 kW depth (380 vs 288 mm), so neither is published until a datasheet settles it.",
-    "Beretta and Riello carry no figures at all -- Riello publishes none on its commercial range page, and CONDEXA PRO 135 is not in its current line-up."
+    "Beretta and Riello boilers carry no figures at all -- Riello publishes none on its commercial range page, and CONDEXA PRO 135 is not in its current line-up.",
+    "The two Riello burners are the exception, from the manufacturer's own leaflets supplied with them:",
+    "BS2   'Gulliver BS Series - Low NOx One Stage Gas Burners', available models table, code 3761258",
+    "RG1R  'Gulliver RG Series - One Stage Light Oil Burners', technical data leaflet",
+    "A value may be a plain string, used in both languages, or {ka, en} where it is words rather than figures."
   ],
 
   "LAWA 18":            { "heat": "7.0-18.0 kW",  "dhw": "8.4",  "eff": "92.5-94.06%", "mod": "1:4", "nox": "3" },
@@ -36,5 +40,12 @@
   "VIWA S 100":         { "heat": "15.6-94.2 kW",   "eff": "98.1% (80/60°C)",  "mod": "1:6", "nox": "6" },
   "VIWA S 115":         { "heat": "18.62-112.5 kW", "eff": "97.88% (80/60°C)", "mod": "1:6", "nox": "6" },
   "VIWA S 125":         { "heat": "19.4-116.7 kW",  "eff": "97.2% (80/60°C)",  "mod": "1:6", "nox": "6" },
-  "VIWA S 150":         { "heat": "24.8-136.5 kW",  "eff": "96.1% (80/60°C)",  "mod": "1:6", "nox": "6" }
+  "VIWA S 150":         { "heat": "24.8-136.5 kW",  "eff": "96.1% (80/60°C)",  "mod": "1:6", "nox": "6" },
+
+  "BS2":  { "fuel": { "ka": "ბუნებრივი აირი", "en": "Natural gas" },
+            "stage": { "ka": "ერთსაფეხურიანი", "en": "One stage" },
+            "flow": "3.5-9.1 Nm³/h", "elec": "0.18 kW", "std": "EN 676" },
+  "RG1R": { "fuel": { "ka": "დიზელის საწვავი", "en": "Light oil" },
+            "stage": { "ka": "ერთსაფეხურიანი", "en": "One stage" },
+            "flow": "1.7-5 kg/h", "elec": "0.29 kW", "noxmg": "180 mg/kWh", "std": "EN 267" }
 }

@@ -39,9 +39,14 @@ foreach ($r in [regex]::Matches($sx,'(?s)<row[^>]*r="(\d+)"[^>]*>(.*?)</row>')) 
   foreach ($b in $BLOCKS) {
     $nm = $cell[$b.name]
     if (-not $nm) { continue }
-    # boilers only: everything else in these columns is an accessory
-    if ($nm -notmatch 'ქვაბი') { continue }
-    if ($nm -match 'სამართავი|თერმოსტატი|ტუმბო|მილი|კოლექტორი|ფლიანეც|სენსორი|კომპლექტი|ადაპტერი|კუთხე|საკვამური|კონსტრუქცია|გამათანაბრებელი|სარქველ|სანთურა') { continue }
+    # boilers only: everything else in these columns is an accessory -- except
+    # the burners ("სანთურა BURNER ..."), which have pages of their own and are
+    # told apart from the boilers by families.json (cat=burners), not here
+    $burner = ($nm -match 'სანთურა') -and ($nm -match 'BURNER')
+    if (-not $burner) {
+      if ($nm -notmatch 'ქვაბი') { continue }
+      if ($nm -match 'სამართავი|თერმოსტატი|ტუმბო|მილი|კოლექტორი|ფლიანეც|სენსორი|კომპლექტი|ადაპტერი|კუთხე|საკვამური|კონსტრუქცია|გამათანაბრებელი|სარქველ|სანთურა') { continue }
+    }
     [void]$rows.Add([pscustomobject]@{
       brand   = $b.brand
       code    = $cell[$b.code]

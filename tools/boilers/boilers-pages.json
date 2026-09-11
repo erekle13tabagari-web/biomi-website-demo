@@ -180,6 +180,18 @@
         "slug":  "warmhaus-lawa"
     },
     {
+        "brand":  "Riello",
+        "code":  "101197",
+        "name":  "3736450 სანთურა BURNER RG1R/50 RIELLO",
+        "mfr":  "3736450",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-gulliver-rg",
+        "kw":  "20-60",
+        "cat":  "burners"
+    },
+    {
         "brand":  "Warmhaus",
         "code":  "271112",
         "name":  "LAWA HO 24 SYSTEM გათბობის ქვაბი WARMHAUS",
@@ -188,6 +200,18 @@
         "dummy":  false,
         "kit":  true,
         "slug":  "warmhaus-lawa-system"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "101198",
+        "name":  "3761258 სანთურა BURNER GULLIVER BS2 DB DGT RIELLO",
+        "mfr":  "3761258",
+        "country":  "იტალია",
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-gulliver-bs",
+        "kw":  "35-91",
+        "cat":  "burners"
     },
     {
         "brand":  "Warmhaus",
@@ -418,5 +442,16 @@
         "dummy":  false,
         "kit":  false,
         "slug":  "warmhaus-viwa"
+    },
+    {
+        "brand":  "Riello",
+        "code":  "",
+        "name":  "RTQ 3S გათბობის ქვაბი RIELLO",
+        "mfr":  "",
+        "country":  null,
+        "dummy":  false,
+        "kit":  false,
+        "slug":  "riello-rtq",
+        "kw":  "35-4000"
     }
 ]

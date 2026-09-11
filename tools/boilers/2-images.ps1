@@ -7,6 +7,13 @@
 # The photo folders are grouped by output, not by product -- one
 # "Lawa 24_HO 24 SYSTEM_SYSTEM 24" folder serves three separate boilers -- so a
 # gallery belongs to the page, and several products legitimately share it.
+#
+# -Only <slug>,<slug> re-encodes the pictures of those pages alone. The model
+# assignment and boilers-pages.json are still rebuilt in full, but the other
+# pages' AVIFs are left as they are rather than re-encoded to the same picture.
+param([string[]]$Only)
+# Run through powershell -File, "a,b" arrives as the one string "a,b".
+$Only = @($Only | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
 . (Join-Path $PSScriptRoot 'config.ps1')
 $repo = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $sp   = $PSScriptRoot
@@ -21,6 +28,12 @@ foreach ($m in @('VIWA 125','VIWA 150')) {
     $mods += [pscustomobject]@{ brand='Warmhaus'; code=''; name="$m გათბობის ქვაბი WARMHAUS"
                                 mfr=$m; country='თურქეთი'; dummy=$false; kit=$false }
   }
+}
+# RTQ 3S is the same: supplied with its photography and Riello's range page,
+# not in the price list, so there is no code, no model and no origin to print.
+if (-not ($mods | Where-Object { $_.name -match '^RTQ' })) {
+  $mods += [pscustomobject]@{ brand='Riello'; code=''; name='RTQ 3S გათბობის ქვაბი RIELLO'
+                              mfr=''; country=$null; dummy=$false; kit=$false }
 }
 
 # ---- collapse the Warmhaus kit/plain pairs
@@ -46,10 +59,14 @@ $mods = $ordered
 # ---- assign each boiler to exactly one page
 $unassigned = @()
 foreach ($m in $mods) {
-  $hit = $null
-  foreach ($f in $fams) { if ($m.name -match $f.match) { $hit = $f.slug; break } }
+  $hit = $null; $hitFam = $null
+  foreach ($f in $fams) { if ($m.name -match $f.match) { $hit = $f.slug; $hitFam = $f; break } }
   if (-not $hit) { $unassigned += $m.name }
   $m | Add-Member -NotePropertyName slug -NotePropertyValue $hit -Force
+  # What the family says about all its models travels with each of them: the
+  # output where the name carries none, and the category when it is not boilers.
+  if ($hitFam.kw)  { $m | Add-Member -NotePropertyName kw  -NotePropertyValue ([string]$hitFam.kw)  -Force }
+  if ($hitFam.cat) { $m | Add-Member -NotePropertyName cat -NotePropertyValue ([string]$hitFam.cat) -Force }
 }
 Write-Host ("boilers: " + $mods.Count + "   unassigned: " + $unassigned.Count)
 $unassigned | ForEach-Object { Write-Host ("   ! " + $_) }
@@ -69,6 +86,7 @@ function Rank($p) {
 }
 $report = New-Object System.Collections.ArrayList
 foreach ($f in $fams) {
+  if ($Only -and $Only -notcontains $f.slug) { continue }
   $pool = @()
   foreach ($d in $f.imgdirs) {
     $dir = Join-Path $LIBRARY $d
@@ -107,7 +125,7 @@ foreach ($f in $fams) {
 # library has genuine black photography for it. Its images go out under a
 # black- prefix so the page can offer a finish switch instead of a second chip.
 $blackSrc = Join-Path $LIBRARY 'Warmhous\Lawa 18\Lawa 18_BLACK'
-if (Test-Path -LiteralPath $blackSrc) {
+if (-not $Only -and (Test-Path -LiteralPath $blackSrc)) {
   $out = Join-Path $repo 'assets\img\products\warmhaus-lawa'
   $bi = 0
   foreach ($img in (Get-ChildItem -LiteralPath $blackSrc -File |

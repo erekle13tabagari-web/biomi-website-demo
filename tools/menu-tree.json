@@ -4,6 +4,8 @@
     {"ka":"Beretta","en":"Beretta","page":"boilers","brand":"beretta"},
     {"ka":"Riello","en":"Riello","page":"boilers","brand":"riello"},
     {"ka":"Warmhaus","en":"Warmhaus","page":"boilers","brand":"warmhaus"}]},
+  {"ka":"სანთურები","en":"Burners","page":"burners","kids":[
+    {"ka":"Riello","en":"Riello","page":"burners","brand":"riello"}]},
   {"ka":"ბოილერები","en":"Water heaters","page":"water-heaters","kids":[
     {"ka":"Beretta","en":"Beretta","page":"water-heaters","brand":"beretta"},
     {"ka":"Omega","en":"Omega","page":"water-heaters","brand":"omega"},

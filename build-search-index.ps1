@@ -15,13 +15,14 @@ $enc  = New-Object Text.UTF8Encoding($false)
 # Static pages, per language: path, title, kind label
 $staticKa = @(
   @{ url = 'index.html';                    title = 'მთავარი';               kind = 'გვერდი' },
-  @{ url = 'about.html';                    title = 'ჩვენ შესახებ';          kind = 'გვერდი' },
+  @{ url = 'about.html';                    title = 'ჩვენ შესახებ';          kind = 'გვერდი' },
   @{ url = 'projects.html'; title = 'ჩვენი პროექტები'; kind = 'გვერდი' },
   # hidden for now: @{ url = 'service.html';                  title = 'სერვისი და ტექნიკური მხარდაჭერა'; kind = 'გვერდი' },
   @{ url = 'products/vrf-vrv.html';         title = 'VRF / VRV სისტემა';     kind = 'კატეგორია' },
   @{ url = 'products/samsung.html';         title = 'Samsung';               kind = 'ბრენდი' },
   @{ url = 'products/mitsubishi-electric.html'; title = 'Mitsubishi Electric'; kind = 'ბრენდი' },
   @{ url = 'products/boilers.html';         title = 'ქვაბი';                 kind = 'კატეგორია' },
+  @{ url = 'products/burners.html';         title = 'სანთურები';             kind = 'კატეგორია' },
   @{ url = 'products/water-heaters.html';    title = 'ბოილერი';               kind = 'კატეგორია' },
   @{ url = 'products/ventilation.html';     title = 'ვენტილაცია';            kind = 'კატეგორია' },
   @{ url = 'products/vortice.html';         title = 'Vortice';               kind = 'ბრენდი' },
@@ -30,13 +31,14 @@ $staticKa = @(
 )
 $staticEn = @(
   @{ url = 'index-en.html';                 title = 'Home';                  kind = 'Page' },
-  @{ url = 'about-en.html';                 title = 'About us';              kind = 'Page' },
+  @{ url = 'about-en.html';                 title = 'About us';              kind = 'Page' },
   @{ url = 'projects-en.html'; title = 'Our projects'; kind = 'Page' },
   # hidden for now: @{ url = 'service-en.html';               title = 'Service and technical support'; kind = 'Page' },
   @{ url = 'products/vrf-vrv-en.html';      title = 'VRF / VRV system';      kind = 'Category' },
   @{ url = 'products/samsung-en.html';      title = 'Samsung';               kind = 'Brand' },
   @{ url = 'products/mitsubishi-electric-en.html'; title = 'Mitsubishi Electric'; kind = 'Brand' },
   @{ url = 'products/boilers-en.html';      title = 'Boilers';               kind = 'Category' },
+  @{ url = 'products/burners-en.html';      title = 'Burners';               kind = 'Category' },
   @{ url = 'products/water-heaters-en.html'; title = 'Water heaters';         kind = 'Category' },
   @{ url = 'products/ventilation-en.html';  title = 'Ventilation';           kind = 'Category' },
   @{ url = 'products/vortice-en.html';      title = 'Vortice';               kind = 'Brand' },
@@ -71,8 +73,8 @@ function Projects($en, $kind) {
 }
 
 # hub file -> brand label shown next to a product result
-$hubsKa = @{ 'samsung.html' = 'Samsung'; 'mitsubishi-electric.html' = 'Mitsubishi Electric'; 'vortice.html' = 'Vortice'; 'beretta.html' = 'Beretta'; 'riello.html' = 'Riello'; 'warmhaus.html' = 'Warmhaus'; 'water-heaters.html' = '' }
-$hubsEn = @{ 'samsung-en.html' = 'Samsung'; 'mitsubishi-electric-en.html' = 'Mitsubishi Electric'; 'vortice-en.html' = 'Vortice'; 'beretta-en.html' = 'Beretta'; 'riello-en.html' = 'Riello'; 'warmhaus-en.html' = 'Warmhaus'; 'water-heaters-en.html' = '' }
+$hubsKa = @{ 'samsung.html' = 'Samsung'; 'mitsubishi-electric.html' = 'Mitsubishi Electric'; 'vortice.html' = 'Vortice'; 'beretta.html' = 'Beretta'; 'riello.html' = 'Riello'; 'riello-burners.html' = 'Riello'; 'warmhaus.html' = 'Warmhaus'; 'water-heaters.html' = '' }
+$hubsEn = @{ 'samsung-en.html' = 'Samsung'; 'mitsubishi-electric-en.html' = 'Mitsubishi Electric'; 'vortice-en.html' = 'Vortice'; 'beretta-en.html' = 'Beretta'; 'riello-en.html' = 'Riello'; 'riello-burners-en.html' = 'Riello'; 'warmhaus-en.html' = 'Warmhaus'; 'water-heaters-en.html' = '' }
 
 $rxCard = [regex]'(?s)<a class="pcard"\s+href="([^"]+)"[^>]*?data-name="([^"]*)"[^>]*>(.*?)</a>'
 $rxImg  = [regex]'<img src="([^"]+)"'

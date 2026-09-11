@@ -47,6 +47,11 @@
  "nameKa":"CONDEXA PRO 135 ქვაბი","nameEn":"CONDEXA PRO 135 boiler",
  "descKa":"Riello-ს კომერციული სერიის ქვაბი 135 სიმძლავრეში.","descEn":"A boiler from Riello's commercial range at 135 output."},
 
+{"slug":"riello-rtq","brand":"Riello","match":"^RTQ","imgdirs":["Riello\\RTQ 3S"],"kw":"35-4000",
+ "nameKa":"RTQ 3S ქვაბი","nameEn":"RTQ 3S boiler",
+ "descKa":"Riello-ს RTQ 3S - ერთნაწილიანი ფოლადის ქვაბი, რომელიც ცალკე სანთურასთან ერთად მუშაობს. უჟანგავი ფოლადის ტურბულატორები თბოცვლის ზედაპირს ზრდის. სერია 35-დან 4000 kW-მდე იწარმოება.",
+ "descEn":"Riello's RTQ 3S - a single-piece steel boiler that works with a separate burner. Stainless-steel turbulators widen the heat-exchange surface. The range runs from 35 to 4000 kW."},
+
 {"slug":"warmhaus-lawa","brand":"Warmhaus","match":"^LAWA \\d+( BLACK)? გათბობის","imgdirs":["Warmhous\\Lawa 18","Warmhous\\Lawa 24_HO","Warmhous\\Lawa 28_HO","Warmhous\\Lawa 32_HO"],
  "nameKa":"LAWA კედლის ქვაბი","nameEn":"LAWA wall-hung boiler",
  "descKa":"Warmhaus-ის LAWA სერია ოთხ სიმძლავრეში - 18, 24, 28 და 32. 18 ხელმისაწვდომია შავ კორპუსშიც.",
@@ -75,5 +80,15 @@
 {"slug":"warmhaus-viwa-s","brand":"Warmhaus","match":"^VIWA S","imgdirs":["Warmhous\\Viwa S 100"],
  "nameKa":"VIWA S ქვაბი","nameEn":"VIWA S boiler",
  "descKa":"VIWA სერიის S ვერსია ოთხ სიმძლავრეში - 100, 115, 125 და 150.",
- "descEn":"The S version of the VIWA range in four outputs - 100, 115, 125 and 150."}
+ "descEn":"The S version of the VIWA range in four outputs - 100, 115, 125 and 150."},
+
+{"slug":"riello-gulliver-bs","brand":"Riello","cat":"burners","fuel":"gas","match":"GULLIVER BS","imgdirs":["Riello\\სანთურა  GULLIVER BS2"],"kw":"35-91","related":["riello-rtq"],
+ "nameKa":"GULLIVER BS2 სანთურა","nameEn":"GULLIVER BS2 burner",
+ "descKa":"Riello-ს Gulliver BS2 - ერთსაფეხურიანი გაზის სანთურა დაბალი NOx ემისიით, 35-91 kW სიმძლავრის ქვაბისთვის. მიკროპროცესორული მართვის ბლოკი ხარვეზს აჩვენებს და მის მიზეზს ადგენს.",
+ "descEn":"Riello's Gulliver BS2 - a one-stage, low-NOx gas burner for boilers of 35-91 kW. Its microprocessor control box shows a fault and diagnoses the cause."},
+
+{"slug":"riello-gulliver-rg","brand":"Riello","cat":"burners","fuel":"oil","match":"RG1R","imgdirs":["Riello\\სანთურა BURNER RG1R50"],"kw":"20-60","related":["riello-rtq"],
+ "nameKa":"GULLIVER RG1R სანთურა","nameEn":"GULLIVER RG1R burner",
+ "descKa":"Riello-ს Gulliver RG1R - ერთსაფეხურიანი სანთურა დიზელის საწვავზე, 20-60 kW სიმძლავრის ქვაბისთვის. აღჭურვილია საწვავის წინასწარი გამაცხელებლით.",
+ "descEn":"Riello's Gulliver RG1R - a one-stage light-oil burner for boilers of 20-60 kW, fitted with a fuel pre-heater."}
 ]

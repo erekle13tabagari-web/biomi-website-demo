@@ -17,7 +17,7 @@ $mods = Get-Content (Join-Path $sp 'boilers-pages.json')  -Raw -Encoding UTF8 | 
 # A family whose models all fall below it ends up with an empty group and is
 # skipped by the existing count guard, so no page is written for it.
 . (Join-Path $sp 'visible.ps1')
-$mods = @($mods | Where-Object { (BoilerKw $_.name) -ge $BOILER_KWMIN })
+$mods = @($mods | Where-Object { Visible $_ })
 # The families list has to be narrowed as well, not just the models. The "you
 # might also like" pair at the foot of each page is picked by walking $fams by
 # index, so a held-back family left in here gets linked from a published page
@@ -31,8 +31,10 @@ $NAMES = @('main','front','angle','detail','room')
 $gals = Get-Content (Join-Path $sp 'boilers-galleries.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 
 $L = @{
-  ka = @{ file='.html'; tpl='vortice-lineo.html'
-    home='მთავარი'; products='პროდუქტი'; cat='ქვაბი'
+  ka = @{ file='.html'; tpl='vortice-lineo.html'; lang='ka'
+    home='მთავარი'; products='პროდუქტი'; cat='ქვაბი'; catBurners='სანთურები'
+    thFuel='საწვავი'; thStage='მუშაობის რეჟიმი'; thFlow='საწვავის ხარჯი'; thElec='ელ. სიმძლავრე'
+    thNoxmg='NOx ემისია'; thStd='სტანდარტი'
     lblModel='მოდელი'; specs='მახასიათებლები'; cert='სერტიფიკატები'; dl='დოკუმენტაცია'
     thModel='მოდელი'; thCode='კოდი'; thMfr='მწარმოებლის კოდი'; thBrand='ბრენდი'
     thKw='სიმძლავრე'; thCountry='წარმოშობა'; thRange='მოდელების რიგი'
@@ -41,8 +43,10 @@ $L = @{
     certTxt='CE. სრული სერტიფიცირება მოთხოვნისამებრ.'
     dlTxt='ტექნიკური დოკუმენტაცია მოთხოვნისამებრ - დაგვიკავშირდით კონკრეტული მოდელისთვის.'
     kw='kW'; prev='წინა'; next='შემდეგი' }
-  en = @{ file='-en.html'; tpl='vortice-lineo-en.html'
-    home='Home'; products='Products'; cat='Boilers'
+  en = @{ file='-en.html'; tpl='vortice-lineo-en.html'; lang='en'
+    home='Home'; products='Products'; cat='Boilers'; catBurners='Burners'
+    thFuel='Fuel'; thStage='Operation'; thFlow='Fuel consumption'; thElec='Electrical power'
+    thNoxmg='NOx emission'; thStd='Standard'
     lblModel='Model'; specs='Specifications'; cert='Certificates'; dl='Documentation'
     thModel='Model'; thCode='Code'; thMfr='Manufacturer code'; thBrand='Brand'
     thKw='Output'; thCountry='Origin'; thRange='Model range'
@@ -69,11 +73,14 @@ foreach ($pr in $raw.PSObject.Properties) {
   if ($pr.Name -eq '_source') { continue }
   $SPECS[$pr.Name] = $pr.Value
 }
-$SPECKEYS = @('heat','dhw','eff','mod','nox')
+# The burner keys (fuel .. std) sit among the boiler ones, but no boiler has
+# any of them and a row only renders where some model does, so the boiler
+# tables come out exactly as before.
+$SPECKEYS = @('heat','fuel','stage','flow','elec','dhw','eff','mod','nox','noxmg','std')
 function SpecAttrs($name, $t) {
   $out = ''
   foreach ($k in $SPECKEYS) {
-    $v = SpecOf $name $k
+    $v = SpecOf $name $k $t.lang
     if ($v) {
       if ($k -eq 'dhw') { $v = "$v $($t.dhwUnit)" }
       $out += '" data-' + $k + '="' + (HtmlEnc $v)
@@ -81,20 +88,32 @@ function SpecAttrs($name, $t) {
   }
   return $out
 }
-function SpecOf($name, $key) {
+function SpecOf($name, $key, $lang) {
   $e = $SPECS[$name]
   if (-not $e) { return '' }
   $v = $e.$key
   if (-not $v) { return '' }
+  # figures are one string for both languages; words come as {ka, en}
+  if ($v -isnot [string]) { $v = $v.$lang }
   return $v
 }
+function CatOf($x) { if ($x.cat) { return [string]$x.cat }; return 'boilers' }
 
 function HtmlEnc($s){ if($null -eq $s){return ''}; $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
 # the output is the number in the model name: CITY 24 -> 24, VIWA S 150 -> 150
 function Kw($name){ $m=[regex]::Match($name,'\b(\d{2,3})\b'); if($m.Success){return $m.Groups[1].Value}; return '' }
-# strip the Georgian boilerplate and the brand off the end for a chip label
+# A name with no output in it -- "RTQ 3S", a burner -- has it from its family,
+# copied onto the model by 2-images.ps1 as a range like "35-91".
+function KwOf($m){ if ($m.kw) { return [string]$m.kw }; return (Kw $m.name) }
+# strip the Georgian boilerplate and the brand off the end for a chip label.
+# The burners are priced as "3761258 სანთურა BURNER GULLIVER BS2 DB DGT RIELLO"
+# and "3736450 სანთურა BURNER RG1R/50 RIELLO"; the chip is Riello's own model
+# name. 3761258 is the plain BS2 in Riello's leaflet, and the /50 is the tail
+# of its 1/230/50 supply rating, not an output -- left in, it reads as 50 kW.
 function Chip($name){
-  ($name -replace '\s*გათბობის ქვაბი.*$','' -replace '^\d{6,}\s+','' -replace 'CALDAIA\s+','').Trim()
+  ($name -replace '\s*გათბობის ქვაბი.*$','' -replace '^\d{6,}\s+','' -replace 'CALDAIA\s+','' `
+         -replace '^სანთურა\s+BURNER\s+(GULLIVER\s+)?','' -replace '\s+DB DGT\s+RIELLO$','' `
+         -replace '/\d+\s+RIELLO$','').Trim()
 }
 
 $made = @()
@@ -134,7 +153,7 @@ foreach ($lang in 'ka','en') {
     for ($i=0; $i -lt $g.Count; $i++) {
       $m = $g[$i]
       $cls = if ($i -eq 0) { 'chip active' } else { 'chip' }
-      $kw = Kw $m.name; $kwTxt = if ($kw) { "$kw $($t.kw)" } else { '-' }
+      $kw = KwOf $m; $kwTxt = if ($kw) { "$kw $($t.kw)" } else { '-' }
       $ctry = if ($m.country -and $COUNTRY[$m.country]) { $COUNTRY[$m.country][$lang] } else { '-' }
       $mg = @(GalOf $m.name)
       $imgAttr = if ($mg -and $mg[0]) { '" data-alt="' + (HtmlEnc (Chip $m.name)) + '" data-imgs="' + ($mg -join ',') } else { '' }
@@ -145,7 +164,7 @@ foreach ($lang in 'ka','en') {
                 (HtmlEnc (Chip $m.name)) + '</button>'
     }
     $first = $g[0]
-    $fKw = Kw $first.name; $fKwTxt = if ($fKw) { "$fKw $($t.kw)" } else { '-' }
+    $fKw = KwOf $first; $fKwTxt = if ($fKw) { "$fKw $($t.kw)" } else { '-' }
     $fCtry = if ($first.country -and $COUNTRY[$first.country]) { $COUNTRY[$first.country][$lang] } else { '-' }
     # the flag only appears when the origin is one we have a file for
     $flagTag = ''
@@ -159,16 +178,18 @@ foreach ($lang in 'ka','en') {
     # One row per published figure, and only where some model on this page has
     # it: an all-empty row reads as a hole in the datasheet rather than as an
     # absence of data. Beretta and Riello therefore keep the original table.
-    $LBL = @{ heat=$t.thHeat; dhw=$t.thDhw; eff=$t.thEff; mod=$t.thMod; nox=$t.thNox }
+    $LBL = @{ heat=$t.thHeat; dhw=$t.thDhw; eff=$t.thEff; mod=$t.thMod; nox=$t.thNox
+              fuel=$t.thFuel; stage=$t.thStage; flow=$t.thFlow; elec=$t.thElec; noxmg=$t.thNoxmg; std=$t.thStd }
     $specRows = ''
     foreach ($k in $SPECKEYS) {
-      if (-not @($g | Where-Object { SpecOf (Chip $_.name) $k }).Count) { continue }
-      $v = SpecOf (Chip $first.name) $k
+      if (-not @($g | Where-Object { SpecOf (Chip $_.name) $k $lang }).Count) { continue }
+      $v = SpecOf (Chip $first.name) $k $lang
       if (-not $v) { $v = '-' } elseif ($k -eq 'dhw') { $v = "$v $($t.dhwUnit)" }
       $specRows += "`r`n          <tr><th>$($LBL[$k])</th><td data-spec=`"$k`">" + (HtmlEnc $v) + '</td></tr>'
     }
     $kws = @($g | ForEach-Object { Kw $_.name } | Where-Object { $_ } | ForEach-Object { [int]$_ } | Sort-Object)
-    $range = if ($kws.Count -gt 1) { "$($kws[0])-$($kws[-1]) $($t.kw)" } elseif ($kws.Count) { "$($kws[0]) $($t.kw)" } else { '-' }
+    $range = if ($g.Count -eq 1 -and $first.kw) { "$($first.kw) $($t.kw)" }
+             elseif ($kws.Count -gt 1) { "$($kws[0])-$($kws[-1]) $($t.kw)" } elseif ($kws.Count) { "$($kws[0]) $($t.kw)" } else { '-' }
 
     $finish = ''
     if ($blackImgs.Count) {
@@ -184,7 +205,21 @@ foreach ($lang in 'ka','en') {
                 "        </div>`r`n"
     }
 
-    $sib = @(); for ($k=1; $k -le 2; $k++) { $sib += $fams[($fi+$k) % $fams.Count] }
+    # Two related pages: the rest of the same category first, so a burner page
+    # offers the other burner before any boiler; then whatever the family names
+    # in "related" -- the boiler a burner is fitted to -- then the rest in
+    # families.json order. For a boiler page this is the same pair as before.
+    $ring = @(); for ($k=1; $k -lt $fams.Count; $k++) { $ring += $fams[($fi+$k) % $fams.Count] }
+    $want = @($ring | Where-Object { (CatOf $_) -eq (CatOf $f) }) +
+            @($ring | Where-Object { @($f.related) -contains $_.slug }) + $ring
+    $sib = @(); $taken = @{}
+    foreach ($x in $want) {
+      if ($taken.ContainsKey($x.slug)) { continue }
+      $taken[$x.slug] = $true; $sib += $x
+      if ($sib.Count -eq 2) { break }
+    }
+    $catSlug = CatOf $f
+    $catLbl  = if ($catSlug -eq 'burners') { $t.catBurners } else { $t.cat }
     $rel = ($sib | ForEach-Object {
       $sn = if ($lang -eq 'ka') { $_.nameKa } else { $_.nameEn }
       '      <a class="pcard" href="' + $_.slug + $t.file + '"><span class="pcard__img"><img src="../assets/img/products/' +
@@ -196,8 +231,8 @@ foreach ($lang in 'ka','en') {
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="../index.html">$($t.home)</a><span class="sep">/</span>
-      <a href="../index.html#products">$($t.products)</a><span class="sep">/</span>
-      <a href="boilers$($t.file)">$($t.cat)</a><span class="sep">/</span>
+      <a href="../products$($t.file)">$($t.products)</a><span class="sep">/</span>
+      <a href="$catSlug$($t.file)">$catLbl</a><span class="sep">/</span>
       <b>$(HtmlEnc $name)</b>
     </nav>
     <div class="pdetail">
@@ -274,7 +309,10 @@ $rel
     }
     $h = [regex]::Replace($h,'(?s)<title>.*?</title>',('<title>' + (HtmlEnc $name) + ' - ' + $(if($lang -eq 'ka'){'ბიომი'}else{'Biomi'}) + '</title>'))
     $h = [regex]::Replace($h,'(?s)(<meta name="description" content=").*?(">)',('${1}' + (HtmlEnc $desc) + '${2}'))
-    [IO.File]::WriteAllText((Join-Path $repo ('products\' + $f.slug + $t.file)), ($h + $body + $tl), (New-Object Text.UTF8Encoding($false)))
+    # With the BOM every other page carries. These pages are finished by later
+    # passes -- tools/add-card-brands.ps1 stamps the related cards' logos and
+    # tools/docs/3-pages.ps1 fills the documents tab -- so run those after this.
+    [IO.File]::WriteAllText((Join-Path $repo ('products\' + $f.slug + $t.file)), ($h + $body + $tl), (New-Object Text.UTF8Encoding($true)))
     $made += ($f.slug + $t.file)
   }
 }
