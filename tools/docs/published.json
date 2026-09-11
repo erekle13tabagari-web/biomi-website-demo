@@ -2814,6 +2814,54 @@
                   ]
     },
     {
+        "file":  "riello-gulliver-bs-other.pdf",
+        "class":  "other",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "GULLIVER BS.pdf",
+        "mb":  0.16,
+        "srcmb":  0.45,
+        "slugs":  [
+                      "riello-gulliver-bs"
+                  ]
+    },
+    {
+        "file":  "riello-gulliver-bs-other-2.pdf",
+        "class":  "other",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "GULLIVER_BS1-2-3-4_-_2903080-9.pdf",
+        "mb":  1.41,
+        "srcmb":  1.41,
+        "slugs":  [
+                      "riello-gulliver-bs"
+                  ]
+    },
+    {
+        "file":  "riello-gulliver-rg-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "GULLIVER RG-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  0.86,
+        "srcmb":  19.39,
+        "slugs":  [
+                      "riello-gulliver-rg"
+                  ]
+    },
+    {
+        "file":  "riello-gulliver-rg-install.pdf",
+        "class":  "install",
+        "cat":  "boilers",
+        "model":  "",
+        "name":  "RG1R 1-230-50-3736450-Installer Manual-0-IT-EN-FR-DE-NL-ES-PT-DA-SV-NO-RU-PL-BG-TR-EL-AR.pdf",
+        "mb":  0.19,
+        "srcmb":  0.25,
+        "slugs":  [
+                      "riello-gulliver-rg"
+                  ]
+    },
+    {
         "file":  "warmhaus-lawa-install.pdf",
         "class":  "install",
         "cat":  "boilers",

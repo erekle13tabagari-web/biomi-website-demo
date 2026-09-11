@@ -33,6 +33,20 @@ for it. Entries are matched with `StartsWith` and the **longest match wins**,
 which is what stops `…კედლის` swallowing the documents that belong to
 `…კედლის WindFree`.
 
+Two families can also claim the *same* folder — LINEO and LINEO QUIET both
+list `LINEO_Q`, MF and MFO both list `MFO_` — and a folder cannot say which
+page its documents are for. Each such folder is **pinned** to one page under
+`_pins` in `map.json`, and a pin beats any families.json entry for the same
+folder. The script prints every shared folder on each run and warns about one
+that is not pinned (it then falls back to the family declared first). Add a pin
+whenever a new family reuses another's folder.
+
+This has to be explicit because `Sort-Object` in Windows PowerShell is not
+stable: sorting on length alone, the winner of a tie depended on how many
+entries the table held, and adding the two Gulliver burners to
+`boilers/families.json` quietly moved the LINEO_Q documents from LINEO QUIET to
+LINEO.
+
 ## What is deliberately excluded
 
 | excluded | why |
@@ -42,6 +56,7 @@ which is what stops `…კედლის` swallowing the documents that belong
 | anything matching `price`, `прайс`, `ფასი` | commercial, must never be published |
 | `Untitled*`, `* copy.pdf` | working files sitting beside the real brochure — one `Untitled-2.pdf` is a 54.7 MB duplicate of a 4.8 MB range brochure |
 | `Riello Start kis.pdf`, `idra_bv_2001000.pdf` | downloaded from manualslib.com and branded on every page — third-party re-hosts of the manufacturer's manual, not ours to republish. Replace with the originals from Riello and Beretta |
+| `BS1-2-3-4_2908117-4.pdf` | Riello's spare-parts catalogue for the Gulliver BS burners — part numbers for service engineers, not buyer documentation |
 
 ## Compression
 

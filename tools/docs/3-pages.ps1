@@ -85,6 +85,11 @@ foreach ($slugFile in (Get-ChildItem (Join-Path $repo 'products') -Filter '*.htm
   if ($open -lt 0) { $missing += $slugFile.Name; continue }
   $a = $s.IndexOf('>', $open) + 1
   $b = $s.IndexOf('</div>', $a)
+  # On a page that already carries a list, the first </div> closes the list, not
+  # the panel -- replacing only up to it left one stray </div> behind on every
+  # re-run. The list holds nothing but links, so the panel closes at the next one.
+  $list = $s.IndexOf('<div class="dl-list">', $a)
+  if ($b -ge 0 -and $list -ge 0 -and $list -lt $b) { $b = $s.IndexOf('</div>', $b + 6) }
   if ($b -lt 0) { $missing += $slugFile.Name; continue }
 
   if ($bySlug.ContainsKey($slug)) {

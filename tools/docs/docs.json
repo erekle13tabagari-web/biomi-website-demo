@@ -4421,6 +4421,50 @@
                   ]
     },
     {
+        "hash":  "BA53B9287061573BE33ED4F94AC42928",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ქვაბები\\Riello\\სანთურა  GULLIVER BS2 DB DGT RIELLO\\GULLIVER BS.pdf",
+        "name":  "GULLIVER BS.pdf",
+        "mb":  0.45,
+        "class":  "other",
+        "cat":  "boilers",
+        "slugs":  [
+                      "riello-gulliver-bs"
+                  ]
+    },
+    {
+        "hash":  "249B9FF34F45A03A098B0189FC5DF346",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ქვაბები\\Riello\\სანთურა  GULLIVER BS2 DB DGT RIELLO\\GULLIVER_BS1-2-3-4_-_2903080-9.pdf",
+        "name":  "GULLIVER_BS1-2-3-4_-_2903080-9.pdf",
+        "mb":  1.41,
+        "class":  "other",
+        "cat":  "boilers",
+        "slugs":  [
+                      "riello-gulliver-bs"
+                  ]
+    },
+    {
+        "hash":  "7B6A6F6B42D853DE69C6B176D624A206",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ქვაბები\\Riello\\სანთურა BURNER RG1R50 RIELLO\\GULLIVER RG-Product Brochure-Depliant-0-EN.pdf",
+        "name":  "GULLIVER RG-Product Brochure-Depliant-0-EN.pdf",
+        "mb":  19.39,
+        "class":  "brochure",
+        "cat":  "boilers",
+        "slugs":  [
+                      "riello-gulliver-rg"
+                  ]
+    },
+    {
+        "hash":  "6DF163392F4D750DD4A88815482F15DB",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ქვაბები\\Riello\\სანთურა BURNER RG1R50 RIELLO\\RG1R 1-230-50-3736450-Installer Manual-0-IT-EN-FR-DE-NL-ES-PT-DA-SV-NO-RU-PL-BG-TR-EL-AR.pdf",
+        "name":  "RG1R 1-230-50-3736450-Installer Manual-0-IT-EN-FR-DE-NL-ES-PT-DA-SV-NO-RU-PL-BG-TR-EL-AR.pdf",
+        "mb":  0.25,
+        "class":  "install",
+        "cat":  "boilers",
+        "slugs":  [
+                      "riello-gulliver-rg"
+                  ]
+    },
+    {
         "hash":  "1C3BEEA2711F43CA9DCA66218C5B1487",
         "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ქვაბები\\Warmhous\\Lawa 18\\Lawa 18_BLACK\\საბუთბი\\warmhaus-montaj-kullanim-kilavuz-eng-anl-20201120-web_9123788944.pdf",
         "name":  "warmhaus-montaj-kullanim-kilavuz-eng-anl-20201120-web_9123788944.pdf",

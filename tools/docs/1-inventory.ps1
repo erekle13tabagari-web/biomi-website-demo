@@ -26,6 +26,9 @@ $SKIPFILE = 'price|pricelist|прайс|ფასი|ფასები|^Untitle
 # manufacturer's manual, so they are not ours to republish -- get the originals
 # from Riello and Beretta instead.
 $SCRAPES = @('Riello Start kis.pdf', 'idra_bv_2001000.pdf')
+# Not buyer documentation: Riello's spare-parts catalogue for the Gulliver BS
+# burners, part numbers for service engineers, sitting beside the manual.
+$NOTDOCS = @('BS1-2-3-4_2908117-4.pdf')
 
 $CATS = @{
   'ქვაბები'        = 'boilers'
@@ -45,7 +48,7 @@ function Fam($cat, $file, $prefix) {
   if (-not (Test-Path $p)) { throw "missing $file" }
   foreach ($f in (Get-Content $p -Raw -Encoding UTF8 | ConvertFrom-Json)) {
     foreach ($d in $f.imgdirs) {
-      [void]$MAP.Add(@{ cat = $cat; dir = ($prefix + ($d -replace '/', '\')); slugs = @($f.slug) })
+      [void]$MAP.Add(@{ cat = $cat; dir = ($prefix + ($d -replace '/', '\')); slugs = @($f.slug); ord = $MAP.Count })
     }
   }
 }
@@ -56,11 +59,29 @@ Fam 'ვენტილაცია' 'tools\vortice\vortice-families.json' 'Vort
 $m = Get-Content (Join-Path $sp 'map.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 foreach ($cat in ($m.PSObject.Properties.Name | Where-Object { -not $_.StartsWith('_') })) {
   foreach ($e in $m.$cat) {
-    [void]$MAP.Add(@{ cat = $cat; dir = $e.dir; slugs = @($e.slugs) })
+    [void]$MAP.Add(@{ cat = $cat; dir = $e.dir; slugs = @($e.slugs); ord = $MAP.Count; pinned = $true })
   }
 }
-# longest folder first, so "…კედლის WindFree" wins over "…კედლის"
-$MAP = @($MAP | Sort-Object { -($_.dir.Length) })
+# Longest folder first, so "…კედლის WindFree" wins over "…კედლის".
+#
+# Two families can also claim the very same folder -- LINEO and LINEO QUIET both
+# list LINEO_Q -- and the folder cannot say which page its documents are for.
+# Each such folder is pinned to one page in map.json, and the pin wins the tie.
+# An unpinned one falls back to the family declared first and is reported below.
+# The tie has to be broken explicitly: Sort-Object in Windows PowerShell is not
+# stable, so on length alone the winner depended on how many entries the table
+# held, and adding two burners to boilers/families.json moved the LINEO_Q
+# documents from LINEO QUIET to LINEO.
+$MAP = @($MAP | Sort-Object @{ e = { -($_.dir.Length) } }, @{ e = { if ($_.pinned) { 0 } else { 1 } } }, @{ e = { $_.ord } })
+foreach ($shared in ($MAP | Group-Object { $_.cat + '\' + $_.dir } | Where-Object { $_.Count -gt 1 })) {
+  $winner = $shared.Group[0]
+  if ($winner.pinned) {
+    Write-Host ('shared folder {0}: pinned to {1} in map.json' -f $shared.Name, ($winner.slugs -join ','))
+  } else {
+    Write-Host ('WARNING shared folder {0} is claimed by {1} -- pin it in map.json; {2} wins for now, as the one declared first' -f
+                $shared.Name, (($shared.Group | ForEach-Object { $_.slugs -join ',' }) -join ' and '), ($winner.slugs -join ','))
+  }
+}
 
 # ---- classify by filename. Order matters: a Vortice safety leaflet is called
 #      "…Libretti_Istruzioni_838-Avvertenze_Sicurezza…", so safety is tested
@@ -90,7 +111,7 @@ foreach ($catName in $CATS.Keys) {
   if (-not (Test-Path -LiteralPath $catRoot)) { continue }
   $pdfs = Get-ChildItem -LiteralPath $catRoot -Recurse -File -Filter '*.pdf' -EA SilentlyContinue |
           Where-Object { $_.FullName -notmatch $SKIPDIR -and $_.Name -notmatch $SKIPFILE -and
-                         $SCRAPES -notcontains $_.Name }
+                         $SCRAPES -notcontains $_.Name -and $NOTDOCS -notcontains $_.Name }
   foreach ($pdf in $pdfs) {
     # path below the category folder, which is what the map matches against
     $rel = $pdf.FullName.Substring($catRoot.Length).TrimStart('\')
