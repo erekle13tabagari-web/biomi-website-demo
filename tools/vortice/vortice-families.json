@@ -136,9 +136,9 @@
  "descEn":"A scroll-housing centrifugal fan up to 2540 m³/h. The ATEX versions are certified for potentially explosive atmospheres."},
 
 {"slug":"vortice-roof","match":"^(TIRACAMINO|TORRETTA)","imgdirs":["15000 TIRACAMINO","15077 TORRETTA"],
- "nameKa":"TIRACAMINO / TORRETTA სახურავის ვენტილატორი","nameEn":"TIRACAMINO / TORRETTA roof fan",
+ "nameKa":"TIRACAMINO / TORRETTA სახურავის გამწოვი ვენტილატორი","nameEn":"TIRACAMINO / TORRETTA roof extract fan",
  "tagKa":"სახურავზე მონტაჟი · 180-550 მმ","tagEn":"Roof mounted · 180-550 mm",
- "typeKa":"სახურავის ვენტილატორი","typeEn":"Roof-mounted extract fan",
+ "typeKa":"სახურავის გამწოვი ვენტილატორი","typeEn":"Roof-mounted extract fan",
  "descKa":"სახურავზე დასამონტაჟებელი გამწოვი ვენტილატორი 15000 მ³/სთ-მდე. TIRACAMINO საკვამურის წევის გასაძლიერებლადაა განკუთვნილი.",
  "descEn":"A roof-mounted extract fan up to 15000 m³/h. TIRACAMINO is intended for boosting chimney draught."},
 
