@@ -34,7 +34,9 @@ $PAGE = @{
           search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'
           fType='ტიპი'; fShape='ფორმა'
           empty='პროდუქტი ვერ მოიძებნა.'
-          note='ზომები და კონფიგურაცია განისაზღვრება ობიექტის მიხედვით.'
+          # No line of text before the quote button any more ("sizes and
+          # configuration are set by the building") -- taken off on request.
+          # .duct__note now holds the button alone, still pushed right.
           cta='მოითხოვეთ შეთავაზება'
           # A group in ducting.json that names a page gets one of its own, keyed
           # here by that name; the ducting listing keeps whatever is left over.
@@ -59,7 +61,6 @@ $PAGE = @{
           search='Search...'; filter='Filter'; clear='Clear'
           fType='Type'; fShape='Shape'
           empty='No products found.'
-          note='Sizes and configuration are set by the building.'
           cta='Request a quote'
           own=[ordered]@{
             accessories=@{ out='accessories-en.html'; crumb='Accessories'; eyebrow='Accessories'
@@ -238,7 +239,7 @@ foreach ($lang in 'ka','en') {
       </div>
     </div>
 
-    <p class="duct__note">{NOTE}
+    <p class="duct__note">
       <a class="btn btn--outline" href="../index{SFX}#contact">{CTA}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </div>
@@ -248,7 +249,7 @@ foreach ($lang in 'ka','en') {
   $body = $body.Replace('{SFX}', $t.sfx).Replace('{CRUMBHOME}', $t.crumbHome).
                 Replace('{CRUMBPROD}', $t.crumbProd).Replace('{CRUMB}', $t.crumb).
                 Replace('{EYEBROW}', $t.eyebrow).Replace('{H2}', $t.h2).Replace('{LEDE}', $t.lede).
-                Replace('{NOTE}', $t.note).Replace('{CTA}', $t.cta).
+                Replace('{CTA}', $t.cta).
                 Replace('{SEARCH}', $t.search).Replace('{FILTER}', $t.filter).
                 Replace('{CLEAR}', $t.clear).Replace('{FTYPE}', $t.fType).
                 Replace('{FSHAPE}', $t.fShape).Replace('{EMPTY}', $t.empty).
@@ -299,7 +300,7 @@ foreach ($g in $OWN) {
 {ROWS}
     </div>
 
-    <p class="duct__note">{NOTE}
+    <p class="duct__note">
       <a class="btn btn--outline" href="../index{SFX}#contact">{CTA}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </div>
@@ -310,7 +311,7 @@ foreach ($g in $OWN) {
                   Replace('{CRUMBPROD}', $t.crumbProd).Replace('{CRUMB}', $p.crumb).
                   Replace('{EYEBROW}', $p.eyebrow).Replace('{H2}', $p.h2).
                   Replace('{LEDE}', $p.lede).
-                  Replace('{NOTE}', $t.note).Replace('{CTA}', $t.cta).
+                  Replace('{CTA}', $t.cta).
                   Replace('{ROWS}', ($rows -join $CRLF))
 
     $out = $head + $body + $tail

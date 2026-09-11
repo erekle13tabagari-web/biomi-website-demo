@@ -1807,7 +1807,13 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    cards whose title wraps and leaves no slack. */
 /* the model code is the last line now, so it carries the body's bottom padding */
 
-.pdetail{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:start;margin-bottom:20px}
+.pdetail{display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:start;margin-bottom:0}
+/* The dead band under the gallery, closed on a desktop the way the phone rule
+   further down already closes it: 76px of page-hero padding plus 20px of
+   .pdetail margin, on top of the 24px the tabs section carries inline, left
+   120px between the photo and the tabs. Only a product page's hero closes up;
+   the listing heroes keep their breathing room. */
+.page-hero:has(.pdetail){padding-bottom:18px}
 .pgal__main{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
   aspect-ratio:4/3;display:grid;place-items:center;padding:26px;overflow:hidden}
 .pgal__main img{max-width:100%;max-height:100%;object-fit:contain}
