@@ -806,6 +806,8 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 .field textarea{resize:vertical;min-height:104px;line-height:1.55}
 .field__count{align-self:flex-end;font-size:12.5px;color:var(--muted);margin-top:-2px}
 .field__count.is-over{color:#d9534f;font-weight:600}
+/* the counter line already spaces the brief from what follows it */
+.field:has(> .field__count){margin-bottom:10px}
 /* Native select chrome differs wildly between browsers and neither version
    matches the inputs beside it, so the arrow is drawn here instead. The chevron
    is a data URI in the placeholder grey, which reads on both the white surface
@@ -838,9 +840,14 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 
 /* Consents sit to the left of the send button rather than above it, which uses
    the width that was already there instead of making the card taller. */
-.form-actions{display:flex;justify-content:space-between;align-items:flex-end;
-  gap:22px;margin-top:6px;flex-wrap:wrap}
-.consents{display:flex;flex-direction:column;gap:9px;min-width:0}
+/* No wrap above a phone: the consents at their full 46ch (444px) plus the
+   button came to 619px in a 580px row, so the button always dropped under them.
+   The consents give way instead -- a few more words wrap -- and the button stays
+   beside them, centred on the pair. */
+.form-actions{display:flex;justify-content:space-between;align-items:center;
+  gap:22px;margin-top:6px;flex-wrap:nowrap}
+.consents{display:flex;flex-direction:column;gap:9px;min-width:0;flex:1 1 auto}
+@media (max-width:520px){.form-actions{flex-wrap:wrap}}
 .consent{display:flex;align-items:flex-start;gap:9px;cursor:pointer;
   font-size:13.5px;line-height:1.4;color:var(--muted);max-width:46ch}
 /* aligns to the first line, not the middle of a wrapped two-line label */
