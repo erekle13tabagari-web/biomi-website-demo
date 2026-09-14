@@ -50,6 +50,18 @@ if errorlevel 1 (
   goto :end
 )
 
+REM --- Every page's <div> openers must match its </div> closers. A page that is
+REM     off still loads, but its layout breaks further down: on 2026-09-11 stray
+REM     closers on 58 product pages pushed the Energy panel out of its tabs, so
+REM     that tab showed nothing and no one saw it. divcheck lists the pages. ---
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0tools\divcheck.ps1"
+if errorlevel 1 (
+  echo.
+  echo   PUBLISH ABORTED - a page above has unbalanced ^<div^> tags.
+  echo   Nothing was committed or pushed.
+  goto :end
+)
+
 git add -A
 git diff --cached --quiet
 if errorlevel 1 (

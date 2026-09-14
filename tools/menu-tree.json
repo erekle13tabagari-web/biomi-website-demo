@@ -1,5 +1,5 @@
 [
-{"ka":"გათბობა","en":"Heating","icon":"heating","items":[
+{"ka":"გათბობა","en":"Heating","icon":"heating","page":"heating","items":[
   {"ka":"ქვაბი","en":"Boilers","page":"boilers","kids":[
     {"ka":"Beretta","en":"Beretta","page":"boilers","brand":"beretta"},
     {"ka":"Riello","en":"Riello","page":"boilers","brand":"riello"},
@@ -16,13 +16,13 @@
     {"ka":"კოლექტორი","en":"Manifold","page":null}]}
 ]},
 
-{"ka":"გაგრილება","en":"Cooling","icon":"cooling","items":[
+{"ka":"გაგრილება","en":"Cooling","icon":"cooling","page":"vrf-vrv","items":[
   {"ka":"Multisplit / VRV / VRF","en":"Multisplit / VRV / VRF","page":"vrf-vrv","kids":[
     {"ka":"Samsung","en":"Samsung","page":"vrf-vrv","brand":"samsung"},
     {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"vrf-vrv","brand":"mitsubishi"}]}
 ]},
 
-{"ka":"ვენტილაცია","en":"Ventilation","icon":"ventilation","items":[
+{"ka":"ვენტილაცია","en":"Ventilation","icon":"ventilation","page":"ventilation","items":[
   {"ka":"რეკუპერაცია","en":"Heat recovery","page":"ventilation","cat":"hrv","kids":[
     {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"hrv","brand":"vortice"}]},
   {"ka":"სამრეწველო","en":"Commercial","page":"ventilation","cat":"ind","kids":[
@@ -33,14 +33,14 @@
     {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"home","brand":"vortice"}]}
 ]},
 
-{"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","icon":"ducting","items":[
+{"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","icon":"ducting","page":"ducting-fittings","items":[
   {"ka":"ჰაერსატარი","en":"Ducting","page":"ducting","kids":[]},
   {"ka":"ცხაურა","en":"Grilles","page":"grilles","kids":[]},
   {"ka":"აქსესუარები","en":"Accessories","page":"accessories","kids":[]}
 ]},
 
-{"ka":"წყალმომარაგება","en":"Water supply","icon":"water","items":[
-  {"ka":"სატუმბო სადგური","en":"Pumping station","page":"pumping-stations","kids":[
+{"ka":"წყალმომარაგება","en":"Water supply","icon":"water","page":"pumping-stations","items":[
+  {"ka":"სატუმბი სადგური","en":"Pumping station","page":"pumping-stations","kids":[
     {"ka":"DAB","en":"DAB","page":"pumping-stations","brand":"dab"},
     {"ka":"Wilo","en":"Wilo","page":"pumping-stations","brand":"wilo"}]}
 ]}

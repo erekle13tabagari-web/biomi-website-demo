@@ -32,8 +32,15 @@ $PAGE = @{
           lede='ჰაერსატარები, მუხლები, სამკაპები და გადამყვანები.'
           desc='თუნუქის ჰაერსატარი, მუხლი, სამკაპი და გადამყვანი - სს „ბიომი ჰოლდინგის“ საკუთარი წარმოება.'
           search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'
-          fType='ტიპი'; fShape='ფორმა'
+          fType='ტიპი'; fShape='ფორმა'; fSec='კატეგორია'
           empty='პროდუქტი ვერ მოიძებნა.'
+          # the whole chapter on one page -- see the end of this file
+          all=@{ out='ducting-fittings.html'; crumb='ჰაერსატარი და მაკომპლექტებელი'
+                 eyebrow='ჰაერსატარი და მაკომპლექტებელი'; h2='ჰაერსატარი, ცხაურები და აქსესუარები'
+                 title='ჰაერსატარი და მაკომპლექტებელი - ბიომი'
+                 lede='ჰაერსატარები და ფასონური დეტალები, ცხაურები და აქსესუარები - ყველა ერთ ადგილას.'
+                 desc='ჰაერსატარები, მუხლები, სამკაპები, გადამყვანები, ცხაურები და ჰაერსატარის აქსესუარები - სს „ბიომი ჰოლდინგი“.'
+                 secDuct='ჰაერსატარი' }
           # No line of text before the quote button any more ("sizes and
           # configuration are set by the building") -- taken off on request.
           # .duct__note now holds the button alone, still pushed right.
@@ -59,8 +66,14 @@ $PAGE = @{
           lede='Ducts, elbows, tees and reducers.'
           desc='Sheet-metal ducts, elbows, tees and reducers, made in Biomi Holding''s own plant.'
           search='Search...'; filter='Filter'; clear='Clear'
-          fType='Type'; fShape='Shape'
+          fType='Type'; fShape='Shape'; fSec='Category'
           empty='No products found.'
+          all=@{ out='ducting-fittings-en.html'; crumb='Ducting & fittings'
+                 eyebrow='Ducting & fittings'; h2='Ducting, grilles and accessories'
+                 title='Ducting & fittings - Biomi'
+                 lede='Ducts and fittings, grilles and accessories - all in one place.'
+                 desc='Ducts, elbows, tees, reducers, grilles and ducting accessories from Biomi Holding.'
+                 secDuct='Ducting' }
           cta='Request a quote'
           own=[ordered]@{
             accessories=@{ out='accessories-en.html'; crumb='Accessories'; eyebrow='Accessories'
@@ -142,15 +155,18 @@ function Shell([string]$lang, [string]$title, [string]$desc, [string]$slug) {
 # One card per part, and the same card on both pages -- a function rather than
 # two copies of it: the ducting page hands it four groups and the accessories
 # page hands it one.
-function Cards($groups, [string]$lang) {
+function Cards($groups, [string]$lang, [string]$sec = '') {
   $rows = New-Object System.Collections.Generic.List[string]
+  # data-sec only on the chapter page, where the section is a filter; the three
+  # section pages stay exactly as they were
+  $secAttr = if ($sec) { ' data-sec="' + $sec + '"' } else { '' }
   foreach ($g in $groups) {
     foreach ($it in $g.items) {
       $d = $it.$lang
       # Both languages go into data-name, which is what the search box reads:
       # the parts are ordered by people who say "elbow" as readily as "მუხლი".
       $terms = $d.name + ' ' + $it.ka.name + ' ' + $it.en.name
-      $rows.Add('        <figure class="duct" data-type="' + $g.group.slug +
+      $rows.Add('        <figure class="duct"' + $secAttr + ' data-type="' + $g.group.slug +
                 '" data-shape="' + ($it.shape -join ',') +
                 '" data-name="' + (Esc $terms) + '">')
       # data-lightbox: the renders are the whole content of a card, and at
@@ -319,4 +335,110 @@ foreach ($g in $OWN) {
     [IO.File]::WriteAllText((Join-Path $repo ('products\' + $p.out)), $out, $UTF8)
     Write-Host ('  wrote products\' + $p.out + ' : ' + $g.items.Count + ' items')
   }
+}
+
+# ---- the whole chapter: every part on one page -------------------------------
+# What the chapter name opens, in the menu and on products.html. The three
+# section pages above stay as they are; this lays all of them out in one grid in
+# the menu's order -- ducting, grilles, accessories -- with the section as the
+# filter. Ducting's own type and shape sit under its box and open when it is
+# ticked; they are scoped to the ducting section, so they never hide grilles or
+# accessories, which have no type or shape of their own.
+$SECORDER = @('grilles', 'accessories')
+foreach ($lang in 'ka','en') {
+  $t = $PAGE[$lang]
+  $a = $t.all
+  $shell = Shell $lang $a.title $a.desc ($a.out -replace '(-en)?\.html$','')
+  $head = $shell[0]; $tail = $shell[1]
+
+  $rows = New-Object System.Collections.Generic.List[string]
+  $secs = New-Object System.Collections.Generic.List[string]
+  foreach ($r in (Cards $DUCT $lang 'ducting')) { $rows.Add($r) }
+  # Ducting's own type and shape drop down under its box (main.js), scoped to
+  # the ducting section so ticking one does not empty grilles and accessories.
+  $secs.Add('            <label><input type="checkbox" name="sec" value="ducting">' + (Esc $a.secDuct) + '</label>')
+  $secs.Add('            <div class="pfilter__sub" data-for="ducting" hidden>')
+  $secs.Add('              <div class="pfilter__subgroup">')
+  $secs.Add('                <h5>' + $t.fType + '</h5>')
+  foreach ($g in $DUCT) {
+    $secs.Add('                <label><input type="checkbox" name="type" value="' + $g.group.slug +
+              '" data-scope="ducting">' + (Esc $g.group.$lang) + '</label>')
+  }
+  $secs.Add('              </div>')
+  $secs.Add('              <div class="pfilter__subgroup">')
+  $secs.Add('                <h5>' + $t.fShape + '</h5>')
+  foreach ($sh in $SHAPES) {
+    $secs.Add('                <label><input type="checkbox" name="shape" value="' + $sh.slug +
+              '" data-scope="ducting">' + (Esc $sh.$lang) + '</label>')
+  }
+  $secs.Add('              </div>')
+  $secs.Add('            </div>')
+  $keys = @($SECORDER | Where-Object { $k = $_; @($OWN | Where-Object { $_.group.page -eq $k }).Count }) +
+          @($OWN | ForEach-Object { [string]$_.group.page } | Where-Object { $SECORDER -notcontains $_ } | Select-Object -Unique)
+  foreach ($key in $keys) {
+    $grp = @($OWN | Where-Object { $_.group.page -eq $key })
+    foreach ($r in (Cards $grp $lang $key)) { $rows.Add($r) }
+    $secs.Add('            <label><input type="checkbox" name="sec" value="' + $key + '">' + (Esc $t.own[$key].crumb) + '</label>')
+  }
+
+  $body = @'
+<section class="page-hero page-hero--brand">
+  <div class="container">
+    <nav class="crumbs" aria-label="breadcrumb">
+      <a href="../index{SFX}">{CRUMBHOME}</a><span class="sep">/</span>
+      <a href="../products{SFX}">{CRUMBPROD}</a><span class="sep">/</span>
+      <b>{CRUMB}</b>
+    </nav>
+    <div class="section__head" style="margin-bottom:0">
+      <span class="eyebrow">{EYEBROW}</span>
+      <h2>{H2}</h2>
+      <p class="page-lede">{LEDE}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:26px">
+  <div class="container" data-plist>
+    <div class="plist">
+      <aside class="pfilter">
+        <div class="pfilter__search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" placeholder="{SEARCH}">
+        </div>
+        <div class="pfilter__head"><span>{FILTER}</span><a data-clear>{CLEAR}</a></div>
+        <div class="pfilter__group pfilter__group--cats">
+          <h4>{FSEC} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></h4>
+          <div class="pfilter__opts">
+{SECS}
+          </div>
+        </div>
+      </aside>
+
+      <div class="pgrid">
+{ROWS}
+        <div class="pgrid__empty" style="display:none">{EMPTY}</div>
+      </div>
+    </div>
+
+    <p class="duct__note">
+      <a class="btn btn--outline" href="../index{SFX}#contact">{CTA}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+  </div>
+</section>
+
+'@
+  $body = $body.Replace('{SFX}', $t.sfx).Replace('{CRUMBHOME}', $t.crumbHome).
+                Replace('{CRUMBPROD}', $t.crumbProd).Replace('{CRUMB}', (Esc $a.crumb)).
+                Replace('{EYEBROW}', (Esc $a.eyebrow)).Replace('{H2}', $a.h2).Replace('{LEDE}', $a.lede).
+                Replace('{CTA}', $t.cta).
+                Replace('{SEARCH}', $t.search).Replace('{FILTER}', $t.filter).
+                Replace('{CLEAR}', $t.clear).Replace('{FSEC}', $t.fSec).
+                Replace('{EMPTY}', $t.empty).
+                Replace('{SECS}', ($secs -join $CRLF)).
+                Replace('{ROWS}', ($rows -join $CRLF))
+
+  $out = $head + $body + $tail
+  $out = [regex]::Replace($out, "`r`n|`n", $CRLF)
+  [IO.File]::WriteAllText((Join-Path $repo ('products\' + $a.out)), $out, $UTF8)
+  Write-Host ('  wrote products\' + $a.out + ' : ' + $rows.Count + ' lines, sections ' + (@('ducting') + $keys -join ', '))
 }

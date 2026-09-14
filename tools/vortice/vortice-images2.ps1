@@ -43,7 +43,23 @@ function SharedTokens($a, $b) {
 
 $map = @{}
 foreach ($f in $fams) {
-  $g = @($mods | Where-Object { $_.slug -eq $f.slug } | Sort-Object { [double]$_.airflow })
+  # Same order as the chips in vortice-gen.ps1: airflow, then diameter, then
+  # name. Airflow alone ties (the four ME 100/4" all move 95 m³/h) and PS 5.1's
+  # Sort-Object is not stable, so which tied model became group 1 -- and so
+  # main.avif, the picture on every card -- was chance: it came out Pink Gold.
+  # The name breaks the tie the right way: the plain "ME 100/4" LL" first.
+  $g = @($mods | Where-Object { $_.slug -eq $f.slug } |
+         Sort-Object @{e={[double]$_.airflow}}, @{e={[double]$_.diameter}}, @{e={[string]$_.model}})
+  # "onegallery": the models look the same, so every chip shows one pooled set
+  # (vortice-images.ps1) rather than switching -- CA IL 150 Q / 160 Q / 200 are
+  # one box in three sizes, and only 160 Q had a full photo set of its own.
+  if ($f.onegallery) { continue }
+  # "colors": the first colour is the primary finish, so its model leads -- its
+  # photos become group 1, i.e. main.avif, the picture on every card.
+  if ($f.colors) {
+    $pc = [string]$f.colors[0].code
+    $g = @($g | Where-Object { [string]$_.code -eq $pc }) + @($g | Where-Object { [string]$_.code -ne $pc })
+  }
 
   # signature per model, from its own folder only
   $sig = @{}

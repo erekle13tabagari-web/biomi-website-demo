@@ -36,18 +36,43 @@ $PAGES = @(
      titleKa='გაგრილება - ბიომი'; titleEn='Cooling - Biomi'
      ledeKa='ერთი გარე ბლოკი ამარაგებს რამდენიმე შიდა ბლოკს. VRF და VRV სისტემები მაცივარაგენტის ხარჯს თითოეული ოთახის საჭიროებაზე არეგულირებს.'; ledeEn='One outdoor unit serves several indoor units. VRF and VRV systems vary the refrigerant flow to match what each room actually needs.'
      pdescKa='Multisplit, VRV და VRF სისტემები Samsung-ისა და Mitsubishi Electric-ისგან.'; pdescEn='Multisplit, VRV and VRF systems from Samsung and Mitsubishi Electric.'
-     # Every one of these is a manufacturer's trade name, so the gloss says what
-     # the range actually is, plus the expansion where the initials stand for
-     # something. Checked against samsung.com and mitsubishielectric.com rather
-     # than written from memory.
+     # Plain names in the filter. What each range is and how it differs from the
+     # others is explained under the filter instead (notes), at a length a
+     # one-line gloss under a checkbox could not hold.
      series=@(
-       @('dvm','DVM','DVM','Digital Variable Multi · Samsung-ის VRF',"Digital Variable Multi · Samsung VRF"),
-       @('cac','CAC','CAC','Commercial Air Conditioner · Samsung',"Commercial Air Conditioner · Samsung"),
-       @('fjm','FJM','FJM','Free Joint Multi · Samsung',"Free Joint Multi · Samsung"),
-       @('m-series','M Series','M Series','Mitsubishi Electric · საყოფაცხოვრებო',"Mitsubishi Electric · residential"),
-       @('mr-slim','Mr Slim','Mr Slim','Mitsubishi Electric · კომერციული',"Mitsubishi Electric · light commercial"),
-       @('citymulti','City Multi','City Multi','Mitsubishi Electric · VRF',"Mitsubishi Electric · VRF"))
+       @('dvm','DVM','DVM'),
+       @('cac','CAC','CAC'),
+       @('fjm','FJM','FJM'),
+       @('m-series','M Series','M Series'),
+       @('mr-slim','Mr Slim','Mr Slim'),
+       @('citymulti','City Multi','City Multi'))
      seriesKa='სერია'; seriesEn='Series'
+     # The series guide under the filter: name, make and kind of system, and
+     # what it is for / how it differs. Kept to what the ranges are sold as --
+     # Samsung's and Mitsubishi Electric's own range descriptions -- with no
+     # figures beyond the ones they publish.
+     notesTitleKa='რით განსხვავდება სერიები'; notesTitleEn='How the series differ'
+     notesLedeKa='VRF - დიდი შენობა, ათობით ოთახი. მულტი-სპლიტი - რამდენიმე ოთახი ერთ გარე ბლოკზე. მსუბუქი კომერციული - ერთი დიდი სივრცე. საყოფაცხოვრებო - ერთი ოთახი.'
+     notesLedeEn='VRF - a large building, dozens of rooms. Multi-split - a few rooms on one outdoor unit. Light commercial - one large space. Residential - one room.'
+     notes=@(
+       @('DVM', 'Samsung · VRF', 'Samsung · VRF',
+         'Samsung-ის VRF სისტემა (Digital Variable Multi) დიდი შენობისთვის - ოფისი, სასტუმრო, სავაჭრო ცენტრი. ერთ გარე ბლოკზე ან ბლოკების მოდულზე ათობით შიდა ბლოკი უერთდება, თითოეული ოთახის ტემპერატურა ცალკე დგინდება, ინვერტორი კი მაცივარაგენტის ნაკადს ზუსტად იმდენზე ცვლის, რამდენიც ოთახებს სჭირდება. გრძელი მილგაყვანილობა და ცენტრალიზებული მართვა.',
+         'Samsung''s VRF system (Digital Variable Multi) for large buildings - offices, hotels, shopping centres. Dozens of indoor units run off one outdoor unit or a module of several, every room is set on its own, and the inverter varies the refrigerant flow to exactly what the rooms need. Long pipe runs and central control.'),
+       @('CAC', 'Samsung · მსუბუქი კომერციული', 'Samsung · light commercial',
+         'Commercial Air Conditioner - სისტემა მაღაზიისთვის, რესტორნისთვის, მცირე ოფისისთვის. ერთი გარე ბლოკი ემსახურება ერთ მძლავრ შიდა ბლოკს (კასეტური, არხული ან ჭერის) ან ერთ სივრცეში ერთად მომუშავე რამდენიმე ბლოკს. VRF-ზე მარტივი და ხელმისაწვდომი, როცა ერთი დიდი დარბაზის კონდიცირებაა საჭირო.',
+         'Commercial Air Conditioner - for shops, restaurants and small offices. One outdoor unit drives one powerful indoor unit (cassette, ducted or ceiling), or a few that work together in the same space. Simpler and more affordable than VRF when one large room needs air conditioning.'),
+       @('FJM', 'Samsung · მულტი-სპლიტი', 'Samsung · multi-split',
+         'Free Joint Multi - ბინისთვის, სახლისთვის, მცირე ოფისისთვის. ერთ გარე ბლოკზე 2-დან 5-მდე ოთახის შიდა ბლოკი უერთდება და თითოეული ცალკე ჩაირთვება და რეგულირდება. შიდა ბლოკები შეიძლება განსხვავებული ტიპის იყოს - კედლის, კასეტური, არხული - ფასადზე კი ერთი გარე ბლოკი ჩანს.',
+         'Free Joint Multi - for flats, houses and small offices. The indoor units of two to five rooms connect to one outdoor unit, and each is switched and set on its own. They can be of different kinds - wall, cassette, ducted - while only one outdoor unit goes on the facade.'),
+       @('M Series', 'Mitsubishi Electric · საყოფაცხოვრებო', 'Mitsubishi Electric · residential',
+         'Mitsubishi Electric-ის საყოფაცხოვრებო ხაზი: კედლის შიდა ბლოკი (MSZ, MSY) თავის გარე ბლოკზე (MUZ, MUY) - ერთი ოთახი, ერთი სისტემა. გამოირჩევა ჩუმი მუშაობით, მაღალი ენერგოეფექტურობით და დიზაინით, ბინისა და სახლის ოთახებისთვის.',
+         'Mitsubishi Electric''s residential line: a wall-mounted indoor unit (MSZ, MSY) on its own outdoor unit (MUZ, MUY) - one room, one system. Known for quiet running, high efficiency and design, for the rooms of flats and houses.'),
+       @('Mr Slim', 'Mitsubishi Electric · მსუბუქი კომერციული', 'Mitsubishi Electric · light commercial',
+         'Mitsubishi Electric-ის მსუბუქი კომერციული ხაზი ოფისისთვის, მაღაზიისთვის, რესტორნისთვის: კასეტური, არხული და ჭერის შიდა ბლოკები, M Series-ზე მეტი სიმძლავრისთვის. ერთ გარე ბლოკზე ერთი შიდა ბლოკი ან ერთ სივრცეში ერთად მომუშავე რამდენიმე.',
+         'Mitsubishi Electric''s light-commercial line for offices, shops and restaurants: cassette, ducted and ceiling indoor units for more capacity than the M Series. One indoor unit per outdoor unit, or a few working together in the same space.'),
+       @('City Multi', 'Mitsubishi Electric · VRF', 'Mitsubishi Electric · VRF',
+         'Mitsubishi Electric-ის VRF სისტემა დიდი შენობისთვის: ერთ გარე ბლოკზე ბევრი შიდა ბლოკი, თითოეული ოთახის ცალკე მართვით. R2 ვერსია ერთდროულად ერთ ოთახს აგრილებს და მეორეს ათბობს - ერთი ოთახიდან გამოტანილ სითბოს მეორეს გადასცემს.',
+         'Mitsubishi Electric''s VRF system for large buildings: many indoor units on one outdoor unit, each room controlled on its own. The R2 version can cool one room and heat another at the same time, moving the heat taken out of one into the other.'))
      typeKa='ტიპი'; typeEn='Type'
      types=@(@('wall','კედლის','Wall'),@('cassette','კასეტური','Cassette'),@('duct','არხული','Duct'),
              @('ceiling','ჭერის','Ceiling'),@('outdoor','გარე ბლოკი','Outdoor unit'))
@@ -121,8 +146,33 @@ $PAGES = @(
              @('window','ფანჯრის','Window'),@('roof','სახურავის','Roof'),@('centrifugal','ცენტრიდანული','Centrifugal'))
      extraKa='ჰაერის ხარჯი'; extraEn='Airflow'; extraName='air'
      extras=@(@('low','500 მ³/სთ-მდე','Up to 500 m³/h'),@('mid','500-2000 მ³/სთ','500-2000 m³/h'),
-              @('high','2000 მ³/სთ-ზე მეტი','Over 2000 m³/h')) }
+              @('high','2000 მ³/სთ-ზე მეტი','Over 2000 m³/h')) },
+
+  # A whole chapter on one page, which the chapter name in the menu and on
+  # products.html opens. Its sources are the category listings rather than
+  # brand hubs, so a "sec" on each: every card is stamped data-sec with it, the
+  # sections become the first filter, and the brands are read off the cards
+  # (one listing holds several makes). Keep it after boilers and burners in
+  # this list -- it reads what they have just written. water-heaters.html comes
+  # from tools/boilers/4-hubs.ps1. No type axis: origin, fuel and tank type mean
+  # different things in each section.
+  @{ out='heating'; from=@(
+       @{ hub='boilers';       sec='boilers';       ka='ქვაბი';     en='Boilers' },
+       @{ hub='burners';       sec='burners';       ka='სანთურები'; en='Burners' },
+       @{ hub='water-heaters'; sec='water-heaters'; ka='ბოილერები'; en='Water heaters' })
+     eyebrowKa='გათბობა'; eyebrowEn='Heating'
+     headKa='გათბობის ტექნიკა'; headEn='Heating equipment'
+     crumbKa='გათბობა'; crumbEn='Heating'
+     titleKa='გათბობა - ბიომი'; titleEn='Heating - Biomi'
+     ledeKa='გათბობის ქვაბები, სანთურები და ბოილერები - ყველა ერთ ადგილას.'; ledeEn='Heating boilers, burners and water heaters - all in one place.'
+     pdescKa='გათბობის ქვაბები, სანთურები და ბოილერები - Beretta, Riello, Warmhaus, Omega.'; pdescEn='Heating boilers, burners and water heaters - Beretta, Riello, Warmhaus, Omega.'
+     series=@(); seriesKa='კატეგორია'; seriesEn='Category'; seriesName='sec'; seriesFirst=$true
+     typeKa=''; typeEn=''; types=@()
+     extraKa=''; extraEn=''; extraName=''; extras=@() }
 )
+# The make as the brand filter prints it, where that is more than the slug with
+# a capital letter.
+$BRANDNAME = @{ mitsubishi='Mitsubishi Electric' }
 $L = @{
   ka = @{ sfx='.html'; home='მთავარი'; products='პროდუქტი'; search='ძებნა...'
           filter='ფილტრი'; clear='გასუფთავება'; brand='ბრენდი'
@@ -165,6 +215,9 @@ foreach ($p in $PAGES) {
     # ---- lift the cards out of each brand hub, tagging them with their brand
     $cards = ''
     $brandOpts = @()
+    $secOpts = @()
+    $secSubs = @{}
+    $brandSeen = [ordered]@{}
     foreach ($src in $p.from) {
       $hubFile = Join-Path $prod ($src.hub + $sfx)
       if (-not (Test-Path $hubFile)) { Write-Host "  missing hub $hubFile"; continue }
@@ -172,15 +225,45 @@ foreach ($p in $PAGES) {
       $n = 0
       foreach ($m in [regex]::Matches($hub, '(?s)<a class="pcard" href="[^"]*".*?</a>')) {
         $card = $m.Value -replace '\s+$',''
-        if ($card -notmatch 'data-brand=') {
+        if ($card -notmatch 'data-brand=' -and $src.brand) {
           $card = $card -replace '(<a class="pcard" href="[^"]*")', ('$1 data-brand="' + $src.brand + '"')
+        }
+        if ($src.sec) {
+          $card = $card -replace '(<a class="pcard" href="[^"]*")', ('$1 data-sec="' + $src.sec + '"')
+          $bm2 = [regex]::Match($card, 'data-brand="([^"]+)"')
+          if ($bm2.Success) { $brandSeen[$bm2.Groups[1].Value] = $true }
         }
         $cards += (($card -split "`r?`n" | ForEach-Object { '        ' + $_.TrimStart() }) -join "`r`n") + "`r`n"
         $n++
       }
-      $brandOpts += ,@($src.brand, $src.ka, $src.en)
+      if ($src.sec) {
+        $secOpts += ,@($src.sec, $src.ka, $src.en)
+        # That listing's own filters, apart from brand (the chapter page has one
+        # brand filter for everything), go under its category box, each input
+        # scoped to the section: main.js applies a scoped box to that section's
+        # cards only, which matters because every listing files something
+        # different under data-type -- origin, fuel, tank.
+        $subHtml = ''
+        $aside = [regex]::Match($hub, '(?s)<aside class="pfilter">.*?</aside>').Value
+        foreach ($g in [regex]::Matches($aside, '(?s)<div class="pfilter__group[^"]*">\s*<h4>(.*?)\s*<svg.*?</h4>\s*<div class="pfilter__opts">(.*?)</div>\s*</div>')) {
+          $labels = @([regex]::Matches($g.Groups[2].Value, '(?s)<label[^>]*>.*?</label>') | ForEach-Object { $_.Value })
+          if (-not $labels.Count -or $labels[0] -match 'name="brand"') { continue }
+          $subHtml += "              <div class=`"pfilter__subgroup`">`r`n                <h5>" + $g.Groups[1].Value.Trim() + "</h5>`r`n"
+          foreach ($lb in $labels) {
+            $subHtml += '                ' + ($lb -replace '(<input [^>]*?)(>)', ('$1 data-scope="' + $src.sec + '"$2')) + "`r`n"
+          }
+          $subHtml += "              </div>`r`n"
+        }
+        $secSubs[$src.sec] = $subHtml
+      }
+      else { $brandOpts += ,@($src.brand, $src.ka, $src.en) }
       Write-Host ("  {0,-18} <- {1,2} cards from {2}" -f ($p.out + $sfx), $n, ($src.hub + $sfx))
     }
+    foreach ($bslug in ($brandSeen.Keys | Sort-Object)) {
+      $bname = if ($BRANDNAME[$bslug]) { $BRANDNAME[$bslug] } else { $bslug.Substring(0,1).ToUpper() + $bslug.Substring(1) }
+      $brandOpts += ,@($bslug, $bname, $bname)
+    }
+    $series = if ($secOpts.Count) { $secOpts } else { $p.series }
 
     $head = if ($lang -eq 'ka') { $p.headKa } else { $p.headEn }
     $eyebrow = if ($lang -eq 'ka') { $p.eyebrowKa } else { $p.eyebrowEn }
@@ -198,10 +281,55 @@ foreach ($p in $PAGES) {
     # control of their own. Ticking none means all, so there is no "all" option:
     # a box that only undoes the others is one more thing to read past.
     $seriesCls = if ($p.seriesFirst) { 'pfilter__group--cats' } else { '' }
-    $seriesGrp = FilterGroup $seriesLbl $(if ($p.seriesName) { $p.seriesName } else { 'cat' }) $p.series $lang $seriesCls
+    $seriesGrp = FilterGroup $seriesLbl $(if ($p.seriesName) { $p.seriesName } else { 'cat' }) $series $lang $seriesCls
+    # A series with a note gets a small "!" after its name: hovering it shows the
+    # explanation (CSS, from data-tip), clicking scrolls to it under the filter
+    # (main.js). Inside the label, so the click handler has to stop it ticking.
+    if ($p.notes) {
+      $infoLbl = if ($lang -eq 'ka') { 'სერიის განმარტება' } else { 'About this series' }
+      foreach ($nt in $p.notes) {
+        $hit = @($p.series | Where-Object { $_[1] -eq $nt[0] } | Select-Object -First 1)
+        if (-not $hit.Count) { continue }
+        $tip = $(if ($lang -eq 'ka') { $nt[3] } else { $nt[4] }) -replace '"', '&quot;'
+        $optEnd = 'value="' + $hit[0][0] + '">' + $nt[0] + '</label>'
+        $seriesGrp = $seriesGrp.Replace($optEnd, ('value="' + $hit[0][0] + '">' + $nt[0] +
+          ' <button type="button" class="pfilter__info" data-note="note-' + $hit[0][0] + '" data-tip="' + $tip +
+          '" aria-label="' + $infoLbl + ': ' + $nt[0] + '">!</button></label>'))
+      }
+    }
+    # On a chapter page each category box is followed by its own filters,
+    # closed until the box is ticked (main.js opens them).
+    if ($secOpts.Count) {
+      foreach ($o in $secOpts) {
+        if (-not $secSubs[$o[0]]) { continue }
+        $optTxt = if ($lang -eq 'ka') { $o[1] } else { $o[2] }
+        $lblLine = '<label><input type="checkbox" name="' + $p.seriesName + '" value="' + $o[0] + '">' + $optTxt + '</label>'
+        $subBlock = $lblLine + "`r`n            <div class=`"pfilter__sub`" data-for=`"" + $o[0] + "`" hidden>`r`n" + $secSubs[$o[0]] + '            </div>'
+        $seriesGrp = $seriesGrp.Replace($lblLine, $subBlock)
+      }
+    }
     # You pick the part of the catalogue first, then narrow what is in it, so the
     # sections lead. vrf-vrv's series are ranges rather than sections -- DVM, CAC,
     # Mr Slim -- and stay where they were, after the brand.
+    # The series guide, under the last filter group (vrf-vrv only for now).
+    $notesHtml = ''
+    if ($p.notes) {
+      $nTitle = if ($lang -eq 'ka') { $p.notesTitleKa } else { $p.notesTitleEn }
+      $nLede  = if ($lang -eq 'ka') { $p.notesLedeKa } else { $p.notesLedeEn }
+      $notesHtml = "        <div class=`"pfilter__notes`">`r`n          <h4 class=`"pfilter__notes-title`">$nTitle</h4>`r`n"
+      if ($nLede) { $notesHtml += "          <p class=`"pfilter__notes-lede`">$nLede</p>`r`n" }
+      $notesHtml += "          <dl>`r`n"
+      foreach ($nt in $p.notes) {
+        $kind = if ($lang -eq 'ka') { $nt[1] } else { $nt[2] }
+        $txt  = if ($lang -eq 'ka') { $nt[3] } else { $nt[4] }
+        # the series option of the same name gives the anchor the "!" jumps to
+        $slugHit = @($p.series | Where-Object { $_[1] -eq $nt[0] } | Select-Object -First 1)
+        $noteId = if ($slugHit.Count) { 'note-' + $slugHit[0][0] } else { '' }
+        $idAttr = if ($noteId) { " id=`"$noteId`"" } else { '' }
+        $notesHtml += "            <div class=`"pfilter__note`"$idAttr>`r`n              <dt>$($nt[0]) <small>$kind</small></dt>`r`n              <dd>$txt</dd>`r`n            </div>`r`n"
+      }
+      $notesHtml += "          </dl>`r`n        </div>`r`n"
+    }
     $grpBrand = FilterGroup $t.brand 'brand' $brandOpts $lang
     $grpTop = if ($p.seriesFirst) { $seriesGrp + $grpBrand } else { $grpBrand + $seriesGrp }
 
@@ -230,7 +358,7 @@ foreach ($p in $PAGES) {
           <input type="search" placeholder="$($t.search)">
         </div>
         <div class="pfilter__head"><span>$($t.filter)</span><a data-clear>$($t.clear)</a></div>
-$grpTop$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)      </aside>
+$grpTop$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)$notesHtml      </aside>
 
       <div class="pgrid">
 $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>

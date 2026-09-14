@@ -25,7 +25,7 @@ $L = @{
     madeIn='წარმოებულია იტალიაში'
     file='.html'; tplName='mitsubishi-msz-ap.html'
     home='მთავარი'; products='პროდუქტი'; vent='ვენტილაცია'
-    lblModel='მოდელი'; specs='მახასიათებლები'; cert='სერტიფიკატები'; dl='დოკუმენტაცია'
+    lblModel='მოდელი'; lblColor='ფერი'; specs='მახასიათებლები'; cert='სერტიფიკატები'; dl='დოკუმენტაცია'
     thModel='მოდელი'; thCode='კოდი'; thType='ტიპი'; thAir='ჰაერის ხარჯი'
     thWatt='მოხმარებული სიმძლავრე'; thDia='ნომინალური დიამეტრი'; thNoise='ხმაური'
     thPower='კვება'; thRange='მოდელების რიგი'
@@ -40,7 +40,7 @@ $L = @{
     madeIn='Made in Italy'
     file='-en.html'; tplName='mitsubishi-msz-ap-en.html'
     home='Home'; products='Products'; vent='Ventilation'
-    lblModel='Model'; specs='Specifications'; cert='Certificates'; dl='Documentation'
+    lblModel='Model'; lblColor='Colour'; specs='Specifications'; cert='Certificates'; dl='Documentation'
     thModel='Model'; thCode='Code'; thType='Type'; thAir='Airflow'
     thWatt='Absorbed power'; thDia='Nominal diameter'; thNoise='Sound pressure'
     thPower='Power supply'; thRange='Model range'
@@ -135,9 +135,33 @@ foreach ($lang in 'ka','en') {
     # The name last, so a pair that ties on both -- HRW 40 MONO EVO HCS and its
     # WiFi twin -- comes out in the same order every run.
     $g = @($mods | Where-Object { $_.slug -eq $f.slug } | Sort-Object { [double]$_.airflow }, { [double]('0' + $_.diameter) }, { $_.model })
+    # ---- finishes
+    # A family with "colors" (ME Punto Evo) sells one model in several finishes,
+    # each its own article code. They are one chip -- carrying the primary finish,
+    # the first in the list -- plus a row of colour swatches under the chips, each
+    # a full model switch (code, specs, photos). $cg is the chip list: the models
+    # with the finishes folded into that one chip, where the plain finish sorts.
+    $colorCodes = @()
+    if ($f.colors) { $colorCodes = @($f.colors | ForEach-Object { [string]$_.code }) }
+    $cg = $g
+    $chipName = @{}
+    foreach ($m in $g) { $chipName[[string]$m.code] = $m.model }
+    if ($colorCodes.Count) {
+      $primaryModel = @($g | Where-Object { [string]$_.code -eq $colorCodes[0] })[0]
+      $cg = @(); $folded = $false
+      foreach ($m in $g) {
+        if ($colorCodes -contains [string]$m.code) {
+          if (-not $folded) {
+            $cg += $primaryModel; $folded = $true
+            # the chip reads as the finish-less model: "100/4" LL", not "... ROSA-PINK GOLD"
+            $chipName[[string]$primaryModel.code] = $m.model
+          }
+        } else { $cg += $m }
+      }
+    }
     # One model has nothing to be told apart from, and CommonPrefix of a single
     # name strips all but its last word -- "LINEO 100 QUIET ES" came out as "ES".
-    $prefix = if ($g.Count -gt 1) { CommonPrefix (@($g | ForEach-Object { $_.model })) } else { '' }
+    $prefix = if ($cg.Count -gt 1) { CommonPrefix (@($cg | ForEach-Object { $chipName[[string]$_.code] })) } else { '' }
 
     # ---- gallery
     # On a switching page the opening gallery is the first chip's set, so the
@@ -147,7 +171,7 @@ foreach ($lang in 'ka','en') {
     $gal = if ($gal) { $gal.Value } else { $null }
     # @() at the call site too: a one-element array unrolls to a scalar on
     # return, and then $have[0] indexes the string, not the list
-    $have = @(GalFor $gal $g[0].code)
+    $have = @(GalFor $gal $cg[0].code)
     if (-not $have -or -not $have[0]) {
       $have = @($NAMES | Where-Object { Test-Path (Join-Path $imgdir ($_ + '.avif')) } | ForEach-Object { $_ + '.avif' })
     }
@@ -160,21 +184,21 @@ foreach ($lang in 'ka','en') {
     # pink, white and black gold all came out as "ME 100/4" LL ORO". Where the
     # short form collides, spell the model out in full and let the chip wrap.
     $labels = @{}
-    foreach ($m in $g) { $labels[$m.code] = ChipLabel $m.model $prefix }
+    foreach ($m in $cg) { $labels[$m.code] = ChipLabel $chipName[[string]$m.code] $prefix }
     $dupe = @($labels.Values | Group-Object | Where-Object { $_.Count -gt 1 } | ForEach-Object { $_.Name })
     if ($dupe.Count) {
-      foreach ($m in $g) { if ($dupe -contains $labels[$m.code]) { $labels[$m.code] = $m.model } }
+      foreach ($m in $cg) { if ($dupe -contains $labels[$m.code]) { $labels[$m.code] = $chipName[[string]$m.code] } }
     }
     # Some models collide even at full length: the price list lists two
     # different products as "CA 100 V0 D" (200 and 235 m3/h). The Vortice code
     # is the only thing that separates them, so it goes on the chip.
     $dupe = @($labels.Values | Group-Object | Where-Object { $_.Count -gt 1 } | ForEach-Object { $_.Name })
     if ($dupe.Count) {
-      foreach ($m in $g) { if ($dupe -contains $labels[$m.code]) { $labels[$m.code] = $m.model + ' · ' + $m.code } }
+      foreach ($m in $cg) { if ($dupe -contains $labels[$m.code]) { $labels[$m.code] = $m.model + ' · ' + $m.code } }
     }
     $chips = @()
-    for ($i = 0; $i -lt $g.Count; $i++) {
-      $m = $g[$i]
+    for ($i = 0; $i -lt $cg.Count; $i++) {
+      $m = $cg[$i]
       $cls = if ($i -eq 0) { 'chip active' } else { 'chip' }
       $dia = if ($m.diameter) { $m.diameter + ' ' + $t.uMm } else { '-' }
       $db  = if ($m.db)       { $m.db + ' ' + $t.uDb }       else { '-' }
@@ -183,12 +207,39 @@ foreach ($lang in 'ka','en') {
       $imgAttr = ''
       $lst = GalFor $gal $m.code
       if ($lst) { $imgAttr = '" data-alt="' + (HtmlEnc $m.model) + '" data-imgs="' + ($lst -join ',') }
+      # the chip that stands for the finishes opens the colour row (main.js)
+      $colAttr = if ($colorCodes.Count -and $colorCodes -contains [string]$m.code) { '" data-colors="' } else { '' }
       $chips += '          <button class="' + $cls + '" type="button" data-model="' + (HtmlEnc $m.model) +
                 '" data-code="' + $m.code + '" data-air="' + $m.airflow + ' ' + $t.uAir +
                 '" data-watt="' + $watt + '" data-dia="' + $dia +
-                '" data-db="' + $db + $imgAttr + '">' + (HtmlEnc $labels[$m.code]) + '</button>'
+                '" data-db="' + $db + $imgAttr + $colAttr + '">' + (HtmlEnc $labels[$m.code]) + '</button>'
     }
-    $first = $g[0]
+    # the colour swatches: one per finish, each a whole model switch
+    $colorRow = ''
+    if ($colorCodes.Count) {
+      $sw = @()
+      for ($ci = 0; $ci -lt $f.colors.Count; $ci++) {
+        $c = $f.colors[$ci]
+        $m = @($g | Where-Object { [string]$_.code -eq [string]$c.code })[0]
+        if (-not $m) { continue }
+        $cName = if ($lang -eq 'ka') { $c.ka } else { $c.en }
+        $dia = if ($m.diameter) { $m.diameter + ' ' + $t.uMm } else { '-' }
+        $db  = if ($m.db)       { $m.db + ' ' + $t.uDb }       else { '-' }
+        $watt = if ($m.watts)   { $m.watts + ' ' + $t.uW }     else { '-' }
+        $lst = GalFor $gal $m.code
+        $imgAttr = if ($lst) { '" data-imgs="' + ($lst -join ',') } else { '' }
+        $cls = if ($ci -eq 0) { 'chip chip--sw active' } else { 'chip chip--sw' }
+        $sw += '          <button class="' + $cls + '" type="button" style="--sw:' + $c.sw + '" title="' + (HtmlEnc $cName) +
+               '" aria-label="' + (HtmlEnc $cName) + '" data-model="' + (HtmlEnc $m.model) +
+               '" data-code="' + $m.code + '" data-air="' + $m.airflow + ' ' + $t.uAir +
+               '" data-watt="' + $watt + '" data-dia="' + $dia + '" data-db="' + $db +
+               '" data-alt="' + (HtmlEnc ($name + ' - ' + $cName)) + $imgAttr + '"></button>'
+      }
+      $imgBase = if ($gal) { ' data-imgbase="../assets/img/products/' + $f.slug + '/"' } else { '' }
+      $colorRow = "`r`n        <div class=`"pbuy__label`" data-colorlabel>" + $t.lblColor + "</div>`r`n" +
+                  "        <div class=`"chipset`" data-modelswitch data-colorset" + $imgBase + ">`r`n" + ($sw -join "`r`n") + "`r`n        </div>"
+    }
+    $first = $cg[0]
     $fDia = if ($first.diameter) { $first.diameter + ' ' + $t.uMm } else { '-' }
     $fDb  = if ($first.db)       { $first.db + ' ' + $t.uDb }       else { '-' }
     $fWatt = if ($first.watts)   { $first.watts + ' ' + $t.uW }     else { '-' }
@@ -210,13 +261,24 @@ foreach ($lang in 'ka','en') {
       $sn = if ($lang -eq 'ka') { $_.nameKa } else { $_.nameEn }
       '<th><img src="../assets/img/products/' + $_.slug + '/main.avif" alt="">' + (HtmlEnc $sn) + '</th>'
     }) -join ''
+    # Lowest to highest across the range, as one number when there is only one:
+    # a single-model page read "990-990 m³/h". Min and max rather than first and
+    # last -- the models are in airflow order, and noise does not always follow it.
+    function Span($vals, $unit) {
+      $nums = @($vals | Where-Object { $_ } | ForEach-Object { [double]$_ })
+      if (-not $nums.Count) { return '-' }
+      $spanLo = ($nums | Measure-Object -Minimum).Minimum
+      $spanHi = ($nums | Measure-Object -Maximum).Maximum
+      if ($spanLo -eq $spanHi) { return '' + $spanLo + ' ' + $unit }
+      return '' + $spanLo + '-' + $spanHi + ' ' + $unit
+    }
     function CmpCell($fam, $key, $isThis) {
       $gg = @($mods | Where-Object { $_.slug -eq $fam.slug } | Sort-Object { [double]$_.airflow })
       $v = switch ($key) {
         'model' { $gg[0].model }
         'type'  { if ($lang -eq 'ka') { $fam.typeKa } else { $fam.typeEn } }
-        'air'   { '' + [double]$gg[0].airflow + '-' + [double]$gg[-1].airflow + ' ' + $t.uAir }
-        'db'    { $q = @($gg | Where-Object { $_.db }); if ($q.Count) { '' + [double]$q[0].db + '-' + [double]$q[-1].db + ' ' + $t.uDb } else { '-' } }
+        'air'   { Span @($gg | ForEach-Object { $_.airflow }) $t.uAir }
+        'db'    { Span @($gg | ForEach-Object { $_.db }) $t.uDb }
       }
       $c = if ($isThis) { ' class="is-this"' } else { '' }
       return '<td' + $c + '>' + (HtmlEnc $v) + '</td>'
@@ -265,7 +327,7 @@ $thumbs
         <div class="pbuy__label">$($t.lblModel)</div>
         <div class="chipset" data-modelswitch$(if ($gal) { ' data-imgbase="../assets/img/products/' + $f.slug + '/"' })>
 $($chips -join "`r`n")
-        </div>
+        </div>$colorRow
         <p class="pbuy__desc">$(HtmlEnc $desc)</p>
         <a class="btn btn--gold" href="../index.html#contact">$($t.cta)
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>

@@ -831,7 +831,8 @@
         "srcmb":  5.45,
         "slugs":  [
                       "vortice-lineo",
-                      "vortice-lineo-q"
+                      "vortice-lineo-q",
+                      "vortice-lineo-q-t"
                   ]
     },
     {
@@ -844,7 +845,8 @@
         "srcmb":  1.96,
         "slugs":  [
                       "vortice-lineo",
-                      "vortice-lineo-q"
+                      "vortice-lineo-q",
+                      "vortice-lineo-q-t"
                   ]
     },
     {
@@ -1064,7 +1066,211 @@
         "mb":  0.12,
         "srcmb":  1.13,
         "slugs":  [
-                      "vortice-lineo-q"
+                      "vortice-lineo-q-t"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "0000011260.pdf",
+        "mb":  0.09,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "70_EN_11260_Libretti_Istruzioni_5571084808__03-03-2021_171894.pdf",
+        "mb":  0,
+        "srcmb":  4.45,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "70_EN_11260_Libretti_Istruzioni_5671084386__16-11-2023_182673.pdf",
+        "mb":  0,
+        "srcmb":  6.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "70_EN_11260_Schemi_collegamento_E960291C_60252.pdf",
+        "mb":  0.01,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL",
+        "name":  "de-0000011260.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "0000011261.pdf",
+        "mb":  0.1,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "70_EN_11261_Libretti_Istruzioni_5571084808__03-03-202.pdf",
+        "mb":  0,
+        "srcmb":  4.46,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "70_EN_11261_Schemi_collegamento_E960292B_60231.pdf",
+        "mb":  0,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "de-0000011261.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-120-5-ll-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 120/5\" LL",
+        "name":  "0000011270.pdf",
+        "mb":  0.09,
+        "srcmb":  0.28,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-120-5-ll-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 120/5\" LL",
+        "name":  "de-0000011270.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-datasheet-2.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "0000011261.pdf",
+        "mb":  0.1,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-ll-tp-energy-2.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" LL TP",
+        "name":  "de-0000011261.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-es-datasheet.pdf",
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" ES",
+        "name":  "0000011268.pdf",
+        "mb":  0.09,
+        "srcmb":  0.73,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-es-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" ES",
+        "name":  "70_EN_11268_Libretti_Istruzioni_54710840.pdf",
+        "mb":  0,
+        "srcmb":  1.35,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-es-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" ES",
+        "name":  "70_EN_11268_Schemi_collegamento_E960342A.pdf",
+        "mb":  0,
+        "srcmb":  0.01,
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "file":  "vortice-me-100-4-es-energy.pdf",
+        "class":  "energy",
+        "cat":  "vortice",
+        "model":  "ME 100/4\" ES",
+        "name":  "de-0000011268.pdf",
+        "mb":  0.05,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-me"
                   ]
     },
     {
@@ -1298,7 +1504,7 @@
         "mb":  0.1,
         "srcmb":  0.44,
         "slugs":  [
-                      "vortice-me"
+                      "vortice-m"
                   ]
     },
     {
@@ -1310,7 +1516,7 @@
         "mb":  6.28,
         "srcmb":  7.52,
         "slugs":  [
-                      "vortice-me"
+                      "vortice-m"
                   ]
     },
     {
@@ -1322,7 +1528,7 @@
         "mb":  2.15,
         "srcmb":  3.84,
         "slugs":  [
-                      "vortice-me"
+                      "vortice-m"
                   ]
     },
     {
@@ -1334,211 +1540,7 @@
         "mb":  0.05,
         "srcmb":  0.11,
         "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-datasheet.pdf",
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL",
-        "name":  "0000011260.pdf",
-        "mb":  0.09,
-        "srcmb":  0.73,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-booklet.pdf",
-        "class":  "booklet",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL",
-        "name":  "70_EN_11260_Libretti_Istruzioni_5571084808__03-03-2021_171894.pdf",
-        "mb":  0,
-        "srcmb":  4.45,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-booklet-2.pdf",
-        "class":  "booklet",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL",
-        "name":  "70_EN_11260_Libretti_Istruzioni_5671084386__16-11-2023_182673.pdf",
-        "mb":  0,
-        "srcmb":  6.17,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-wiring.pdf",
-        "class":  "wiring",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL",
-        "name":  "70_EN_11260_Schemi_collegamento_E960291C_60252.pdf",
-        "mb":  0.01,
-        "srcmb":  0.01,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-energy.pdf",
-        "class":  "energy",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL",
-        "name":  "de-0000011260.pdf",
-        "mb":  0.05,
-        "srcmb":  0.17,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-tp-datasheet.pdf",
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL TP",
-        "name":  "0000011261.pdf",
-        "mb":  0.1,
-        "srcmb":  0.73,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-tp-booklet.pdf",
-        "class":  "booklet",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL TP",
-        "name":  "70_EN_11261_Libretti_Istruzioni_5571084808__03-03-202.pdf",
-        "mb":  0,
-        "srcmb":  4.46,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-tp-wiring.pdf",
-        "class":  "wiring",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL TP",
-        "name":  "70_EN_11261_Schemi_collegamento_E960292B_60231.pdf",
-        "mb":  0,
-        "srcmb":  0.01,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-tp-energy.pdf",
-        "class":  "energy",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL TP",
-        "name":  "de-0000011261.pdf",
-        "mb":  0.05,
-        "srcmb":  0.17,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-120-5-ll-datasheet.pdf",
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "model":  "ME 120/5\" LL",
-        "name":  "0000011270.pdf",
-        "mb":  0.09,
-        "srcmb":  0.28,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-120-5-ll-energy.pdf",
-        "class":  "energy",
-        "cat":  "vortice",
-        "model":  "ME 120/5\" LL",
-        "name":  "de-0000011270.pdf",
-        "mb":  0.05,
-        "srcmb":  0.17,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-tp-datasheet-2.pdf",
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL TP",
-        "name":  "0000011261.pdf",
-        "mb":  0.1,
-        "srcmb":  0.73,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-ll-tp-energy-2.pdf",
-        "class":  "energy",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" LL TP",
-        "name":  "de-0000011261.pdf",
-        "mb":  0.05,
-        "srcmb":  0.17,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-es-datasheet.pdf",
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" ES",
-        "name":  "0000011268.pdf",
-        "mb":  0.09,
-        "srcmb":  0.73,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-es-booklet.pdf",
-        "class":  "booklet",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" ES",
-        "name":  "70_EN_11268_Libretti_Istruzioni_54710840.pdf",
-        "mb":  0,
-        "srcmb":  1.35,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-es-wiring.pdf",
-        "class":  "wiring",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" ES",
-        "name":  "70_EN_11268_Schemi_collegamento_E960342A.pdf",
-        "mb":  0,
-        "srcmb":  0.01,
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "file":  "vortice-me-100-4-es-energy.pdf",
-        "class":  "energy",
-        "cat":  "vortice",
-        "model":  "ME 100/4\" ES",
-        "name":  "de-0000011268.pdf",
-        "mb":  0.05,
-        "srcmb":  0.17,
-        "slugs":  [
-                      "vortice-me"
+                      "vortice-m"
                   ]
     },
     {
@@ -2080,6 +2082,7 @@
         "slugs":  [
                       "vortice-lineo",
                       "vortice-lineo-q",
+                      "vortice-lineo-q-t",
                       "vortice-lineo-quiet",
                       "vortice-lineo-quiet-es",
                       "vortice-lineo-t-quiet"

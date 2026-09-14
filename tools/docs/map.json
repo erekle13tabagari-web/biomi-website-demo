@@ -30,7 +30,7 @@
   ],
 
   "ვენტილაცია": [
-    { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Lineo_Range",        "slugs": ["vortice-lineo", "vortice-lineo-q", "vortice-lineo-quiet", "vortice-lineo-quiet-es", "vortice-lineo-t-quiet"] },
+    { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Lineo_Range",        "slugs": ["vortice-lineo", "vortice-lineo-q", "vortice-lineo-q-t", "vortice-lineo-quiet", "vortice-lineo-quiet-es", "vortice-lineo-t-quiet"] },
     { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Vort_QBK_HE_Range",  "slugs": ["vortice-qbk"] },
     { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Vort_QBK_SAL-KC_EVO", "slugs": ["vortice-qbk-sal"] },
     { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_VORTICENT_CMS_RANGE", "slugs": ["vortice-cms"] },

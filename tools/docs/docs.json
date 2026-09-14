@@ -1591,7 +1591,7 @@
         "class":  "datasheet",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-lineo-q"
+                      "vortice-lineo-q-t"
                   ]
     },
     {
@@ -1602,7 +1602,7 @@
         "class":  "booklet",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-lineo-q"
+                      "vortice-lineo-q-t"
                   ]
     },
     {
@@ -1613,7 +1613,282 @@
         "class":  "wiring",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-lineo-q"
+                      "vortice-lineo-q-t"
+                  ]
+    },
+    {
+        "hash":  "B5026A3B0EB9268E1F0B823959663AB3",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\0000011260.pdf",
+        "name":  "0000011260.pdf",
+        "mb":  0.73,
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "6896F108CCF2BF21E0CF278DF73721F4",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11260_Libretti_Istruzioni_5571084808__03-03-2021_171894.pdf",
+        "name":  "70_EN_11260_Libretti_Istruzioni_5571084808__03-03-2021_171894.pdf",
+        "mb":  4.45,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "680183F4F1F9B7DE5DF33D5DB1E7631D",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11260_Libretti_Istruzioni_5671084386__16-11-2023_182673.pdf",
+        "name":  "70_EN_11260_Libretti_Istruzioni_5671084386__16-11-2023_182673.pdf",
+        "mb":  6.17,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "F93050587AC5F2471AE8A39622635A90",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11260_Schemi_collegamento_E960291C_60252.pdf",
+        "name":  "70_EN_11260_Schemi_collegamento_E960291C_60252.pdf",
+        "mb":  0.01,
+        "class":  "wiring",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "753178C6D895761150F3211D55F4767F",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\de-0000011260.pdf",
+        "name":  "de-0000011260.pdf",
+        "mb":  0.17,
+        "class":  "energy",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "CCE8DC8D85C9CACC904A90A23DD5DE7F",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\0000011261.pdf",
+        "name":  "0000011261.pdf",
+        "mb":  0.73,
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "A5E6409BF21F170DBFEF2D8AF262B32C",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_5571084808__03-03-202.pdf",
+        "name":  "70_EN_11261_Libretti_Istruzioni_5571084808__03-03-202.pdf",
+        "mb":  4.46,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "680183F4F1F9B7DE5DF33D5DB1E7631D",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_5671084386__16-11-202.pdf",
+        "name":  "70_EN_11261_Libretti_Istruzioni_5671084386__16-11-202.pdf",
+        "mb":  6.17,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "58A22A4013F3C616020B230F94F799D0",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Schemi_collegamento_E960292B_60231.pdf",
+        "name":  "70_EN_11261_Schemi_collegamento_E960292B_60231.pdf",
+        "mb":  0.01,
+        "class":  "wiring",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "CED8C23C1EE0E79B42E154B92967242A",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\de-0000011261.pdf",
+        "name":  "de-0000011261.pdf",
+        "mb":  0.17,
+        "class":  "energy",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "EEFB7CA1FF596AC7758A4F9DB8FA36D0",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\0000011270.pdf",
+        "name":  "0000011270.pdf",
+        "mb":  0.28,
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "A5E6409BF21F170DBFEF2D8AF262B32C",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\70_EN_11270_Libretti_Istruzioni_5571084808__03-03-2021_168780.pdf",
+        "name":  "70_EN_11270_Libretti_Istruzioni_5571084808__03-03-2021_168780.pdf",
+        "mb":  4.46,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "680183F4F1F9B7DE5DF33D5DB1E7631D",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\70_EN_11270_Libretti_Istruzioni_5671084386__16-11-2023_182684.pdf",
+        "name":  "70_EN_11270_Libretti_Istruzioni_5671084386__16-11-2023_182684.pdf",
+        "mb":  6.17,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "58A22A4013F3C616020B230F94F799D0",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\70_EN_11270_Schemi_collegamento_E960292B_60235.pdf",
+        "name":  "70_EN_11270_Schemi_collegamento_E960292B_60235.pdf",
+        "mb":  0.01,
+        "class":  "wiring",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "F0A824003562F5F324DEEE33BF803A57",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\de-0000011270.pdf",
+        "name":  "de-0000011270.pdf",
+        "mb":  0.17,
+        "class":  "energy",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "F7F1A61608134FB612FA7A36651E0271",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\0000011261.pdf",
+        "name":  "0000011261.pdf",
+        "mb":  0.73,
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "6896F108CCF2BF21E0CF278DF73721F4",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_557 (1).pdf",
+        "name":  "70_EN_11261_Libretti_Istruzioni_557 (1).pdf",
+        "mb":  4.45,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "A5E6409BF21F170DBFEF2D8AF262B32C",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_5571084.pdf",
+        "name":  "70_EN_11261_Libretti_Istruzioni_5571084.pdf",
+        "mb":  4.46,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "680183F4F1F9B7DE5DF33D5DB1E7631D",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_5671084.pdf",
+        "name":  "70_EN_11261_Libretti_Istruzioni_5671084.pdf",
+        "mb":  6.17,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "58A22A4013F3C616020B230F94F799D0",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Schemi_collegamento_E960292.pdf",
+        "name":  "70_EN_11261_Schemi_collegamento_E960292.pdf",
+        "mb":  0.01,
+        "class":  "wiring",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "3B769BCE685E62F58F18E16804CD4CF5",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\de-0000011261.pdf",
+        "name":  "de-0000011261.pdf",
+        "mb":  0.17,
+        "class":  "energy",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "8C262931D0195A23A9D0073E23C05343",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (თეთრი-ოქრო) 100 მმ VORTICE\\საბუთები\\0000011268.pdf",
+        "name":  "0000011268.pdf",
+        "mb":  0.73,
+        "class":  "datasheet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "350ED0F5CCB8B4A8017B8871B6EFAEC2",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (თეთრი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11268_Libretti_Istruzioni_54710840.pdf",
+        "name":  "70_EN_11268_Libretti_Istruzioni_54710840.pdf",
+        "mb":  1.35,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "A629BFF1E2FD7894CFEE76F8DBDE64CC",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (თეთრი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11268_Schemi_collegamento_E960342A.pdf",
+        "name":  "70_EN_11268_Schemi_collegamento_E960342A.pdf",
+        "mb":  0.01,
+        "class":  "wiring",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
+                  ]
+    },
+    {
+        "hash":  "BAF7BC53C7753351F63013E6EC6C346F",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\ME_ Punto Evo აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (თეთრი-ოქრო) 100 მმ VORTICE\\საბუთები\\de-0000011268.pdf",
+        "name":  "de-0000011268.pdf",
+        "mb":  0.17,
+        "class":  "energy",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-me"
                   ]
     },
     {
@@ -2289,321 +2564,46 @@
     },
     {
         "hash":  "3ABBACA11060C6D8200509DB29EF0CE7",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საბუთები\\0000011201.pdf",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ Punto აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საბუთები\\0000011201.pdf",
         "name":  "0000011201.pdf",
         "mb":  0.44,
         "class":  "datasheet",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-me"
+                      "vortice-m"
                   ]
     },
     {
         "hash":  "58AF9A0EF7F7905E78E30A09CF2C911E",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საბუთები\\70_EN_11201_Libretti_Istruzioni_5571084759__26-01-2021_167839.pdf",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ Punto აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საბუთები\\70_EN_11201_Libretti_Istruzioni_5571084759__26-01-2021_167839.pdf",
         "name":  "70_EN_11201_Libretti_Istruzioni_5571084759__26-01-2021_167839.pdf",
         "mb":  7.52,
         "class":  "booklet",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-me"
+                      "vortice-m"
                   ]
     },
     {
         "hash":  "DA912A9A7518F3375FE1234C7F284FAA",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საბუთები\\70_EN_11201_Libretti_Istruzioni_5671084561__06-11-2024_187324.pdf",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ Punto აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საბუთები\\70_EN_11201_Libretti_Istruzioni_5671084561__06-11-2024_187324.pdf",
         "name":  "70_EN_11201_Libretti_Istruzioni_5671084561__06-11-2024_187324.pdf",
         "mb":  3.84,
         "class":  "booklet",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-me"
+                      "vortice-m"
                   ]
     },
     {
         "hash":  "F9A822F28E8D7DBDADD30528CCE4F561",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საბუთები\\de-0000011201.pdf",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ Punto აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11201 M 1004 აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით 100 მმ VORTICE\\საბუთები\\de-0000011201.pdf",
         "name":  "de-0000011201.pdf",
         "mb":  0.11,
         "class":  "energy",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "B5026A3B0EB9268E1F0B823959663AB3",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\0000011260.pdf",
-        "name":  "0000011260.pdf",
-        "mb":  0.73,
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "6896F108CCF2BF21E0CF278DF73721F4",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11260_Libretti_Istruzioni_5571084808__03-03-2021_171894.pdf",
-        "name":  "70_EN_11260_Libretti_Istruzioni_5571084808__03-03-2021_171894.pdf",
-        "mb":  4.45,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "680183F4F1F9B7DE5DF33D5DB1E7631D",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11260_Libretti_Istruzioni_5671084386__16-11-2023_182673.pdf",
-        "name":  "70_EN_11260_Libretti_Istruzioni_5671084386__16-11-2023_182673.pdf",
-        "mb":  6.17,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "F93050587AC5F2471AE8A39622635A90",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11260_Schemi_collegamento_E960291C_60252.pdf",
-        "name":  "70_EN_11260_Schemi_collegamento_E960291C_60252.pdf",
-        "mb":  0.01,
-        "class":  "wiring",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "753178C6D895761150F3211D55F4767F",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11260 ME 1004 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\de-0000011260.pdf",
-        "name":  "de-0000011260.pdf",
-        "mb":  0.17,
-        "class":  "energy",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "CCE8DC8D85C9CACC904A90A23DD5DE7F",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\0000011261.pdf",
-        "name":  "0000011261.pdf",
-        "mb":  0.73,
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "A5E6409BF21F170DBFEF2D8AF262B32C",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_5571084808__03-03-202.pdf",
-        "name":  "70_EN_11261_Libretti_Istruzioni_5571084808__03-03-202.pdf",
-        "mb":  4.46,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "680183F4F1F9B7DE5DF33D5DB1E7631D",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_5671084386__16-11-202.pdf",
-        "name":  "70_EN_11261_Libretti_Istruzioni_5671084386__16-11-202.pdf",
-        "mb":  6.17,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "58A22A4013F3C616020B230F94F799D0",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Schemi_collegamento_E960292B_60231.pdf",
-        "name":  "70_EN_11261_Schemi_collegamento_E960292B_60231.pdf",
-        "mb":  0.01,
-        "class":  "wiring",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "CED8C23C1EE0E79B42E154B92967242A",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11261 ME 1004 LL TP აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 100 მმ VORTICE\\საბუთები\\de-0000011261.pdf",
-        "name":  "de-0000011261.pdf",
-        "mb":  0.17,
-        "class":  "energy",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "EEFB7CA1FF596AC7758A4F9DB8FA36D0",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\0000011270.pdf",
-        "name":  "0000011270.pdf",
-        "mb":  0.28,
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "A5E6409BF21F170DBFEF2D8AF262B32C",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\70_EN_11270_Libretti_Istruzioni_5571084808__03-03-2021_168780.pdf",
-        "name":  "70_EN_11270_Libretti_Istruzioni_5571084808__03-03-2021_168780.pdf",
-        "mb":  4.46,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "680183F4F1F9B7DE5DF33D5DB1E7631D",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\70_EN_11270_Libretti_Istruzioni_5671084386__16-11-2023_182684.pdf",
-        "name":  "70_EN_11270_Libretti_Istruzioni_5671084386__16-11-2023_182684.pdf",
-        "mb":  6.17,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "58A22A4013F3C616020B230F94F799D0",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\70_EN_11270_Schemi_collegamento_E960292B_60235.pdf",
-        "name":  "70_EN_11270_Schemi_collegamento_E960292B_60235.pdf",
-        "mb":  0.01,
-        "class":  "wiring",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "F0A824003562F5F324DEEE33BF803A57",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11270 ME 1205 LL აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (სპილოს ძვლის ფერი) 120 მმ VORTICE\\საბუთები\\de-0000011270.pdf",
-        "name":  "de-0000011270.pdf",
-        "mb":  0.17,
-        "class":  "energy",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "F7F1A61608134FB612FA7A36651E0271",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\0000011261.pdf",
-        "name":  "0000011261.pdf",
-        "mb":  0.73,
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "6896F108CCF2BF21E0CF278DF73721F4",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_557 (1).pdf",
-        "name":  "70_EN_11261_Libretti_Istruzioni_557 (1).pdf",
-        "mb":  4.45,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "A5E6409BF21F170DBFEF2D8AF262B32C",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_5571084.pdf",
-        "name":  "70_EN_11261_Libretti_Istruzioni_5571084.pdf",
-        "mb":  4.46,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "680183F4F1F9B7DE5DF33D5DB1E7631D",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Libretti_Istruzioni_5671084.pdf",
-        "name":  "70_EN_11261_Libretti_Istruzioni_5671084.pdf",
-        "mb":  6.17,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "58A22A4013F3C616020B230F94F799D0",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\70_EN_11261_Schemi_collegamento_E960292.pdf",
-        "name":  "70_EN_11261_Schemi_collegamento_E960292.pdf",
-        "mb":  0.01,
-        "class":  "wiring",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "3B769BCE685E62F58F18E16804CD4CF5",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11307 ME 1004 LL ORO ROSA-PINK GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით  (ვარდისფერი-ოქრო) 100 მმ VORTICE\\საბუთები\\de-0000011261.pdf",
-        "name":  "de-0000011261.pdf",
-        "mb":  0.17,
-        "class":  "energy",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "8C262931D0195A23A9D0073E23C05343",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საბუთები\\0000011268.pdf",
-        "name":  "0000011268.pdf",
-        "mb":  0.73,
-        "class":  "datasheet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "350ED0F5CCB8B4A8017B8871B6EFAEC2",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11268_Libretti_Istruzioni_54710840.pdf",
-        "name":  "70_EN_11268_Libretti_Istruzioni_54710840.pdf",
-        "mb":  1.35,
-        "class":  "booklet",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "A629BFF1E2FD7894CFEE76F8DBDE64CC",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საბუთები\\70_EN_11268_Schemi_collegamento_E960342A.pdf",
-        "name":  "70_EN_11268_Schemi_collegamento_E960342A.pdf",
-        "mb":  0.01,
-        "class":  "wiring",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
-                  ]
-    },
-    {
-        "hash":  "BAF7BC53C7753351F63013E6EC6C346F",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\M_ME_აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით\\11309 ME 1004 LL ORO BIANCO-WHITE GOLD აბაზანის ვენტილიატორი ოთკუთხედი ცხაურით (ვერცხლისფერი) 100 მმ VORTICE\\საბუთები\\de-0000011268.pdf",
-        "name":  "de-0000011268.pdf",
-        "mb":  0.17,
-        "class":  "energy",
-        "cat":  "vortice",
-        "slugs":  [
-                      "vortice-me"
+                      "vortice-m"
                   ]
     },
     {
@@ -3397,6 +3397,7 @@
         "slugs":  [
                       "vortice-lineo",
                       "vortice-lineo-q",
+                      "vortice-lineo-q-t",
                       "vortice-lineo-quiet",
                       "vortice-lineo-quiet-es",
                       "vortice-lineo-t-quiet"

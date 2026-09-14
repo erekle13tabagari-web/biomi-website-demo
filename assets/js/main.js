@@ -16,7 +16,7 @@
   var FORMS = {
     ACCESS_KEY: '',                                 // <- paste the Web3Forms access key here
     RELAY:      'https://api.web3forms.com/submit',
-    RECIPIENT:  'Marketing@maxcomfort.ge',
+    RECIPIENT:  'marketing@biomi.ge',
     TEL:        '+995322151115'
   };
 
@@ -502,7 +502,10 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  /* ---- Hero: infinite auto-carousel; mouse-move direction steers it ---- */
+  /* ---- Hero: infinite auto-carousel; mouse-move direction steers it, and it
+     can be dragged (mouse) or swiped (touch). A drag moves the same offset the
+     animation does, so the loop never breaks; letting go leaves a little
+     momentum that fades back into the auto-scroll, in the direction dragged. ---- */
   (function () {
     var vp = document.querySelector('.hero__viewport');
     var track = document.querySelector('.hero__track');
@@ -514,6 +517,10 @@
     var dir = 1;             // 1 = images move left (default), -1 = move right
     var lastX = null;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DRAG_START = 6;      // px of travel before a press counts as a drag, not a click
+    var drag = null;         // { id, x0, off0, lastX, lastT, v, moved } while a pointer is down
+    var fling = 0;           // px per frame left over from a drag, decaying to 0
+    var swallowClick = false;
 
     function measure() { setW = track.scrollWidth / 2; }
     measure();
@@ -528,13 +535,22 @@
     function render() { track.style.transform = 'translateX(' + (-offset) + 'px)'; }
 
     function tick() {
-      if (!reduce) { offset += speed * dir; wrap(); render(); }
+      if (!(drag && drag.moved)) {
+        if (!reduce) offset += speed * dir;
+        if (fling) {
+          offset += fling;
+          fling *= 0.94;
+          if (Math.abs(fling) < 0.05) fling = 0;
+        }
+        wrap(); render();
+      }
       requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
 
     // Move the mouse over the images to steer direction (no clicking)
     vp.addEventListener('pointermove', function (e) {
+      if (drag) return;
       if (lastX !== null) {
         var dx = e.clientX - lastX;
         if (dx > 1) dir = -1;        // mouse moves right -> images move right
@@ -542,7 +558,54 @@
       }
       lastX = e.clientX;
     });
-    vp.addEventListener('pointerleave', function () { lastX = null; dir = 1; }); // back to default
+    vp.addEventListener('pointerleave', function () { if (!drag) { lastX = null; dir = 1; } }); // back to default
+
+    // ---- drag / swipe ----
+    // The pointer is only captured once the press has travelled DRAG_START px:
+    // capturing on pointerdown would retarget a plain click to the viewport, and
+    // the cards are links that have to keep working.
+    vp.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      drag = { id: e.pointerId, x0: e.clientX, off0: offset, lastX: e.clientX, lastT: e.timeStamp, v: 0, moved: false };
+      fling = 0;
+    });
+    vp.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.x0;
+      if (!drag.moved) {
+        if (Math.abs(dx) < DRAG_START) return;
+        drag.moved = true;
+        vp.classList.add('is-dragging');
+        try { vp.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      offset = drag.off0 - dx;
+      wrap(); render();
+      // re-base after a wrap so the next move does not jump a whole set
+      drag.off0 = offset + dx;
+      var dt = Math.max(1, e.timeStamp - drag.lastT);
+      // px per frame (~16.7ms), smoothed; positive = images moving left
+      drag.v = 0.7 * drag.v + 0.3 * (-(e.clientX - drag.lastX) / dt * 16.7);
+      drag.lastX = e.clientX; drag.lastT = e.timeStamp;
+    });
+    function endDrag(e) {
+      if (!drag || (e && e.pointerId !== drag.id)) return;
+      if (drag.moved) {
+        swallowClick = true;                       // the click that follows a drag is not a click
+        fling = Math.max(-40, Math.min(40, drag.v));
+        if (Math.abs(drag.v) > 0.5) dir = drag.v > 0 ? 1 : -1;  // carry on the way it was thrown
+        vp.classList.remove('is-dragging');
+        try { vp.releasePointerCapture(drag.id); } catch (err) {}
+        setTimeout(function () { swallowClick = false; }, 0);
+      }
+      drag = null;
+    }
+    vp.addEventListener('pointerup', endDrag);
+    vp.addEventListener('pointercancel', endDrag);   // e.g. the browser took over for a vertical scroll
+    vp.addEventListener('click', function (e) {
+      if (swallowClick) { e.preventDefault(); e.stopPropagation(); swallowClick = false; }
+    }, true);
+    // links and background images would otherwise start the browser's own drag-and-drop
+    vp.addEventListener('dragstart', function (e) { e.preventDefault(); });
   })();
 
   /* ---- Language toggle (GEO/ENG pills) - placeholder until ENG is built ---- */
@@ -848,70 +911,70 @@
     if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
   });
 
-  /* How tall a chapter panel needs to be, given which of its subs are open.
-     It cannot just read scrollHeight: a sub that was opened by the click being
-     handled is mid-transition on its own max-height, so it still measures zero
-     and the chapter would be sized to clip it. Summing each row's own height
-     (which never animates) with the content height of every open sub gives a
-     stable answer, and stays correct with several subs open at once. */
-  function chapterHeight(panel) {
-    var h = 0;
-    Array.prototype.forEach.call(panel.children, function (el) {
-      if (el.classList.contains('prod-sub')) {
-        var head = el.querySelector('.prod-sub__head');
-        var pan = el.querySelector('.prod-sub__panel');
-        if (head) h += head.offsetHeight;
-        if (pan && el.classList.contains('open')) h += pan.scrollHeight;
-      } else {
-        h += el.offsetHeight;
-      }
-    });
-    return h;
-  }
-
-  /* ---- Products dropdown: chapter accordion (one open at a time) ---- */
+  /* ---- Products dropdown: a flyout ----
+     Pointing at a chapter slides its categories out beside the column (CSS
+     .is-active), the way the chapter rail on products.html switches on hover.
+     The way from a chapter to its flyout usually crosses the chapters under
+     it, so once one is open a switch waits INTENT ms and is dropped if the
+     pointer reaches the open flyout first -- otherwise heading for "boilers"
+     would open cooling on the way. The caret still toggles on a click, for a
+     touchscreen and the keyboard; the name itself is a link to the chapter. */
   document.querySelectorAll('.prod-menu').forEach(function (menu) {
-    var chapters = menu.querySelectorAll('.prod-menu__chapter');
-    chapters.forEach(function (ch) {
-      var btn = ch.querySelector('.prod-menu__btn');
+    var INTENT = 150;
+    var chapters = Array.prototype.slice.call(menu.querySelectorAll('.prod-menu__chapter'));
+    var item = menu.closest('.nav__item');
+    var timer = null, closer = null;
+    var hover = window.matchMedia('(hover:hover)');
+
+    // Open the flyout on the left when there is no room for it on the right --
+    // the menu hangs under a nav item that is right of centre.
+    function flip(ch) {
       var panel = ch.querySelector('.prod-menu__panel');
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var wasOpen = ch.classList.contains('open');
-        chapters.forEach(function (o) {
-          o.classList.remove('open');
-          o.querySelector('.prod-menu__panel').style.maxHeight = '0';
-        });
-        if (!wasOpen) {
-          ch.classList.add('open');
-          panel.style.maxHeight = chapterHeight(panel) + 'px';
-        }
+      var r = menu.getBoundingClientRect();
+      var w = panel ? (panel.offsetWidth || 290) : 290;
+      menu.classList.toggle('prod-menu--flip', r.right + w > document.documentElement.clientWidth - 12);
+    }
+    function activate(ch) {
+      clearTimeout(timer); timer = null;
+      if (ch) flip(ch);
+      chapters.forEach(function (o) {
+        var on = o === ch;
+        o.classList.toggle('is-active', on);
+        var b = o.querySelector('.prod-menu__btn');
+        if (b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
       });
+    }
+    chapters.forEach(function (ch) {
+      var head = ch.querySelector('.prod-menu__head') || ch.querySelector('.prod-menu__btn');
+      var panel = ch.querySelector('.prod-menu__panel');
+      var btn = ch.querySelector('.prod-menu__btn');
+      head.addEventListener('mouseenter', function () {
+        if (!hover.matches) return;
+        clearTimeout(timer);
+        if (ch.classList.contains('is-active')) return;
+        var anyOpen = chapters.some(function (o) { return o.classList.contains('is-active'); });
+        if (anyOpen) timer = setTimeout(function () { activate(ch); }, INTENT);
+        else activate(ch);
+      });
+      if (panel) panel.addEventListener('mouseenter', function () { clearTimeout(timer); timer = null; });
+      if (btn) btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        activate(ch.classList.contains('is-active') ? null : ch);
+      });
+      ch.addEventListener('focusin', function () { if (!ch.classList.contains('is-active')) activate(ch); });
     });
+    // Closing the menu closes the flyout too, once the menu has faded out, so
+    // the next time it opens it starts from the column alone.
+    if (item) {
+      item.addEventListener('mouseleave', function () {
+        clearTimeout(closer);
+        closer = setTimeout(function () { activate(null); }, 260);
+      });
+      item.addEventListener('mouseenter', function () { clearTimeout(closer); });
+    }
   });
 
-  /* ---- Nested submenu inside products dropdown ----
-     The label itself is a plain link to the category page (matching the mobile
-     menu), so only the chevron toggles the child list open. */
-  document.querySelectorAll('.prod-sub').forEach(function (sub) {
-    var btn = sub.querySelector('.prod-sub__toggle');
-    var panel = sub.querySelector('.prod-sub__panel');
-    if (!btn || !panel) return;
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var open = sub.classList.toggle('open');
-      panel.style.maxHeight = open ? panel.scrollHeight + 'px' : '0';
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-
-      /* Regrow the enclosing chapter so nothing is clipped. Recomputed from
-         scratch rather than adding/subtracting this sub's height: the chapter
-         is itself max-height clipped, so the old arithmetic worked from a
-         stale figure and collapsed the chapter to a single row whenever a sub
-         was closed. */
-      var chap = sub.closest('.prod-menu__panel');
-      if (chap) chap.style.maxHeight = chapterHeight(chap) + 'px';
-    });
-  });
 
 
   /* ---- Homepage products rail ----
@@ -1137,12 +1200,33 @@
     lb.innerHTML =
       '<button class="lightbox__close" type="button" aria-label="დახურვა"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
       '<button class="lightbox__nav lightbox__prev" type="button" aria-label="წინა"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 6-6 6 6 6"/></svg></button>' +
-      '<img alt="">' +
-      '<iframe class="lightbox__frame" style="display:none" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' +
+      '<div class="lightbox__stage">' +
+        '<img alt="">' +
+        '<iframe class="lightbox__frame" style="display:none" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' +
+        '<p class="lightbox__cap" aria-live="polite"></p>' +
+      '</div>' +
       '<button class="lightbox__nav lightbox__next" type="button" aria-label="შემდეგი"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg></button>';
     document.body.appendChild(lb);
     var lbImg = lb.querySelector('img');
     var frame = lb.querySelector('.lightbox__frame');
+    var cap = lb.querySelector('.lightbox__cap');
+
+    /* The name under the enlarged picture, read from the card the picture sits
+       in: a ducting part's <b> name, a pumping station's make and range, a news
+       photo's caption. data-caption on the image wins if a page wants to say
+       something else. Nothing found, nothing shown. */
+    function captionFor(im) {
+      var own = im.getAttribute('data-caption');
+      if (own) return own;
+      var fc = im.closest('figure') && im.closest('figure').querySelector('figcaption');
+      if (!fc) return '';
+      var b = fc.querySelector('b');
+      if (b) {
+        var sub = b.nextElementSibling && b.nextElementSibling.tagName === 'SMALL' ? b.nextElementSibling.textContent.trim() : '';
+        return b.textContent.trim() + (sub ? ' · ' + sub : '');
+      }
+      return fc.textContent.replace(/\s+/g, ' ').trim();
+    }
     var prevBtn = lb.querySelector('.lightbox__prev');
     var nextBtn = lb.querySelector('.lightbox__next');
     var group = null, index = 0, onClose = null;
@@ -1161,6 +1245,9 @@
         lbImg.src = im.getAttribute('data-full') || im.src;
         lbImg.alt = im.alt || '';
       }
+      var text = captionFor(im);
+      cap.textContent = text;
+      lb.classList.toggle('has-cap', !!text);
       var multi = group.items.length > 1;
       prevBtn.style.display = nextBtn.style.display = multi ? '' : 'none';
     }
@@ -1259,9 +1346,13 @@
   function acctHeight(outer) {
     var h = 0;
     Array.prototype.forEach.call(outer.children, function (el) {
-      var b = el.querySelector('.m-sec__btn');
+      // a chapter with a page wraps its link and caret in .m-sec__head, whose
+      // height is the row's; a plain chapter's row is the button itself
+      var b = el.querySelector('.m-sec__head') || el.querySelector('.m-sec__btn');
       var p = el.querySelector('.m-sec__panel');
-      if (b) { h += b.offsetHeight; if (p && el.classList.contains('open')) h += itmPanelHeight(p); }
+      // + the section's own border: .m-sec has a top rule its row does not
+      // measure, and five of them clipped the last chapter by a few pixels
+      if (b) { h += b.offsetHeight + (el.offsetHeight - el.clientHeight); if (p && el.classList.contains('open')) h += itmPanelHeight(p); }
       else { h += el.offsetHeight; }
     });
     return h;
@@ -1285,6 +1376,7 @@
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       var open = sec.classList.toggle('open');
+      if (btn.hasAttribute('aria-expanded')) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       panel.style.maxHeight = open ? itmPanelHeight(panel) + 'px' : '0';
       var outer = sec.closest('.m-acc__panel');
       if (outer) outer.style.maxHeight = acctHeight(outer) + 'px';
@@ -1625,17 +1717,29 @@
     var search = list.querySelector('.pfilter__search input');
     var empty = list.querySelector('.pgrid__empty');
     var curCat = 'all';
+    /* A box can be scoped to one section of a chapter page (data-scope, e.g.
+       "boilers"): the nested filters under a category tick. It then narrows only
+       that section's cards and leaves the rest alone -- boilers, burners and
+       water heaters all file something different under data-type (origin,
+       fuel, tank), so an unscoped "type" would hide the other two sections. */
     function apply() {
       var q = (search && search.value || '').toLowerCase().trim();
       var active = {};
-      checks.forEach(function (c) { if (c.checked) { (active[c.name] = active[c.name] || []).push(c.value); } });
+      checks.forEach(function (c) {
+        if (!c.checked) return;
+        var scope = c.getAttribute('data-scope') || '';
+        var key = scope + '|' + c.name;
+        (active[key] = active[key] || { name: c.name, scope: scope, vals: [] }).vals.push(c.value);
+      });
       var shown = 0;
       cards.forEach(function (card) {
         var okCat = curCat === 'all' || card.getAttribute('data-cat') === curCat;
         var okSearch = !q || (card.getAttribute('data-name') || '').toLowerCase().indexOf(q) >= 0;
-        var okFilter = Object.keys(active).every(function (name) {
-          var vals = (card.getAttribute('data-' + name) || '').split(',');
-          return active[name].some(function (v) { return vals.indexOf(v) >= 0; });
+        var okFilter = Object.keys(active).every(function (key) {
+          var a = active[key];
+          if (a.scope && card.getAttribute('data-sec') !== a.scope) return true;
+          var vals = (card.getAttribute('data-' + a.name) || '').split(',');
+          return a.vals.some(function (v) { return vals.indexOf(v) >= 0; });
         });
         var ok = okCat && okSearch && okFilter;
         card.style.display = ok ? '' : 'none';
@@ -1658,6 +1762,58 @@
     });
     list.querySelectorAll('.pfilter__group h4').forEach(function (h) { h.addEventListener('click', function () { h.parentElement.classList.toggle('closed'); }); });
 
+    /* ---- The "!" beside a series name ----
+       Hovering shows the explanation (CSS, from data-tip). Clicking scrolls to
+       the full note under the filter and flashes it. It sits inside the label,
+       so the click must not reach the checkbox. */
+    list.querySelectorAll('.pfilter__info').forEach(function (b) {
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var note = document.getElementById(b.getAttribute('data-note'));
+        if (!note) return;
+        // The window, not scrollIntoView: the listing sits in a section with
+        // overflow:hidden (for its decorative rings), and scrollIntoView scrolls
+        // that clipped box instead of the page -- nothing visibly moves.
+        var r = note.getBoundingClientRect();
+        var y = r.top + window.pageYOffset - Math.max(0, (window.innerHeight - r.height) / 2);
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+        note.classList.remove('is-flash');
+        void note.offsetWidth;                 // restart the flash if clicked again
+        note.classList.add('is-flash');
+      });
+    });
+
+    /* ---- A category's own filters, dropping down under its box ----
+       On a chapter page (heating.html ...) each category is followed by a
+       .pfilter__sub holding that category's filters, scoped to it (see apply).
+       Ticking the category opens them; unticking closes them and clears what
+       was ticked inside, so a hidden box never keeps narrowing the list. */
+    var subs = Array.prototype.slice.call(list.querySelectorAll('.pfilter__sub[data-for]'));
+    function ownerOf(sub) {
+      var prev = sub.previousElementSibling;
+      return prev ? prev.querySelector('input[value="' + sub.getAttribute('data-for') + '"]') : null;
+    }
+    function syncSubs() {
+      subs.forEach(function (sub) {
+        var owner = ownerOf(sub);
+        var open = !!(owner && owner.checked);
+        if (open === !sub.hidden) return;
+        sub.hidden = !open;
+        if (!open) {
+          sub.querySelectorAll('input:checked').forEach(function (c) {
+            c.checked = false;
+            c.dispatchEvent(new Event('change'));   // re-filter and recount
+          });
+        }
+      });
+    }
+    subs.forEach(function (sub) {
+      var owner = ownerOf(sub);
+      if (owner) owner.addEventListener('change', syncSubs);
+    });
+    if (clr) clr.addEventListener('click', syncSubs);
+
     /* ---- Pre-tick filter boxes from the URL ----
        There are no brand landing pages any more: the product menu points
        straight at the category listing with ?brand=vortice, which is the same
@@ -1679,6 +1835,8 @@
         if (want[c.name] && want[c.name].indexOf(c.value.toLowerCase()) >= 0) c.checked = true;
       });
     }
+    // a category ticked from the URL (?sec=boilers) opens its filters too
+    syncSubs();
 
     /* ---- Phone: collapse the filter behind a toggle ----
        Stacked on a phone the sidebar puts a wall of checkboxes above the grid.
@@ -1878,5 +2036,34 @@
         else if (isImgSwitch) applyImages(c);
       });
     });
+  });
+
+  /* ---- Finishes: a colour row that belongs to one model chip ----
+     ME Punto Evo sells one model in several finishes, each with its own article
+     code, so the swatches ([data-colorset]) are model switches in their own right.
+     They only apply to the chip marked data-colors: picking another model hides
+     the row, and coming back to that chip shows it again and re-applies the
+     finish last chosen -- rose gold until someone picks another. Registered
+     after the chip handlers above, so the swatch wins over the chip it follows. */
+  document.querySelectorAll('.chipset[data-colorset]').forEach(function (cs) {
+    var buy = cs.closest('.pbuy') || document;
+    var label = cs.previousElementSibling && cs.previousElementSibling.hasAttribute('data-colorlabel') ? cs.previousElementSibling : null;
+    var models = buy.querySelector('.chipset[data-modelswitch]:not([data-colorset])');
+    if (!models) return;
+    function sync(chip) {
+      var has = !!(chip && chip.hasAttribute('data-colors'));
+      cs.hidden = !has;
+      if (label) label.hidden = !has;
+      return has;
+    }
+    models.querySelectorAll('.chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        if (sync(chip)) {
+          var pick = cs.querySelector('.chip.active') || cs.querySelector('.chip');
+          if (pick) pick.click();
+        }
+      });
+    });
+    sync(models.querySelector('.chip.active'));
   });
 })();

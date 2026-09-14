@@ -43,6 +43,12 @@ foreach ($fam in $fams) {
                Where-Object { -not $fam.imgfilter -or $_.Name -match $fam.imgfilter }
     }
   }
+  # "galleryfrom": one model's own folder supplies the page's photos -- CA IL's
+  # three sizes look alike and only 160 Q (16253) has a full set; pooling the
+  # other two added a near-duplicate box shot in place of an interior view.
+  if ($fam.galleryfrom) {
+    $pool = @($pool | Where-Object { $_.FullName -match ('\\' + [regex]::Escape([string]$fam.galleryfrom) + ' ') })
+  }
   # de-duplicate: keep the first occurrence of each distinct image
   $seen = @{}; $uniq = @()
   foreach ($f in ($pool | Sort-Object @{e={Rank $_}}, Name)) {

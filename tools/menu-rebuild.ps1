@@ -71,25 +71,24 @@ foreach ($f in $files) {
   $menu = '<div class="dropdown prod-menu">' + "`r`n"
   foreach ($ch in $tree) {
     $menu += '          <div class="prod-menu__chapter">' + "`r`n"
-    $menu += '            <button class="prod-menu__btn" type="button">' + $ch.$lang + "`r`n"
-    $menu += '              ' + $CARET + "`r`n"
-    $menu += '            </button>' + "`r`n"
+    if ($ch.page) {
+      # A chapter with a page of its own: the name is a link to it and the caret
+      # beside it opens the flyout, so clicking a name always goes somewhere.
+      $menu += '            <div class="prod-menu__head">' + "`r`n"
+      $menu += '              <a class="prod-menu__link" href="' + $P + $ch.page + $sfx + '">' + $ch.$lang + '</a>' + "`r`n"
+      $menu += '              <button class="prod-menu__btn" type="button" aria-expanded="false" aria-label="' + $subAria + '">' + $CARET + '</button>' + "`r`n"
+      $menu += '            </div>' + "`r`n"
+    } else {
+      $menu += '            <button class="prod-menu__btn" type="button">' + $ch.$lang + "`r`n"
+      $menu += '              ' + $CARET + "`r`n"
+      $menu += '            </button>' + "`r`n"
+    }
     $menu += '            <div class="prod-menu__panel">' + "`r`n"
+    # Chapter, then category, and nothing under a category -- no brands, no
+    # underfloor heating parts; the filters are one click away on the listing.
+    # The drawer below still lists the children behind a caret.
     foreach ($it in $ch.items) {
-      $kids = @($it.kids)
-      if ($kids.Count) {
-        $menu += '              <div class="prod-sub">' + "`r`n"
-        $menu += '                <div class="prod-sub__head">' + "`r`n"
-        $menu += '                  <a class="prod-sub__btn" href="' + (Href $it) + '">' + $it.$lang + '</a>' + "`r`n"
-        $menu += '                  <button class="prod-sub__toggle" type="button" aria-expanded="false" aria-label="' + $subAria + '">' + $CARET + '</button>' + "`r`n"
-        $menu += '                </div>' + "`r`n"
-        $menu += '                <div class="prod-sub__panel">' + "`r`n"
-        foreach ($k in $kids) { $menu += '                  <a href="' + (Href $k) + '">' + $k.$lang + '</a>' + "`r`n" }
-        $menu += '                </div>' + "`r`n"
-        $menu += '              </div>' + "`r`n"
-      } else {
-        $menu += '              <a href="' + (Href $it) + '">' + $it.$lang + '</a>' + "`r`n"
-      }
+      $menu += '              <a href="' + (Href $it) + '">' + $it.$lang + '</a>' + "`r`n"
     }
     $menu += '            </div>' + "`r`n"
     $menu += '          </div>' + "`r`n"
@@ -108,7 +107,14 @@ foreach ($f in $files) {
   $draw = '<div class="m-acc__panel">' + "`r`n"
   foreach ($ch in $tree) {
     $draw += '          <div class="m-sec">' + "`r`n"
-    $draw += '            <button class="m-sec__btn" type="button">' + $ch.$lang + ' ' + $CARET + '</button>' + "`r`n"
+    if ($ch.page) {
+      $draw += '            <div class="m-sec__head">' + "`r`n"
+      $draw += '              <a class="m-sec__link" href="' + $P + $ch.page + $sfx + '" data-close>' + $ch.$lang + '</a>' + "`r`n"
+      $draw += '              <button class="m-sec__btn" type="button" aria-expanded="false" aria-label="' + $subAria + '">' + $CARET + '</button>' + "`r`n"
+      $draw += '            </div>' + "`r`n"
+    } else {
+      $draw += '            <button class="m-sec__btn" type="button">' + $ch.$lang + ' ' + $CARET + '</button>' + "`r`n"
+    }
     $draw += '            <div class="m-sec__panel">' + "`r`n"
     foreach ($it in $ch.items) {
       $kids = @($it.kids)

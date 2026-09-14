@@ -131,20 +131,6 @@ function PillName([string]$name) {
   return (Esc $name)
 }
 
-# A node can pin any of the listing's filters: ?cat= for a section of the range,
-# ?brand= for a make, the two together for a make within a section. The listing
-# ticks the matching boxes from the query string, so this is the whole mechanism.
-# Same shape as Href in tools/menu-rebuild.ps1, which reads the same tree.
-function Query($n) {
-  $q = @()
-  if ($n.cat)   { $q += 'cat='   + $n.cat }
-  if ($n.brand) { $q += 'brand=' + $n.brand }
-  # &amp;, not &: the result only ever goes into an href attribute, and a bare
-  # ampersand there is an unterminated character reference.
-  if ($q.Count) { return '?' + ($q -join '&amp;') }
-  return ''
-}
-
 $ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 
 # No renders on the cards. Only five of the eleven categories have product
@@ -234,7 +220,14 @@ foreach ($lang in 'ka','en') {
     $bg = PicFor ($BGDIR + $ch.icon + '.jpg')
     $bgStyle = if ($bg) { ' style="background-image:url(' + $bg + ')"' } else { '' }
     $rows.Add('      <section class="catalog__chapter' + $on + '" data-ch="' + $ch.icon + '">')
-    $rows.Add('        <h3>' + (Esc $ch.$lang) + '</h3>')
+    # The chapter's name opens its whole range on one page (heating.html,
+    # ducting-fittings.html ...), the cards below it one category each.
+    if ($ch.page) {
+      $rows.Add('        <h3><a class="catalog__all" href="products/' + $ch.page + $sfx + '">' +
+                (Esc $ch.$lang) + ' ' + $ARROW + '</a></h3>')
+    } else {
+      $rows.Add('        <h3>' + (Esc $ch.$lang) + '</h3>')
+    }
     $rows.Add('        <div class="catalog__grid">')
     # A card per category: its own product, its name, an arrow. The pictures are
     # the menu-size copies -- a card is 280px wide and the full cut-out is half
@@ -264,8 +257,12 @@ foreach ($lang in 'ka','en') {
       $img = if ($pic) { '<img src="' + $pic + '" alt=""' + $lazy + '>' } else { '' }
       # A range we carry but have no listing for yet goes to the holding page,
       # and its name is grey until it has one.
+      # The card opens the whole listing with nothing ticked, even where the
+      # category is one section of a shared listing (the four ventilation cards
+      # all land on ventilation.html). The menu still pins ?cat= / ?brand= --
+      # see Href in tools/menu-rebuild.ps1.
       if ($it.page) {
-        $href = 'products/' + $it.page + $sfx + (Query $it)
+        $href = 'products/' + $it.page + $sfx
         $soon = ''
       } else {
         $href = 'soon' + $sfx
@@ -281,8 +278,10 @@ foreach ($lang in 'ka','en') {
   }
   $rows.Add('      </div>')
 
+  # .on-navy: the catalogue sits on the brand navy in light mode too -- see the
+  # rule of that name in style.css.
   $body = @'
-<section class="page-hero page-hero--brand page-hero--tight">
+<section class="page-hero page-hero--brand page-hero--tight on-navy">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
       <a href="index{SFX}">{CRUMBHOME}</a><span class="sep">/</span>
@@ -295,7 +294,7 @@ foreach ($lang in 'ka','en') {
   </div>
 </section>
 
-<section class="section" style="padding-top:22px">
+<section class="section on-navy" style="padding-top:22px">
   <div class="container">
     <div class="catalog">
 {ROWS}

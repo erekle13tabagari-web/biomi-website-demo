@@ -122,6 +122,34 @@
    need a hairline to stay separated from it */
 :root[data-theme="dark"] .section--dark,
 :root[data-theme="dark"] .footer{border-top:1px solid var(--line)}
+
+/* ---- Navy in light mode: products.html and the products dropdown ----
+   Both sit on the brand navy even in the light theme -- the catalogue cards'
+   photo wash is navy already, and on white each one read as a dark tile cut
+   out of a light page. Rather than restyle every component, the palette is
+   re-declared on the container, so everything inside (crumbs, heading, rail,
+   cards, menu rows) takes dark-surface colours from the tokens it already
+   reads. The accent stays light mode's blue, a step lighter for text. Dark
+   mode is left alone: those surfaces are dark there to begin with. */
+:root:not([data-theme="dark"]) .on-navy,
+:root:not([data-theme="dark"]) .dropdown{
+  --ink:#eceaf4;
+  --ink-strong:#f4f3f9;
+  --body:#c9cad6;
+  --muted:#a1a2b6;
+  --line:#2f3052;
+  --bg:var(--navy);
+  --surface:#23234a;
+  --bg-soft:#2a2a55;
+  --cream:#2a2a55;
+  --gold-200:#8ba4fb;
+  --gold-600:#8ba4fb;
+  --shadow-md:0 18px 44px rgba(0,0,0,.4);
+}
+:root:not([data-theme="dark"]) .on-navy{background:var(--navy);color:var(--ink)}
+:root:not([data-theme="dark"]) .dropdown{--surface:var(--navy)}
+/* the footer is the same navy, so it needs the hairline dark mode gives it */
+:root:not([data-theme="dark"]) .on-navy + .footer{border-top:1px solid #2f3052}
 /* the transparent-over-hero header turns solid on scroll; on a dark page it
    should land on the panel colour rather than a second, darker navy */
 :root[data-theme="dark"] .header.is-solid{background:var(--surface)}
@@ -160,6 +188,11 @@
   text-transform:uppercase;letter-spacing:.02em}
 .m-sec__btn svg{width:15px;height:15px;flex:none;opacity:.65;transition:transform .3s}
 .m-sec.open .m-sec__btn svg{transform:rotate(180deg)}
+/* the drawer's version of .prod-menu__head: chapter name links, caret toggles */
+.m-sec__head{display:flex;align-items:center}
+.m-acc__panel .m-sec__head > a{flex:1;min-width:0;padding:11px 2px;font-size:15px;font-weight:600;
+  color:var(--gold-600);text-transform:uppercase;letter-spacing:.02em}
+.m-sec__head > .m-sec__btn{flex:none;width:46px;justify-content:center;padding:11px 0}
 .m-sec__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
 /* Subsection rows inside a drawer chapter. The label is a link to the category
    and the chevron beside it only opens that category's brand list -- two
@@ -178,6 +211,7 @@
 
 :root[data-theme="dark"] .m-acc__panel a{color:var(--body)}
 :root[data-theme="dark"] .m-acc__panel a.m-sub{opacity:1}
+:root[data-theme="dark"] .m-acc__panel .m-sec__head > a{color:var(--gold-600)}
 :root[data-theme="dark"] .logos img{filter:brightness(0) invert(1);opacity:.5}
 /* Dark-mode hover: the real brand colours, unfiltered wherever possible.
    Most of these marks are saturated enough to read on the dark page, so they
@@ -321,45 +355,70 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 .nav__item:hover .dropdown{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .dropdown a{display:block;padding:9px 13px;border-radius:8px;color:var(--gold-600);font-weight:500;font-size:15px;transition:.18s}
 .dropdown a:hover{background:var(--bg-soft);color:var(--gold)}
-/* products chapter links stay ink (chapter titles carry the accent) */
-.prod-menu__panel a{color:var(--ink);font-weight:400}
-.prod-menu__panel a:hover{color:var(--gold-600)}
-/* products dropdown — chapters first, click to expand */
-.prod-menu{min-width:300px;padding:8px}
+/* ---- products dropdown: a flyout --------------------------------------------
+   The chapters are a column, and the one under the pointer slides its
+   categories out beside it -- no click needed (main.js). It moves the way the
+   chapter rail on products.html does: the chosen row takes the accent and a
+   rule, and the categories rise in one after another. No pictograms and no
+   brands here, by request -- just chapter, then category (tools/menu-rebuild.ps1
+   leaves the brands out). The phone drawer stays an accordion. */
+.prod-menu{min-width:290px;padding:8px}
 .prod-menu__chapter{border-bottom:1px solid var(--line)}
 .prod-menu__chapter:last-child{border-bottom:0}
+/* The name is a link to the chapter's page (heating.html ...); the caret beside
+   it opens the flyout on a click, for a touchscreen or the keyboard. */
+.prod-menu__head{display:flex;align-items:center;border-radius:8px;
+  transition:background .25s var(--ease),box-shadow .25s var(--ease)}
+.prod-menu__chapter.is-active > .prod-menu__head{background:var(--bg-soft);box-shadow:inset 2px 0 0 var(--gold)}
+.dropdown .prod-menu__link{flex:1;min-width:0;display:flex;align-items:center;gap:11px;
+  padding:9px 4px 9px 12px;font-size:13.5px;font-weight:600;letter-spacing:.04em;line-height:1.3;
+  color:var(--body);text-transform:uppercase;background:none;transition:color .25s var(--ease)}
+.dropdown .prod-menu__link:hover,
+.dropdown .prod-menu__chapter.is-active .prod-menu__link{color:var(--gold-600);background:none}
+/* a chapter with no page of its own is a single button row */
 .prod-menu__btn{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;
-  padding:12px 13px;font-size:14.5px;font-weight:600;letter-spacing:.02em;color:var(--gold-600);
-  text-align:left;border-radius:8px;transition:background .2s;text-transform:uppercase}
-.prod-menu__btn:hover{background:var(--bg-soft)}
-.prod-menu__btn svg{width:15px;height:15px;flex:none;opacity:.65;transition:transform .3s}
-.prod-menu__chapter.open .prod-menu__btn svg{transform:rotate(180deg)}
-.prod-menu__panel{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
-.prod-menu__panel a{display:block;padding:9px 13px 9px 22px;border-radius:8px;color:var(--ink);
-  font-size:14.5px;transition:.18s}
-.prod-menu__panel a:hover{background:var(--bg-soft);color:var(--gold-600)}
-/* nested brand submenu under VRF/VRV
-   The label is a link to the VRF/VRV page (same as the mobile menu); the
-   chevron beside it is a separate button that expands the brand list. */
-.prod-sub__head{display:flex;align-items:center;border-radius:8px;transition:.18s}
-.prod-sub__head:hover{background:var(--bg-soft)}
-.prod-sub__head:hover .prod-sub__btn{color:var(--gold-600)}
-.prod-sub__btn{flex:1;display:block;
-  padding:9px 4px 9px 22px;font-size:14.5px;color:var(--ink);text-align:left;transition:.18s}
-.prod-sub__toggle{display:grid;place-items:center;flex:none;align-self:stretch;
-  padding:0 13px;color:inherit;border-radius:8px}
-.prod-sub__toggle svg{width:13px;height:13px;flex:none;opacity:.6;transition:transform .3s}
-.prod-sub__toggle:hover svg{opacity:1}
-.prod-sub.open .prod-sub__toggle svg{transform:rotate(180deg)}
-.prod-sub__panel{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
-.prod-menu__panel .prod-sub__panel a{padding-left:38px}
-/* Subsection labels carry weight on the desktop menu too, matching the drawer:
-   chapter = blue uppercase, subsection = bold ink, brand = light. Scoped
-   through .prod-menu__panel because the plain `.prod-menu__panel a` rule above
-   sets weight 400 and would otherwise win on source order. Brand links sit
-   deeper than the `> a` selector, so they keep their lighter weight. */
-.prod-menu__panel > a,
-.prod-menu__panel .prod-sub__btn{font-weight:600}
+  padding:9px 12px;font-size:13.5px;font-weight:600;letter-spacing:.04em;color:var(--body);
+  text-align:left;border-radius:8px;text-transform:uppercase;transition:color .25s var(--ease)}
+.prod-menu__head .prod-menu__btn{width:auto;flex:none;align-self:stretch;padding:0 12px;background:none}
+.prod-menu__chapter.is-active .prod-menu__btn{color:var(--gold-600)}
+.prod-menu__btn svg{width:15px;height:15px;flex:none;opacity:.6;transform:rotate(-90deg);
+  transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.prod-menu__chapter.is-active .prod-menu__btn svg{opacity:1;transform:rotate(-90deg) translateY(2px)}
+.prod-menu--flip .prod-menu__btn svg{transform:rotate(90deg)}
+.prod-menu--flip .prod-menu__chapter.is-active .prod-menu__btn svg{transform:rotate(90deg) translateY(2px)}
+
+/* The flyout opens level with the chapter that opened it and is only as tall
+   as its categories -- hung off the chapter row, not the whole column, and
+   nudged up so its first category sits on the same line as the chapter name.
+   Horizontally it starts just past the column's own padding, over the
+   dropdown's edge, so the pointer never crosses a gap on its way across: a gap
+   is outside .nav__item, and leaving that closes the whole menu. display:none
+   while closed, so its entrance animations run again every time. */
+.prod-menu__chapter{position:relative}
+.prod-menu__panel{display:none;position:absolute;z-index:2;top:-14px;left:calc(100% + 4px);
+  width:max-content;min-width:230px;max-width:320px;padding:10px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-md)}
+.prod-menu--flip .prod-menu__panel{left:auto;right:calc(100% + 4px)}
+@keyframes menu-slide{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+@keyframes menu-slide-l{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+@keyframes menu-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.prod-menu__chapter.is-active > .prod-menu__panel{display:block;animation:menu-slide .28s var(--ease) both}
+.prod-menu--flip .prod-menu__chapter.is-active > .prod-menu__panel{animation-name:menu-slide-l}
+.prod-menu__chapter.is-active > .prod-menu__panel > *{animation:menu-rise .36s var(--ease) both}
+.prod-menu__chapter.is-active > .prod-menu__panel > :nth-child(1){animation-delay:.04s}
+.prod-menu__chapter.is-active > .prod-menu__panel > :nth-child(2){animation-delay:.08s}
+.prod-menu__chapter.is-active > .prod-menu__panel > :nth-child(3){animation-delay:.12s}
+.prod-menu__chapter.is-active > .prod-menu__panel > :nth-child(4){animation-delay:.16s}
+.prod-menu__chapter.is-active > .prod-menu__panel > :nth-child(n+5){animation-delay:.2s}
+@media (prefers-reduced-motion:reduce){
+  .prod-menu__chapter.is-active > .prod-menu__panel,
+  .prod-menu__chapter.is-active > .prod-menu__panel > *{animation:none}
+}
+/* the categories: bold ink rows */
+.dropdown .prod-menu__panel > a{display:block;padding:9px 12px;border-radius:8px;font-size:14.5px;
+  font-weight:600;color:var(--ink);transition:background .18s,color .18s}
+.dropdown .prod-menu__panel > a:hover{background:var(--bg-soft);color:var(--gold-600)}
 /* tools */
 .nav__tools{display:flex;align-items:center;gap:8px;margin-left:6px}
 .lang{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;
@@ -439,7 +498,12 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 .hero__head .tag{display:inline-block;width:48px;height:3px;background:var(--gold);margin-bottom:16px}
 .hero__head h1{color:var(--ink-strong);font-size:clamp(28px,4vw,48px);font-weight:700;
   max-width:840px;letter-spacing:.01em}
-.hero__viewport{overflow:hidden}
+/* draggable (main.js): pan-y keeps the page scrolling on a vertical swipe and
+   hands a sideways one to the carousel; no text selection while dragging */
+.hero__viewport{overflow:hidden;cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.hero__viewport.is-dragging,
+.hero__viewport.is-dragging *{cursor:grabbing}
+.hero__viewport.is-dragging .hero__card{pointer-events:none}
 .hero__track{display:flex;width:max-content;will-change:transform}
 .hero__card{position:relative;flex:0 0 clamp(300px,34vw,500px);aspect-ratio:3/2.15;margin-right:26px;
   border-radius:16px;overflow:hidden;background-size:cover;background-position:center;
@@ -1168,6 +1232,13 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   opacity:0;visibility:hidden;transition:opacity .25s}
 .lightbox.open{opacity:1;visibility:visible}
 .lightbox img{max-width:92vw;max-height:88vh;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+/* picture (or video) with its name under it; the picture gives up a little
+   height when there is a name, so the two always fit the screen together */
+.lightbox__stage{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:92vw}
+.lightbox.has-cap img{max-height:calc(88vh - 56px)}
+.lightbox__cap{margin:0;max-width:min(92vw,900px);color:#fff;text-align:center;
+  font-size:clamp(15px,1.7vw,20px);font-weight:600;line-height:1.35;letter-spacing:.01em}
+.lightbox__cap:empty{display:none}
 .lightbox__close{position:absolute;top:20px;right:24px;width:46px;height:46px;border-radius:50%;
   background:rgba(255,255,255,.15);color:#fff;display:grid;place-items:center;cursor:pointer;
   border:none;transition:background .2s}
@@ -1267,6 +1338,11 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .catalog__chapter > h3{margin:0 0 22px;font-size:clamp(18px,1.9vw,24px);
   line-height:1.2;letter-spacing:.02em;overflow-wrap:break-word;
   text-transform:uppercase;color:var(--ink-strong)}
+/* the chapter name opens the whole chapter on one page */
+.catalog__all{display:inline-flex;align-items:center;gap:.4em;color:inherit;transition:color .2s}
+.catalog__all svg{width:.8em;height:.8em;flex:none;transition:transform .2s}
+.catalog__all:hover{color:var(--gold-600)}
+.catalog__all:hover svg{transform:translateX(3px)}
 
 /* Four columns whatever the chapter holds, so a card is the same size in the
    chapter with one category as in the one with four: tracks that shared the row
@@ -1684,6 +1760,48 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .pfilter__opts label.has-hint input{margin-top:2px;flex:0 0 auto}
 .pfilter__opts .opt{display:flex;flex-direction:column;gap:2px;min-width:0}
 .pfilter__opts .opt small{font-size:12px;line-height:1.35;opacity:.68}
+/* A category's own filters on a chapter page (heating.html ...): closed until
+   its box is ticked, then dropping down under it, indented on an accent rule
+   so they read as belonging to that category. main.js opens and scopes them. */
+.pfilter__sub{margin:2px 0 8px 7px;padding:2px 0 4px 17px;border-left:2px solid var(--gold);
+  animation:pfilter-drop .28s var(--ease) both}
+.pfilter__sub[hidden]{display:none}
+@keyframes pfilter-drop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.pfilter__subgroup + .pfilter__subgroup{margin-top:6px}
+.pfilter__subgroup h5{margin:6px 0 1px;font-size:12px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink)}
+.pfilter__opts .pfilter__sub label{padding:4px 0;font-size:13.5px}
+
+/* ---- The series guide under the filter (vrf-vrv) ---- */
+.pfilter__notes{border-top:1px solid var(--line);padding-top:16px;margin-top:2px}
+.pfilter__notes-title{font-size:15px;margin:0 0 8px}
+.pfilter__notes-lede{margin:0 0 6px;font-size:13px;line-height:1.55;color:var(--muted)}
+.pfilter__notes dl{margin:0}
+.pfilter__note{margin:0 -10px;padding:10px;border-radius:10px}
+.pfilter__note dt{font-size:14px;font-weight:600;color:var(--ink)}
+.pfilter__note dt small{display:block;margin-top:2px;font-size:11.5px;font-weight:500;
+  letter-spacing:.02em;color:var(--gold-600)}
+.pfilter__note dd{margin:5px 0 0;font-size:13px;line-height:1.55;color:var(--muted)}
+@keyframes note-flash{0%,45%{background:var(--bg-soft);box-shadow:inset 3px 0 0 var(--gold)}
+  100%{background:transparent;box-shadow:inset 3px 0 0 transparent}}
+.pfilter__note.is-flash{animation:note-flash 1.8s var(--ease)}
+
+/* The "!" beside a series name. Hover (where there is one) shows the note as a
+   tip to the right, over the grid; a click scrolls to the full note. */
+.pfilter__info{position:relative;flex:none;display:inline-grid;place-items:center;width:17px;height:17px;
+  padding:0;border:1.5px solid currentColor;border-radius:50%;background:none;cursor:pointer;
+  font:700 11px/1 var(--ff);color:var(--gold-600);transition:background .18s,color .18s,border-color .18s}
+.pfilter__info:hover,.pfilter__info:focus-visible{background:var(--gold);border-color:var(--gold);color:#fff}
+.pfilter__info::after{content:attr(data-tip);position:absolute;z-index:30;left:calc(100% + 12px);top:50%;
+  width:300px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+  background:var(--surface);box-shadow:var(--shadow-md);
+  font-size:13px;font-weight:400;line-height:1.55;letter-spacing:0;text-align:left;text-transform:none;
+  white-space:normal;color:var(--body);
+  opacity:0;visibility:hidden;pointer-events:none;transform:translate(-4px,-50%);
+  transition:opacity .18s,transform .18s,visibility .18s}
+@media (hover:hover){
+  .pfilter__info:hover::after,.pfilter__info:focus-visible::after{opacity:1;visibility:visible;transform:translate(0,-50%)}
+}
 
 /* one-line explainer under a category page title */
 /* size and colour come from .section__head p, which this always sits inside */

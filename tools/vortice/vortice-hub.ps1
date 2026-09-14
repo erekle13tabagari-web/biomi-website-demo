@@ -29,16 +29,22 @@ foreach ($f in $fams) {
   $mx = MaxAir $f.slug
   if (-not $lineMax.ContainsKey($ln) -or $mx -gt $lineMax[$ln]) { $lineMax[$ln] = $mx }
 }
+function MinAir($slug) {
+  ($mods | Where-Object { $_.slug -eq $slug } | ForEach-Object { [double]$_.airflow } | Measure-Object -Minimum).Minimum
+}
 # the line name and then the slug break ties, so two lines with the same top
-# model cannot interleave and the order is the same on every run
+# model cannot interleave and the order is the same on every run. Between two
+# pages with the same top model, the one whose smallest model is bigger goes
+# first: LINEO Q T (990 only) before LINEO Q (200-990).
 $ordered = @($fams | Sort-Object -Property @{ e = { $lineMax[$lineOf[$_.slug]] }; Descending = $true },
                                            @{ e = { $lineOf[$_.slug] } },
                                            @{ e = { MaxAir $_.slug }; Descending = $true },
+                                           @{ e = { MinAir $_.slug }; Descending = $true },
                                            @{ e = { $_.slug } })
 
 # page -> listing group and filter facets
 $CAT = @{
-  'vortice-me'=@{g='home';t='wall'};         'vortice-mf'=@{g='home';t='wall,ceiling'}
+  'vortice-me'=@{g='home';t='wall'}; 'vortice-m'=@{g='home';t='wall,window'};         'vortice-mf'=@{g='home';t='wall,ceiling'}
   'vortice-mfo'=@{g='home';t='wall,ceiling'};'vortice-mg'=@{g='home';t='duct'}
   'vortice-qe'=@{g='home';t='wall'};         'vortice-ariett'=@{g='home';t='wall'}
   'vortice-ar-p'=@{g='home';t='window'}
@@ -53,6 +59,7 @@ $CAT = @{
   # the pair of the page they left; the HR 300 is a wall or floor unit.
   'vortice-ca-rm-es'=@{g='duct';t='duct'};   'vortice-lineo-q'=@{g='duct';t='duct'}
   'vortice-lineo-quiet-es'=@{g='duct';t='duct'}; 'vortice-lineo-t-quiet'=@{g='duct';t='duct'}
+  'vortice-lineo-q-t'=@{g='duct';t='duct'}
   'vortice-hr-neti'=@{g='hrv';t='wall'}
   # the HRW units are through-the-wall, decentralised: heat recovery, wall
   'vortice-hrw-all'=@{g='hrv';t='wall'};     'vortice-hrw-mono'=@{g='hrv';t='wall'}
