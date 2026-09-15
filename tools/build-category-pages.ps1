@@ -47,13 +47,12 @@ $PAGES = @(
        @('mr-slim','Mr Slim','Mr Slim'),
        @('citymulti','City Multi','City Multi'))
      seriesKa='სერია'; seriesEn='Series'
-     # The series guide under the filter: name, make and kind of system, and
-     # what it is for / how it differs. Kept to what the ranges are sold as --
-     # Samsung's and Mitsubishi Electric's own range descriptions -- with no
-     # figures beyond the ones they publish.
-     notesTitleKa='რით განსხვავდება სერიები'; notesTitleEn='How the series differ'
-     notesLedeKa='VRF - დიდი შენობა, ათობით ოთახი. მულტი-სპლიტი - რამდენიმე ოთახი ერთ გარე ბლოკზე. მსუბუქი კომერციული - ერთი დიდი სივრცე. საყოფაცხოვრებო - ერთი ოთახი.'
-     notesLedeEn='VRF - a large building, dozens of rooms. Multi-split - a few rooms on one outdoor unit. Light commercial - one large space. Residential - one room.'
+     # What each series is and how it differs, shown from the "!" beside its name
+     # in the filter (hover, or a click/tap). Name, make and kind of system, and
+     # the explanation. Kept to what the ranges are sold as -- Samsung's and
+     # Mitsubishi Electric's own range descriptions -- with no figures beyond
+     # the ones they publish. There is no separate guide section: it was taken
+     # off on request, the "!" carries it alone.
      notes=@(
        @('DVM', 'Samsung · VRF', 'Samsung · VRF',
          'Samsung-ის VRF სისტემა (Digital Variable Multi) დიდი შენობისთვის - ოფისი, სასტუმრო, სავაჭრო ცენტრი. ერთ გარე ბლოკზე ან ბლოკების მოდულზე ათობით შიდა ბლოკი უერთდება, თითოეული ოთახის ტემპერატურა ცალკე დგინდება, ინვერტორი კი მაცივარაგენტის ნაკადს ზუსტად იმდენზე ცვლის, რამდენიც ოთახებს სჭირდება. გრძელი მილგაყვანილობა და ცენტრალიზებული მართვა.',
@@ -283,8 +282,8 @@ foreach ($p in $PAGES) {
     $seriesCls = if ($p.seriesFirst) { 'pfilter__group--cats' } else { '' }
     $seriesGrp = FilterGroup $seriesLbl $(if ($p.seriesName) { $p.seriesName } else { 'cat' }) $series $lang $seriesCls
     # A series with a note gets a small "!" after its name: hovering it shows the
-    # explanation (CSS, from data-tip), clicking scrolls to it under the filter
-    # (main.js). Inside the label, so the click handler has to stop it ticking.
+    # explanation (CSS, from data-tip), and a click or tap pins it open (main.js).
+    # Inside the label, so the click handler has to stop it ticking the box.
     if ($p.notes) {
       $infoLbl = if ($lang -eq 'ka') { 'სერიის განმარტება' } else { 'About this series' }
       foreach ($nt in $p.notes) {
@@ -293,7 +292,7 @@ foreach ($p in $PAGES) {
         $tip = $(if ($lang -eq 'ka') { $nt[3] } else { $nt[4] }) -replace '"', '&quot;'
         $optEnd = 'value="' + $hit[0][0] + '">' + $nt[0] + '</label>'
         $seriesGrp = $seriesGrp.Replace($optEnd, ('value="' + $hit[0][0] + '">' + $nt[0] +
-          ' <button type="button" class="pfilter__info" data-note="note-' + $hit[0][0] + '" data-tip="' + $tip +
+          ' <button type="button" class="pfilter__info" aria-expanded="false" data-tip="' + $tip +
           '" aria-label="' + $infoLbl + ': ' + $nt[0] + '">!</button></label>'))
       }
     }
@@ -311,25 +310,6 @@ foreach ($p in $PAGES) {
     # You pick the part of the catalogue first, then narrow what is in it, so the
     # sections lead. vrf-vrv's series are ranges rather than sections -- DVM, CAC,
     # Mr Slim -- and stay where they were, after the brand.
-    # The series guide, under the last filter group (vrf-vrv only for now).
-    $notesHtml = ''
-    if ($p.notes) {
-      $nTitle = if ($lang -eq 'ka') { $p.notesTitleKa } else { $p.notesTitleEn }
-      $nLede  = if ($lang -eq 'ka') { $p.notesLedeKa } else { $p.notesLedeEn }
-      $notesHtml = "        <div class=`"pfilter__notes`">`r`n          <h4 class=`"pfilter__notes-title`">$nTitle</h4>`r`n"
-      if ($nLede) { $notesHtml += "          <p class=`"pfilter__notes-lede`">$nLede</p>`r`n" }
-      $notesHtml += "          <dl>`r`n"
-      foreach ($nt in $p.notes) {
-        $kind = if ($lang -eq 'ka') { $nt[1] } else { $nt[2] }
-        $txt  = if ($lang -eq 'ka') { $nt[3] } else { $nt[4] }
-        # the series option of the same name gives the anchor the "!" jumps to
-        $slugHit = @($p.series | Where-Object { $_[1] -eq $nt[0] } | Select-Object -First 1)
-        $noteId = if ($slugHit.Count) { 'note-' + $slugHit[0][0] } else { '' }
-        $idAttr = if ($noteId) { " id=`"$noteId`"" } else { '' }
-        $notesHtml += "            <div class=`"pfilter__note`"$idAttr>`r`n              <dt>$($nt[0]) <small>$kind</small></dt>`r`n              <dd>$txt</dd>`r`n            </div>`r`n"
-      }
-      $notesHtml += "          </dl>`r`n        </div>`r`n"
-    }
     $grpBrand = FilterGroup $t.brand 'brand' $brandOpts $lang
     $grpTop = if ($p.seriesFirst) { $seriesGrp + $grpBrand } else { $grpBrand + $seriesGrp }
 
@@ -358,7 +338,7 @@ foreach ($p in $PAGES) {
           <input type="search" placeholder="$($t.search)">
         </div>
         <div class="pfilter__head"><span>$($t.filter)</span><a data-clear>$($t.clear)</a></div>
-$grpTop$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)$notesHtml      </aside>
+$grpTop$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)      </aside>
 
       <div class="pgrid">
 $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>

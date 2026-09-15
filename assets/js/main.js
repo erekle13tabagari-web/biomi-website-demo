@@ -3,21 +3,30 @@
   'use strict';
 
   /* ---- Form delivery: one place for both the contact form and the call-back
-     panel. The site is static, so there is no server of ours to post to and no
-     way to send mail from the page itself; everything goes through a form-relay
-     service, which takes the POST and emails it on.
+     panel.
 
-     ACCESS_KEY is the only thing that has to be filled in: get it from
-     web3forms.com by entering the recipient address below, and paste it here.
-     It is deliberately shared rather than pasted into each form, so the two
-     cannot drift apart. Until it is filled in BOTH forms refuse and say so --
-     answering "received" while sending nothing is worse than an error, because
+     Contact form -> api/contact.php on our own server (ProService). It emails
+     the office (the address is set on the server, in biomi-config.php) and logs
+     the request and the privacy/marketing consents. The path is worked out from
+     where this file was loaded, so pages in products/ find it too.
+
+     Call-back panel -> Citynet, the office phone system, which rings the visitor
+     back. Citynet knows the site as https://biomi.ge and only hands its key out
+     for that name, so every copy of the site (test.biomi.ge too) introduces
+     itself as biomi.ge.
+
+     Both only run on biomi.ge and its subdomains. Anywhere else - the GitHub
+     Pages demo, a page opened from disk - they refuse and say so, rather than
+     ring a real customer's phone from a demo or post to a server that is not
+     there. Answering "received" while sending nothing is worse than an error:
      a customer would walk away believing they had been in touch. */
   var FORMS = {
-    ACCESS_KEY: '',                                 // <- paste the Web3Forms access key here
-    RELAY:      'https://api.web3forms.com/submit',
-    RECIPIENT:  'marketing@biomi.ge',
-    TEL:        '+995322151115'
+    LIVE:         /(^|\.)biomi\.ge$/i.test(location.hostname),
+    ENDPOINT:     new URL('../../api/contact.php',
+                    (document.currentScript && document.currentScript.src) || location.href).href,
+    CITYNET:      'https://api.portal.citynet.ge/request_call_widget/v1/',
+    CITYNET_SITE: 'https://biomi.ge',
+    TEL:          '+995322151115'
   };
 
   /* ---- Georgian caps (Mtavruli) wherever CSS asks for uppercase ---- */
@@ -69,6 +78,193 @@
   })();
   georgianCaps(document);
 
+  /* ---- Analytics: Google Analytics 4, behind a consent bar ----
+     Nothing from Google loads until the visitor says yes: privacy.html promises
+     consent before cookies, and GA sets cookies and sends data to Google. The
+     answer is remembered in this browser for a year (localStorage - keeping a
+     "no" is the one thing that must be stored without asking), and a "Cookie
+     settings" link added to every footer brings the bar back to change it.
+
+     GA_ID is the Measurement ID (G-...) of Biomi's own GA property. Empty means
+     off, and on biomi.ge the bar does not appear at all until it is set.
+     test.biomi.ge always shows the bar so it can be checked, but sends data only
+     in a tab opened once with ?gadebug - and then in debug mode, which GA's
+     "Developer traffic" filter keeps out of the real reports.
+
+     track(name, params) records an event; before consent it does nothing. */
+  var ANALYTICS = {
+    GA_ID:   '',     // <- the G-XXXXXXXXXX Measurement ID
+    VERSION: 1,      // raise to ask everyone again, e.g. when a new tracker is added
+    DAYS:    365
+  };
+  var track = (function () {
+    var host = location.hostname.toLowerCase(),
+        isTest = /^test\./.test(host),
+        en = (document.documentElement.lang || 'ka').indexOf('en') === 0,
+        root = new URL('../../', (document.currentScript && document.currentScript.src) || location.href).href,
+        KEY = 'biomi-consent',
+        loaded = false;
+
+    var debugOn = false;
+    try {
+      if (/[?&]gadebug\b/.test(location.search)) sessionStorage.setItem('biomi-gadebug', '1');
+      debugOn = isTest && sessionStorage.getItem('biomi-gadebug') === '1';
+    } catch (e) {}
+    var canSend = FORMS.LIVE && !!ANALYTICS.GA_ID && (!isTest || debugOn),
+        offered = FORMS.LIVE && (!!ANALYTICS.GA_ID || isTest);
+
+    function read() {
+      try {
+        var c = JSON.parse(localStorage.getItem(KEY) || 'null');
+        if (!c || c.v !== ANALYTICS.VERSION || Date.now() - c.at > ANALYTICS.DAYS * 864e5) return null;
+        return c;
+      } catch (e) { return null; }
+    }
+    function save(yes) {
+      try { localStorage.setItem(KEY, JSON.stringify({ v: ANALYTICS.VERSION, analytics: yes, at: Date.now() })); } catch (e) {}
+    }
+
+    function load() {
+      if (!canSend) return;
+      window['ga-disable-' + ANALYTICS.GA_ID] = false;
+      if (loaded) return;
+      loaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      // analytics only: nothing about ads is ever switched on
+      window.gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied',
+                                          ad_user_data: 'denied', ad_personalization: 'denied' });
+      window.gtag('js', new Date());
+      window.gtag('config', ANALYTICS.GA_ID, debugOn ? { debug_mode: true } : {});
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ANALYTICS.GA_ID);
+      document.head.appendChild(s);
+    }
+    // A "no" after a "yes": GA stops sending at once and its cookies are cleared.
+    function unload() {
+      if (ANALYTICS.GA_ID) window['ga-disable-' + ANALYTICS.GA_ID] = true;
+      var base = host.split('.').slice(-2).join('.');
+      document.cookie.split(';').forEach(function (c) {
+        var name = c.split('=')[0].trim();
+        if (!/^_ga/.test(name)) return;
+        ['', host, '.' + base].forEach(function (d) {
+          document.cookie = name + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
+        });
+      });
+    }
+
+    function track(name, params) {
+      if (loaded && window.gtag && !window['ga-disable-' + ANALYTICS.GA_ID]) window.gtag('event', name, params || {});
+    }
+
+    /* Every Accept or Decline is also written to the consent log on our server
+       (api/consent.php), so Biomi can show a given visitor's choice and see how
+       many accept. The visitor is known only by a random ID this browser keeps;
+       it survives a VERSION bump, so a re-ask adds a row to the same visitor. */
+    function consentId() {
+      var id = '';
+      try { id = localStorage.getItem('biomi-consent-id') || ''; } catch (e) {}
+      if (!/^[a-f0-9]{32}$/.test(id)) {
+        var bytes = new Uint8Array(16);
+        (window.crypto || window.msCrypto).getRandomValues(bytes);
+        id = Array.prototype.map.call(bytes, function (b) { return (b < 16 ? '0' : '') + b.toString(16); }).join('');
+        try { localStorage.setItem('biomi-consent-id', id); } catch (e) {}
+      }
+      return id;
+    }
+    function logChoice(yes) {
+      try {
+        var fd = new FormData();
+        fd.append('choice', yes ? 'accept' : 'decline');
+        fd.append('id', consentId());
+        fd.append('version', ANALYTICS.VERSION);
+        fd.append('lang', en ? 'en' : 'ka');
+        fd.append('page', location.pathname);
+        // keepalive: the visitor may click a link straight after answering
+        fetch(root + 'api/consent.php', { method: 'POST', body: fd, keepalive: true })
+          .catch(function () {});
+      } catch (e) {}
+    }
+
+    if (!offered) return track;
+
+    var T = en ? {
+      title: 'Cookies',
+      policy: 'Privacy policy', href: 'privacy-en.html',
+      yes: 'Accept', no: 'Decline', settings: 'Cookie settings'
+    } : {
+      title: 'ქუქი-ფაილები',
+      policy: 'კონფიდენციალურობის პოლიტიკა', href: 'privacy.html',
+      yes: 'მიღება', no: 'უარყოფა', settings: 'ქუქი-ფაილების პარამეტრები'
+    };
+    var COOKIE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">' +
+      '<path d="M21 12.3A9 9 0 1 1 11.7 3a3.5 3.5 0 0 0 4.6 4.1 3.5 3.5 0 0 0 4.7 5.2Z"/>' +
+      '<circle cx="8.5" cy="10.5" r="1" fill="currentColor"/><circle cx="13" cy="15.5" r="1" fill="currentColor"/>' +
+      '<circle cx="8" cy="15.5" r=".8" fill="currentColor"/></svg>';
+
+    var bar = null;
+    function openBar() {
+      if (!bar) {
+        bar = document.createElement('div');
+        bar.className = 'cookiebar';
+        bar.setAttribute('role', 'region');
+        bar.setAttribute('aria-labelledby', 'cookiebarTitle');
+        bar.innerHTML =
+          '<span class="cookiebar__icon">' + COOKIE_SVG + '</span>' +
+          '<div class="cookiebar__text">' +
+            '<h3 id="cookiebarTitle">' + T.title + '</h3>' +
+            // no explanation line (the user asked for it gone, 2026-09-15): the
+            // policy link is where a visitor reads what Google Analytics does
+            '<p><a href="' + root + T.href + '">' + T.policy + '</a></p>' +
+          '</div>' +
+          '<div class="cookiebar__actions">' +
+            '<button class="btn btn--primary" type="button" data-consent="yes">' + T.yes + '</button>' +
+            '<button class="btn btn--outline" type="button" data-consent="no">' + T.no + '</button>' +
+          '</div>';
+        document.body.appendChild(bar);
+        georgianCaps(bar);
+        bar.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-consent]');
+          if (!b) return;
+          var yes = b.getAttribute('data-consent') === 'yes';
+          save(yes);
+          logChoice(yes);
+          if (yes) load(); else unload();
+          if (window.console && isTest) console.info('analytics consent:', yes ? 'yes' : 'no',
+            canSend ? '(sending)' : '(not sending: ' + (ANALYTICS.GA_ID ? 'open with ?gadebug to test' : 'no GA_ID yet') + ')');
+          bar.classList.remove('is-open');
+        });
+      }
+      requestAnimationFrame(function () { requestAnimationFrame(function () { bar.classList.add('is-open'); }); });
+    }
+
+    // "Cookie settings" under the two policy links in every footer
+    document.querySelectorAll('.footer__policies').forEach(function (box) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'footer__policy footer__policy--btn';
+      b.innerHTML = COOKIE_SVG + T.settings;
+      b.addEventListener('click', openBar);
+      box.appendChild(b);
+    });
+
+    // phone, email and Messenger clicks, wherever they are on the page
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || a.classList.contains('fab__ph')) return;   // the phone button opens the call-back panel
+      var h = a.getAttribute('href');
+      if (/^tel:/i.test(h)) track('click_phone', { link_url: h });
+      else if (/^mailto:/i.test(h)) track('click_email', { link_url: h });
+      else if (/(^|\/\/)m\.me\//i.test(h)) track('click_messenger', { link_url: h });
+    }, true);
+
+    var choice = read();
+    if (choice && choice.analytics) load();
+    if (!choice) setTimeout(openBar, 900);
+    return track;
+  })();
+
   /* ---- Floating buttons: group socials into one capsule; order below it:
          messenger, phone (call CTA), back-to-top ---- */
   (function () {
@@ -116,20 +312,31 @@
 
      Built here rather than in markup so all 185 pages get it without being
      edited one by one, the same reason the social capsule above is assembled
-     in JS. Delivery goes through the shared FORMS relay at the top of the file. */
+     in JS. Requests go to Citynet (see FORMS at the top of the file), the same
+     service the old site's orange widget used - one call-back, not two.
+
+     Citynet's flow: get_api_key (for the site name) -> get_schedule (the office
+     hours set in the Citynet portal) -> request_call (phone + time). A first
+     request from a number may answer "otp sent": Citynet texts a code, and the
+     same request is sent again with it. */
   (function () {
     var fabPh = document.querySelector('.fab__ph');
     if (!fabPh) return;
 
-    /* The window call-backs are offered in, as minutes past midnight, plus the
-       step between slots. LEAD is how far ahead the first slot on the current
-       day has to be, so nobody books a call for two minutes from now. Change
-       these and the whole picker follows -- nothing else hard-codes a time. */
-    var OPEN_MIN  = 10 * 60 + 15,   // 10:15
-        CLOSE_MIN = 17 * 60 + 45,   // 17:45
-        STEP_MIN  = 15,
+    /* The office hours come from Citynet, so changing them in the Citynet portal
+       changes the picker. DEFAULT_HOURS is only what shows before that answer
+       arrives, or on a copy of the site that does not talk to Citynet. Keys are
+       Citynet's weekday ids, 1 = Monday ... 7 = Sunday. STEP is the gap between
+       slots (Citynet's own widget uses 15); LEAD is how far ahead the first
+       booked slot today has to be - "now" covers anyone in more of a hurry. */
+    var STEP_MIN  = 15,
         LEAD_MIN  = 60,
-        DAYS_AHEAD = 5;
+        DAYS_AHEAD = 5,
+        DEFAULT_HOURS = {};
+    [1, 2, 3, 4, 5].forEach(function (id) {
+      DEFAULT_HOURS[id] = { work_start: '10:00:00', work_end: '18:00:00', break_start: null, break_end: null };
+    });
+    var hours = DEFAULT_HOURS;
 
     var en = (document.documentElement.lang || 'ka').indexOf('en') === 0;
     var T = en ? {
@@ -143,7 +350,14 @@
       ok:    'Thank you. We will call you {d} at {t}.',
       fail:  'The request could not be sent. Please call +995 322 15 11 15.',
       unwired: 'The form is not connected yet. Please call +995 322 15 11 15.',
-      subject: 'Call-back request',
+      nowOpt: 'Now',
+      okNow: 'Thank you. A manager will call you within a minute.',
+      otpSub: 'We sent an SMS code to +995 {p}. Enter it to confirm the call request.',
+      otpLabel: 'SMS code', confirm: 'Confirm',
+      otpNeed: 'Please enter the SMS code.',
+      otpBad: 'That SMS code is not right. Please try again.',
+      passed: 'That time has already passed - please pick another.',
+      closed: 'Call-back requests are not available right now. Please call +995 322 15 11 15.',
       months: ['January','February','March','April','May','June','July',
                'August','September','October','November','December'],
       wdays:  ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
@@ -160,7 +374,14 @@
       ok:    'მადლობა! დაგირეკავთ {d}, {t} საათზე.',
       fail:  'მოთხოვნა ვერ გაიგზავნა. დაგვირეკეთ +995 322 15 11 15.',
       unwired: 'ფორმა ჯერ არ არის დაკავშირებული. დაგვირეკეთ +995 322 15 11 15.',
-      subject: 'ზარის მოთხოვნა',
+      nowOpt: 'ახლავე',
+      okNow: 'მადლობა! მენეჯერი დაგირეკავთ 1 წუთის განმავლობაში.',
+      otpSub: 'SMS კოდი გაიგზავნა ნომერზე +995 {p}. შეიყვანეთ კოდი ზარის მოთხოვნის დასადასტურებლად.',
+      otpLabel: 'SMS კოდი', confirm: 'დადასტურება',
+      otpNeed: 'შეიყვანეთ SMS კოდი.',
+      otpBad: 'SMS კოდი არასწორია. სცადეთ ხელახლა.',
+      passed: 'ეს დრო უკვე გავიდა - აირჩიეთ სხვა დრო.',
+      closed: 'ზარის მოთხოვნა ახლა მიუწვდომელია. დაგვირეკეთ +995 322 15 11 15.',
       months: ['იანვარი','თებერვალი','მარტი','აპრილი','მაისი','ივნისი','ივლისი',
                'აგვისტო','სექტემბერი','ოქტომბერი','ნოემბერი','დეკემბერი'],
       wdays:  ['კვირა','ორშაბათი','სამშაბათი','ოთხშაბათი','ხუთშაბათი','პარასკევი','შაბათი'],
@@ -187,34 +408,102 @@
     }
     function pad(n) { return (n < 10 ? '0' : '') + n; }
     function iso(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+    function hm(s) { var p = String(s || '').split(':'); return (+p[0] || 0) * 60 + (+p[1] || 0); }
 
-    /* Slots left on a given day. Today starts at the next step boundary that is
-       at least LEAD_MIN away, so late in the afternoon the day empties out and
-       drops off the picker by itself rather than offering a call that has
-       already passed. */
+    /* The office is in Tbilisi and Citynet reads every time as Tbilisi time, so
+       the picker works on the Tbilisi clock whatever the visitor's own is set
+       to. Georgia has no summer time: always UTC+4. The Date returned carries
+       Tbilisi's wall-clock time in its local fields. */
+    function tbNow() {
+      var d = new Date();
+      return new Date(d.getTime() + (d.getTimezoneOffset() + 240) * 60000);
+    }
+    function stamp(d) {
+      return iso(d) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    }
+    function dayHours(d) { return hours[d.getDay() || 7] || null; }   // JS Sunday is 0, Citynet's is 7
+
+    // Inside today's hours and not on a break: a call can be asked for right now.
+    function canCallNow() {
+      var now = tbNow(), h = dayHours(now);
+      if (!h) return false;
+      var m = now.getHours() * 60 + now.getMinutes();
+      if (m < hm(h.work_start) || m >= hm(h.work_end)) return false;
+      return !(h.break_start && h.break_end && m >= hm(h.break_start) && m <= hm(h.break_end));
+    }
+
+    /* Slots left on a given day, the way Citynet's own widget lays them out:
+       every STEP after opening, up to closing, none inside a break. Today starts
+       at the next step at least LEAD_MIN away, with "now" in front while the
+       office is open - so late in the day the list empties and the day drops
+       off by itself rather than offering a call that has already passed. */
     function slotsFor(d) {
-      var out = [], now = new Date(), first = OPEN_MIN;
+      var h = dayHours(d), out = [];
+      if (!h) return out;
+      var start = hm(h.work_start), end = hm(h.work_end),
+          bs = h.break_start ? hm(h.break_start) : -1, be = h.break_end ? hm(h.break_end) : -1,
+          now = tbNow(), first = start + STEP_MIN;
       if (sameDay(d, now)) {
+        if (canCallNow()) out.push({ value: 'now', label: T.nowOpt });
         var lead = now.getHours() * 60 + now.getMinutes() + LEAD_MIN;
-        first = Math.max(OPEN_MIN, Math.ceil(lead / STEP_MIN) * STEP_MIN);
+        first = Math.max(first, Math.ceil(lead / STEP_MIN) * STEP_MIN);
       }
-      for (var m = first; m <= CLOSE_MIN; m += STEP_MIN) {
-        out.push(pad(Math.floor(m / 60)) + ':' + pad(m % 60));
+      for (var m = first; m < end; m += STEP_MIN) {
+        if (bs >= 0 && be >= 0 && m >= bs && m <= be) continue;
+        var t = pad(Math.floor(m / 60)) + ':' + pad(m % 60);
+        out.push({ value: t, label: t });
       }
       return out;
     }
 
-    // Weekdays only, and only those with a slot left -- so the list never offers
-    // a day that has nothing behind it.
+    // Office days only, and only those with a slot left - so the list never
+    // offers a day that has nothing behind it.
     function buildDays() {
-      var out = [], d = new Date(), guard = 0;
+      var out = [], d = tbNow(), guard = 0;
       while (out.length < DAYS_AHEAD && guard++ < 21) {
-        var wd = d.getDay();
-        if (wd !== 0 && wd !== 6 && slotsFor(d).length) out.push(new Date(d));
+        if (slotsFor(d).length) out.push(new Date(d));
         d.setDate(d.getDate() + 1);
         d.setHours(0, 0, 0, 0);   // past today, days start at the top
       }
       return out;
+    }
+
+    /* ---- Citynet ---- the key and the office hours are fetched once and kept
+       for ten minutes; a failed fetch is forgotten so the next try starts over. */
+    var citynetP = null, citynetAt = 0;
+    function cnPost(path, fields) {
+      var fd = new FormData();
+      Object.keys(fields).forEach(function (k) { fd.append(k, fields[k]); });
+      return fetch(FORMS.CITYNET + path, { method: 'POST', body: fd }).then(function (r) {
+        if (!r.ok) throw new Error('Citynet ' + path + ': HTTP ' + r.status);
+        return r;
+      });
+    }
+    function citynet() {
+      if (citynetP && Date.now() - citynetAt < 10 * 60000) return citynetP;
+      citynetAt = Date.now();
+      citynetP = cnPost('get_api_key.php', { site: FORMS.CITYNET_SITE })
+        .then(function (r) { return r.text(); })
+        .then(function (key) {
+          key = (key || '').trim();
+          if (!key) throw new Error('Citynet gave no key for ' + FORMS.CITYNET_SITE);
+          return cnPost('get_schedule.php', { apikey: key, site: FORMS.CITYNET_SITE })
+            .then(function (r) { return r.json(); })
+            .then(function (s) {
+              var h = {};
+              Object.keys(s || {}).forEach(function (k) {
+                var day = s[k];
+                if (day && day.work_start && day.work_end) h[parseInt(day.week_day_id, 10)] = day;
+              });
+              hours = h;
+              return { key: key };
+            });
+        });
+      citynetP.catch(function (err) {
+        citynetP = null;
+        if (window.console) console.error('call-back:', err);
+      });
+      return citynetP;
     }
 
     /* Two forms of the same date. The picker column is narrow, so the options
@@ -222,7 +511,7 @@
        reaches the office get the full one, where there is room and no reason to
        make somebody decode an abbreviation. */
     function dayLabel(d, long) {
-      var now = new Date(), tm = new Date(); tm.setDate(tm.getDate() + 1);
+      var now = tbNow(), tm = tbNow(); tm.setDate(tm.getDate() + 1);
       if (sameDay(d, now)) return T.today;
       if (sameDay(d, tm))  return T.tomorrow;
       return long ? d.getDate() + ' ' + T.months[d.getMonth()] + ', ' + T.wdays[d.getDay()]
@@ -368,16 +657,22 @@
         '<p class="cbk__sub">' + T.sub + '</p>' +
         '<form class="cbk__form" novalidate>' +
           '<p class="form-msg" hidden></p>' +
-          '<div class="field"><label for="cbkPhone">' + T.phone + '</label>' +
-            '<div class="cbk__tel"><span class="cbk__cc">' + FLAG + '+995</span>' +
-            '<input id="cbkPhone" type="tel" inputmode="numeric" autocomplete="tel-national" ' +
-            'placeholder="5XX XX XX XX" maxlength="13" required></div></div>' +
-          '<div class="cbk__row">' +
-            '<div class="field"><span class="pick__lbl" id="cbkDayL">' + T.day + '</span>' +
-              pickHTML('cbkDay') + '</div>' +
-            '<div class="field"><span class="pick__lbl" id="cbkTimeL">' + T.time + '</span>' +
-              pickHTML('cbkTime') + '</div>' +
+          '<div class="cbk__fields">' +
+            '<div class="field"><label for="cbkPhone">' + T.phone + '</label>' +
+              '<div class="cbk__tel"><span class="cbk__cc">' + FLAG + '+995</span>' +
+              '<input id="cbkPhone" type="tel" inputmode="numeric" autocomplete="tel-national" ' +
+              'placeholder="5XX XX XX XX" maxlength="13" required></div></div>' +
+            '<div class="cbk__row">' +
+              '<div class="field"><span class="pick__lbl" id="cbkDayL">' + T.day + '</span>' +
+                pickHTML('cbkDay') + '</div>' +
+              '<div class="field"><span class="pick__lbl" id="cbkTimeL">' + T.time + '</span>' +
+                pickHTML('cbkTime') + '</div>' +
+            '</div>' +
           '</div>' +
+          // Citynet's SMS step: shown in place of the fields above when it asks for a code
+          '<div class="cbk__otp field" hidden><label for="cbkOtp">' + T.otpLabel + '</label>' +
+            '<input id="cbkOtp" type="text" inputmode="numeric" autocomplete="one-time-code" ' +
+            'maxlength="8" placeholder="• • • •"></div>' +
           '<button class="btn btn--primary cbk__submit" type="submit">' + T.send + '</button>' +
         '</form>' +
         '<a class="cbk__now" href="tel:' + FORMS.TEL + '">' + T.now + '</a>' +
@@ -390,6 +685,10 @@
         input  = wrap.querySelector('#cbkPhone'),
         telBox = wrap.querySelector('.cbk__tel'),
         submit = wrap.querySelector('.cbk__submit'),
+        sub    = wrap.querySelector('.cbk__sub'),
+        fields = wrap.querySelector('.cbk__fields'),
+        otpBox = wrap.querySelector('.cbk__otp'),
+        otpIn  = wrap.querySelector('#cbkOtp'),
         dayPick  = makePick(wrap.querySelector('[data-pick="cbkDay"]')),
         timePick = makePick(wrap.querySelector('[data-pick="cbkTime"]'));
 
@@ -404,7 +703,7 @@
     function fillTimes() {
       var d = days[dayPick.index()] || days[0];
       if (!d) return;
-      timePick.set(slotsFor(d).map(function (t) { return { value: t, label: t }; }));
+      timePick.set(slotsFor(d));
     }
     dayPick.change(fillTimes);   // a different day has a different set of slots
 
@@ -422,11 +721,46 @@
     }
     function hideMsg() { msg.hidden = true; msg.textContent = ''; msg.className = 'form-msg'; }
 
+    /* The SMS step reuses the panel: the number and time fields step aside for a
+       code box, and the button becomes "confirm". pending holds the request the
+       code belongs to, so it is resent exactly as first sent. */
+    var pending = null;
+    /* georgianCaps has already capitalised anything CSS shows in caps and marked
+       it done, so new text for such an element is capitalised here instead - and
+       its aria-label, which georgianCaps froze at the old wording, follows. */
+    function setText(el, text) {
+      if (el.dataset.caps) { el.textContent = text.toUpperCase(); el.setAttribute('aria-label', text); }
+      else el.textContent = text;
+    }
+    function showOtp(otpId, req) {
+      pending = { id: otpId, req: req };
+      fields.hidden = true;
+      otpBox.hidden = false;
+      otpIn.value = '';
+      setText(sub, T.otpSub.replace('{p}', input.value));
+      setText(submit, T.confirm);
+      hideMsg();
+      setTimeout(function () { otpIn.focus(); }, 30);
+    }
+    function resetPanel() {
+      pending = null;
+      fields.hidden = false;
+      otpBox.hidden = true;
+      setText(sub, T.sub);
+      setText(submit, T.send);
+    }
+
     function open() {
+      resetPanel();
       fillDays();                 // rebuilt each time: a page left open goes stale
       hideMsg();
       wrap.classList.add('is-open');
       setTimeout(function () { input.focus(); }, 60);
+      if (FORMS.LIVE) citynet().then(function () {
+        if (!wrap.classList.contains('is-open') || pending) return;
+        fillDays();               // Citynet's hours replace the placeholder ones
+        if (!days.length) flash(T.closed, 'err');
+      }, function () {});
     }
     function close() {
       dayPick.close(); timePick.close();   // they are fixed, not children of the panel
@@ -434,6 +768,11 @@
       fabPh.focus();
     }
 
+    // Start fetching as soon as someone heads for the button, so the real office
+    // hours are usually in before the panel has finished opening.
+    ['pointerenter', 'focus', 'touchstart'].forEach(function (ev) {
+      fabPh.addEventListener(ev, function () { if (FORMS.LIVE) citynet(); }, { passive: true, once: true });
+    });
     fabPh.addEventListener('click', function (e) { e.preventDefault(); open(); });
     wrap.addEventListener('click', function (e) {
       if (e.target.closest('[data-cbk-close]')) close();
@@ -442,8 +781,55 @@
       if (e.key === 'Escape' && wrap.classList.contains('is-open')) close();
     });
 
+    /* One request to Citynet. Its answers: {result:"success"} (booked),
+       {error:"exists"} (already booked - as good as success), {result:"success",
+       message:"otp sent", otp_unique_id} (wants the SMS code), {error:"passed
+       date"|"passed time"}, {error:"spam"}. */
+    function sendCall(req, otp) {
+      submit.disabled = true;
+      flash(T.sending, 'ok');
+      citynet()
+        .then(function (c) {
+          var f = { apikey: c.key, phone: req.phone, time: req.time, site: FORMS.CITYNET_SITE };
+          if (otp) { f.confirm_otp = otp; f.otp_unique_id = pending.id; }
+          return cnPost('request_call.php', f);
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          res = res || {};
+          if (!otp && res.result === 'success' && res.message === 'otp sent' && res.otp_unique_id) {
+            showOtp(res.otp_unique_id, req);
+          } else if (res.result === 'success' || res.error === 'exists') {
+            track('callback_request', { call_time: req.now ? 'now' : 'scheduled' });
+            flash(req.now ? T.okNow : T.ok.replace('{d}', req.dayTxt).replace('{t}', req.timeTxt), 'ok');
+            form.reset();
+            pending = null;
+            setTimeout(function () { if (wrap.classList.contains('is-open')) close(); }, 3200);
+          } else if (otp) {
+            flash(T.otpBad, 'err');
+            otpIn.select();
+          } else if (res.error === 'passed date' || res.error === 'passed time') {
+            fillDays();
+            flash(T.passed, 'err');
+          } else {
+            throw new Error('Citynet refused: ' + JSON.stringify(res));
+          }
+        })
+        .catch(function (err) {
+          flash(T.fail, 'err');
+          if (window.console) console.error('call-back:', err);
+        })
+        .then(function () { submit.disabled = false; });
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (pending) {                      // the SMS step
+        var code = otpIn.value.replace(/\s/g, '');
+        if (!code) { flash(T.otpNeed, 'err'); otpIn.focus(); return; }
+        sendCall(pending.req, code);
+        return;
+      }
       var d = digits();
       if (d.length !== 9 || d.charAt(0) !== '5') {
         telBox.classList.add('is-bad');
@@ -451,40 +837,21 @@
         input.focus();
         return;
       }
-      if (!FORMS.ACCESS_KEY) {
+      if (!FORMS.LIVE) {
         flash(T.unwired, 'err');
-        if (window.console) console.warn('call-back: FORMS.ACCESS_KEY is empty, nothing was sent');
+        if (window.console) console.warn('call-back: only works on biomi.ge, nothing was sent');
         return;
       }
+      if (!days.length || !timePick.value()) { flash(T.closed, 'err'); return; }
 
-      var dayTxt  = dayLabel(days[dayPick.index()] || days[0], true),
-          timeTxt = timePick.value();
-
-      var data = new FormData();
-      data.append('access_key', FORMS.ACCESS_KEY);
-      data.append('to', FORMS.RECIPIENT);
-      data.append('subject', T.subject + ' - +995 ' + input.value);
-      data.append('phone', '+995' + d);
-      data.append('when', dayTxt + ', ' + timeTxt);
-      data.append('date', dayPick.value());
-      data.append('time', timeTxt);
-      data.append('page', location.href);
-
-      submit.disabled = true;
-      flash(T.sending, 'ok');
-      fetch(FORMS.RELAY, { method: 'POST', body: data })
-        .then(function (r) { return r.json().catch(function () { return { success: r.ok }; }); })
-        .then(function (res) {
-          if (!res || !res.success) throw new Error((res && res.message) || 'relay refused');
-          flash(T.ok.replace('{d}', dayTxt).replace('{t}', timeTxt), 'ok');
-          form.reset();
-          setTimeout(close, 2600);
-        })
-        .catch(function (err) {
-          flash(T.fail, 'err');
-          if (window.console) console.error('call-back:', err);
-        })
-        .then(function () { submit.disabled = false; });
+      var when = timePick.value(), now = when === 'now';
+      sendCall({
+        phone:   d,                                     // 9 digits, the form Citynet's own widget accepts
+        time:    now ? stamp(tbNow()) : dayPick.value() + 'T' + when + ':00',
+        now:     now,
+        dayTxt:  dayLabel(days[dayPick.index()] || days[0], true),
+        timeTxt: when
+      });
     });
   })();
 
@@ -1418,7 +1785,19 @@
     var list  = document.getElementById('cfFileList');
     var msg   = document.getElementById('cfMsg');
     var files = [];
-    var MAX = 10 * 1024 * 1024; // 10MB
+    // The same limits api/contact.php enforces - checked here first so nobody
+    // waits for a 15 MB upload only to be told it is too big.
+    var MAX = 10 * 1024 * 1024,        // per file, as the drop zone says
+        MAX_FILES = 5,
+        MAX_TOTAL = 15 * 1024 * 1024;
+
+    /* Honeypot: a field people never see or reach with Tab. Bots that fill in
+       every box fill this one too, and the server quietly drops their message. */
+    var hp = document.createElement('div');
+    hp.setAttribute('aria-hidden', 'true');
+    hp.style.cssText = 'position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden';
+    hp.innerHTML = '<label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>';
+    form.appendChild(hp);
 
     function fmtSize(b) {
       if (b < 1024) return b + ' B';
@@ -1436,7 +1815,7 @@
         chip.innerHTML =
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>' +
           '<span class="name"></span><span class="size"></span>' +
-          '<button type="button" aria-label="წაშლა"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>';
+          '<button type="button" aria-label="' + T.remove + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>';
         chip.querySelector('.name').textContent = f.name;
         chip.querySelector('.size').textContent = fmtSize(f.size);
         chip.querySelector('button').addEventListener('click', function () {
@@ -1451,11 +1830,13 @@
       Array.prototype.forEach.call(fileList, function (f) {
         var isPdf = f.type === 'application/pdf' || /\.pdf$/i.test(f.name);
         if (!isPdf) { rejected = true; return; }
-        if (f.size > MAX) { flash('„' + f.name + '“ ძალიან დიდია (მაქს. 10MB).', 'err'); return; }
+        if (f.size > MAX) { flash(T.big.replace('{n}', f.name), 'err'); return; }
         if (files.some(function (x) { return x.name === f.name && x.size === f.size; })) return;
+        var total = files.reduce(function (s, x) { return s + x.size; }, 0);
+        if (files.length >= MAX_FILES || total + f.size > MAX_TOTAL) { flash(T.tooMany, 'err'); return; }
         files.push(f);
       });
-      if (rejected) flash('მხოლოდ PDF ფაილების ატვირთვაა შესაძლებელი.', 'err');
+      if (rejected) flash(T.file, 'err');
       else if (files.length) clearMsg();
       render();
     }
@@ -1472,56 +1853,152 @@
       if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
     });
 
-    /* ---- Delivery ---- see the FORMS block at the top of this file: the key
-       and recipient are shared with the call-back panel. */
-    var ACCESS_KEY = FORMS.ACCESS_KEY;
-    var RELAY      = FORMS.RELAY;
-    var RECIPIENT  = FORMS.RECIPIENT;
-
+    /* ---- Delivery ---- to api/contact.php (see FORMS at the top of this file).
+       It answers {ok:true} or {ok:false, error:"<code>"}; each code the visitor
+       can do something about has its own message, the rest get "fail". */
     var en = (document.documentElement.lang || 'ka').indexOf('en') === 0;
     var T = en ? {
       sending: 'Sending…',
       ok:      'Thank you. Your request has been sent - we will be in touch shortly.',
       fail:    'The message could not be sent. Please email info@biomi.ge or call +995 322 15 11 15.',
-      unwired: 'The form is not connected yet. Please email info@biomi.ge or call +995 322 15 11 15.'
+      unwired: 'The form is not connected yet. Please email info@biomi.ge or call +995 322 15 11 15.',
+      invalid: 'Please check the fields and try again.',
+      file:    'Only PDF files can be attached.',
+      tooMany: 'Attach up to 5 PDF files, 15 MB together at most.',
+      big:     '“{n}” is too large (10 MB per file at most).',
+      remove:  'Remove',
+      rate:    'Too many messages were sent from this connection. Please try again in 15 minutes.',
+      // field checks, shown in the form's own bubble
+      required: 'Please fill in this field.',
+      name:     'Please enter your first and last name.',
+      email:    'Please enter a valid email address, e.g. name@example.com.',
+      phone:    'Please enter a valid phone number.',
+      privacy:  'Please agree to the privacy policy to send your request.'
     } : {
       sending: 'იგზავნება…',
       ok:      'მადლობა! თქვენი მოთხოვნა გაიგზავნა - ჩვენ მალე დაგიკავშირდებით.',
       fail:    'შეტყობინება ვერ გაიგზავნა. მოგვწერეთ info@biomi.ge ან დაგვირეკეთ +995 322 15 11 15.',
-      unwired: 'ფორმა ჯერ არ არის დაკავშირებული. მოგვწერეთ info@biomi.ge ან დაგვირეკეთ +995 322 15 11 15.'
+      unwired: 'ფორმა ჯერ არ არის დაკავშირებული. მოგვწერეთ info@biomi.ge ან დაგვირეკეთ +995 322 15 11 15.',
+      invalid: 'გთხოვთ, შეამოწმეთ ველები და სცადეთ ხელახლა.',
+      file:    'მხოლოდ PDF ფაილების ატვირთვაა შესაძლებელი.',
+      tooMany: 'შეგიძლიათ მიამაგროთ მაქსიმუმ 5 PDF ფაილი, ჯამში 15MB-მდე.',
+      big:     '„{n}“ ძალიან დიდია (მაქს. 10MB თითო ფაილზე).',
+      remove:  'წაშლა',
+      rate:    'ამ კავშირიდან ძალიან ბევრი შეტყობინება გაიგზავნა. სცადეთ 15 წუთის შემდეგ.',
+      required: 'გთხოვთ, შეავსეთ ეს ველი.',
+      name:     'გთხოვთ, მიუთითეთ სახელი და გვარი.',
+      email:    'გთხოვთ, მიუთითეთ სწორი ელ. ფოსტა, მაგ. name@example.com.',
+      phone:    'გთხოვთ, მიუთითეთ სწორი ტელეფონის ნომერი.',
+      privacy:  'მოთხოვნის გაგზავნისთვის საჭიროა კონფიდენციალურობის პოლიტიკასთან თანხმობა.'
     };
+    var ERR_MSG = { invalid: T.invalid, consent: T.privacy, file: T.file, too_large: T.tooMany, rate: T.rate };
     var submitBtn = form.querySelector('button[type="submit"]');
+
+    /* ---- Checking the fields ----
+       The browser's own pop-up is grey, looks different in every browser and is
+       worded in the BROWSER's language, not the page's - an English Chrome says
+       "Please check this box" on the Georgian page. So the form checks itself
+       and points at the first problem with its own bubble, in the page's
+       language. The rules match api/contact.php, which checks everything again. */
+    function problem(el) {
+      var v = (el.value || '').trim();
+      if (el.type === 'checkbox') return el.required && !el.checked ? T.privacy : '';
+      if (el.validity && el.validity.customError) return el.validationMessage;   // the word limit's own message
+      if (el.required && !v) return T.required;
+      if (el.name === 'fullname' && v.length < 2) return T.name;
+      if (el.type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return T.email;
+      if (el.type === 'tel' && v) {
+        var n = v.replace(/\D/g, '').length;
+        if (n < 7 || n > 15 || !/^[\d\s()+\-.]+$/.test(v)) return T.phone;
+      }
+      return '';
+    }
+    var tip = null;
+    function clearTip() {
+      if (!tip) return;
+      tip.field.classList.remove('is-invalid');
+      tip.field.removeAttribute('aria-invalid');
+      tip.field.removeAttribute('aria-describedby');
+      tip.el.remove();
+      tip = null;
+    }
+    function showTip(el, text) {
+      clearTip();
+      // a <span>, not a <div>: for the checkbox it sits inside a <label>
+      var b = document.createElement('span');
+      b.className = 'form-tip' + (el.type === 'checkbox' ? ' form-tip--above' : '');
+      b.id = 'cfTip';
+      b.setAttribute('role', 'alert');
+      b.innerHTML = '<span class="form-tip__icon" aria-hidden="true">!</span><span class="form-tip__text"></span>';
+      b.querySelector('.form-tip__text').textContent = text;
+      (el.closest('.consent') || el.closest('.field') || el.parentNode).appendChild(b);
+      el.classList.add('is-invalid');
+      el.setAttribute('aria-invalid', 'true');
+      el.setAttribute('aria-describedby', 'cfTip');
+      tip = { el: b, field: el };
+      requestAnimationFrame(function () { b.classList.add('is-in'); });
+      // window.scrollTo, not scrollIntoView: sections clip their overflow, and
+      // scrollIntoView scrolls the clipped box instead of the page
+      var r = el.getBoundingClientRect();
+      if (r.top < 110 || r.bottom > window.innerHeight - 90) {
+        window.scrollTo({ top: window.scrollY + r.top - window.innerHeight / 3, behavior: 'smooth' });
+      }
+      el.focus({ preventScroll: true });
+    }
+    function validate() {
+      var els = form.querySelectorAll('input:not([type=file]):not([name=website]), textarea');
+      for (var i = 0; i < els.length; i++) {
+        var p = problem(els[i]);
+        if (p) { showTip(els[i], p); return false; }
+      }
+      return true;
+    }
+    // fixing the field (or ticking the box) takes the bubble away
+    ['input', 'change'].forEach(function (ev) {
+      form.addEventListener(ev, function (e) { if (tip && e.target === tip.field) clearTip(); });
+    });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
-      if (!ACCESS_KEY) {
+      clearMsg();                 // an earlier "thank you" must not sit above a new problem
+      if (!validate()) return;
+      if (!FORMS.LIVE) {
         flash(T.unwired, 'err');
-        if (window.console) console.warn('contact form: ACCESS_KEY is empty, nothing was sent');
+        if (window.console) console.warn('contact form: only works on biomi.ge, nothing was sent');
         return;
       }
 
       var data = new FormData(form);
-      data.append('access_key', ACCESS_KEY);
-      data.append('to', RECIPIENT);
-      data.append('subject', (en ? 'Website enquiry - ' : 'ვებ-გვერდიდან მოთხოვნა - ') + (data.get('name') || ''));
       // the file input is `hidden` and the list is held in JS, so the files have
       // to be attached from that array rather than left to FormData
       data.delete('files');
-      files.forEach(function (f, i) { data.append('attachment' + (i ? i + 1 : ''), f, f.name); });
+      files.forEach(function (f) { data.append('files[]', f, f.name); });
+      data.append('lang', en ? 'en' : 'ka');
+      data.append('page', location.href);
 
       submitBtn.disabled = true;
       flash(T.sending, 'ok');
-      fetch(RELAY, { method: 'POST', body: data })
-        .then(function (r) { return r.json().catch(function () { return { success: r.ok }; }); })
+      fetch(FORMS.ENDPOINT, { method: 'POST', body: data })
+        .then(function (r) {
+          return r.json().catch(function () { return { ok: false, error: 'http ' + r.status }; });
+        })
         .then(function (res) {
-          if (!res || !res.success) throw new Error((res && res.message) || 'relay refused');
+          if (!res || !res.ok) {
+            var err = new Error('contact.php said: ' + ((res && res.error) || 'nothing'));
+            err.code = res && res.error;
+            throw err;
+          }
+          // GA's standard name for an enquiry, so it can be marked as a key event
+          track('generate_lead', { form_name: 'contact', attachments: files.length });
           flash(T.ok, 'ok');
           form.reset(); files = []; render();
           form.dispatchEvent(new Event('reset'));
         })
         .catch(function (err) {
-          flash(T.fail, 'err');
+          // on the test site the reason is shown too, so a failed test can be
+          // reported from a screenshot without opening the browser console
+          var why = /^test\./i.test(location.hostname) ? ' [' + (err.code || err.message) + ']' : '';
+          flash((ERR_MSG[err.code] || T.fail) + why, 'err');
           if (window.console) console.error('contact form:', err);
         })
         .then(function () { submitBtn.disabled = false; });
@@ -1564,8 +2041,13 @@
     var dDesc = detail.querySelector('.ring__detail-desc');
     var dLink = detail.querySelector('.ring__detail-link');
 
-    // dismiss the tap-hint once the user interacts with the ring
-    wrap.addEventListener('pointerdown', function () { wrap.classList.add('is-hinted'); }, { once: true });
+    /* The tap hint hides while a step is open (.is-focused) and comes back when
+       the wheel closes. It used to be dismissed for good on the first touch,
+       so after one look the wheel never showed it again until a reload.
+       Stacked under the ring on narrow screens, the panel folds back to the
+       height it has empty when it closes (see .ring__detail in the CSS), so
+       that height is measured now, before anything has filled it. */
+    detail.style.setProperty('--rest-h', detail.offsetHeight + 'px');
 
     /* Where a node sits on the ring, in the same degrees the markup places it. */
     function angleOf(n) { return parseFloat(n.style.getPropertyValue('--a')) || 0; }
@@ -1662,7 +2144,13 @@
       // headings are converted to Mtavruli for display; aria-label keeps the
       // readable Mkhedruli original, which is what we want to share.
       var title = h3 ? (h3.getAttribute('aria-label') || h3.textContent).trim() : document.title;
-      var url = location.href;
+      /* A card shares its own article, not the page the card happens to sit on:
+         this used location.href, so sharing from the homepage sent the homepage.
+         The button at the top of an article page is in no card and shares that
+         page (without any #fragment). */
+      var link = card && card.querySelector('h3 a[href], a.link-more[href]');
+      var url = link ? new URL(link.getAttribute('href'), location.href).href
+                     : location.href.split('#')[0];
       if (navigator.share) {
         navigator.share({ title: title, text: title, url: url }).catch(function () {});
       } else if (navigator.clipboard) {
@@ -1763,26 +2251,29 @@
     list.querySelectorAll('.pfilter__group h4').forEach(function (h) { h.addEventListener('click', function () { h.parentElement.classList.toggle('closed'); }); });
 
     /* ---- The "!" beside a series name ----
-       Hovering shows the explanation (CSS, from data-tip). Clicking scrolls to
-       the full note under the filter and flashes it. It sits inside the label,
-       so the click must not reach the checkbox. */
-    list.querySelectorAll('.pfilter__info').forEach(function (b) {
+       Hovering shows the explanation (CSS, from data-tip). A click or tap pins
+       it open -- the only way on a touchscreen -- and a click anywhere else, or
+       Esc, closes it. It sits inside the label, so the click must not reach the
+       checkbox. */
+    var infos = Array.prototype.slice.call(list.querySelectorAll('.pfilter__info'));
+    function closeInfos(except) {
+      infos.forEach(function (x) {
+        if (x !== except) { x.classList.remove('is-open'); x.setAttribute('aria-expanded', 'false'); }
+      });
+    }
+    infos.forEach(function (b) {
       b.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var note = document.getElementById(b.getAttribute('data-note'));
-        if (!note) return;
-        // The window, not scrollIntoView: the listing sits in a section with
-        // overflow:hidden (for its decorative rings), and scrollIntoView scrolls
-        // that clipped box instead of the page -- nothing visibly moves.
-        var r = note.getBoundingClientRect();
-        var y = r.top + window.pageYOffset - Math.max(0, (window.innerHeight - r.height) / 2);
-        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
-        note.classList.remove('is-flash');
-        void note.offsetWidth;                 // restart the flash if clicked again
-        note.classList.add('is-flash');
+        closeInfos(b);
+        var open = b.classList.toggle('is-open');
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });
+    if (infos.length) {
+      document.addEventListener('click', function () { closeInfos(null); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeInfos(null); });
+    }
 
     /* ---- A category's own filters, dropping down under its box ----
        On a chapter page (heating.html ...) each category is followed by a

@@ -92,6 +92,14 @@ foreach ($lang in 'ka', 'en') {
   $s = [regex]::Replace($s, 'href="[a-z0-9-]+\.html">GEO', 'href="projects.html">GEO')
   $s = [regex]::Replace($s, 'href="[a-z0-9-]+\.html">ENG', 'href="projects-en.html">ENG')
 
+  # ...and so does its menu. The donor is the hidden service page, and the
+  # 2026-09-04 sweep that pointed every "Services" link at the homepage wheel
+  # skipped it on purpose - so a gallery built from it offered the hidden page
+  # again in its header, footer and drawer (found on test.biomi.ge 2026-09-15).
+  # The language switch is already rewritten above, so what is left is the menu.
+  $s = $s.Replace('href="' + $t.donor + '"', 'href="' + $t.home + '#services"')
+  if ($s.Contains($t.donor)) { throw "$($t.out) still mentions $($t.donor)" }
+
   $s = [regex]::Replace($s, "`r`n|`n", $CRLF)
   [IO.File]::WriteAllText((Join-Path $repo $t.out), $s, $UTF8)
   Write-Host ('  wrote ' + $t.out + ' : ' + $cards.Count + ' cards')
