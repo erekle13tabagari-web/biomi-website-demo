@@ -49,29 +49,29 @@ $PAGES = @(
      seriesKa='სერია'; seriesEn='Series'
      # What each series is and how it differs, shown from the "!" beside its name
      # in the filter (hover, or a click/tap). Name, make and kind of system, and
-     # the explanation. Kept to what the ranges are sold as -- Samsung's and
-     # Mitsubishi Electric's own range descriptions -- with no figures beyond
-     # the ones they publish. There is no separate guide section: it was taken
-     # off on request, the "!" carries it alone.
+     # the explanation. The Georgian is Biomi's own wording (martivi axsna.docx,
+     # 2026-09-15), kept as written apart from long dashes; the English follows
+     # it. There is no separate guide section: it was taken off on request, the
+     # "!" carries it alone.
      notes=@(
        @('DVM', 'Samsung · VRF', 'Samsung · VRF',
-         'Samsung-ის VRF სისტემა (Digital Variable Multi) დიდი შენობისთვის - ოფისი, სასტუმრო, სავაჭრო ცენტრი. ერთ გარე ბლოკზე ან ბლოკების მოდულზე ათობით შიდა ბლოკი უერთდება, თითოეული ოთახის ტემპერატურა ცალკე დგინდება, ინვერტორი კი მაცივარაგენტის ნაკადს ზუსტად იმდენზე ცვლის, რამდენიც ოთახებს სჭირდება. გრძელი მილგაყვანილობა და ცენტრალიზებული მართვა.',
-         'Samsung''s VRF system (Digital Variable Multi) for large buildings - offices, hotels, shopping centres. Dozens of indoor units run off one outdoor unit or a module of several, every room is set on its own, and the inverter varies the refrigerant flow to exactly what the rooms need. Long pipe runs and central control.'),
+         'DVM (Digital Variable Multi) არის VRF მრავალზონიანი კონდიცირების სისტემა, სადაც ცვლადი წარმადობის კომპრესორებისა და მაცივარაგენტის ნაკადის ელექტრონული მართვის საშუალებით ერთი გარე სისტემა მრავალ შიდა ზონას ემსახურება და თითოეულ ზონას მოთხოვნის შესაბამისად აწვდის საჭირო სიმძლავრეს.',
+         'DVM (Digital Variable Multi) is a VRF multi-zone air-conditioning system: with variable-capacity compressors and electronic control of the refrigerant flow, one outdoor system serves many indoor zones and gives each zone the capacity it needs.'),
        @('CAC', 'Samsung · მსუბუქი კომერციული', 'Samsung · light commercial',
-         'Commercial Air Conditioner - სისტემა მაღაზიისთვის, რესტორნისთვის, მცირე ოფისისთვის. ერთი გარე ბლოკი ემსახურება ერთ მძლავრ შიდა ბლოკს (კასეტური, არხული ან ჭერის) ან ერთ სივრცეში ერთად მომუშავე რამდენიმე ბლოკს. VRF-ზე მარტივი და ხელმისაწვდომი, როცა ერთი დიდი დარბაზის კონდიცირებაა საჭირო.',
-         'Commercial Air Conditioner - for shops, restaurants and small offices. One outdoor unit drives one powerful indoor unit (cassette, ducted or ceiling), or a few that work together in the same space. Simpler and more affordable than VRF when one large room needs air conditioning.'),
+         'CAC (Commercial Air Conditioner) - კომერციული დანიშნულების კონდიცირების სისტემების კატეგორიაა, რომელიც გამოიყენება ძირითადად ოფისებში, მაღაზიებში, რესტორნებსა და სხვა კომერციულ ობიექტებში.',
+         'CAC (Commercial Air Conditioner) - a category of air-conditioning systems for commercial use, mainly in offices, shops, restaurants and other commercial premises.'),
        @('FJM', 'Samsung · მულტი-სპლიტი', 'Samsung · multi-split',
-         'Free Joint Multi - ბინისთვის, სახლისთვის, მცირე ოფისისთვის. ერთ გარე ბლოკზე 2-დან 5-მდე ოთახის შიდა ბლოკი უერთდება და თითოეული ცალკე ჩაირთვება და რეგულირდება. შიდა ბლოკები შეიძლება განსხვავებული ტიპის იყოს - კედლის, კასეტური, არხული - ფასადზე კი ერთი გარე ბლოკი ჩანს.',
-         'Free Joint Multi - for flats, houses and small offices. The indoor units of two to five rooms connect to one outdoor unit, and each is switched and set on its own. They can be of different kinds - wall, cassette, ducted - while only one outdoor unit goes on the facade.'),
+         'FJM (Free Joint Multi) - Samsung-ის მრავალბლოკიანი კონდიცირების სისტემაა, სადაც ერთი გარე ბლოკი რამდენიმე შიდა ბლოკს დამოუკიდებლად ემსახურება, რაც საშუალებას იძლევა სხვადასხვა ოთახში ინდივიდუალური ტემპერატურის კონტროლი.',
+         'FJM (Free Joint Multi) - Samsung''s multi-unit air-conditioning system, in which one outdoor unit serves several indoor units independently, so every room can have its own temperature.'),
        @('M Series', 'Mitsubishi Electric · საყოფაცხოვრებო', 'Mitsubishi Electric · residential',
-         'Mitsubishi Electric-ის საყოფაცხოვრებო ხაზი: კედლის შიდა ბლოკი (MSZ, MSY) თავის გარე ბლოკზე (MUZ, MUY) - ერთი ოთახი, ერთი სისტემა. გამოირჩევა ჩუმი მუშაობით, მაღალი ენერგოეფექტურობით და დიზაინით, ბინისა და სახლის ოთახებისთვის.',
-         'Mitsubishi Electric''s residential line: a wall-mounted indoor unit (MSZ, MSY) on its own outdoor unit (MUZ, MUY) - one room, one system. Known for quiet running, high efficiency and design, for the rooms of flats and houses.'),
+         'M Series (Mitsubishi Electric) - Mitsubishi Electric-ის საყოფაცხოვრებო და მცირე სივრცეებისთვის განკუთვნილი ინვერტერული კონდიციონერების სერიაა, რომელიც გამოიყენება როგორც ერთ-კომბინაციაში, ისე Multi-Split MXZ სისტემებთან; გათვლილია გათბობა-გაგრილებაზე.',
+         'M Series (Mitsubishi Electric) - Mitsubishi Electric''s range of inverter air conditioners for homes and small spaces, used both as a single split and with MXZ multi-split systems; built for heating and cooling.'),
        @('Mr Slim', 'Mitsubishi Electric · მსუბუქი კომერციული', 'Mitsubishi Electric · light commercial',
-         'Mitsubishi Electric-ის მსუბუქი კომერციული ხაზი ოფისისთვის, მაღაზიისთვის, რესტორნისთვის: კასეტური, არხული და ჭერის შიდა ბლოკები, M Series-ზე მეტი სიმძლავრისთვის. ერთ გარე ბლოკზე ერთი შიდა ბლოკი ან ერთ სივრცეში ერთად მომუშავე რამდენიმე.',
-         'Mitsubishi Electric''s light-commercial line for offices, shops and restaurants: cassette, ducted and ceiling indoor units for more capacity than the M Series. One indoor unit per outdoor unit, or a few working together in the same space.'),
+         'Mr. Slim - Mitsubishi Electric-ის კომერციული დანიშნულების ინვერტერული კონდიცირების სისტემების სერიაა, რომელიც განკუთვნილია მცირე და საშუალო კომერციული სივრცეების გათბობა-გაგრილებისთვის.',
+         'Mr. Slim - Mitsubishi Electric''s range of inverter air-conditioning systems for commercial use, made for heating and cooling small and medium-sized commercial spaces.'),
        @('City Multi', 'Mitsubishi Electric · VRF', 'Mitsubishi Electric · VRF',
-         'Mitsubishi Electric-ის VRF სისტემა დიდი შენობისთვის: ერთ გარე ბლოკზე ბევრი შიდა ბლოკი, თითოეული ოთახის ცალკე მართვით. R2 ვერსია ერთდროულად ერთ ოთახს აგრილებს და მეორეს ათბობს - ერთი ოთახიდან გამოტანილ სითბოს მეორეს გადასცემს.',
-         'Mitsubishi Electric''s VRF system for large buildings: many indoor units on one outdoor unit, each room controlled on its own. The R2 version can cool one room and heat another at the same time, moving the heat taken out of one into the other.'))
+         'City Multi - Mitsubishi Electric-ის VRF/VRF2 ტიპის მრავალზონიანი კომერციული კონდიცირების სისტემების სერიაა, რომელიც ერთი გარე სისტემით მრავალი შიდა ბლოკის დამოუკიდებელ გათბობასა და გაგრილებას უზრუნველყოფს.',
+         'City Multi - Mitsubishi Electric''s range of VRF/VRF2 multi-zone commercial air-conditioning systems, in which one outdoor system provides independent heating and cooling for many indoor units.'))
      typeKa='ტიპი'; typeEn='Type'
      types=@(@('wall','კედლის','Wall'),@('cassette','კასეტური','Cassette'),@('duct','არხული','Duct'),
              @('ceiling','ჭერის','Ceiling'),@('outdoor','გარე ბლოკი','Outdoor unit'))
