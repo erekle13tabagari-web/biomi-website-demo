@@ -1146,8 +1146,8 @@
     var base = cssHref.indexOf('assets/') > 0 ? cssHref.slice(0, cssHref.indexOf('assets/')) : '';
 
     var T = en
-      ? { ph: 'Search products and pages…', none: 'Nothing found for', esc: 'close', nav: 'to navigate', go: 'to open', label: 'Search' }
-      : { ph: 'მოძებნეთ პროდუქტი ან გვერდი…', none: 'ვერაფერი მოიძებნა:', esc: 'დახურვა', nav: 'ნავიგაცია', go: 'გახსნა', label: 'ძიება' };
+      ? { ph: 'Search products and pages…', none: 'Nothing found for', esc: 'close', label: 'Search' }
+      : { ph: 'მოძებნეთ პროდუქტი ან გვერდი…', none: 'ვერაფერი მოიძებნა:', esc: 'დახურვა', label: 'ძიება' };
 
     var wrap = document.createElement('div');
     wrap.className = 'srch';
@@ -1164,7 +1164,6 @@
           '<button class="srch__close" type="button" data-srch-close>ESC</button>' +
         '</div>' +
         '<div class="srch__results" role="listbox"></div>' +
-        '<div class="srch__hint"><span><b>↑↓</b> ' + T.nav + '</span><span><b>↵</b> ' + T.go + '</span></div>' +
       '</div>';
     document.body.appendChild(wrap);
 
@@ -1234,6 +1233,8 @@
     }
 
     trigger.addEventListener('click', open);
+    // a search button in the page itself (the 404 page's) opens the same overlay
+    document.querySelectorAll('[data-open-search]').forEach(function (el) { el.addEventListener('click', open); });
     wrap.querySelectorAll('[data-srch-close]').forEach(function (el) { el.addEventListener('click', close); });
     input.addEventListener('input', render);
     wrap.addEventListener('keydown', function (e) {

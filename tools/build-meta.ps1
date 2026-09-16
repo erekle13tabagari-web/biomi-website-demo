@@ -66,6 +66,10 @@ if (Test-Path $defSrc) { & magick $defSrc -resize 1200x630^ -gravity center -ext
 # anywhere: nothing links to them, they carry robots noindex, and they are kept
 # out of sitemap.xml. Take a name out of this list to publish it again.
 $HIDDEN = 'service.html', 'service-en.html'
+# The "page not found" pages: noindex and out of the sitemap like the hidden
+# ones, but kept apart from $HIDDEN because deploy-test.ps1 reads that line and
+# skips uploading those pages, and the server needs these two to exist.
+$ERRORPAGES = '404.html', '404-en.html'
 
 $urls = New-Object System.Collections.ArrayList
 foreach ($f in $files) {
@@ -88,7 +92,7 @@ foreach ($f in $files) {
   # Not $hidden: PowerShell variable names are case-insensitive, so assigning
   # to that would overwrite $HIDDEN with a boolean on the first page and every
   # test after it would be false.
-  $isHidden = $HIDDEN -contains $f.Name
+  $isHidden = ($HIDDEN -contains $f.Name) -or ($ERRORPAGES -contains $f.Name)
   if ($isHidden) { [void]$b.AppendLine('<meta name="robots" content="noindex,nofollow">') }
   if ($hasPair) {
     [void]$b.AppendLine('<link rel="alternate" hreflang="ka" href="' + "$BASE/$kaRel" + '">')

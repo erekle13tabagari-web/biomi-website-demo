@@ -50,6 +50,12 @@ AddDefaultCharset UTF-8
 AddType image/avif .avif
 AddType image/webp .webp
 AddType font/ttf .ttf
+# The site's own "page not found", in the language of the address asked for.
+# Without these Apache printed its bare English page (2026-09-16).
+ErrorDocument 404 /404.html
+<If "%{REQUEST_URI} =~ m#-en(\.html?)?/?$#">
+  ErrorDocument 404 /404-en.html
+</If>
 # Always https: the form sender refuses posts from an http:// page, and
 # Citynet and the browser both expect a secure page.
 <IfModule mod_rewrite.c>

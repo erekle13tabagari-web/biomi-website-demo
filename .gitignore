@@ -6,6 +6,8 @@
 # Raw product / brand source folders (images already live in assets/)
 /concrete product page/
 /HERO page images/
+# full-size hero card originals (2026-09-16); the served 1200px copies are assets/img/hero-card-*.jpg
+/Biomi_images for web/
 /stock images/
 /partner logoes/
 /flags/

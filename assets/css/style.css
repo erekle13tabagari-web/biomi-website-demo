@@ -133,7 +133,8 @@
    mode is left alone: those surfaces are dark there to begin with. */
 :root:not([data-theme="dark"]) .on-navy,
 :root:not([data-theme="dark"]) .dropdown,
-:root:not([data-theme="dark"]) .cookiebar{
+:root:not([data-theme="dark"]) .cookiebar,
+:root:not([data-theme="dark"]) .contact__form{
   --ink:#eceaf4;
   --ink-strong:#f4f3f9;
   --body:#c9cad6;
@@ -437,13 +438,16 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
   border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-md);overflow:hidden;
   transform:translateY(-10px);transition:transform .25s var(--ease)}
 .srch.open .srch__panel{transform:none}
-.srch__bar{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.srch__bar{display:flex;align-items:center;gap:12px;padding:16px 18px}
 .srch__bar svg{width:20px;height:20px;color:var(--muted);flex:none}
 .srch__bar input{flex:1;min-width:0;border:0;background:none;font:inherit;font-size:17px;color:var(--ink)}
 .srch__bar input:focus{outline:none}
 .srch__close{border:0;background:none;cursor:pointer;color:var(--muted);font-size:12px;font-weight:600;
   border:1px solid var(--line);border-radius:6px;padding:4px 8px;flex:none}
-.srch__results{max-height:min(56vh,460px);overflow-y:auto;padding:8px}
+/* the divider lives on the results, so before anything is typed the panel is
+   just the search bar rather than a bar over an empty strip */
+.srch__results{max-height:min(56vh,460px);overflow-y:auto;padding:8px;border-top:1px solid var(--line)}
+.srch__results:empty{display:none}
 .srch__item{display:flex;align-items:center;gap:14px;padding:10px 12px;border-radius:10px;
   text-decoration:none;color:var(--ink)}
 .srch__item:hover,.srch__item.is-sel{background:var(--bg-soft)}
@@ -456,11 +460,9 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 .srch__kind{margin-left:auto;flex:none;font-size:11px;text-transform:uppercase;letter-spacing:.06em;
   color:var(--gold-600);font-weight:600}
 .srch__empty{padding:26px 18px;text-align:center;color:var(--muted);font-size:15px}
-.srch__hint{padding:9px 18px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;gap:14px}
-.srch__hint b{font-weight:600;font-family:monospace;color:var(--ink)}
 @media(max-width:680px){
   .srch__panel{margin:0;max-width:none;height:100%;border-radius:0;border:0}
-  .srch__results{max-height:calc(100% - 124px)}
+  .srch__results{max-height:calc(100% - 90px)}
   .srch__kind{display:none}
 }
 /* theme switch — injected by main.js into the toolbar and the drawer */
@@ -855,6 +857,14 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    button at the widths where that column wins. */
 .contact__form{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   box-shadow:var(--shadow-sm);padding:32px;align-self:start}
+/* Light mode: the form card is navy, like the dropdown and the cookie bar, so
+   its tokens come from the .on-navy block near the top of this file. The few
+   it reads beyond those take dark values: ok/error text as in dark mode, and
+   the drop zone's dashed border a step lighter than dark mode's #3a3b57, which
+   all but vanished on the navy. color-scheme gives the checkboxes and the
+   textarea's scrollbar and resize grip their dark look. */
+:root:not([data-theme="dark"]) .contact__form{background:var(--navy);color:var(--ink);border-color:var(--line);
+  color-scheme:dark;--gray-300:#4f5180;--ok:#5fd899;--err:#ff8f8a}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .field{margin-bottom:18px;display:flex;flex-direction:column;gap:7px}
 .field label{font-size:14px;font-weight:500;color:var(--ink-strong)}
@@ -991,7 +1001,11 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 .cookiebar p{font-size:13.5px;line-height:1.45;color:var(--muted);margin:0}
 .cookiebar p a{color:var(--gold-600);text-decoration:underline;text-underline-offset:2px}
 .cookiebar__actions{flex:0 0 auto;display:flex;gap:8px}
-.cookiebar__actions .btn{min-width:124px;justify-content:center;padding:10px 16px;font-size:13.5px}
+/* both in capitals like the primary button: an outline button is sentence case
+   elsewhere on the site, which left Reject looking smaller than Accept beside it.
+   georgianCaps(bar) runs after this applies, so the Georgian gets Mtavruli too. */
+.cookiebar__actions .btn{min-width:124px;justify-content:center;padding:10px 16px;font-size:13.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:600}
 :root[data-theme="dark"] .cookiebar{border-color:rgba(255,255,255,.1)}
 /* In light mode the bar goes navy, like the menu dropdown: a white strip over a
    white page barely read as something to answer. The colour tokens come from
@@ -1192,6 +1206,26 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .page-hero--tight .crumbs{margin-bottom:16px}
 .page-hero--tight .eyebrow{margin-bottom:8px}
 .page-hero--tight .section__head h2{font-size:clamp(24px,2.6vw,34px)}
+
+/* ---- Page not found (404.html / 404-en.html) -------------------------------
+   The server shows these in place of any missing address. The numeral carries
+   the page; the message and three ways back sit beside it. The gradient runs
+   accent to --deco, so it reads blue-to-purple in light and the reverse in dark. */
+.nf{min-height:min(760px,88vh);display:flex;align-items:center}
+.nf__inner{display:flex;align-items:center;gap:clamp(28px,5vw,72px)}
+/* line-height 1 and not tighter: a background-clipped gradient only paints inside
+   the line box, so at .85 the bottoms of the digits were cut off */
+.nf__code{flex:none;font-size:clamp(110px,17vw,230px);font-weight:700;line-height:1;letter-spacing:-.04em;
+  background:linear-gradient(135deg,var(--gold) 25%,var(--deco));-webkit-background-clip:text;background-clip:text;color:transparent}
+.nf__body{max-width:560px}
+.nf__body h1{font-size:clamp(28px,3.4vw,44px);margin-bottom:14px}
+.nf__body p{color:var(--muted);font-size:18px;margin-bottom:28px}
+.nf__actions{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:760px){
+  .nf{min-height:0}
+  .nf__inner{flex-direction:column;align-items:flex-start;gap:6px}
+  .nf__actions .btn{flex:1 1 auto;justify-content:center}
+}
 .crumbs{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--muted);
   margin-bottom:30px;flex-wrap:wrap}
 .crumbs a:hover{color:var(--gold-600)}
