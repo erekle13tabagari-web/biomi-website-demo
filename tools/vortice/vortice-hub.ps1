@@ -162,7 +162,7 @@ foreach ($lang in 'ka','en') {
       <a href="ventilation$sfx">$($t.vent)</a><span class="sep">/</span>
       <b>Vortice</b>
     </nav>
-    <img class="brand-hero__logo" src="../assets/img/partners/vortice.svg" alt="Vortice">
+    <h1 class="brand-hero__title"><img class="brand-hero__logo" src="../assets/img/partners/vortice.svg" alt="Vortice"></h1>
   </div>
 </section>
 

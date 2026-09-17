@@ -131,7 +131,7 @@ foreach ($b in $BRANDS) {
       <a href="$($b.cat)$sfx">$catLbl</a><span class="sep">/</span>
       <b>$($b.brand)</b>
     </nav>
-    <img class="brand-hero__logo" src="../assets/img/partners/$($b.logo)" alt="$($b.brand)">
+    <h1 class="brand-hero__title"><img class="brand-hero__logo" src="../assets/img/partners/$($b.logo)" alt="$($b.brand)"></h1>
   </div>
 </section>
 

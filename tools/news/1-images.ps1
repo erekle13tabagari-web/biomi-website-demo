@@ -45,6 +45,9 @@ foreach ($item in $DATA) {
     $th = [int][Math]::Round($tw * $HERO_H / $HERO_W)
     & $MAGICK $thumb.FullName -resize ($tw.ToString() + 'x' + $th + '^') `
               -gravity center -extent ($tw.ToString() + 'x' + $th) -quality 82 $dst
+    # the news cards (homepage rail, "other news" strip) take a 900px AVIF copy;
+    # build-news.ps1 uses it when it exists and the full hero when it does not
+    & $MAGICK $dst -resize '900x>' -quality 55 ($dst -replace '\.jpe?g$', '-card.avif')
     $heroNote = 'rebuilt ' + $tw + 'x' + $th
   }
 

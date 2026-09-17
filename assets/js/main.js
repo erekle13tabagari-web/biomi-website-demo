@@ -2163,6 +2163,23 @@
     });
   });
 
+  /* ---- Project card photos, loaded as their grid comes near ----
+     The CSS gives .proj__img its background only under .is-near. The whole grid
+     is marked at once, not card by card: on phones it is a sideways-scrolling
+     rail, and cards clipped off to the right would otherwise come up blank as
+     they are swiped in. */
+  var projGrids = document.querySelectorAll('.proj-grid, .proj-gallery');
+  if ('IntersectionObserver' in window) {
+    var nearIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { entry.target.classList.add('is-near'); nearIo.unobserve(entry.target); }
+      });
+    }, { rootMargin: '600px 0px' });
+    projGrids.forEach(function (el) { nearIo.observe(el); });
+  } else {
+    projGrids.forEach(function (el) { el.classList.add('is-near'); });
+  }
+
   /* ---- Reveal on scroll ---- */
   var reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
@@ -2175,6 +2192,31 @@
   } else {
     reveals.forEach(function (el) { el.classList.add('in'); });
   }
+
+  /* ---- Skip link ----
+     The first stop for someone moving through the page with the keyboard: past
+     the header and its menu, straight to the page's own content. Off-screen until
+     it has focus. Added here, before the anchor handler below picks up every
+     "#" link, so that handler does the scrolling and this one only moves focus --
+     without the focus move, the next Tab would land back in the menu. The
+     target is whatever follows the header, so every page gets it unedited. */
+  (function () {
+    var header = document.getElementById('header');
+    var target = header && header.nextElementSibling;
+    if (!target) return;
+    if (!target.id) target.id = 'content';
+    target.setAttribute('tabindex', '-1');
+    target.classList.add('skip-target');
+    var en = (document.documentElement.lang || 'ka').indexOf('en') === 0;
+    var a = document.createElement('a');
+    a.className = 'skip-link';
+    a.href = '#' + target.id;
+    a.textContent = en ? 'Skip to content' : 'მთავარ კონტენტზე გადასვლა';
+    a.addEventListener('click', function () {
+      try { target.focus({ preventScroll: true }); } catch (err) { target.focus(); }
+    });
+    document.body.insertBefore(a, document.body.firstChild);
+  })();
 
   /* ---- Smooth anchor scroll with header offset ---- */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {

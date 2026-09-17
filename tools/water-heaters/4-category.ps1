@@ -90,7 +90,7 @@ foreach ($lang in 'ka','en') {
     </nav>
     <div class="section__head" style="margin-bottom:0">
       <span class="eyebrow">$($t.eyebrow)</span>
-      <h2>$($t.head)</h2>
+      <h1>$($t.head)</h1>
       <p class="page-lede">$($t.lede)</p>
     </div>
   </div>

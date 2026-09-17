@@ -49,6 +49,10 @@ foreach ($proj in $DATA) {
     $th = [int][Math]::Round($tw * $HERO_H / $HERO_W)
     & $MAGICK $thumb.FullName -resize ($tw.ToString() + 'x' + $th + '^') `
               -gravity center -extent ($tw.ToString() + 'x' + $th) -quality 82 $dst
+    # The homepage and projects.html show the hero as a card background: an AVIF
+    # copy at 1400px, about a third of the JPEG. The JPEG stays for the project
+    # page itself, where the lightbox opens it full size.
+    & $MAGICK $dst -resize '1400x>' -quality 55 ($dst -replace '\.jpg$', '-card.avif')
     $heroNote = 'rebuilt ' + $tw + 'x' + $th
   }
 

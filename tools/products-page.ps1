@@ -289,7 +289,7 @@ foreach ($lang in 'ka','en') {
     </nav>
     <div class="section__head" style="margin-bottom:0">
       <span class="eyebrow">{EYEBROW}</span>
-      <h2>{H2}</h2>
+      <h1>{H2}</h1>
     </div>
   </div>
 </section>
@@ -322,7 +322,7 @@ foreach ($lang in 'ka','en') {
     </nav>
     <div class="section__head" style="margin-bottom:0">
       <span class="eyebrow">{EYEBROW}</span>
-      <h2>{SOONH2}</h2>
+      <h1>{SOONH2}</h1>
     </div>
   </div>
 </section>

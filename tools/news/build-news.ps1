@@ -35,6 +35,16 @@ function DropBlock($s, $open, $closeAfter) {
 
 function Esc($s) { $s -replace '&(?!(amp|lt|gt|quot|#\d+);)', '&amp;' -replace '"', '&quot;' }
 
+# A news card shows the article hero at card size, so it takes the 900px AVIF
+# copy 1-images.ps1 makes beside the hero (about a sixth of the JPEG), or the
+# hero itself if that copy has not been made. Cards sit below the fold, hence
+# loading="lazy", written here so a rebuild cannot drop it.
+function CardImg($hero) {
+  $c = $hero -replace '\.jpe?g$', '-card.avif'
+  if ($c -ne $hero -and (Test-Path (Join-Path $repo ('assets\img\' + $c)))) { return $c }
+  return $hero
+}
+
 foreach ($item in $DATA) {
   foreach ($lang in 'ka', 'en') {
     $sfx = if ($lang -eq 'en') { '-en.html' } else { '.html' }
@@ -148,7 +158,7 @@ foreach ($item in $DATA) {
         if ($o.slug -eq $item.slug) { continue }
         $ot = $o.$lang
         $c = $card
-        $c = [regex]::Replace($c, 'src="\.\./assets/img/[^"]*"', ('src="../assets/img/' + $o.hero + '"'))
+        $c = [regex]::Replace($c, 'src="\.\./assets/img/[^"]*"( loading="lazy")?', ('src="../assets/img/' + (CardImg $o.hero) + '" loading="lazy"'))
         $c = [regex]::Replace($c, '<span class="news__cat">[^<]*</span>', ('<span class="news__cat">' + $ot.cat + '</span>'))
         # the title links to the article as well, so hovering it shows the same
         # "you can go there" cue as the ვრცლად link below it
@@ -209,7 +219,7 @@ foreach ($lang in 'ka', 'en') {
   foreach ($o in $DATA) {
     $ot = $o.$lang
     $c = $card
-    $c = [regex]::Replace($c, 'src="assets/img/[^"]*"', ('src="assets/img/' + $o.hero + '"'))
+    $c = [regex]::Replace($c, 'src="assets/img/[^"]*"( loading="lazy")?', ('src="assets/img/' + (CardImg $o.hero) + '" loading="lazy"'))
     $c = [regex]::Replace($c, '<span class="news__cat">[^<]*</span>', ('<span class="news__cat">' + $ot.cat + '</span>'))
     # same as the in-article strip: the title is a link too
     $c = [regex]::Replace($c, '(?s)<h3>.*?</h3>',

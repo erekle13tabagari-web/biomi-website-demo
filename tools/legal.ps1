@@ -96,7 +96,7 @@ foreach ($doc in $DOCS) {
       </nav>
       <div class="section__head" style="margin-bottom:0">
         <span class="eyebrow">{EYEBROW}</span>
-        <h2>{H2}</h2>
+        <h1>{H2}</h1>
         <p class="page-lede">{LEDE}</p>
       </div>
     </div>

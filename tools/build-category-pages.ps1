@@ -34,7 +34,8 @@ $PAGES = @(
      headKa='Multisplit / VRV / VRF'; headEn='Multisplit / VRV / VRF'
      crumbKa='გაგრილება'; crumbEn='Cooling'
      titleKa='გაგრილება - ბიომი'; titleEn='Cooling - Biomi'
-     ledeKa='ერთი გარე ბლოკი ამარაგებს რამდენიმე შიდა ბლოკს. VRF და VRV სისტემები მაცივარაგენტის ხარჯს თითოეული ოთახის საჭიროებაზე არეგულირებს.'; ledeEn='One outdoor unit serves several indoor units. VRF and VRV systems vary the refrigerant flow to match what each room actually needs.'
+     # no intro line under the heading (removed at the user's request, 2026-09-17)
+     ledeKa=''; ledeEn=''
      pdescKa='Multisplit, VRV და VRF სისტემები Samsung-ისა და Mitsubishi Electric-ისგან.'; pdescEn='Multisplit, VRV and VRF systems from Samsung and Mitsubishi Electric.'
      # Plain names in the filter. What each range is and how it differs from the
      # others is explained under the filter instead (notes), at a length a
@@ -324,7 +325,7 @@ foreach ($p in $PAGES) {
     </nav>
     <div class="section__head" style="margin-bottom:0">
       <span class="eyebrow">$eyebrow</span>
-      <h2>$head</h2>$lede
+      <h1>$head</h1>$lede
     </div>
   </div>
 </section>
