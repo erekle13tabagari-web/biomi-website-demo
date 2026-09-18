@@ -22,7 +22,7 @@
 #
 # ---- English
 #
-# Both documents exist in Georgian only. The English pages carry English chrome
+# The documents exist in Georgian only. The English pages carry English chrome
 # and the Georgian text, which is what the English lede says. Swap in an -en
 # fragment here once a translation exists.
 $repo  = Split-Path $PSScriptRoot -Parent
@@ -49,6 +49,17 @@ $DOCS = @(
              title='Consent to the processing of personal data - Biomi'
              h2='Consent to the processing of personal data'
              lede='What we do with the data sent through the online form, why, and what you get to choose. Published in Georgian.' } }
+  # Split out of the consent document by the client's lawyers (2026-09-18): the
+  # contact form's third, optional tick links here.
+  @{ slug='marketing'; body='marketing-ka.html'
+     ka = @{ link='თანხმობა მარკეტინგული მიზნებისთვის'
+             title='თანხმობა მარკეტინგული მიზნებისთვის - ბიომი'
+             h2='თანხმობა მარკეტინგული მიზნებისთვის მონაცემთა დამუშავებაზე'
+             lede='სარეკლამო და საინფორმაციო შეტყობინებები: რა მონაცემებს ვიყენებთ, რა არხებით და როგორ შეგიძლიათ თანხმობის გამოხმობა.' }
+     en = @{ link='Marketing Consent'
+             title='Consent for marketing purposes - Biomi'
+             h2='Consent to the processing of data for marketing purposes'
+             lede='News and offers: which data we use, through which channels, and how to withdraw your consent. Published in Georgian.' } }
 )
 
 # $CHROME, not $LANG: PowerShell variable names are case-insensitive, so the

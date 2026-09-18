@@ -93,7 +93,7 @@
 
      track(name, params) records an event; before consent it does nothing. */
   var ANALYTICS = {
-    GA_ID:   '',     // <- the G-XXXXXXXXXX Measurement ID
+    GA_ID:   'G-F0J6WZ8NRQ',   // Biomi's GA4 property "biomi.ge" (created 2026-09-18)
     VERSION: 1,      // raise to ask everyone again, e.g. when a new tracker is added
     DAYS:    365
   };
@@ -1874,7 +1874,9 @@
       name:     'Please enter your first and last name.',
       email:    'Please enter a valid email address, e.g. name@example.com.',
       phone:    'Please enter a valid phone number.',
-      privacy:  'Please agree to the privacy policy to send your request.'
+      privacy:  'Please agree to the privacy policy to send your request.',
+      processing: 'Please agree to the processing of your personal data to send your request.',
+      consent:  'Please tick both required consents to send your request.'
     } : {
       sending: 'იგზავნება…',
       ok:      'მადლობა! თქვენი მოთხოვნა გაიგზავნა - ჩვენ მალე დაგიკავშირდებით.',
@@ -1890,9 +1892,13 @@
       name:     'გთხოვთ, მიუთითეთ სახელი და გვარი.',
       email:    'გთხოვთ, მიუთითეთ სწორი ელ. ფოსტა, მაგ. name@example.com.',
       phone:    'გთხოვთ, მიუთითეთ სწორი ტელეფონის ნომერი.',
-      privacy:  'მოთხოვნის გაგზავნისთვის საჭიროა კონფიდენციალურობის პოლიტიკასთან თანხმობა.'
+      privacy:  'მოთხოვნის გაგზავნისთვის საჭიროა კონფიდენციალურობის პოლიტიკასთან თანხმობა.',
+      processing: 'მოთხოვნის გაგზავნისთვის საჭიროა თანხმობა პერსონალურ მონაცემთა დამუშავებაზე.',
+      consent:  'მოთხოვნის გაგზავნისთვის საჭიროა ორივე სავალდებულო თანხმობა.'
     };
-    var ERR_MSG = { invalid: T.invalid, consent: T.privacy, file: T.file, too_large: T.tooMany, rate: T.rate };
+    // "consent" comes back from api/contact.php only if the ticks were skipped
+    // around the page's own check, so it names both required boxes
+    var ERR_MSG = { invalid: T.invalid, consent: T.consent, file: T.file, too_large: T.tooMany, rate: T.rate };
     var submitBtn = form.querySelector('button[type="submit"]');
 
     /* ---- Checking the fields ----
@@ -1903,7 +1909,9 @@
        language. The rules match api/contact.php, which checks everything again. */
     function problem(el) {
       var v = (el.value || '').trim();
-      if (el.type === 'checkbox') return el.required && !el.checked ? T.privacy : '';
+      // two required ticks since 2026-09-18 (privacy policy, personal data): the
+      // bubble names the one that was missed
+      if (el.type === 'checkbox') return el.required && !el.checked ? (el.name === 'processing' ? T.processing : T.privacy) : '';
       if (el.validity && el.validity.customError) return el.validationMessage;   // the word limit's own message
       if (el.required && !v) return T.required;
       if (el.name === 'fullname' && v.length < 2) return T.name;

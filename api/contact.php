@@ -24,7 +24,10 @@ const MAX_FILE  = 10 * 1024 * 1024;   // per PDF - the form says "max 10MB per f
 const MAX_TOTAL = 15 * 1024 * 1024;   // all PDFs together; mail grows by a third on the way
 const RATE_IP   = 5;                  // requests per address ...
 const RATE_MIN  = 15;                 // ... per this many minutes
-const KEEP_YEARS = 6;                 // privacy.html: kept at most 6 years
+// consent.html (2026-09-18): an enquiry that led to no contract is kept 14
+// months from sending. Marketing consents are kept until withdrawn
+// (marketing.html), so only the rows without one are cleared on this clock.
+const KEEP_MONTHS = 14;
 const MAIL_FONT = "'Segoe UI',Tahoma,Arial,sans-serif";   // Outlook has no web fonts; Segoe UI carries Georgian
 
 date_default_timezone_set('Asia/Tbilisi');
@@ -80,6 +83,7 @@ function db(?array $cfg): ?PDO {
         email VARCHAR(190) NOT NULL,
         phone VARCHAR(40) NOT NULL,
         privacy TINYINT(1) NOT NULL,
+        processing TINYINT(1) NOT NULL DEFAULT 0,
         marketing TINYINT(1) NOT NULL,
         policy_version VARCHAR(80) NOT NULL,
         ip VARCHAR(45) NOT NULL,
@@ -88,6 +92,11 @@ function db(?array $cfg): ?PDO {
         KEY email (email),
         KEY created_at (created_at)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+    // Tables made before the separate personal-data tick (2026-09-18) lack its
+    // column. Older rows keep 0: that tick did not exist when they were given.
+    if (!$pdo->query("SHOW COLUMNS FROM form_consents LIKE 'processing'")->fetch()) {
+      $pdo->exec("ALTER TABLE form_consents ADD COLUMN processing TINYINT(1) NOT NULL DEFAULT 0 AFTER privacy");
+    }
   } catch (Throwable $e) {
     error_log('biomi contact: database: ' . $e->getMessage());
     $pdo = null;
@@ -147,6 +156,7 @@ function mailParts(array $d): array {
     'ფაილები:         ' . ($files ? count($files) . ' (მიმაგრებულია)' : '-'),
     '',
     'კონფიდენციალურობის პოლიტიკა: დაეთანხმა',
+    'მონაცემთა დამუშავება:        დაეთანხმა',
     'მარკეტინგული მიზნები:        ' . ($d['marketing'] ? 'თანახმაა' : 'არ არის თანახმა'),
     '',
     'გვერდი: ' . ($page !== '' ? $page : '-') . ' (' . $langName . ')',
@@ -218,6 +228,8 @@ function mailParts(array $d): array {
     . mailHeading('თანხმობები')
     . '<tr><td style="padding:0 32px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">'
     .   mailRow('კონფიდენციალურობის პოლიტიკა', mailTick(true, 'დაეთანხმა', 'არ დაეთანხმა'), true)
+    // both required: the form cannot be sent without them
+    .   mailRow('მონაცემთა დამუშავება', mailTick(true, 'დაეთანხმა', 'არ დაეთანხმა'))
     .   mailRow('მარკეტინგული მიზნები', mailTick((bool)$d['marketing'], 'თანახმაა', 'არ არის თანახმა'))
     . '</table></td></tr>'
 
@@ -313,7 +325,8 @@ $lang     = ($_POST['lang'] ?? '') === 'en' ? 'en' : 'ka';
 $brief    = trim(str_replace("\r\n", "\n", (string)($_POST['brief'] ?? '')));
 $brief    = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/u', '', $brief) ?? '';
 $privacy  = isset($_POST['privacy']) && $_POST['privacy'] !== '';
-$marketing = isset($_POST['marketing']) && $_POST['marketing'] !== '';
+$processing = isset($_POST['processing']) && $_POST['processing'] !== '';   // consent.html - required
+$marketing = isset($_POST['marketing']) && $_POST['marketing'] !== '';     // marketing.html - optional
 
 $digits = preg_replace('/\D+/', '', $phone) ?? '';
 if (mb_strlen($fullname) < 2
@@ -322,7 +335,7 @@ if (mb_strlen($fullname) < 2
     || mb_strlen($brief) > 4000 || count(preg_split('/\s+/u', $brief, -1, PREG_SPLIT_NO_EMPTY)) > 300) {
   fail('invalid');
 }
-if (!$privacy) fail('consent');
+if (!$privacy || !$processing) fail('consent');
 
 /* PDFs: checked by their first bytes, not by the name the browser sent. */
 $files = [];
@@ -352,11 +365,13 @@ $site = strtolower(preg_replace('/[^A-Za-z0-9.\-]/', '', (string)($_SERVER['HTTP
 $now  = date('Y-m-d H:i:s');
 $isTest = str_starts_with($site, 'test.');
 
-/* Which text the visitor agreed to: a fingerprint of the two policy pages as
-   they were on the server at that moment. No version number to forget to bump. */
+/* Which text the visitor agreed to: a fingerprint of the three documents the
+   form links as they were on the server at that moment. No version number to
+   forget to bump. */
 $policy = [];
-foreach (['privacy' => ($lang === 'en' ? 'privacy-en.html' : 'privacy.html'),
-          'consent' => ($lang === 'en' ? 'consent-en.html' : 'consent.html')] as $k => $f) {
+foreach (['privacy'   => ($lang === 'en' ? 'privacy-en.html' : 'privacy.html'),
+          'consent'   => ($lang === 'en' ? 'consent-en.html' : 'consent.html'),
+          'marketing' => ($lang === 'en' ? 'marketing-en.html' : 'marketing.html')] as $k => $f) {
   $p = dirname(__DIR__) . '/' . $f;
   $policy[] = $k . ':' . (is_file($p) ? substr((string)sha1_file($p), 0, 12) : 'missing');
 }
@@ -376,14 +391,14 @@ if ($pdo) {
                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?)')
         ->execute([$now, $site, $lang, $page, $fullname, $email, $phone, $company, $brief, $fileList, $ip, $ua]);
     $requestId = (int)$pdo->lastInsertId();
-    $pdo->prepare('INSERT INTO form_consents (request_id, created_at, email, phone, privacy, marketing, policy_version, ip)
-                   VALUES (?,?,?,?,?,?,?,?)')
-        ->execute([$requestId, $now, $email, $phone, 1, $marketing ? 1 : 0, $policyVersion, $ip]);
+    $pdo->prepare('INSERT INTO form_consents (request_id, created_at, email, phone, privacy, processing, marketing, policy_version, ip)
+                   VALUES (?,?,?,?,?,?,?,?,?)')
+        ->execute([$requestId, $now, $email, $phone, 1, 1, $marketing ? 1 : 0, $policyVersion, $ip]);
 
-    // Nothing is kept longer than the privacy policy promises.
-    $cut = date('Y-m-d H:i:s', strtotime('-' . KEEP_YEARS . ' years'));
+    // Nothing is kept longer than the consent documents promise (KEEP_MONTHS).
+    $cut = date('Y-m-d H:i:s', strtotime('-' . KEEP_MONTHS . ' months'));
     $pdo->prepare('DELETE FROM form_requests WHERE created_at < ?')->execute([$cut]);
-    $pdo->prepare('DELETE FROM form_consents WHERE created_at < ?')->execute([$cut]);
+    $pdo->prepare('DELETE FROM form_consents WHERE created_at < ? AND marketing = 0')->execute([$cut]);
   } catch (Throwable $e) {
     // The log failing must not lose the enquiry: the mail still goes, and it
     // carries the consents too.

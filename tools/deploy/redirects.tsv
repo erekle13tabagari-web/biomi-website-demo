@@ -1,0 +1,155 @@
+# Old WordPress addresses -> new pages. One line each: old path <TAB> new path (or 410 = gone for good) <TAB> note.
+# Built 2026-09-18 from the old site's database backup (published pages, products, projects, categories).
+# deploy-site.ps1 turns these into 301 redirects in .htaccess; edit a line here and upload to change one.
+# Paths are written decoded (Georgian as is); Apache matches them against the decoded address.
+/my-account/	/	My account
+/shop/	/products.html	Shop
+/portfolio/	/projects.html	Portfolio
+/the-big-design-wall-likes-pictures/	410	The big design: Wall likes pictures -- theme demo content (English furniture posts and their tags), never Biomi's
+/new-home-decor-from-john-doerson/	410	New home decor from John Doerson -- theme demo content (English furniture posts and their tags), never Biomi's
+/minimalist-japanese-inspired-furniture/	410	Minimalist Japanese-inspired furniture -- theme demo content (English furniture posts and their tags), never Biomi's
+/creative-water-features-and-exterior/	410	Creative water features and exterior -- theme demo content (English furniture posts and their tags), never Biomi's
+/reinterprets-the-classic-bookshelf/	410	Reinterprets the classic bookshelf -- theme demo content (English furniture posts and their tags), never Biomi's
+/collar-brings-back-coffee-brewing-ritual/	410	Collar brings back coffee brewing ritual -- theme demo content (English furniture posts and their tags), never Biomi's
+/green-interior-design-inspiration/	410	Green interior design inspiration -- theme demo content (English furniture posts and their tags), never Biomi's
+/exploring-atlantas-modern-homes/	410	Exploring Atlanta’s modern homes -- theme demo content (English furniture posts and their tags), never Biomi's
+/portfolio/rhoncus-quisque-sollicitudin/	/projects/sdsu.html	სან-დიეგოს სახელმწიფო უნივერსიტეტი
+/portfolio/a-lacus-bibendum-pulvinar/	/projects/chateau.html	შატო მეფის ქალაქი
+/portfolio/leo-uteu-ullamcorper/	/projects/oro.html	რესტორანი ორო
+/portfolio/venenatis-nam-phasellus/	/projects/culinary.html	კულინარიის აკადემია
+/portfolio/imperdiet-mauris-a-nontin/	/projects/terminal.html	ტერმინალი - სამუშაო სივრე აქსის თაუერსში
+/portfolio/et-vestibulum-quis-a-suspendisse/	/projects/pasha.html	პაშა ბანკის სათაო ოფისი
+/portfolio/netus-eu-mollis-hac-dignis/	/projects/terminal.html	აქსის თაუერსი -- confirmed by the user 2026-09-18: old "Axis Towers" project; the new site has only the Terminal workspace inside it
+/portfolio/suspendisse-quam-at-vestibulum/	/projects/agrarian.html	აგრარული უნივერსიტეტი
+/home-digital-portfolio/	/	Home
+/about-us/	/about.html	ჩვენ შესახებ
+/contact-us/	/index.html#contact	Contact us
+/სერვისი/	/index.html#services	სერვისი
+/მომსახურება/	/index.html#services	მომსახურება
+/პროდუქცია/	/products.html	პროდუქცია
+/კონფიდენციალურობის-პოლი/	/privacy.html	კონფიდენციალურობის პოლიტიკა
+/წესები-და-პირობები/	/privacy.html	წესები და პირობები -- confirmed by the user 2026-09-18: old "terms and conditions" page; the new site has no terms page
+/პერსონალური-ინფორმაცია/	/consent.html	პერსონალური ინფორმაცია -- confirmed by the user 2026-09-18: old "personal information" page
+/ბრენდები/	/products.html	ბრენდები -- confirmed by the user 2026-09-18: old "brands" page
+/პარტნიორები/	/about.html	პარტნიორები -- confirmed by the user 2026-09-18: old "partners" page
+/პროექტები/	/projects.html	პროექტები
+/product/tiracamino-tc-10-m-2/	/products/vortice-roof.html	ბუხრის ვენტილატორი TTIRACAMINO TC 10 M
+/product/torretta-trm-70-e-4p/	/products/vortice-roof.html	სახურავის ვენტილატორი TORRETTA TRM 70 E 4P
+/product/torretta-trt-150-e-8p/	/products/vortice-roof.html	სახურავის ვენტილატორი TRT 150 E 8P
+/product/vort-hri-350-flat/	/products/vortice-hri.html	რეკუპერატორი VORT HRI 350 FLAT
+/product/vort-hr-300-neti-iot/	/products/vortice-hr-neti.html	რეკუპერატორი VORT HR 300 NETI IoT
+/product/ca-315-md-e-w/	/products/vortice-ca-md.html	ბუხრის ვენტილატორი CA 315 MD E W
+/product/ca-315-md-e-rf/	/products/vortice-ca-md.html	სახურავის ვენტილატორი CA 315 MD E RF
+/product/არხული-მრგვალი-ვენტილატო/	/products/vortice-lineo-q.html	არხული მრგვალი ვენტილატორი LINEO 100 Q
+/product/არხული-მრგვალი-ვენტილატ-2/	/products/vortice-lineo.html	არხული მრგვალი ვენტილატორი LINEO 125
+/product/არხული-მრგვალი-ვენტილატ-3/	/products/vortice-lineo.html	არხული მრგვალი ვენტილატორი LINEO 150
+/product/არხული-მრგვალი-ვენტილატ-4/	/products/vortice-lineo-q.html	არხული მრგვალი ვენტილატორი LINEO 200 Q
+/product/არხული-მრგვალი-ვენტილატ-5/	/products/vortice-lineo-q.html	არხული მრგვალი ვენტილატორი LINEO 250 Q
+/product/არხული-მრგვალი-ვენტილატ-6/	/products/vortice-lineo-q-t.html	არხული მრგვალი ვენტილატორი LINEO 250 Q T
+/product/არხული-მრგვალი-ვენტილატ-7/	/products/vortice-lineo-quiet.html	არხული მრგვალი ვენტილატორი LINEO 100 QUIET
+/product/არხული-მრგვალი-ვენტილატ-8/	/products/vortice-lineo-quiet.html	არხული მრგვალი ვენტილატორი LINEO 125 QUIET
+/product/არხული-მრგვალი-ვენტილატ-9/	/products/vortice-lineo-quiet.html	არხული მრგვალი ვენტილატორი LINEO 150 QUIET
+/product/არხული-მრგვალი-ვენტილატ-10/	/products/vortice-lineo-quiet.html	არხული მრგვალი ვენტილატორი LINEO 200 QUIET
+/product/არხული-მრგვალი-ვენტილატ-11/	/products/vortice-lineo-quiet.html	არხული მრგვალი ვენტილატორი LINEO 250 QUIET
+/product/არხული-მრგვალი-ვენტილატ-12/	/products/vortice-lineo-quiet.html	არხული მრგვალი ვენტილატორი LINEO 315 QUIET
+/product/არხული-მრგვალი-ვენტილატ-13/	/products/vortice-lineo-t-quiet.html	არხული მრგვალი ვენტილატორი LINEO 150 T QUIET
+/product/არხული-მრგვალი-ვენტილატ-14/	/products/vortice-lineo-t-quiet.html	არხული მრგვალი ვენტილატორი LINEO 200 T QUIET
+/product/არხული-მრგვალი-ვენტილატ-15/	/products/vortice-lineo-quiet-es.html	არხული მრგვალი ვენტილატორი LINEO 100 QUIET ES
+/product/არხული-ვენტილატორი-პლასტ/	/products/vortice-ca-v0.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 100 V0 D
+/product/არხული-ვენტილატორი-პლას-2/	/products/vortice-ca-v0.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 125 V0 D
+/product/არხული-ვენტილატორი-პლას-3/	/products/vortice-ca-v0.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 150 V0 D
+/product/არხული-ვენტილატორი-პლას-4/	/products/vortice-ca-v0.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 200 V0 Q
+/product/არხული-ვენტილატორი-პლას-5/	/products/vortice-ca-v0.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 200 V0 E
+/product/არხული-ვენტილატორი-პლას-6/	/products/vortice-ca-v0.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 250 V0 E
+/product/არხული-ვენტილატორი-პლას-7/	/products/vortice-ca-v0.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 315 V0 E
+/product/არხული-ვენტილატორი-პლას-8/	/products/vortice-ca-v0.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 100 V0 D
+/product/არხული-ვენტილატორი-პლას-9/	/products/vortice-ca-md.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 150 Q MD
+/product/არხული-ვენტილატორი-პლას-10/	/products/vortice-ca-md.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 150 MD
+/product/არხული-ვენტილატორი-პლას-11/	/products/vortice-ca-md.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 160 MD
+/product/არხული-ვენტილატორი-პლას-12/	/products/vortice-ca-md.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 200 MD
+/product/არხული-ვენტილატორი-პლას-13/	/products/vortice-ca-md.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 250 MD
+/product/არხული-ვენტილატორი-პლას-14/	/products/vortice-ca-md.html	არხული ვენტილატორი პლასტმასის კორპუსით CA 315 MD
+/product/არხული-ვენტილატორი-მეტალ/	/products/vortice-ca-rm-es.html	არხული ვენტილატორი მეტალის კორპუსით CA-RM 125 ES
+/product/არხული-ვენტილატორი-მეტა-2/	/products/vortice-ca-rm-es.html	არხული ვენტილატორი მეტალის კორპუსით CA-RM 150 ES
+/product/არხული-ვენტილატორი-მეტა-3/	/products/vortice-ca-rm-es.html	არხული ვენტილატორი მეტალის კორპუსით CA-RM 160 ES
+/product/არხული-ვენტილატორი-მეტა-4/	/products/vortice-ca-rm-es.html	არხული ვენტილატორი მეტალის კორპუსით CA-RM 200 ES
+/product/სამზარეულოს-ვენტილიატორ/	/products/vortice-qbk-sal.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK-SAL KC T 315
+/product/სამზარეულოს-ვენტილიატო-2/	/products/vortice-qbk-sal.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK-SAL KC M 355
+/product/სამზარეულოს-ვენტილიატო-3/	/products/vortice-qbk-sal.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK-SAL KC T 400
+/product/სამზარეულოს-ვენტილიატო-4/	/products/vortice-qbk-sal.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK-SAL KC T 500
+/product/სამზარეულოს-ვენტილიატო-5/	/products/vortice-qbk-sal.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK-SAL KC T 560
+/product/სამზარეულოს-ვენტილიატო-6/	/products/vortice-qbk.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK HE COMFORT 400 4T
+/product/სამზარეულოს-ვენტილიატო-7/	/products/vortice-qbk.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK HE COMFORT 450 4T
+/product/სამზარეულოს-ვენტილიატო-8/	/products/vortice-qbk.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK HE COMFORT 500 4T
+/product/სამზარეულოს-ვენტილიატო-9/	/products/vortice-qbk.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK HE COMFORT 560 4T
+/product/სამზარეულოს-ვენტილიატო-10/	/products/vortice-qbk.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK HE COMFORT 630 4T
+/product/სამზარეულოს-ვენტილიატო-11/	/products/vortice-qbk.html	სამზარეულოს ვენტილიატორი მართკუთხა VORT QBK HE COMFORT 710 6T
+/product/გამწოვი-mg-90-35/	/products/vortice-mg.html	გამწოვი MG 90/3,5"
+/product/გამწოვი-mg-150-6/	/products/vortice-mg.html	გამწოვი MG 150/6"
+/product/გამწოვი-mf-90-35/	/products/vortice-mf.html	გამწოვი MF 90/3,5"
+/product/გამწოვი-mf-100-4/	/products/vortice-mf.html	გამწოვი MF 100/4"
+/product/გამწოვი-mf-120-5/	/products/vortice-mf.html	გამწოვი MF 120/5"
+/product/გამწოვი-mf-150-6/	/products/vortice-mf.html	გამწოვი MF 150/6"
+/product/გამწოვი-mf-150-6-t-hcs-ll/	/products/vortice-mf.html	გამწოვი MF 150/6" T HCS LL
+/product/გამწოვი-mfo-90-35/	/products/vortice-mfo.html	გამწოვი MFO 90/3,5"
+/product/გამწოვი-mfo-100-4/	/products/vortice-mfo.html	გამწოვი MFO 100/4"
+/product/გამწოვი-mfo-120-5/	/products/vortice-mfo.html	გამწოვი MFO 120/5"
+/product/გამწოვი-me-100-4-ll/	/products/vortice-me.html	გამწოვი ME 100/4" LL
+/product/გამწოვი-me-100-4-ll-tp/	/products/vortice-me.html	გამწოვი ME 100/4" LL TP
+/product/გამწოვი-me-120-5-ll/	/products/vortice-me.html	გამწოვი ME 120/5" LL
+/product/გამწოვი-me-100-4-ll-oro-rosa-pink-gold/	/products/vortice-me.html	გამწოვი ME 100/4" LL ORO ROSA-PINK GOLD
+/product/გამწოვი-me-100-4-ll-oro-nero-black-gold/	/products/vortice-me.html	გამწოვი ME 100/4" LL ORO NERO-BLACK GOLD
+/product/გამწოვი-me-100-4-ll-oro-nero-black-gold-2/	/products/vortice-me.html	გამწოვი ME 100/4" LL ORO NERO-BLACK GOLD
+/product/გამწოვი-me-100-4-ll-oro-bianco-white-gold/	/products/vortice-me.html	გამწოვი ME 100/4" LL ORO BIANCO-WHITE GOLD
+/product/გამწოვი-qe-60-ll/	/products/vortice-qe.html	გამწოვი QE 60 LL
+/product/გამწოვი-qe-100-ll/	/products/vortice-qe.html	გამწოვი QE 100 LL
+/product/გამწოვი-ariett-habitat-15-30-ll/	/products/vortice-ariett.html	გამწოვი ARIETT HABITAT 15/30 LL
+/product/გამწოვი-ariett-habitat-20-75-ll/	/products/vortice-ariett.html	გამწოვი ARIETT HABITAT 20/75 LL
+/product/გამწოვი-vortice-150-6-ar/	/products/vortice-ar-p.html	გამწოვი VORTICE 150/6" AR
+/product/გამწოვი-vortice-230-9-p/	/products/vortice-ar-p.html	გამწოვი VORTICE 230/9" P
+/product/გამწოვი-vortice-230-9-ar/	/products/vortice-ar-p.html	გამწოვი VORTICE 230/9" AR
+/product/გამწოვი-vortice-300-12-ar/	/products/vortice-ar-p.html	გამწოვი VORTICE 300/12" AR
+/category/uncategorized-ka-ge/	410	Uncategorized @ka-ge (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/category/decoration/	410	Decoration (3) -- theme demo content (English furniture posts and their tags), never Biomi's
+/category/design-trends/	410	Design trends (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/category/furniture/	410	Furniture (1) -- theme demo content (English furniture posts and their tags), never Biomi's
+/category/inspiration/	410	Inspiration (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/product-category/ჰაერგადამამუშავებელი/	/products/ventilation.html?cat=hrv	ჰაერგადამამუშავებელი დანადგარი (2)
+/project-cat/accessories/	410	Accessories (1) -- theme demo content (English furniture posts and their tags), never Biomi's
+/tag/chair/	410	Chair (3) -- theme demo content (English furniture posts and their tags), never Biomi's
+/product-category/წყლის-კალორიფერი/	/products/ventilation.html	წყლის კალორიფერი (0)
+/product-category/სამაგრი-ელემენტები/	/products/accessories.html	სამაგრი ელემენტები (0)
+/project-cat/decor/	410	Decor (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/product-category/gamtsovi-ventilatorebi/	/products/ventilation.html	გამწოვი ვენტილატორები (0)
+/tag/furniture/	410	Furniture (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/project-cat/furniture/	410	Furniture (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/tag/guide/	410	Guide (4) -- theme demo content (English furniture posts and their tags), never Biomi's
+/tag/inspiratio/	410	Inspiratio (3) -- theme demo content (English furniture posts and their tags), never Biomi's
+/project-cat/kitchen/	410	Kitchen (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/product-category/სავენტილაციო-ცხაური/	/products/grilles.html	სავენტილაციო ცხაური (0)
+/project-cat/lighting/	410	Lighting (1) -- theme demo content (English furniture posts and their tags), never Biomi's
+/tag/news/	410	News (4) -- theme demo content (English furniture posts and their tags), never Biomi's
+/tag/sofa/	410	Sofa (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/tag/style/	410	Style (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/tag/table/	410	Table (2) -- theme demo content (English furniture posts and their tags), never Biomi's
+/product-category/დრეკადი-ჰაერსატარები/	/products/ducting.html	დრეკადი ჰაერსატარები (0)
+/tag/trends/	410	Trends (3) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/eva-solo/	410	Eva Solo (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/alessi/	410	Alessi (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/flos/	410	Flos (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/hay/	410	Hay (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/joseph-joseph/	410	Joseph Joseph (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/klober/	410	KLÖBER (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/louis-poulsen/	410	Louis Poulsen (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/magisso/	410	Magisso (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/brand/vitra/	410	Vitra (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/category/uncategorized/	410	Uncategorized (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/category/без-категории/	410	Без категории (0) -- theme demo content (English furniture posts and their tags), never Biomi's
+/product-category/ჰაერის-სარქველები/	/products/accessories.html	ჰაერის-სარქველები და რეგულატორები (0)
+/product-category/gamtsovi-ventilatorebi/ბუხრის-ვენტილატორი/	/products/ventilation.html?cat=ind	ბუხრის ვენტილატორი (2)
+/product-category/gamtsovi-ventilatorebi/დაბალხმაურიანი-ვენტილატ/	/products/ventilation.html?cat=duct	დაბალხმაურიანი ვენტილატორი (15)
+/product-category/gamtsovi-ventilatorebi/მართკუთხა-ვენტილატორი/	/products/ventilation.html?cat=ind	მართკუთხა ვენტილატორი (11)
+/product-category/gamtsovi-ventilatorebi/მრგვალი-ვენტილატორი/	/products/ventilation.html?cat=duct	მრგვალი ვენტილატორი (14)
+/product-category/gamtsovi-ventilatorebi/რადონის-გაზის-ვენტილატორ/	/products/ventilation.html	რადონის გაზის ვენტილატორი (4)
+/product-category/gamtsovi-ventilatorebi/საყოფაცხოვრებო-ვენტილატ/	/products/ventilation.html?cat=home	საყოფაცხოვრებო ვენტილატორი (25)
+/product-category/gamtsovi-ventilatorebi/სახურავის-ვენტილატორი/	/products/ventilation.html?cat=ind	სახურავის ვენტილატორი (3)

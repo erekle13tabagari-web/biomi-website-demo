@@ -845,7 +845,10 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 /* =========================================================================
    CONTACT strip
    ========================================================================= */
-.contact{display:grid;grid-template-columns:.92fr 1.08fr;gap:56px;align-items:stretch}
+/* minmax(0,..): a bare fr column never shrinks below its content's narrowest
+   width, and the form's was 646px - so between the one-column breakpoint (920)
+   and about 1100px the form ran off the right edge of the screen. */
+.contact{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:56px;align-items:stretch}
 .contact__intro{display:flex;flex-direction:column}
 .contact__intro h2{font-size:clamp(26px,3vw,38px);margin:6px 0 14px}
 .contact__intro p{color:var(--muted);font-size:18px;margin-bottom:28px}
@@ -877,7 +880,10 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    textarea's scrollbar and resize grip their dark look. */
 :root:not([data-theme="dark"]) .contact__form{background:var(--navy);color:var(--ink);border-color:var(--line);
   color-scheme:dark;--gray-300:#4f5180;--ok:#5fd899;--err:#ff8f8a}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+/* minmax(0,1fr) for the same reason as .contact: an input is at least ~20
+   characters wide unless told otherwise, and two of them pushed the phone
+   field past the form's edge at 1000px */
+.form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .field{margin-bottom:18px;display:flex;flex-direction:column;gap:7px}
 .field label{font-size:14px;font-weight:500;color:var(--ink-strong)}
 /* The star on a required label. Name, e-mail and phone have always been
@@ -940,8 +946,10 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
   gap:22px;margin-top:6px;flex-wrap:nowrap}
 .consents{display:flex;flex-direction:column;gap:9px;min-width:0;flex:1 1 auto}
 @media (max-width:520px){.form-actions{flex-wrap:wrap}}
+/* 12.5px since the third consent (2026-09-18): three document titles beside
+   the send button, kept compact */
 .consent{display:flex;align-items:flex-start;gap:9px;cursor:pointer;
-  font-size:13.5px;line-height:1.4;color:var(--muted);max-width:46ch}
+  font-size:12.5px;line-height:1.35;color:var(--muted);max-width:46ch}
 /* aligns to the first line, not the middle of a wrapped two-line label */
 .consent input{width:16px;height:16px;flex:0 0 auto;margin-top:1px;accent-color:var(--gold)}
 .consent a{color:var(--gold-600);text-decoration:underline;text-underline-offset:2px}

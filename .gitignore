@@ -8,6 +8,8 @@
 /HERO page images/
 # full-size hero card originals (2026-09-16); the served 1200px copies are assets/img/hero-card-*.jpg
 /Biomi_images for web/
+# the lawyers' Word files (2026-09-18); the pages come from tools/legal/*-ka.html via tools/legal.ps1
+/legal/
 /stock images/
 /partner logoes/
 /flags/
@@ -49,6 +51,8 @@ desktop.ini
 !Update Website.bat
 # ...and the staging upload button (the FTP login is not in it or in this folder).
 !Upload Test Site.bat
+# ...and its live twin (the login is not in it either).
+!Upload Live Site.bat
 
 # Per-machine paths to the source photo libraries (see the README beside each)
 /tools/vortice/paths.local.ps1
