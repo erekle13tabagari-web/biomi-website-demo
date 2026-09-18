@@ -44,6 +44,14 @@ function CardImg($hero) {
   if ($c -ne $hero -and (Test-Path (Join-Path $repo ('assets\img\' + $c)))) { return $c }
   return $hero
 }
+# The article's own photos (hero, inline figures) as the AVIF twin 1-images.ps1
+# writes beside each JPEG - a third of the size at the same 1600px, so the
+# lightbox loses nothing - or the JPEG if the twin has not been made.
+function PageImg($f) {
+  $a = $f -replace '\.jpe?g$', '.avif'
+  if ($a -ne $f -and (Test-Path (Join-Path $repo ('assets\img\' + $a)))) { return $a }
+  return $f
+}
 
 foreach ($item in $DATA) {
   foreach ($lang in 'ka', 'en') {
@@ -71,7 +79,7 @@ foreach ($item in $DATA) {
 
     # ---- hero
     $s = [regex]::Replace($s, '<img src="\.\./assets/img/[^"]*" alt="[^"]*" data-lightbox>',
-                          ('<img src="../assets/img/' + $item.hero + '" alt="' + (Esc $t.alt) + '" data-lightbox>'), 1)
+                          ('<img src="../assets/img/' + (PageImg $item.hero) + '" alt="' + (Esc $t.alt) + '" data-lightbox>'), 1)
     if ($t.cap) {
       $s = Swap $s '<figcaption>' '</figcaption>' ('<figcaption>' + $t.cap + '</figcaption>') 'hero caption'
     } else {
@@ -96,7 +104,7 @@ foreach ($item in $DATA) {
         $gal = '<div class="gallery" aria-label="' + $label + '">' + $CRLF
         for ($k = 0; $k -lt $shots.Count; $k++) {
           $gal += '        <img src="../assets/img/' + $item.slug + '-gallery/' + $shots[$k].Name +
-                  '" alt="' + (Esc $t.alt) + $shot + ($k + 1) + '" data-lightbox>' + $CRLF
+                  '" alt="' + (Esc $t.alt) + $shot + ($k + 1) + '" loading="lazy" data-lightbox>' + $CRLF
         }
         $gal += '      </div>'
         $s = $s.Substring(0, $g) + $gal + $s.Substring($e)
@@ -120,7 +128,8 @@ foreach ($item in $DATA) {
         if ($fig) {
           $ft = $fig.$lang
           $lines += '<figure class="article__img">'
-          $lines += '  <img src="../assets/img/' + $fig.img + '" alt="' + (Esc $ft.alt) + '" data-lightbox>'
+          # further down the article than the hero: fetched as the reader nears it
+          $lines += '  <img src="../assets/img/' + (PageImg $fig.img) + '" alt="' + (Esc $ft.alt) + '" loading="lazy" data-lightbox>'
           $lines += '  <figcaption>' + $ft.cap + '</figcaption>'
           $lines += '</figure>'
         }
@@ -165,6 +174,7 @@ foreach ($item in $DATA) {
         $c = [regex]::Replace($c, '(?s)<h3>.*?</h3>',
                               ('<h3><a href="' + $o.slug + $sfx + '">' + $ot.h1 + '</a></h3>'))
         $c = [regex]::Replace($c, '<a class="link-more" href="[^"]*"', ('<a class="link-more" href="' + $o.slug + $sfx + '"'))
+        $c = [regex]::Replace($c, '<a class="news__img" href="[^"]*"', ('<a class="news__img" href="' + $o.slug + $sfx + '"'))
         $cards += $c
       }
       if ($cards.Count) {
@@ -225,6 +235,7 @@ foreach ($lang in 'ka', 'en') {
     $c = [regex]::Replace($c, '(?s)<h3>.*?</h3>',
                           ('<h3><a href="news/' + $o.slug + $sfx + '">' + $ot.h1 + '</a></h3>'))
     $c = [regex]::Replace($c, '<a class="link-more" href="[^"]*"', ('<a class="link-more" href="news/' + $o.slug + $sfx + '"'))
+    $c = [regex]::Replace($c, '<a class="news__img" href="[^"]*"', ('<a class="news__img" href="news/' + $o.slug + $sfx + '"'))
     $cards += $c
   }
   $s = $s.Substring(0, $cs) + ($cards -join ($CRLF + '        ')) + $s.Substring($ge)

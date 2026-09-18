@@ -53,7 +53,11 @@ $RemoteDir = if ($Live) { if ($Folder) { $Folder.Trim('/') } else { 'public_html
 
 # The PDFs didn't fit on the account (disk ~95% full, shared with the
 # mailboxes), so the test copy carries one brochure to test downloads with.
-# The live site takes them all unless -NoPdf.
+# The live site takes them all once $LivePdfs is $true: that waits until the
+# old WordPress folder (domains/biomi.ge/old_wordpress, ~3.7 GB) is deleted,
+# because 292 MB of PDFs beside it could fill the disk the mailboxes need.
+$LivePdfs = $false
+if ($Live -and -not $LivePdfs) { $NoPdf = [switch]$true }
 $PdfAllow = @('assets/downloads/vortice-lineo-brochure.pdf')
 # The only two font files the CSS uses; the rest of fonts/ is source material.
 $FontAllow = @('fonts/Futura 100/Variable/Futura100-VF-Upright.ttf',

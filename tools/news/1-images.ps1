@@ -48,6 +48,9 @@ foreach ($item in $DATA) {
     # the news cards (homepage rail, "other news" strip) take a 900px AVIF copy;
     # build-news.ps1 uses it when it exists and the full hero when it does not
     & $MAGICK $dst -resize '900x>' -quality 55 ($dst -replace '\.jpe?g$', '-card.avif')
+    # and a full-size AVIF twin for the article page itself (build-news.ps1
+    # prefers it): about a third of the JPEG
+    & $MAGICK $dst -quality 55 ($dst -replace '\.jpe?g$', '.avif')
     $heroNote = 'rebuilt ' + $tw + 'x' + $th
   }
 
@@ -102,6 +105,7 @@ foreach ($item in $DATA) {
     }
     if (-not $raw) { Write-Host ('  ! figure source missing: ' + $fig.from); continue }
     & $MAGICK $raw -resize '1400x1400>' -quality 82 $dstImg
+    & $MAGICK $dstImg -quality 55 ($dstImg -replace '\.jpe?g$', '.avif')   # the twin build-news.ps1 uses
     if ($tmpRaw) { Remove-Item $tmpRaw -Force }
     $figNote = if ($figNote -eq 'none') { $fig.img } else { $figNote + ', ' + $fig.img }
   }

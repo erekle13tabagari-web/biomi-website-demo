@@ -53,6 +53,8 @@ foreach ($proj in $DATA) {
     # copy at 1400px, about a third of the JPEG. The JPEG stays for the project
     # page itself, where the lightbox opens it full size.
     & $MAGICK $dst -resize '1400x>' -quality 55 ($dst -replace '\.jpg$', '-card.avif')
+    # full-size AVIF twin for the project page's own hero (build-projects.ps1)
+    & $MAGICK $dst -quality 55 ($dst -replace '\.jpg$', '.avif')
     $heroNote = 'rebuilt ' + $tw + 'x' + $th
   }
 

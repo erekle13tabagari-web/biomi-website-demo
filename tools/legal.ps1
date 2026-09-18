@@ -29,6 +29,20 @@ $repo  = Split-Path $PSScriptRoot -Parent
 $BOM   = New-Object Text.UTF8Encoding($true)
 $NOBOM = New-Object Text.UTF8Encoding($false)
 
+# Index just past the </div> that closes the <div> starting at $i (depth
+# counting, as in menu-rebuild.ps1: the footer grid nests divs, so a lazy
+# regex would stop at the first inner closing tag).
+function DivEnd([string]$s, [int]$i) {
+  $depth = 0
+  $m = ([regex]'</?div\b').Match($s, $i)
+  while ($m.Success) {
+    if ($m.Value -eq '<div') { $depth++ } else { $depth-- }
+    if ($depth -eq 0) { return $s.IndexOf('>', $m.Index) + 1 }
+    $m = $m.NextMatch()
+  }
+  return -1
+}
+
 # the documents, in the order their links appear in the footer
 $DOCS = @(
   @{ slug='privacy'; body='privacy-ka.html'
@@ -172,12 +186,11 @@ foreach ($f in $files) {
   }
   $block = "`r`n" + '        <div class="footer__policies">' + $links + "`r`n" + '        </div>'
 
+  # Take the wrapper out wherever it is. It holds only <a> elements, so the
+  # first </div> after its last link is its own. A page from before the
+  # wrapper may carry a single loose link instead; that goes too.
   if ($s.Contains('<div class="footer__policies">')) {
-    # rebuild it, so a changed label or a new document lands on every page
     $a = $s.IndexOf('<div class="footer__policies">')
-    $b = $s.IndexOf('</div>', $s.LastIndexOf('</a>', $s.IndexOf('</div>', $s.IndexOf('<a class="footer__policy"', $a))))
-    $b = $s.IndexOf('</div>', $a)
-    # step past each nested </a> to the wrapper's own </div>
     $scan = $a
     while ($true) {
       $nextA = $s.IndexOf('<a class="footer__policy"', $scan + 1)
@@ -185,21 +198,21 @@ foreach ($f in $files) {
       if ($nextA -lt 0 -or $nextA -gt $close) { $b = $close + 6; break }
       $scan = $nextA
     }
-    $s = $s.Substring(0, $a).TrimEnd(" ", [char]13, [char]10) + $block.TrimStart([char]13, [char]10) +
-         $s.Substring($b)
-    $linked++
-  }
-  else {
-    # first run on this page: place the block under the social icons.
-    # .footer__social holds only <a> elements, so the first </div> closes it.
-    # An older single link may be sitting there; take it out first.
+    $s = $s.Substring(0, $a).TrimEnd(" ", [char]13, [char]10) + $s.Substring($b)
+  } else {
     $s = [regex]::Replace($s, '(?s)\s*<a class="footer__policy".*?</a>', '')
-    $a = $s.IndexOf('<div class="footer__social">')
-    if ($a -ge 0) {
-      $b = $s.IndexOf('</div>', $a) + 6
-      $s = $s.Substring(0, $b) + $block + $s.Substring($b)
-      $linked++
-    }
+  }
+  # ...and put it back as the footer grid's last child. It sat under the social
+  # icons until 2026-09-18; with four entries that column grew too long, so the
+  # CSS now gives the wrapper a row of its own spanning two footer columns,
+  # which it can only do as a grid item.
+  $g = $s.IndexOf('<div class="footer__grid">')
+  if ($g -ge 0) {
+    $end = DivEnd $s $g
+    if ($end -lt 0) { throw ('footer grid not closed in ' + $f.FullName) }
+    $closeTag = $s.LastIndexOf('</div>', $end - 1)
+    $s = $s.Substring(0, $closeTag).TrimEnd(" ", [char]13, [char]10) + $block + "`r`n" + '      ' + $s.Substring($closeTag)
+    $linked++
   }
   if ($s -ne $before) { [IO.File]::WriteAllText($f.FullName, $s, $BOM) }
 }

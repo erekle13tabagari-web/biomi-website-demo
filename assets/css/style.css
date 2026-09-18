@@ -561,6 +561,11 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
   transition:transform .3s var(--ease),box-shadow .3s;display:flex;flex-direction:column}
 .news:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
 .news__img{aspect-ratio:16/10;position:relative;overflow:hidden}
+/* the picture links to the article as well (2026-09-18); out of the tab order
+   and hidden from screen readers, since the title right below is the same link */
+a.news__img{display:block}
+a.news__img img{transition:transform .5s var(--ease)}
+.news:hover a.news__img img{transform:scale(1.04)}
 .news__img .ph{position:absolute;inset:0}
 .news__date{position:absolute;left:14px;top:14px;background:#fff;color:var(--navy);
   font-size:12px;font-weight:500;padding:6px 11px;border-radius:4px}
@@ -584,8 +589,16 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    ========================================================================= */
 /* circular category ring — click a category to focus it */
 .ring-wrap{position:relative}
-.ring{position:relative;width:min(540px,92vw);aspect-ratio:1;margin:0 auto;
-  --r:clamp(118px,29vw,210px); --size:clamp(66px,13vw,94px); --rot:0deg;
+/* The wheel is sized by the screen's height as well as its width (2026-09-18),
+   so the whole section - heading, wheel, the line under it - fits on one
+   screen: at 1600x900 it was 997px tall with 834px showing under the header.
+   450px is everything in the section that is not the wheel, header included.
+   Radius, badges, hub and hand all follow --ring, in the proportions the
+   540px wheel was drawn at; phones keep their own sizes further down. */
+.ring{position:relative;aspect-ratio:1;margin:0 auto;
+  --ring:min(540px,92vw,max(320px,calc(100vh - 450px)));
+  width:var(--ring);
+  --r:calc(var(--ring) * .389); --size:calc(var(--ring) * .174); --rot:0deg;
   transition:transform .65s var(--ease)}
 .ring__node{position:absolute;left:50%;top:50%;width:var(--size);height:var(--size);
   margin:calc(var(--size) / -2);
@@ -637,11 +650,11 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 .ring-wrap.is-focused .ring{transform:translateX(-26%)}
 /* center hub */
 .ring__center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:clamp(112px,24vw,162px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+  width:calc(var(--ring) * .3);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
   text-align:center;border:1px dashed rgba(var(--accent-rgb),.38);transition:opacity .4s}
 .ring-wrap.is-focused .ring__center{opacity:0}
 .ring__center::before{content:"";position:absolute;inset:14px;border-radius:50%;border:1px solid rgba(255,255,255,.07)}
-.ring__logomark{height:clamp(58px,12.5vw,86px);width:auto;display:block}
+.ring__logomark{height:calc(var(--ring) * .159);width:auto;display:block}
 /* tap hint — a finger tapping a category, until the user interacts */
 .ring__hint{position:absolute;left:50%;top:50%;width:var(--size);height:var(--size);
   margin:calc(var(--size) / -2);z-index:6;pointer-events:none;
@@ -652,7 +665,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    replacing the artwork can never letterbox or stretch it and no width needs
    re-tuning. transform-origin sits on the fingertip, near the top of the canvas,
    so the tap animation pivots at the contact point. */
-.ring__hint-hand{position:absolute;left:52%;top:46%;height:46px;width:auto;
+.ring__hint-hand{position:absolute;left:52%;top:46%;height:max(32px,calc(var(--ring) * .085));width:auto;
   filter:drop-shadow(0 3px 6px rgba(0,0,0,.35));transform-origin:32% 10%;
   animation:ringTap 1.9s var(--ease) infinite}
 .ring__hint-ripple{position:absolute;left:50%;top:50%;width:calc(var(--size) + 6px);height:calc(var(--size) + 6px);
@@ -703,8 +716,50 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
     transition:opacity .5s var(--ease) .2s,transform .5s var(--ease) .2s,max-height .5s var(--ease)}
   .ring-wrap.is-focused .ring__detail{transform:none;max-height:560px}
 }
-.services__cta{margin-top:42px;display:flex;align-items:center;justify-content:space-between;
+.services__cta{margin-top:30px;display:flex;align-items:center;justify-content:space-between;
   gap:24px;flex-wrap:wrap}
+/* tighter than the other sections, for the one-screen fit above */
+@media (min-width:601px){
+  #services{padding:44px 0}
+  #services .section__head{margin-bottom:20px}
+}
+/* Short screens (a 1366x768 laptop leaves ~650px under the browser's bars):
+   the wheel is already at its 320px floor there, and smaller would crowd its
+   labels, so the heading gives up the room instead. */
+@media (min-width:601px) and (max-height:800px){
+  #services{padding:18px 0}
+  /* the top badge's label (outward, see below) sits closer to the heading here */
+  .ring-wrap{padding-top:20px}
+  #services .eyebrow{margin-bottom:8px}
+  /* wide enough for the intro to run on one line */
+  #services .section__head{margin-bottom:12px;max-width:1000px}
+  #services .section__head h2{font-size:clamp(24px,2.4vw,32px)}
+  #services .section__head p{font-size:16px;margin-top:8px}
+  /* the labels under the lowest badges hang ~30px below the wheel's box */
+  #services .services__cta{margin-top:36px}
+  /* 352 = the non-wheel height here, with the 12px .ring-wrap gains below */
+  .ring{--ring:min(540px,92vw,max(300px,calc(100vh - 364px)))}
+}
+@media (min-width:601px) and (min-height:801px) and (max-height:880px){
+  .ring{--ring:min(540px,92vw,max(320px,calc(100vh - 462px)))}
+  /* room for the label that sits above the top badge (outward, see below) */
+  .ring-wrap{padding-top:12px}
+}
+/* Below ~430px the wheel is too small for every label to hang under its badge:
+   on the upper half they land on the badge below (measured at 378px: three
+   did). Screens under 880px tall get a wheel that small, so there each label
+   sits outward from the centre instead - right of a badge on the right, above
+   the top one, and so on - pointing away from the other badges. The two
+   translates: the first anchors the label's near edge on the badge centre, the
+   second steps it out past the badge's rim. Browsers without CSS sin()/cos()
+   keep the labels underneath. */
+@media (min-width:601px) and (max-height:880px){
+  @supports (transform:translate(calc(sin(30deg) * 1px))){
+    .node__label{--la:calc(var(--a) + var(--rot));top:50%;left:50%;
+      transform:translate(calc(-50% + sin(var(--la)) * 50%),calc(-50% - cos(var(--la)) * 50%))
+                translate(calc(sin(var(--la)) * (var(--size) / 2 + 8px)),calc(cos(var(--la)) * (var(--size) / -2 - 8px)))}
+  }
+}
 .services__cta p{font-size:20px;max-width:560px}
 .services__cta p span{color:var(--gold-200)}
 
@@ -871,7 +926,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    match the taller column beside it left a band of empty space under the send
    button at the widths where that column wins. */
 .contact__form{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  box-shadow:var(--shadow-sm);padding:32px;align-self:start}
+  box-shadow:var(--shadow-sm);padding:28px;align-self:start}
 /* Light mode: the form card is navy, like the dropdown and the cookie bar, so
    its tokens come from the .on-navy block near the top of this file. The few
    it reads beyond those take dark values: ok/error text as in dark mode, and
@@ -884,7 +939,9 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    characters wide unless told otherwise, and two of them pushed the phone
    field past the form's edge at 1000px */
 .form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.field{margin-bottom:18px;display:flex;flex-direction:column;gap:7px}
+/* compacted 2026-09-18 (name + email now share a row, the PDF drop is one
+   slim bar): the form had grown taller than the column beside it */
+.field{margin-bottom:14px;display:flex;flex-direction:column;gap:6px}
 .field label{font-size:14px;font-weight:500;color:var(--ink-strong)}
 /* The star on a required label. Name, e-mail and phone have always been
    required and the form has always refused to send without them -- but nothing
@@ -901,7 +958,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    two-column form row beside it. The counter sits under the box and turns red
    past the limit; the limit itself is enforced in main.js, since HTML can cap
    characters but not words. */
-.field textarea{resize:vertical;min-height:104px;line-height:1.55}
+.field textarea{resize:vertical;min-height:84px;line-height:1.55}
 .field__count{align-self:flex-end;font-size:12.5px;color:var(--muted);margin-top:-2px}
 .field__count.is-over{color:#d9534f;font-weight:600}
 /* the counter line already spaces the brief from what follows it */
@@ -917,9 +974,15 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 /* the placeholder row reads as placeholder text until a real choice is made */
 .field select:has(option[value=""]:checked){color:#a7abb2}
 
-.filedrop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  text-align:center;padding:26px 20px;border:1.6px dashed var(--gray-300);border-radius:10px;
+/* one slim bar: the icon beside the two lines rather than stacked above them,
+   the group centred in the bar */
+.filedrop{display:grid;grid-template-columns:auto auto;justify-content:center;grid-template-areas:"icon text" "icon hint";
+  column-gap:14px;row-gap:2px;align-items:center;justify-items:start;
+  text-align:left;padding:13px 18px;border:1.6px dashed var(--gray-300);border-radius:10px;
   cursor:pointer;transition:border-color .2s,background .2s}
+.filedrop svg{grid-area:icon}
+.filedrop__text{grid-area:text}
+.filedrop__hint{grid-area:hint}
 .filedrop:hover,.filedrop.is-over{border-color:var(--gold);background:var(--bg-soft)}
 .filedrop svg{width:28px;height:28px;color:var(--gold-600)}
 .filedrop__text{font-size:15px;color:var(--ink-strong)}
@@ -995,7 +1058,26 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    own -- there are two short ones, and a whole column left the footer
    lopsided. The wrapper is what the phone layout moves below the map, so the
    pair travels together. */
-.footer__policies{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-top:20px}
+/* Four entries since 2026-09-18 (privacy, personal data, marketing, cookie
+   settings) - one column under the social icons was too long. The wrapper is
+   now the footer grid's last child (tools/legal.ps1 puts it there): on desktop
+   a row of its own under the brand and navigation columns, spanning both, so
+   it always starts below the longer of the two. subgrid hands it the footer's
+   own two columns, so each half lines up exactly; browsers without subgrid use
+   the same 1.4fr .9fr ratio. Filled column by column: the two consents stay
+   together, marketing and cookie settings beside them. */
+.footer__policies{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);
+  grid-template-columns:1.4fr .9fr;grid-template-columns:subgrid;column-gap:40px;row-gap:10px;
+  justify-items:start;align-items:start}
+@media (min-width:921px){
+  .footer__grid{grid-template-rows:auto 1fr;row-gap:26px}
+  .footer__grid > :first-child{grid-column:1;grid-row:1}          /* brand       */
+  .footer__grid > :nth-child(3){grid-column:2;grid-row:1}         /* navigation  */
+  .footer__grid > :nth-child(4){grid-column:3;grid-row:1 / 3}     /* products    */
+  .footer__grid > :nth-child(5){grid-column:4;grid-row:1 / 3}     /* contact     */
+  .footer__grid > .footer__mapcol{grid-column:5;grid-row:1 / 3}
+  .footer__grid > .footer__policies{grid-column:1 / 3;grid-row:2;align-self:start}
+}
 .footer__policy{display:inline-flex;align-items:flex-start;gap:8px;
   font-size:14px;color:rgba(255,255,255,.66);transition:color .2s}
 .footer__policy:hover{color:var(--gold-200)}
@@ -1745,6 +1827,8 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   /* .prod-grid deliberately absent: it is a horizontal rail below 1040px and
      must not collapse to a column here. */
   .footer__grid{grid-template-columns:1fr 1fr}
+  /* a full-width row of its own in this two-column footer, above the map */
+  .footer__grid > .footer__policies{grid-column:1 / -1}
   .contact{grid-template-columns:1fr;gap:36px}
 }
 @media (max-width:680px){
@@ -1776,7 +1860,13 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   .footer__grid > :first-child{display:contents}
   .footer__grid > :first-child > *{grid-column:1 / -1}
   .footer__mapcol{order:1}
-  .footer__policies{order:2;margin-top:0}
+  /* One column on phones: a half-width column (~150px) is narrower than
+     "კონფიდენციალურობის" alone, and the shared (subgrid) columns then pushed
+     the whole footer grid past the screen edge, map included. minmax(0,1fr)
+     keeps the footer's own two columns from being widened by any word. */
+  .footer__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .footer__policies{order:2;margin-top:0;grid-auto-flow:row;grid-template-rows:none;
+    grid-template-columns:minmax(0,1fr)}
   /* the grid gap spaces these now that they are grid items */
   .footer__social{margin-top:0}
   .form-row{grid-template-columns:1fr;gap:0}
@@ -1807,7 +1897,7 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
      the panel below, which is exactly what the pointing-hand hint is there to
      teach. Dropping the labels also frees the room to make the badges bigger,
      so they are easier to hit. */
-  .ring{width:min(300px,82vw);--r:clamp(96px,30vw,122px);--size:62px;margin:8px auto 20px}
+  .ring{--ring:min(300px,82vw);width:var(--ring);--r:clamp(96px,30vw,122px);--size:62px;margin:8px auto 20px}
   .node__badge svg{width:46%;height:46%}
   .node__label{display:none}
   .ring__center{width:33vw}

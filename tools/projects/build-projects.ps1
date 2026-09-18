@@ -26,6 +26,15 @@ function Swap($s, $a, $b, $new, $what) {
   return $s.Substring(0, $i) + $new + $s.Substring($j + $b.Length)
 }
 
+# The hero as the full-size AVIF twin 2-images.ps1 writes beside the JPEG (a
+# third of the size; the lightbox opens the same file), or the JPEG if there
+# is no twin yet.
+function PageImg($f) {
+  $a = $f -replace '\.jpe?g$', '.avif'
+  if ($a -ne $f -and (Test-Path (Join-Path $repo ('assets\img\' + $a)))) { return $a }
+  return $f
+}
+
 function SwapGallery($s, $proj, $t, $lang, $repo) {
   # Gallery. The count is not stored anywhere -- the folder is the source of
   # truth, so dropping more images in and re-running is all it takes. A project
@@ -46,7 +55,7 @@ function SwapGallery($s, $proj, $t, $lang, $repo) {
       $gal = '<div class="gallery" aria-label="' + $label + '">' + "`r`n"
       for ($k = 0; $k -lt $shots.Count; $k++) {
         $gal += '        <img src="../assets/img/' + $proj.slug + '-gallery/' + $shots[$k].Name +
-                '" alt="' + $t.alt + $shot + ($k + 1) + '" data-lightbox>' + "`r`n"
+                '" alt="' + $t.alt + $shot + ($k + 1) + '" loading="lazy" data-lightbox>' + "`r`n"
       }
       $gal += '      </div>'
       $s = $s.Substring(0, $g) + $gal + $s.Substring($e)
@@ -99,8 +108,9 @@ foreach ($proj in $DATA) {
                ('<h1>' + $t.h1 + '<span class="article__sub">' + $t.sub + '</span></h1>') 'h1'
     $s = Swap $s '<p class="article__lead">' '</p>' `
                ('<p class="article__lead">' + $t.lead + '</p>') 'lead'
-    $s = Swap $s '<img src="../assets/img/proj-terminal.jpg"' '>' `
-               ('<img src="../assets/img/' + $proj.hero + '" alt="' + $t.alt + '" data-lightbox>') 'hero image'
+    # the marker leaves the extension open: terminal.html's own hero is AVIF now
+    $s = Swap $s '<img src="../assets/img/proj-terminal.' '>' `
+               ('<img src="../assets/img/' + (PageImg $proj.hero) + '" alt="' + $t.alt + '" data-lightbox>') 'hero image'
     $s = Swap $s '<figcaption>' '</figcaption>' `
                ('<figcaption>' + $t.cap + '</figcaption>') 'hero caption'
 
