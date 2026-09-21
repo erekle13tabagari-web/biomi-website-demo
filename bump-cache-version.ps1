@@ -12,7 +12,7 @@
 # publish script always saw "changes" and made a commit full of nothing but new
 # ?v= numbers - and its "nothing to commit" branch could never be reached.
 # Pass -Force to stamp regardless.
-$assets = @('assets/css/style.css', 'assets/js/main.js', 'assets/img/favicon.svg')
+$assets = @('assets/css/style.css', 'assets/js/main.js', 'assets/img/favicon.svg', 'assets/img/favicon-light.svg')
 if ($args -notcontains '-Force') {
   Push-Location $PSScriptRoot
   # Compare against what is actually PUBLISHED, not against HEAD.
@@ -43,6 +43,16 @@ if ($args -notcontains '-Force') {
 }
 
 $ver = Get-Date -Format 'yyyyMMddHHmm'
+# The tab icon's tag is taken from its content, not the clock (2026-09-21). It
+# shared the stylesheet's date tag, so every design change gave the icon a new
+# address too - and Google, which shows the icon beside each search result, asks
+# for a stable one and was still showing the old WordPress logo. Hashed, the
+# address only moves when the icon does. Both themes' files count: main.js
+# builds the light one's address from this one's, tag included.
+$sha = [Security.Cryptography.SHA1]::Create()
+$icon = [IO.File]::ReadAllBytes((Join-Path $PSScriptRoot 'assets\img\favicon.svg')) +
+        [IO.File]::ReadAllBytes((Join-Path $PSScriptRoot 'assets\img\favicon-light.svg'))
+$iconVer = ([BitConverter]::ToString($sha.ComputeHash($icon)) -replace '-', '').Substring(0, 10).ToLower()
 $changed = 0
 
 Get-ChildItem -Path $PSScriptRoot -Recurse -Filter *.html |
@@ -53,7 +63,7 @@ Get-ChildItem -Path $PSScriptRoot -Recurse -Filter *.html |
     $new = [regex]::Replace(
       $text,
       '(assets/(?:css/style\.css|js/main\.js|img/favicon\.svg))(\?v=[^"]*)?"',
-      { param($m) $m.Groups[1].Value + '?v=' + $ver + '"' }
+      { param($m) $m.Groups[1].Value + '?v=' + $(if ($m.Groups[1].Value -like '*favicon*') { $iconVer } else { $ver }) + '"' }
     )
     if ($new -ne $text) {
       Set-Content -LiteralPath $_.FullName -Value $new -NoNewline -Encoding UTF8

@@ -126,7 +126,7 @@ foreach ($b in $BRANDS) {
 <section class="page-hero page-hero--brand">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
-      <a href="../index.html">$($t.home)</a><span class="sep">/</span>
+      <a href="../index$sfx">$($t.home)</a><span class="sep">/</span>
       <a href="../products$sfx">$($t.products)</a><span class="sep">/</span>
       <a href="$($b.cat)$sfx">$catLbl</a><span class="sep">/</span>
       <b>$($b.brand)</b>
@@ -162,8 +162,10 @@ $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
 "@
     if ($b.cat -eq 'burners') {
       $title = "$($b.brand) - " + $(if ($lang -eq 'ka') { 'სანთურები - ბიომი' } else { 'burners - Biomi' })
-      $descr = if ($lang -eq 'ka') { "$($b.brand)-ის სანთურები ქვაბისთვის - ბუნებრივ აირზე და დიზელის საწვავზე." }
-               else { "$($b.brand) burners for boilers - natural gas and light oil." }
+      # names the series, so it is not word for word the burners category's own
+      # description (found as a duplicate in the SEO audit, 2026-09-21)
+      $descr = if ($lang -eq 'ka') { "$($b.brand)-ის სანთურები - Gulliver BS ბუნებრივ აირზე და Gulliver RG დიზელის საწვავზე." }
+               else { "$($b.brand) burners - Gulliver BS for natural gas and Gulliver RG for light oil." }
     } else {
       $title = "$($b.brand) - " + $(if ($lang -eq 'ka') { 'ბიომი' } else { 'Biomi' })
       $descr = if ($lang -eq 'ka') { "$($b.brand)-ის გათბობის ქვაბები - კედლის და კომერციული სერიები." }

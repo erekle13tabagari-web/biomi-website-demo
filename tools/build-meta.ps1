@@ -73,6 +73,11 @@ $HIDDEN = 'service.html', 'service-en.html'
 # ones, but kept apart from $HIDDEN because deploy-site.ps1 reads that line and
 # skips uploading those pages, and the server needs these two to exist.
 $ERRORPAGES = '404.html', '404-en.html'
+# Uploaded and reachable, but not for search: the holding page a menu entry
+# without a listing points at. Nothing links to it now that underfloor heating
+# has a page, and a "coming soon" page in the index is thin content (SEO
+# audit, 2026-09-21). Not in $HIDDEN, which would stop it being uploaded.
+$NOINDEX = 'soon.html', 'soon-en.html'
 
 $urls = New-Object System.Collections.ArrayList
 foreach ($f in $files) {
@@ -95,7 +100,7 @@ foreach ($f in $files) {
   # Not $hidden: PowerShell variable names are case-insensitive, so assigning
   # to that would overwrite $HIDDEN with a boolean on the first page and every
   # test after it would be false.
-  $isHidden = ($HIDDEN -contains $f.Name) -or ($ERRORPAGES -contains $f.Name)
+  $isHidden = ($HIDDEN -contains $f.Name) -or ($ERRORPAGES -contains $f.Name) -or ($NOINDEX -contains $f.Name)
   if ($isHidden) { [void]$b.AppendLine('<meta name="robots" content="noindex,nofollow">') }
   if ($hasPair) {
     [void]$b.AppendLine('<link rel="alternate" hreflang="ka" href="' + (PageUrl $kaRel) + '">')
@@ -119,10 +124,16 @@ foreach ($f in $files) {
   # ---- structured data
   $isProduct = $txt -match 'class="spec-table' -and $txt -match 'class="pgal__main"'
   if ($isProduct) {
+    # Every make the catalogue carries. Beretta, Riello, Warmhaus and Omega were
+    # missing, so their 30-odd product pages told Google the maker was Biomi.
     $brand = switch -Regex ($f.Name) {
       '^samsung'    { 'Samsung' }
       '^mitsubishi' { 'Mitsubishi Electric' }
       '^vortice'    { 'Vortice' }
+      '^beretta'    { 'Beretta' }
+      '^riello'     { 'Riello' }
+      '^warmhaus'   { 'Warmhaus' }
+      '^omega'      { 'Omega' }
       default       { $ORG[$lang].name }
     }
     $h1 = ([regex]::Match($txt,'(?s)<h1>(.*?)</h1>')).Groups[1].Value -replace '<[^>]+>',''
@@ -149,7 +160,7 @@ foreach ($f in $files) {
       '"logo":"' + $BASE + '/assets/img/logo-geo.svg",' +
       '"image":"' + $BASE + '/assets/img/og/default.jpg",' +
       '"telephone":"+995322151115","email":"info@biomi.ge",' +
-      '"address":{"@type":"PostalAddress","streetAddress":"' + (J $o.addr) + '","addressLocality":"' + (J $o.city) + '","addressCountry":"GE"},' +
+      '"address":{"@type":"PostalAddress","streetAddress":"' + (J $o.addr) + '","addressLocality":"' + (J $o.city) + '","postalCode":"0159","addressCountry":"GE"},' +
       '"geo":{"@type":"GeoCoordinates","latitude":41.7831796,"longitude":44.7816816},' +
       '"areaServed":{"@type":"Country","name":"Georgia"},' +
       '"sameAs":[' + (($SAMEAS | ForEach-Object { '"' + (J $_) + '"' }) -join ',') + ']}</script>')
@@ -157,6 +168,48 @@ foreach ($f in $files) {
       '"@id":"' + $BASE + '/#website","url":"' + $BASE + '/","name":"Biomi",' +
       '"alternateName":["ბიომი","Biomi Holding","ბიომი ჰოლდინგი"],"inLanguage":"' + $lang + '",' +
       '"publisher":{"@id":"' + $BASE + '/#organization"}}</script>')
+  }
+
+  # Breadcrumbs (SEO audit, 2026-09-21): read off the trail the page already
+  # shows, so the two cannot disagree. Filter queries are dropped - they are not
+  # pages of their own (the listing's canonical has none) - and a crumb that
+  # then repeats the one before it goes, as "VRF / Samsung" does on a product.
+  # Google shows the trail in place of the bare URL under a result.
+  $trail = [regex]::Match($txt, '(?s)<nav class="crumbs"[^>]*>(.*?)</nav>')
+  if ($trail.Success -and -not $isHidden) {
+    $crumbs = New-Object System.Collections.ArrayList
+    $last = ''
+    foreach ($m in [regex]::Matches($trail.Groups[1].Value, '(?s)<a href="([^"]+)"[^>]*>(.*?)</a>|<b>(.*?)</b>')) {
+      if ($m.Groups[1].Success) {
+        $href = $m.Groups[1].Value -replace '[?#].*$', ''
+        $url = (New-Object Uri((New-Object Uri("$BASE/$rel")), $href)).AbsoluteUri -replace '(?<=biomi\.ge)/index\.html$', '/'
+        $name = $m.Groups[2].Value
+      } else {
+        $url = $canon; $name = $m.Groups[3].Value
+      }
+      $name = [Net.WebUtility]::HtmlDecode(($name -replace '<[^>]+>', ''))
+      if ($url -eq $last -or -not $name.Trim()) { continue }
+      [void]$crumbs.Add('{"@type":"ListItem","position":' + ($crumbs.Count + 1) + ',"name":"' + (J $name) + '","item":"' + $url + '"}')
+      $last = $url
+    }
+    if ($crumbs.Count -ge 2) {
+      [void]$b.AppendLine('<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[' +
+        ($crumbs -join ',') + ']}</script>')
+    }
+  }
+
+  # News posts as articles: headline, date and picture, published by Biomi.
+  if ($rel -like 'news/*' -and -not $isHidden) {
+    $head1 = [Net.WebUtility]::HtmlDecode((([regex]::Match($txt, '(?s)<h1[^>]*>(.*?)</h1>')).Groups[1].Value -replace '<[^>]+>', ''))
+    $date = ([regex]::Match($txt, '<time[^>]*datetime="([^"]+)"')).Groups[1].Value
+    if ($head1 -and $date) {
+      [void]$b.AppendLine('<script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle",' +
+        '"headline":"' + (J $head1) + '","datePublished":"' + $date + '","inLanguage":"' + $lang + '",' +
+        '"image":["' + "$BASE/assets/img/og/$og.jpg" + '"],"mainEntityOfPage":"' + $canon + '",' +
+        '"author":{"@type":"Organization","name":"' + (J $ORG[$lang].name) + '","url":"' + $BASE + '/"},' +
+        '"publisher":{"@type":"Organization","name":"' + (J $ORG[$lang].name) + '","url":"' + $BASE + '/",' +
+        '"logo":{"@type":"ImageObject","url":"' + $BASE + '/apple-touch-icon.png"}}}</script>')
+    }
   }
   [void]$b.AppendLine('<!-- meta:end -->')
 

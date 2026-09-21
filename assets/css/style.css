@@ -2224,6 +2224,10 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
   -webkit-mask:var(--m) no-repeat left center/contain;mask:var(--m) no-repeat left center/contain}
 /* navy on the light panel, white on the dark one */
 :root[data-theme="dark"] .pbuy__brand::after{background:#fff}
+/* a link to the brand's page since 2026-09-21 (tools/brand-links.ps1): the
+   logo takes the accent on hover, like the other links on the panel */
+a.pbuy__brand::after{transition:background-color .2s}
+a.pbuy__brand:hover::after,a.pbuy__brand:focus-visible::after{background:var(--gold)}
 /* the output is the headline figure on this panel, so it takes the accent and
    a size to match; --gold-600 resolves per theme and reads on both surfaces */
 .pbuy__kw{font-size:22px;font-weight:700;line-height:1;color:var(--gold-600);margin-bottom:4px}

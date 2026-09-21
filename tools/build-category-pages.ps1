@@ -319,7 +319,7 @@ foreach ($p in $PAGES) {
 <section class="page-hero page-hero--brand">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
-      <a href="../index.html">$($t.home)</a><span class="sep">/</span>
+      <a href="../index$($t.sfx)">$($t.home)</a><span class="sep">/</span>
       <a href="../products$($t.sfx)">$($t.products)</a><span class="sep">/</span>
       <b>$crumb</b>
     </nav>

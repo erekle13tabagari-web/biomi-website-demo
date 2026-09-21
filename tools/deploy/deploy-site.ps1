@@ -157,6 +157,13 @@ function New-Htaccess {
     $h.Add('  <FilesMatch "\.(ttf|woff2?)$">')
     $h.Add('    Header set Cache-Control "public, max-age=2592000"')
     $h.Add('  </FilesMatch>')
+    $h.Add('  # ...except a style, script or tab icon asked for with its ?v= tag: that tag')
+    $h.Add('  # changes whenever the file does (bump-cache-version.ps1), so a tagged copy')
+    $h.Add('  # can be kept for a year without the per-page check (SEO audit, 2026-09-21).')
+    $h.Add('  # <If> is applied after <FilesMatch>, so this wins where both match.')
+    $h.Add('  <If "%{QUERY_STRING} =~ /(^|&)v=/ && %{REQUEST_URI} =~ /\.(css|js|svg)$/">')
+    $h.Add('    Header set Cache-Control "public, max-age=31536000, immutable"')
+    $h.Add('  </If>')
   } else {
     $h.Add('  Header set X-Robots-Tag "noindex, nofollow"')
     $h.Add('  <FilesMatch "\.(html|css|js|json)$">')
@@ -203,6 +210,9 @@ function Test-Wanted([string]$p) {
   if ($p -match '^[^/]+\.html$') { return $p -ne 'Launch Biomi Website.html' }
   if ($p -eq 'sitemap.xml') { return $true }
   if ($p -eq 'robots.txt') { return $Live }
+  # the icons crawlers and phones look for at the root regardless of markup
+  # (Google's search-result icon among them); the pages' own is favicon.svg
+  if ($p -eq 'favicon.ico' -or $p -eq 'apple-touch-icon.png') { return $true }
   if ($p -match '^api/[^/]+\.(php|png)$') { return $true }   # the form sender + its email logo; secrets live beside public_html, not here
   if ($FontAllow -contains $p) { return $true }
   if ($p -notmatch '^(assets|products|news|projects)/') { return $false }

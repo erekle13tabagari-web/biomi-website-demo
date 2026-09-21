@@ -298,7 +298,7 @@ foreach ($lang in 'ka','en') {
 <section class="page-hero">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
-      <a href="../index.html">$($t.home)</a><span class="sep">/</span>
+      <a href="../index$($t.file)">$($t.home)</a><span class="sep">/</span>
       <a href="../products$($t.file)">$($t.products)</a><span class="sep">/</span>
       <a href="ventilation$($t.file)">$($t.vent)</a><span class="sep">/</span>
       <a href="ventilation$($t.file)?brand=vortice">Vortice</a><span class="sep">/</span>

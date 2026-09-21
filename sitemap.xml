@@ -1236,16 +1236,4 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/projects-en.html"/>
     <lastmod>2026-09-21</lastmod>
   </url>
-  <url>
-    <loc>https://biomi.ge/soon.html</loc>
-    <xhtml:link rel="alternate" hreflang="ka" href="https://biomi.ge/soon.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/soon-en.html"/>
-    <lastmod>2026-09-21</lastmod>
-  </url>
-  <url>
-    <loc>https://biomi.ge/soon-en.html</loc>
-    <xhtml:link rel="alternate" hreflang="ka" href="https://biomi.ge/soon.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/soon-en.html"/>
-    <lastmod>2026-09-21</lastmod>
-  </url>
 </urlset>

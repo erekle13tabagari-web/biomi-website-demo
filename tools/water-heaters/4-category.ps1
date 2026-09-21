@@ -52,6 +52,10 @@ foreach ($lang in 'ka','en') {
   # this page does not inherit boilers.html's canonical and Product schema
   $head = [regex]::Replace($head,'(?s)<!-- meta:start -->.*?<!-- meta:end -->\s*','')
   $head = [regex]::Replace($head,'(?s)<title>.*?</title>', ('<title>' + (HtmlEnc $t.title) + '</title>'))
+  # $t.desc was defined and never written, so the page kept boilers.html's
+  # "heating boilers" description - which Google showed as its snippet (found in
+  # the SEO audit, 2026-09-21)
+  $head = [regex]::Replace($head,'<meta name="description" content="[^"]*"', ('<meta name="description" content="' + (HtmlEnc $t.desc) + '"'))
 
   $brands = @()
   $cards = ''
@@ -84,8 +88,8 @@ foreach ($lang in 'ka','en') {
 <section class="page-hero page-hero--brand">
   <div class="container">
     <nav class="crumbs" aria-label="breadcrumb">
-      <a href="../index.html">$($t.home)</a><span class="sep">/</span>
-      <a href="../index.html#products">$($t.products)</a><span class="sep">/</span>
+      <a href="../index$sfx">$($t.home)</a><span class="sep">/</span>
+      <a href="../products$sfx">$($t.products)</a><span class="sep">/</span>
       <b>$($t.crumb)</b>
     </nav>
     <div class="section__head" style="margin-bottom:0">

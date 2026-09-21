@@ -99,6 +99,11 @@ foreach ($doc in $DOCS) {
     # this page does not inherit its canonical URL and description
     $head = [regex]::Replace($head, '(?s)<!-- meta:start.*?<!-- meta:end[^>]*-->\s*', '')
     $head = [regex]::Replace($head, '(?s)<title>.*?</title>', ('<title>' + $t.title + '</title>'))
+    # ...and its description, which sits outside that block: all three documents
+    # carried About's text as their search snippet until 2026-09-21. The lede
+    # already says what each one is.
+    $head = [regex]::Replace($head, '<meta name="description" content="[^"]*"',
+                             ('<meta name="description" content="' + $t.lede.Replace('&', '&amp;').Replace('"', '&quot;') + '"'))
     # The chrome still carries About's own language switch -- one copy in the
     # header ($head) and one in the drawer ($tail). Matching on the GEO/ENG
     # labels leaves the nav's link to the About page alone.
