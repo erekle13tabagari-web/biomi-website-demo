@@ -303,6 +303,15 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 .gk.is-tr::before,.translated-ltr .gk::before,.translated-rtl .gk::before{content:none}
 .gk.is-tr .gt,.translated-ltr .gt,.translated-rtl .gt{position:static;width:auto;height:auto;
   overflow:visible;clip-path:none;white-space:inherit}
+/* Guard. .gk stands in for a bare text node, so it must look exactly like its
+   parent - but rules written as "any span inside X" (.stat span, .acc__body
+   span ...) reach it too, and on 2026-09-21 one shrank the Georgian project
+   titles to the category label's size and colour. The doubled class outranks
+   those; the box is reset for the same reason. .gt gets the text half only,
+   since its own rule above is what hides it. */
+.gk.gk{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;opacity:1;
+  display:inline;width:auto;height:auto;margin:0;padding:0;border:0;background:none}
+.gk.gk .gt{font:inherit;color:inherit;letter-spacing:inherit}
 
 /* ---- Layout helpers ---------------------------------------------------- */
 .container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:28px}
@@ -853,7 +862,10 @@ a.news__img img{transition:transform .5s var(--ease)}
   background:linear-gradient(180deg,rgba(27,27,51,0) 35%,rgba(27,27,51,.85) 100%)}
 .proj__info{position:relative;z-index:1;width:100%;display:flex;align-items:flex-end;
   justify-content:space-between;gap:16px}
-.proj__meta span{font-size:13px;color:var(--gold-200);letter-spacing:.08em;text-transform:uppercase}
+/* > span: the category label only. As ".proj__meta span" it also caught the
+   Georgian caps wrapper inside the h3 (see .gk), which shrank the titles to
+   the label's size and colour (2026-09-21). */
+.proj__meta > span{font-size:13px;color:var(--gold-200);letter-spacing:.08em;text-transform:uppercase}
 .proj__meta h3{font-size:23px;margin-top:6px;font-weight:500}
 .proj__logo{flex:none;display:inline-flex;align-items:center;justify-content:center;
   min-width:56px;height:48px;padding:0 14px;border-radius:10px;background:rgba(255,255,255,.95);
