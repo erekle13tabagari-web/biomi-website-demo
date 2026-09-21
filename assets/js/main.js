@@ -1120,9 +1120,23 @@
       new MutationObserver(paintLogos).observe(headerEl, { attributes: true, attributeFilter: ['class'] });
     }
 
+    /* The tab icon follows the theme too (2026-09-21): the tile is the accent,
+       purple in dark mode and blue in light, like the mark in the lockups.
+       favicon.svg is the dark one because that is what the site opens in, so
+       the markup is right before this runs; light mode swaps in
+       favicon-light.svg, keeping whatever path and ?v= tag the page gave. */
+    var favicon = document.querySelector('link[rel="icon"]');
+    function paintFavicon(dark) {
+      if (!favicon) return;
+      var href = favicon.getAttribute('href');
+      var want = href.replace(/favicon(-light)?\.svg/, dark ? 'favicon.svg' : 'favicon-light.svg');
+      if (want !== href) favicon.setAttribute('href', want);
+    }
+
     function paint() {
       var dark = root.getAttribute('data-theme') === 'dark';
       paintLogos();
+      paintFavicon(dark);
       btns.forEach(function (b) {
         b.innerHTML = (dark ? SUN : MOON) + (b.dataset.withText ? '<span>' + (en ? 'Theme' : 'თემა') + '</span>' : '');
         b.setAttribute('aria-label', label(dark));

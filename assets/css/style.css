@@ -610,9 +610,14 @@ a.news__img img{transition:transform .5s var(--ease)}
    screen: at 1600x900 it was 997px tall with 834px showing under the header.
    450px is everything in the section that is not the wheel, header included.
    Radius, badges, hub and hand all follow --ring, in the proportions the
-   540px wheel was drawn at; phones keep their own sizes further down. */
+   540px wheel was drawn at; phones keep their own sizes further down.
+   The floor is 420px (2026-09-21), the smallest wheel on which every label
+   hangs under its badge without landing on the next one - measured in both
+   languages. Below ~880px of screen height the wheel was allowed down to
+   300px, with the labels moved outward from the centre to make room, and
+   placed that way they no longer read as belonging to their badges. */
 .ring{position:relative;aspect-ratio:1;margin:0 auto;
-  --ring:min(540px,92vw,max(320px,calc(100vh - 450px)));
+  --ring:min(540px,92vw,max(420px,calc(100vh - 450px)));
   width:var(--ring);
   --r:calc(var(--ring) * .389); --size:calc(var(--ring) * .174); --rot:0deg;
   transition:transform .65s var(--ease)}
@@ -649,9 +654,12 @@ a.news__img img{transition:transform .5s var(--ease)}
 /* The label carries the step's full name -- „სერვისი და ტექნიკური მხარდაჭერა"
    rather than „სერვისი" -- so it wraps instead of running along the ring and
    into its neighbours. The cap sits below the arc between two nodes. */
+/* Size and measure ease down with the wheel - 12px and 148px at 460px and up,
+   11px and 134px at the 420px floor - which is what lets labels this long
+   stay clear of the badges below them on the smaller wheel. */
 .node__label{position:absolute;top:calc(100% + 9px);left:50%;transform:translateX(-50%);
-  font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  width:max-content;max-width:min(148px,34vw);text-align:center;line-height:1.28;
+  font-size:clamp(11px,calc(var(--ring) * .026),12px);font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  width:max-content;max-width:min(clamp(128px,calc(var(--ring) * .32),148px),34vw);text-align:center;line-height:1.28;
   color:rgba(255,255,255,.88);pointer-events:none;
   transition:color .35s,opacity .3s}
 /* hover affordance (only when nothing is selected) */
@@ -740,12 +748,11 @@ a.news__img img{transition:transform .5s var(--ease)}
   #services .section__head{margin-bottom:20px}
 }
 /* Short screens (a 1366x768 laptop leaves ~650px under the browser's bars):
-   the wheel is already at its 320px floor there, and smaller would crowd its
-   labels, so the heading gives up the room instead. */
+   the wheel is at its 420px floor there (see .ring), so the heading gives up
+   the room instead. On the shortest the line under the wheel still falls
+   just below the fold - the price of the labels sitting under their badges. */
 @media (min-width:601px) and (max-height:800px){
   #services{padding:18px 0}
-  /* the top badge's label (outward, see below) sits closer to the heading here */
-  .ring-wrap{padding-top:20px}
   #services .eyebrow{margin-bottom:8px}
   /* wide enough for the intro to run on one line */
   #services .section__head{margin-bottom:12px;max-width:1000px}
@@ -753,28 +760,8 @@ a.news__img img{transition:transform .5s var(--ease)}
   #services .section__head p{font-size:16px;margin-top:8px}
   /* the labels under the lowest badges hang ~30px below the wheel's box */
   #services .services__cta{margin-top:36px}
-  /* 352 = the non-wheel height here, with the 12px .ring-wrap gains below */
-  .ring{--ring:min(540px,92vw,max(300px,calc(100vh - 364px)))}
-}
-@media (min-width:601px) and (min-height:801px) and (max-height:880px){
-  .ring{--ring:min(540px,92vw,max(320px,calc(100vh - 462px)))}
-  /* room for the label that sits above the top badge (outward, see below) */
-  .ring-wrap{padding-top:12px}
-}
-/* Below ~430px the wheel is too small for every label to hang under its badge:
-   on the upper half they land on the badge below (measured at 378px: three
-   did). Screens under 880px tall get a wheel that small, so there each label
-   sits outward from the centre instead - right of a badge on the right, above
-   the top one, and so on - pointing away from the other badges. The two
-   translates: the first anchors the label's near edge on the badge centre, the
-   second steps it out past the badge's rim. Browsers without CSS sin()/cos()
-   keep the labels underneath. */
-@media (min-width:601px) and (max-height:880px){
-  @supports (transform:translate(calc(sin(30deg) * 1px))){
-    .node__label{--la:calc(var(--a) + var(--rot));top:50%;left:50%;
-      transform:translate(calc(-50% + sin(var(--la)) * 50%),calc(-50% - cos(var(--la)) * 50%))
-                translate(calc(sin(var(--la)) * (var(--size) / 2 + 8px)),calc(cos(var(--la)) * (var(--size) / -2 - 8px)))}
-  }
+  /* 344 = the non-wheel height here */
+  .ring{--ring:min(540px,92vw,max(420px,calc(100vh - 344px)))}
 }
 .services__cta p{font-size:20px;max-width:560px}
 .services__cta p span{color:var(--gold-200)}
