@@ -10,6 +10,9 @@
 /Biomi_images for web/
 # the lawyers' Word files (2026-09-18); the pages come from tools/legal/*-ka.html via tools/legal.ps1
 /legal/
+# the underfloor heating drop (2026-09-21): tools/water/underfloor-heating.json builds from
+# it; the served photo is assets/img/underfloor/, the card cut-out comes from მენიუს სურათბი
+/იატაკის გათბობა/
 /stock images/
 /partner logoes/
 /flags/

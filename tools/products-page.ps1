@@ -58,8 +58,10 @@ $BGDIR  = 'assets/img/cat-bg/'
 $PHOTODIR = 'assets/img/cat-photo/'
 
 # The slug a category's picture is filed under. The four ventilation categories
-# share one listing and are told apart by cat=, so that comes first.
+# share one listing and are told apart by cat=, and the five cooling types by
+# type=, so those come first.
 function PicKey($it) {
+  if ($it.type) { return [string]$it.type }
   if ($it.cat)  { return [string]$it.cat }
   if ($it.page) { return [string]$it.page }
   return ''
@@ -235,6 +237,25 @@ foreach ($lang in 'ka','en') {
     $head = $true
     foreach ($it in $ch.items) {
       $items++
+      # A card per make rather than one for the category ("split", water supply
+      # since 2026-09-21): the pumping-station page is two installations, DAB
+      # and Wilo, and its single card showed only one of them. Each make is
+      # drawn from its photograph (cat-photo/<chapter>-<brand>.jpg, written by
+      # tools/water/build-water.ps1), named by its "card" label, and lands on
+      # its own figure on that page (id="dab", id="wilo").
+      if ($it.split) {
+        $lazy = if ($on) { '' } else { ' loading="lazy"' }
+        foreach ($k in $it.kids) {
+          $pic = PicFor ($PHOTODIR + $ch.icon + '-' + $k.brand + '.jpg')
+          $img = if ($pic) { '<img src="' + $pic + '" alt=""' + $lazy + '>' } else { '' }
+          $rows.Add('          <a class="catalog__card" href="products/' + $it.page + $sfx + '#' + $k.brand + '">')
+          $rows.Add('            <span class="catalog__pic catalog__pic--photo"' + $bgStyle + '>' + $img + '</span>')
+          $rows.Add('            <span class="catalog__name">' + (Esc $k.card.$lang) + ' ' + $ARROW + '</span>')
+          $rows.Add('          </a>')
+        }
+        $head = $false
+        continue
+      }
       $pic = PicFor ($SMDIR + $ch.icon + '-' + (PicKey $it) + '.png')
       # A chapter's own picture is a picture of the first thing under it -- the
       # duct for ducting, the outdoor unit for cooling -- so it stands in there
@@ -261,8 +282,12 @@ foreach ($lang in 'ka','en') {
       # category is one section of a shared listing (the four ventilation cards
       # all land on ventilation.html). The menu still pins ?cat= / ?brand= --
       # see Href in tools/menu-rebuild.ps1.
+      # The cooling types are the exception (2026-09-21): five cards that all
+      # opened one unfiltered listing would be five copies of the chapter link,
+      # so each lands with its own type ticked.
       if ($it.page) {
         $href = 'products/' + $it.page + $sfx
+        if ($it.type) { $href += '?type=' + $it.type }
         $soon = ''
       } else {
         $href = 'soon' + $sfx

@@ -133,13 +133,30 @@ foreach ($f in $files) {
       '"url":"' + $canon + '"}</script>')
   }
   if ($f.Name -like 'index*') {
+    # Who Biomi is, for search engines (reworked 2026-09-19). The old WordPress
+    # site asked search engines not to index it (blog_public = 0), so the domain
+    # arrived with no history and a brand search showed only the Facebook page.
+    # - one entity for both languages: the same @id and the domain root as url
+    # - HVACBusiness (a schema.org LocalBusiness) with the office's map point
+    # - every spelling people search by: Biomi / Biomi Holding / ბიომი / ბიომი ჰოლდინგი
+    # - a WebSite record, which is where Google takes the site name shown in results
     $o = $ORG[$lang]
-    [void]$b.AppendLine('<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization",' +
-      '"name":"' + (J $o.name) + '","url":"' + (PageUrl $rel) + '",' +
+    $alt = @('Biomi', 'Biomi Holding', 'ბიომი', 'ბიომი ჰოლდინგი') | Where-Object { $_ -ne $o.name }
+    $altJ = ($alt | ForEach-Object { '"' + (J $_) + '"' }) -join ','
+    [void]$b.AppendLine('<script type="application/ld+json">{"@context":"https://schema.org","@type":"HVACBusiness",' +
+      '"@id":"' + $BASE + '/#organization",' +
+      '"name":"' + (J $o.name) + '","alternateName":[' + $altJ + '],"url":"' + $BASE + '/",' +
       '"logo":"' + $BASE + '/assets/img/logo-geo.svg",' +
+      '"image":"' + $BASE + '/assets/img/og/default.jpg",' +
       '"telephone":"+995322151115","email":"info@biomi.ge",' +
       '"address":{"@type":"PostalAddress","streetAddress":"' + (J $o.addr) + '","addressLocality":"' + (J $o.city) + '","addressCountry":"GE"},' +
+      '"geo":{"@type":"GeoCoordinates","latitude":41.7831796,"longitude":44.7816816},' +
+      '"areaServed":{"@type":"Country","name":"Georgia"},' +
       '"sameAs":[' + (($SAMEAS | ForEach-Object { '"' + (J $_) + '"' }) -join ',') + ']}</script>')
+    [void]$b.AppendLine('<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite",' +
+      '"@id":"' + $BASE + '/#website","url":"' + $BASE + '/","name":"Biomi",' +
+      '"alternateName":["ბიომი","Biomi Holding","ბიომი ჰოლდინგი"],"inLanguage":"' + $lang + '",' +
+      '"publisher":{"@id":"' + $BASE + '/#organization"}}</script>')
   }
   [void]$b.AppendLine('<!-- meta:end -->')
 

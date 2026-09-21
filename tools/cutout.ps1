@@ -263,6 +263,8 @@ function KeyFor($chapter, [string]$folder) {
     $hit = ($want -and (Norm $it.en.ToLower()) -eq $want) -or
            ($stem -and (Stem $it.ka) -eq $stem)
     if ($hit) {
+      # the cooling types share vrf-vrv and are told apart by type=
+      if ($it.type) { return [string]$it.type }
       if ($it.cat)  { return [string]$it.cat }
       if ($it.page) { return [string]$it.page }
     }

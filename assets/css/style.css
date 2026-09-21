@@ -288,6 +288,22 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
 .skip-link:focus{transform:none;outline:2px solid #fff;outline-offset:2px}
 .skip-target:focus{outline:none}
 
+/* ---- Georgian caps, drawn over the text (built by georgianCaps in main.js) --
+   .gk carries the Mtavruli in data-c and shows it; .gt holds the ordinary
+   Mkhedruli, hidden from the eye but read by translators, screen readers and
+   search engines. The second content line gives the drawn copy empty alt text
+   so screen readers do not read the heading twice; a browser that does not
+   know that syntax keeps the first line. text-transform is off on the drawn
+   copy because uppercase would lower Mtavruli back to Mkhedruli.
+   When a translator rewrites .gt (is-tr, or Chrome's own class on <html>) the
+   translation shows instead, and it keeps the element's uppercase. */
+.gk{position:relative}
+.gk::before{content:attr(data-c);content:attr(data-c) / "";text-transform:none}
+.gt{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.gk.is-tr::before,.translated-ltr .gk::before,.translated-rtl .gk::before{content:none}
+.gk.is-tr .gt,.translated-ltr .gt,.translated-rtl .gt{position:static;width:auto;height:auto;
+  overflow:visible;clip-path:none;white-space:inherit}
+
 /* ---- Layout helpers ---------------------------------------------------- */
 .container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:28px}
 .section{padding:70px 0}
@@ -1013,8 +1029,21 @@ a.news__img img{transition:transform .5s var(--ease)}
    the send button, kept compact */
 .consent{display:flex;align-items:flex-start;gap:9px;cursor:pointer;
   font-size:12.5px;line-height:1.35;color:var(--muted);max-width:46ch}
+/* The site's own tick box (2026-09-19), for the contact form's consents and
+   the product filters. The browser's native box ignores the theme: on the
+   user's laptop it was a plain white square on the dark contact card, and
+   accent-color is not applied everywhere. Drawn here it is the same in every
+   browser - an outline in the muted tone (re-declared for the navy card), the
+   accent fill and a white tick when ticked. */
+.consent input,.pfilter__opts input{appearance:none;-webkit-appearance:none;margin:0;flex:0 0 auto;
+  width:17px;height:17px;border-radius:4px;border:1.5px solid var(--muted);background-color:transparent;
+  cursor:pointer;transition:background-color .15s,border-color .15s,box-shadow .15s}
+.consent input:hover,.pfilter__opts input:hover{border-color:var(--gold)}
+.consent input:checked,.pfilter__opts input:checked{border-color:var(--gold);background:var(--gold)
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l2.9 2.9 6.1-6.6' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/13px no-repeat}
+.consent input:focus-visible,.pfilter__opts input:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(var(--accent-rgb),.35)}
 /* aligns to the first line, not the middle of a wrapped two-line label */
-.consent input{width:16px;height:16px;flex:0 0 auto;margin-top:1px;accent-color:var(--gold)}
+.consent input{margin-top:1px}
 .consent a{color:var(--gold-600);text-decoration:underline;text-underline-offset:2px}
 .consent a:hover{color:var(--gold)}
 .form-actions .btn{flex:0 0 auto}
@@ -1308,7 +1337,9 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 /* The catalogue starts immediately under this heading -- there is no standing
    lede between them -- so the room a page hero leaves for the copy that
    usually follows closes up: less air above the crumb, less under it, and a
-   heading a size down from the one a page of prose wants. */
+   heading a size down from the one a page of prose wants. The projects
+   gallery (projects.html) takes the same hero since 2026-09-21; its heading
+   sits in .article rather than .section__head, so it keeps its size. */
 .page-hero--tight{padding-top:calc(var(--header-h) + 26px)}
 .page-hero--tight .crumbs{margin-bottom:16px}
 .page-hero--tight .eyebrow{margin-bottom:8px}
@@ -1963,7 +1994,6 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .pfilter__group.closed .pfilter__opts{display:none}
 .pfilter__opts{padding-top:10px}
 .pfilter__opts label{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px;color:var(--muted);cursor:pointer}
-.pfilter__opts input{width:16px;height:16px;accent-color:var(--gold)}
 
 /* A filter option that carries a one-line explanation. Trade abbreviations
    (DVM, FJM, Mr Slim) mean nothing to a visitor, so the gloss sits under the
@@ -2120,7 +2150,9 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    sitting on a white panel the way a .duct part does. */
 .pstations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
 .pstation{margin:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-  display:flex;flex-direction:column;background:var(--navy)}
+  display:flex;flex-direction:column;background:var(--navy);
+  /* the catalogue's DAB / Wilo cards land on #dab / #wilo; clear the fixed header */
+  scroll-margin-top:calc(var(--header-h) + 24px)}
 .pstation__shot{display:block;aspect-ratio:16/9;overflow:hidden}
 .pstation__shot img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;
   transition:transform .35s var(--ease)}
@@ -2133,8 +2165,7 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .pstation__txt small{font-size:13px;color:rgba(255,255,255,.72)}
 .pstation__site{margin-left:auto;font-size:13px;color:var(--gold-200);white-space:nowrap}
 .pstation__site:hover{text-decoration:underline}
-@media (max-width:760px){.pstations{grid-template-columns:1fr}}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:20px}
+@media (max-width:760px){.pstations{grid-template-columns:1fr}}.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:20px}
 .pgrid__empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--muted)}
 /* padding, not margin: the button below uses margin-top:auto to bottom-align, so
    this is what keeps a 12px floor (6px here + the 6px flex gap) above it on

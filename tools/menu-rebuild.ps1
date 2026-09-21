@@ -55,10 +55,12 @@ foreach ($f in $files) {
   function Href($n) {
     if (-not $n.page) { return $A }
     # A node can pin any of the listing's filters: ?cat= for a section of the
-    # range, ?brand= for a make, the two together for a make within a section.
-    # main.js ticks boxes by name from the query string, so a pair needs nothing
-    # special there.
+    # range, ?brand= for a make, the two together for a make within a section,
+    # ?type= for a kind of unit (the cooling chapter's wall / cassette / duct
+    # ... entries, 2026-09-21). main.js ticks boxes by name from the query
+    # string, so a pair needs nothing special there.
     $q = @()
+    if ($n.type)  { $q += 'type='  + $n.type }
     if ($n.cat)   { $q += 'cat='   + $n.cat }
     if ($n.brand) { $q += 'brand=' + $n.brand }
     # &amp;, not &: this only ever lands in an href attribute, and a bare

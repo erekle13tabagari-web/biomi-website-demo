@@ -19,7 +19,7 @@ $PAGE = @{
   ka = @{
     donor = 'service.html'; home = 'index.html'; out = 'projects.html'
     crumbHome = 'მთავარი'; crumb = 'პროექტები'
-    eyebrow = 'პროექტები'; h1 = 'ჩვენი პროექტები'
+    eyebrow = 'პროექტები'; h1 = 'გამორჩეული პროექტები'
     title = 'პროექტები - ბიომი'
     # No standing lede above the gallery: the projects speak for themselves and
     # the line only restated the services listed on the home page. desc stays --
@@ -29,7 +29,7 @@ $PAGE = @{
   en = @{
     donor = 'service-en.html'; home = 'index-en.html'; out = 'projects-en.html'
     crumbHome = 'Home'; crumb = 'Projects'
-    eyebrow = 'Projects'; h1 = 'Our projects'
+    eyebrow = 'Projects'; h1 = 'Featured projects'
     title = 'Projects - Biomi'
     desc  = 'Projects delivered by Biomi Holding - heating, cooling, ventilation and water-supply engineering across buildings of every purpose.'
   }
@@ -57,7 +57,7 @@ foreach ($lang in 'ka', 'en') {
   # comma tighter than +, so "a" + $x + "b", "c" parses as "a" + $x + ("b","c")
   # and the values end up on lines of their own inside the markup.
   $body = @(
-    '<section class="page-hero">',
+    '<section class="page-hero page-hero--tight">',
     '  <div class="container">',
     '    <article class="article article--flush">',
     '      <nav class="crumbs" aria-label="breadcrumb">',

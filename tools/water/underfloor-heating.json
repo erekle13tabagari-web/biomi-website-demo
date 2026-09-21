@@ -1,0 +1,30 @@
+{
+  "_note": "The underfloor heating page, built by build-water.ps1 -Data underfloor-heating.json. Same shape as the water page: the supplied sentence (შესავალი.docx in the drop folder, word for word) as the lede and one photograph. Collector.png from the same folder is the catalogue card, cut out by tools/cutout.ps1 from its copy in მენიუს სურათბი.",
+
+  "drop": "C:\\Users\\Designer\\Desktop\\biomi website test\\იატაკის გათბობა",
+  "slug": "underfloor-heating",
+  "chapter": "heating",
+  "imgdir": "underfloor",
+
+  "ka": { "title": "იატაკის გათბობა - ბიომი",
+          "desc": "იატაკქვეშა გათბობის სისტემების მონტაჟი TIEMME-ის პროდუქციით - სს „ბიომი ჰოლდინგი“.",
+          "home": "მთავარი", "prod": "პროდუქტი", "crumb": "იატაკის გათბობა",
+          "eyebrow": "გათბობა", "h2": "იატაკის გათბობა",
+          "lede": "„ბიომი ჰოლდინგი“ უზრუნველყოფს იატაკქვეშა გათბობის სისტემების პროფესიულ მონტაჟს იტალიური პრემიუმ ბრენდის - TIEMME-ის - პროდუქციის გამოყენებით, თანაბარი სითბოსა და ხანგრძლივი კომფორტისთვის.",
+          "note": "სისტემის პროექტი და კომპლექტაცია შეირჩევა ობიექტის მიხედვით.",
+          "cta": "მოითხოვეთ შეთავაზება", "site": "ოფიციალური საიტი" },
+
+  "en": { "title": "Underfloor heating - Biomi",
+          "desc": "Installation of underfloor heating systems with TIEMME products - Biomi Holding.",
+          "home": "Home", "prod": "Products", "crumb": "Underfloor heating",
+          "eyebrow": "Heating", "h2": "Underfloor heating",
+          "lede": "Biomi Holding provides professional installation of underfloor heating systems using products from TIEMME, the Italian premium brand, for even warmth and lasting comfort.",
+          "note": "The system design and components are chosen for the building.",
+          "cta": "Request a quote", "site": "Official website" },
+
+  "items": [
+    { "slug": "tiemme", "brand": "TIEMME", "logo": "tiemme.svg", "src": "Under floor heating.png", "url": "https://www.tiemme.com/",
+      "focus": "50% 10%",
+      "ka": { "sub": "იატაკქვეშა გათბობის სისტემა" }, "en": { "sub": "Underfloor heating system" } }
+  ]
+}

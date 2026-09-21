@@ -16,19 +16,31 @@
 # photo there, covering the card, where it finds no cut-out). Only missing
 # files are written; -Force redoes them.
 #
+# The same page serves underfloor heating (2026-09-21): one photograph of a
+# TIEMME installation and the supplied sentence, so it is the same shape with
+# one card instead of two. Its words are in underfloor-heating.json, and -Data
+# picks the file. Two fields there that water.json leaves at their defaults:
+# "chapter", the catalogue chapter its card photo is filed under (water), and
+# "imgdir", the folder under assets/img its photographs go to (water). Its
+# catalogue card shows a cut-out of the manifold rather than this photo - see
+# tools/cutout.ps1 - so the card photo written here is only a fallback.
+#
 # Run:  powershell -ExecutionPolicy Bypass -File tools\water\build-water.ps1
-param([switch]$Force)
+#       powershell -ExecutionPolicy Bypass -File tools\water\build-water.ps1 -Data underfloor-heating.json
+param([string]$Data = 'water.json', [switch]$Force)
 $sp   = $PSScriptRoot
 $repo = Split-Path (Split-Path $sp -Parent) -Parent
 $UTF8 = New-Object Text.UTF8Encoding($true)
 $CRLF = [string][char]13 + [char]10
 
-$D = Get-Content (Join-Path $sp 'water.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$D = Get-Content (Join-Path $sp $Data) -Raw -Encoding UTF8 | ConvertFrom-Json
+$CHAPTER = if ($D.chapter) { [string]$D.chapter } else { 'water' }
+$IMG     = if ($D.imgdir)  { [string]$D.imgdir }  else { 'water' }
 
 function Esc([string]$s) { ($s -replace '&(?!(amp|lt|gt|quot|#\d+);)','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;') }
 
 # ---- pictures
-$IMGDIR   = Join-Path $repo 'assets\img\water'
+$IMGDIR   = Join-Path $repo ('assets\img\' + $IMG)
 $PHOTODIR = Join-Path $repo 'assets\img\cat-photo'
 # $dir, not $d: names are case-insensitive, and $d would be $D, the data
 foreach ($dir in $IMGDIR, $PHOTODIR) { if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir | Out-Null } }
@@ -39,16 +51,25 @@ foreach ($it in $D.items) {
   if (-not (Test-Path -LiteralPath $src)) { throw ('source not found: ' + $src) }
   if ($Force -or -not (Test-Path $dst)) {
     & magick $src -resize '1600x>' -quality 55 $dst
-    Write-Host ('  ' + ('water\' + $it.slug + '.avif').PadRight(30) + [math]::Round((Get-Item $dst).Length / 1kb) + ' KB')
+    Write-Host ('  ' + ($IMG + '\' + $it.slug + '.avif').PadRight(30) + [math]::Round((Get-Item $dst).Length / 1kb) + ' KB')
   }
   $wh = (& magick identify -format '%w %h' $dst) -split ' '
   $SIZE[$it.slug] = $wh
+  # With more than one installation the catalogue shows a card for each
+  # (menu-tree.json "split"), cut the same way as the chapter card below.
+  if (@($D.items).Count -gt 1) {
+    $own = Join-Path $PHOTODIR ($CHAPTER + '-' + $it.slug + '.jpg')
+    if ($Force -or -not (Test-Path $own)) {
+      & magick $src -resize '640x480^' -gravity center -extent 640x480 -quality 80 $own
+      Write-Host ('  ' + ('cat-photo\' + $CHAPTER + '-' + $it.slug + '.jpg').PadRight(30) + [math]::Round((Get-Item $own).Length / 1kb) + ' KB')
+    }
+  }
 }
 # The catalogue card: the first station, cut to the card's shape.
-$card = Join-Path $PHOTODIR ('water-' + $D.slug + '.jpg')
+$card = Join-Path $PHOTODIR ($CHAPTER + '-' + $D.slug + '.jpg')
 if ($Force -or -not (Test-Path $card)) {
   & magick (Join-Path $D.drop $D.items[0].src) -resize '640x480^' -gravity center -extent 640x480 -quality 80 $card
-  Write-Host ('  ' + ('cat-photo\water-' + $D.slug + '.jpg').PadRight(30) + [math]::Round((Get-Item $card).Length / 1kb) + ' KB')
+  Write-Host ('  ' + ('cat-photo\' + $CHAPTER + '-' + $D.slug + '.jpg').PadRight(30) + [math]::Round((Get-Item $card).Length / 1kb) + ' KB')
 }
 
 # ---- the page furniture, off a product page that already carries it -- same
@@ -89,8 +110,12 @@ foreach ($lang in 'ka','en') {
     $rows.Add('      <figure class="pstation" id="' + $it.slug + '">')
     # data-lightbox: the photograph is the whole card, and the arrows step to
     # the other station from there
-    $rows.Add('        <span class="pstation__shot"><img src="../assets/img/water/' + $it.slug + '.avif" alt="' +
-              (Esc ($it.brand + ' - ' + $sub)) + '" width="' + $wh[0] + '" height="' + $wh[1] + '" loading="lazy" data-lightbox></span>')
+    # "focus" moves the 16:9 crop off centre: the TIEMME shot is a manifold
+    # cabinet over pipe loops, and centred the crop cut the manifold's top row
+    # off. The lightbox still opens the whole photograph.
+    $pos = if ($it.focus) { ' style="object-position:' + $it.focus + '"' } else { '' }
+    $rows.Add('        <span class="pstation__shot"><img src="../assets/img/' + $IMG + '/' + $it.slug + '.avif" alt="' +
+              (Esc ($it.brand + ' - ' + $sub)) + '" width="' + $wh[0] + '" height="' + $wh[1] + '"' + $pos + ' loading="lazy" data-lightbox></span>')
     $rows.Add('        <figcaption>')
     $rows.Add('          <img class="pstation__logo" src="../assets/img/partners/' + $it.logo + '" alt="' + (Esc $it.brand) + '">')
     $rows.Add('          <span class="pstation__txt"><b>' + (Esc $it.brand) + '</b><small>' + (Esc $sub) + '</small></span>')
@@ -132,7 +157,6 @@ foreach ($lang in 'ka','en') {
                 Replace('{CRUMB}', $t.crumb).Replace('{EYEBROW}', $t.eyebrow).Replace('{H2}', $t.h2).
                 Replace('{LEDE}', (Esc $t.lede)).Replace('{NOTE}', $t.note).Replace('{CTA}', $t.cta).
                 Replace('{ARROW}', $ARROW).Replace('{ROWS}', ($rows -join $CRLF))
-
   $out = $shell[0] + $body + $shell[1]
   $out = [regex]::Replace($out, "`r`n|`n", $CRLF)
   $file = 'products\' + $D.slug + $sfx

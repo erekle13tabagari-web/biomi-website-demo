@@ -31,50 +31,91 @@
 
   /* ---- Georgian caps (Mtavruli) wherever CSS asks for uppercase ---- */
   /* CSS text-transform:uppercase handles Latin but does nothing for Georgian, so
-     Mkhedruli text nodes are converted to Mtavruli (U+10D0-U+10FF -> +0xBC0).
-     Rather than keep a hand-written selector list in sync with the stylesheet,
-     this reads the computed style: anything CSS renders uppercase (headings,
-     .eyebrow kickers, .news__cat chips, nav links, tags) gets Georgian caps too.
-     Style a new element uppercase in CSS and it is covered automatically.
-     aria-label keeps the readable Mkhedruli text for screen readers. The regex
-     matches only Mkhedruli, so already-Mtavruli source and re-runs are no-ops. */
+     the capitals are supplied here. Rather than keep a hand-written selector list
+     in sync with the stylesheet, this reads the computed style: anything CSS
+     renders uppercase (headings, .eyebrow kickers, .news__cat chips, nav links,
+     tags) gets Georgian caps too. Style a new element uppercase in CSS and it is
+     covered automatically.
+
+     The capitals are drawn, not written into the page (since 2026-09-21). Each
+     Georgian text node becomes
+       <span class="gk" data-c="ᲒᲐᲗᲑᲝᲑᲐ"><span class="gt">გათბობა</span></span>
+     and the stylesheet shows data-c through ::before while .gt stays in the
+     page, visually hidden. Until then the nodes themselves were rewritten to
+     Mtavruli, and that is what Google Translate read: it does not know Mtavruli
+     as Georgian, so a phone set to English turned "ჩვენ შესახებ" into "I am a
+     white man" and headings into Amharic script. .gt keeps ordinary Mkhedruli
+     for the translator, for screen readers (the drawn copy is hidden from them)
+     and for search engines, which read the rendered page.
+
+     When a translator rewrites a .gt, the watcher at the end marks its .gk
+     is-tr and the stylesheet swaps the drawn capitals for the translation;
+     "show original" puts the text back and the mark comes off again. Watching
+     the text itself covers every translator, not just the ones that tag <html>.
+
+     georgianCaps.text(el, s) replaces an element's text and draws the caps
+     again - setting textContent directly would drop them. */
   var georgianCaps = (function () {
-    // Mkhedruli (lowercase) OR Mtavruli (caps) -- some titles are authored in
-    // Mtavruli already, and those still need the CSS transform switched off.
+    // Mkhedruli (lowercase) OR Mtavruli (caps) -- the homepage title is authored
+    // in Mtavruli so it shows in caps before this runs; its .gt is lowered back
     var GEORGIAN = /[ა-ჿᲐ-Ჿ]/;
+    var MTAVRULI = /[Ა-Ჿ]/g;
+    var SRC = new WeakMap();   // .gt -> its original text, to tell a translation apart
     function isUpper(el) {
       return el && el.nodeType === 1 && getComputedStyle(el).textTransform === 'uppercase';
+    }
+    function lower(c) { return c.toLowerCase(); }
+    function draw(el) {
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+      var nodes = [], n;
+      while ((n = walker.nextNode())) {
+        if (GEORGIAN.test(n.nodeValue) && !n.parentNode.closest('.gt')) nodes.push(n);
+      }
+      nodes.forEach(function (t) {
+        var text = t.nodeValue.replace(MTAVRULI, lower);
+        var gk = document.createElement('span');
+        var gt = document.createElement('span');
+        gk.className = 'gk'; gt.className = 'gt';
+        // toUpperCase does the Unicode mapping for both scripts: Mkhedruli ->
+        // Mtavruli and Latin -> caps
+        gk.setAttribute('data-c', text.toUpperCase());
+        gt.textContent = text;
+        gk.appendChild(gt);
+        t.parentNode.replaceChild(gk, t);
+        SRC.set(gt, text);
+      });
+      return nodes.length;
     }
     /* Returned rather than run once and forgotten: anything assembled later in
        JS -- the call-back panel below is built after this first pass -- has to
        go through the same conversion. Skip it and that markup renders exactly
        as CSS leaves it, which for Georgian means visibly un-capitalised while
        the English beside it is in caps. */
-    return function (root) {
+    function run(root) {
       (root || document).querySelectorAll('*').forEach(function (el) {
         if (!isUpper(el)) return;
         // text-transform inherits, so let the outermost uppercase element handle
         // its subtree in one pass instead of converting each descendant again.
         if (isUpper(el.parentElement)) return;
         if (el.dataset.caps) return;
-
-        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-        var nodes = [], n;
-        while ((n = walker.nextNode())) nodes.push(n);
         // Latin-only elements are left to CSS, so caps still work with JS disabled.
-        if (!nodes.some(function (t) { return GEORGIAN.test(t.nodeValue); })) return;
-
-        el.dataset.caps = '1';
-        if (!el.getAttribute('aria-label')) el.setAttribute('aria-label', el.textContent.trim());
-        // toUpperCase does the Unicode mapping for both scripts: Mkhedruli -> Mtavruli
-        // and Latin -> caps, leaving text that is already Mtavruli untouched.
-        nodes.forEach(function (t) { t.nodeValue = t.nodeValue.toUpperCase(); });
-        // Critical: CSS text-transform:uppercase maps Mtavruli *back down* to
-        // Mkhedruli, silently undoing the conversion. Now that this element's text
-        // is already cased, switch the CSS transform off so it cannot reverse it.
-        el.style.textTransform = 'none';
+        if (draw(el)) el.dataset.caps = '1';
       });
+    }
+    run.text = function (el, text) {
+      el.textContent = text;
+      if (el.dataset.caps || isUpper(el)) { if (draw(el)) el.dataset.caps = '1'; }
     };
+    if (window.MutationObserver && window.WeakMap) {
+      new MutationObserver(function (list) {
+        list.forEach(function (m) {
+          var n = m.target.nodeType === 1 ? m.target : m.target.parentNode;
+          var gt = n && n.closest && n.closest('.gt');
+          if (gt && SRC.has(gt)) gt.parentNode.classList.toggle('is-tr', gt.textContent !== SRC.get(gt));
+        });
+      }).observe(document.documentElement, { childList: true, characterData: true, subtree: true });
+    }
+    return run;
   })();
   georgianCaps(document);
 
@@ -725,13 +766,9 @@
        code box, and the button becomes "confirm". pending holds the request the
        code belongs to, so it is resent exactly as first sent. */
     var pending = null;
-    /* georgianCaps has already capitalised anything CSS shows in caps and marked
-       it done, so new text for such an element is capitalised here instead - and
-       its aria-label, which georgianCaps froze at the old wording, follows. */
-    function setText(el, text) {
-      if (el.dataset.caps) { el.textContent = text.toUpperCase(); el.setAttribute('aria-label', text); }
-      else el.textContent = text;
-    }
+    /* georgianCaps has already drawn caps on anything CSS shows in caps, and
+       plain textContent would drop them, so new text goes through it too. */
+    function setText(el, text) { georgianCaps.text(el, text); }
     function showOtp(otpId, req) {
       pending = { id: otpId, req: req };
       fields.hidden = true;
@@ -2150,8 +2187,8 @@
       e.preventDefault(); e.stopPropagation();
       var card = btn.closest('.news');
       var h3 = card && card.querySelector('h3');
-      // headings are converted to Mtavruli for display; aria-label keeps the
-      // readable Mkhedruli original, which is what we want to share.
+      // the drawn Mtavruli is generated content, so textContent is the
+      // readable Mkhedruli, which is what we want to share
       var title = h3 ? (h3.getAttribute('aria-label') || h3.textContent).trim() : document.title;
       /* A card shares its own article, not the page the card happens to sit on:
          this used location.href, so sharing from the homepage sent the homepage.
@@ -2489,7 +2526,7 @@
       var open = grid.hasAttribute('hidden');
       if (open) { grid.removeAttribute('hidden'); } else { grid.setAttribute('hidden', ''); }
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      btn.textContent = open ? hidden : shown;
+      georgianCaps.text(btn, open ? hidden : shown);
       if (icon) btn.appendChild(icon);   // textContent wipes it; put the chevron back
     });
   });

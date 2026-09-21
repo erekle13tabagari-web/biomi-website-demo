@@ -10,16 +10,25 @@
     {"ka":"Beretta","en":"Beretta","page":"water-heaters","brand":"beretta"},
     {"ka":"Omega","en":"Omega","page":"water-heaters","brand":"omega"},
     {"ka":"Riello","en":"Riello","page":"water-heaters","brand":"riello"}]},
-  {"ka":"იატაკის გათბობა","en":"Underfloor heating","page":null,"kids":[
-    {"ka":"მილები","en":"Pipes","page":null},
-    {"ka":"იატაკის საფენი","en":"Floor underlay","page":null},
-    {"ka":"კოლექტორი","en":"Manifold","page":null}]}
+  {"ka":"იატაკის გათბობა","en":"Underfloor heating","page":"underfloor-heating","kids":[]}
 ]},
 
 {"ka":"გაგრილება","en":"Cooling","icon":"cooling","page":"vrf-vrv","items":[
-  {"ka":"Multisplit / VRV / VRF","en":"Multisplit / VRV / VRF","page":"vrf-vrv","kids":[
-    {"ka":"Samsung","en":"Samsung","page":"vrf-vrv","brand":"samsung"},
-    {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"vrf-vrv","brand":"mitsubishi"}]}
+  {"ka":"კედლის","en":"Wall","page":"vrf-vrv","type":"wall","kids":[
+    {"ka":"Samsung","en":"Samsung","page":"vrf-vrv","type":"wall","brand":"samsung"},
+    {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"vrf-vrv","type":"wall","brand":"mitsubishi"}]},
+  {"ka":"კასეტური","en":"Cassette","page":"vrf-vrv","type":"cassette","kids":[
+    {"ka":"Samsung","en":"Samsung","page":"vrf-vrv","type":"cassette","brand":"samsung"},
+    {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"vrf-vrv","type":"cassette","brand":"mitsubishi"}]},
+  {"ka":"არხული","en":"Duct","page":"vrf-vrv","type":"duct","kids":[
+    {"ka":"Samsung","en":"Samsung","page":"vrf-vrv","type":"duct","brand":"samsung"},
+    {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"vrf-vrv","type":"duct","brand":"mitsubishi"}]},
+  {"ka":"ჭერის","en":"Ceiling","page":"vrf-vrv","type":"ceiling","kids":[
+    {"ka":"Samsung","en":"Samsung","page":"vrf-vrv","type":"ceiling","brand":"samsung"},
+    {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"vrf-vrv","type":"ceiling","brand":"mitsubishi"}]},
+  {"ka":"გარე ბლოკი","en":"Outdoor unit","page":"vrf-vrv","type":"outdoor","kids":[
+    {"ka":"Samsung","en":"Samsung","page":"vrf-vrv","type":"outdoor","brand":"samsung"},
+    {"ka":"Mitsubishi Electric","en":"Mitsubishi Electric","page":"vrf-vrv","type":"outdoor","brand":"mitsubishi"}]}
 ]},
 
 {"ka":"ვენტილაცია","en":"Ventilation","icon":"ventilation","page":"ventilation","items":[
@@ -40,8 +49,10 @@
 ]},
 
 {"ka":"წყალმომარაგება","en":"Water supply","icon":"water","page":"pumping-stations","items":[
-  {"ka":"სატუმბი სადგური","en":"Pumping station","page":"pumping-stations","kids":[
-    {"ka":"DAB","en":"DAB","page":"pumping-stations","brand":"dab"},
-    {"ka":"Wilo","en":"Wilo","page":"pumping-stations","brand":"wilo"}]}
+  {"ka":"სატუმბი სადგური","en":"Pumping station","page":"pumping-stations","split":true,"kids":[
+    {"ka":"DAB","en":"DAB","page":"pumping-stations","brand":"dab",
+     "card":{"ka":"DAB-ის სატუმბი სადგური","en":"DAB pumping station"}},
+    {"ka":"Wilo","en":"Wilo","page":"pumping-stations","brand":"wilo",
+     "card":{"ka":"Wilo-ს სატუმბი სადგური","en":"Wilo pumping station"}}]}
 ]}
 ]
