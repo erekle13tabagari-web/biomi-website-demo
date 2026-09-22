@@ -56,7 +56,10 @@ $RemoteDir = if ($Live) { if ($Folder) { $Folder.Trim('/') } else { 'public_html
 # The live site takes them all once $LivePdfs is $true: that waits until the
 # old WordPress folder (domains/biomi.ge/old_wordpress, ~3.7 GB) is deleted,
 # because 292 MB of PDFs beside it could fill the disk the mailboxes need.
-$LivePdfs = $false
+# Switched on 2026-09-22: the user deleted old_wordpress/wp-content/uploads
+# (3.1 GB of the 3.7), which leaves room to spare; the rest of that folder
+# stays, outside public_html and unreachable from the web.
+$LivePdfs = $true
 if ($Live -and -not $LivePdfs) { $NoPdf = [switch]$true }
 $PdfAllow = @('assets/downloads/vortice-lineo-brochure.pdf')
 # The only two font files the CSS uses; the rest of fonts/ is source material.
