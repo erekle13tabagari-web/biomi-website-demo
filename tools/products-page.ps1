@@ -79,11 +79,11 @@ $PAGE = @{
   ka = @{ sfx='.html'
           crumbHome='მთავარი'; crumb='პროდუქტი'
           eyebrow='პროდუქტი'; h2='ჩვენი პროდუქცია'
-          title='პროდუქტი - ბიომი'
+          title='პროდუქცია - კონდიციონერები, გათბობა, ვენტილაცია - ბიომი'
           # No standing lede on either page: the chapter headings below say what
           # the catalogue holds, and the holding page's own heading is already
           # the whole message. desc stays - that is the search-result text.
-          desc='ბიომი ჰოლდინგის პროდუქცია - ქვაბები, ბოილერები, კონდიცირება, ვენტილაცია, ჰაერსატარები და წყალმომარაგება.'
+          desc='ბიომი ჰოლდინგის პროდუქცია - კონდიციონერები და VRF სისტემები, გათბობის ქვაბები, ბოილერები, ვენტილაცია, ჰაერსატარები და წყალმომარაგება.'
           soonTitle='მალე დაემატება - ბიომი'
           soonH2='პროდუქტები მალე დაემატება'
           soonCrumb='მალე დაემატება'
@@ -92,8 +92,8 @@ $PAGE = @{
   en = @{ sfx='-en.html'
           crumbHome='Home'; crumb='Products'
           eyebrow='Products'; h2='Our products'
-          title='Products - Biomi'
-          desc='Products from Biomi Holding - boilers, water heaters, air conditioning, ventilation, ducting and water supply.'
+          title='Products - Air Conditioning, Heating, Ventilation - Biomi'
+          desc='Products from Biomi Holding - air conditioners and VRF systems, heating boilers, water heaters, ventilation, air ducts and water supply.'
           soonTitle='Coming soon - Biomi'
           soonH2='Products will be added soon'
           soonCrumb='Coming soon'

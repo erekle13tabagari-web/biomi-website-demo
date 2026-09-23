@@ -29,6 +29,19 @@ if /i not "%BRANCH%"=="main" (
   goto :end
 )
 
+REM --- The content editor (test.biomi.ge/admin) saves straight to GitHub, and
+REM     GitHub's build commits the pages it makes. Bring those in first, or the
+REM     push at the end is refused and the editor's articles never reach this
+REM     computer (or biomi.ge). ---
+echo   [0/4] Fetching the content editor's changes from GitHub...
+git pull --rebase --autostash origin main
+if errorlevel 1 (
+  echo.
+  echo   PULL FAILED - your changes and GitHub's overlap. Nothing was published.
+  echo   Ask for help before going on; "git status" shows where it stopped.
+  goto :end
+)
+
 REM --- Refresh the ?v= tag on style.css / main.js so visitors' browsers fetch
 REM     the new files instead of serving a cached copy. Without this, a change
 REM     can be live on GitHub Pages but invisible to anyone who visited before. ---

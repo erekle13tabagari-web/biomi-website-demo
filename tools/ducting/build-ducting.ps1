@@ -28,18 +28,18 @@ $PAGE = @{
   ka = @{ sfx='.html'; donor='ventilation.html'; out='ducting.html'
           crumbHome='მთავარი'; crumbProd='პროდუქტი'; crumb='ჰაერსატარი'
           eyebrow='ჰაერსატარი'; h2='თუნუქის ჰაერსატარი'
-          title='ჰაერსატარი - ბიომი'
+          title='ჰაერსატარები - მრგვალი და ოთხკუთხა, საკუთარი წარმოება - ბიომი'
           lede='ჰაერსატარები, მუხლები, სამკაპები და გადამყვანები.'
-          desc='თუნუქის ჰაერსატარი, მუხლი, სამკაპი და გადამყვანი - სს „ბიომი ჰოლდინგის“ საკუთარი წარმოება.'
+          desc='მრგვალი და ოთხკუთხა თუნუქის ჰაერსატარები, მუხლები, სამკაპები და გადამყვანები ვენტილაციისა და კონდიცირების სისტემებისთვის - საკუთარი წარმოება თბილისში.'
           search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'
           fType='ტიპი'; fShape='ფორმა'; fSec='კატეგორია'
           empty='პროდუქტი ვერ მოიძებნა.'
           # the whole chapter on one page -- see the end of this file
           all=@{ out='ducting-fittings.html'; crumb='ჰაერსატარი და მაკომპლექტებელი'
                  eyebrow='ჰაერსატარი და მაკომპლექტებელი'; h2='ჰაერსატარი, ცხაურები და აქსესუარები'
-                 title='ჰაერსატარი და მაკომპლექტებელი - ბიომი'
+                 title='ჰაერსატარები, ფიტინგები და ცხაურები - საკუთარი წარმოება - ბიომი'
                  lede='ჰაერსატარები და ფასონური დეტალები, ცხაურები და აქსესუარები - ყველა ერთ ადგილას.'
-                 desc='ჰაერსატარები, მუხლები, სამკაპები, გადამყვანები, ცხაურები და ჰაერსატარის აქსესუარები - სს „ბიომი ჰოლდინგი“.'
+                 desc='მრგვალი და ოთხკუთხა ჰაერსატარები, ფასონური დეტალები, ცხაურები და აქსესუარები ვენტილაციისა და კონდიცირებისთვის - ჰაერსატარების საკუთარი წარმოება თბილისში.'
                  secDuct='ჰაერსატარი' }
           # No line of text before the quote button any more ("sizes and
           # configuration are set by the building") -- taken off on request.
@@ -50,42 +50,42 @@ $PAGE = @{
           own=[ordered]@{
             accessories=@{ out='accessories.html'; crumb='აქსესუარები'; eyebrow='აქსესუარები'
                            h2='ჰაერსატარის აქსესუარები'
-                           title='ჰაერსატარის აქსესუარები - ბიომი'
+                           title='ჰაერსატარის აქსესუარები და სამონტაჟო დეტალები - ბიომი'
                            lede='გამოსასვლელი ყუთები, თუნუქის მასალა, გადაბმა და დამჭერები.'
-                           desc='ჰაერსატარის აქსესუარები - გამოსასვლელი ყუთები, თუნუქის მასალა, გადაბმა, დამჭერები და რეგულატორი.' }
+                           desc='გამოსასვლელი ყუთები, დამჭერები, გადაბმა, თუნუქის მასალა და რეგულატორები - ჰაერსატარის სისტემების სამონტაჟო დეტალები თბილისში.' }
             grilles=@{     out='grilles.html'; crumb='ცხაურა'; eyebrow='ცხაურა'
                            h2='ცხაურები'
-                           title='ცხაურები - ბიომი'
+                           title='სავენტილაციო ცხაურები ჰაერსატარისთვის - ბიომი'
                            lede='ცხაურები ჰაერსატარისა და სავენტილაციო სისტემებისთვის.'
-                           desc='ცხაურები ჰაერსატარისა და სავენტილაციო სისტემებისთვის - სს „ბიომი ჰოლდინგი“.' }
+                           desc='სავენტილაციო ცხაურები ჰაერსატარისა და კონდიცირების სისტემებისთვის - 30-ზე მეტი მოდელი. მიწოდება და მონტაჟი თბილისში.' }
           } }
   en = @{ sfx='-en.html'; donor='ventilation-en.html'; out='ducting-en.html'
           crumbHome='Home'; crumbProd='Products'; crumb='Ducting'
           eyebrow='Ducting'; h2='Sheet-metal ducting'
-          title='Ducting - Biomi'
+          title='Air Ducts - Round and Rectangular, Own Manufacturing - Biomi'
           lede='Ducts, elbows, tees and reducers.'
-          desc='Sheet-metal ducts, elbows, tees and reducers, made in Biomi Holding''s own plant.'
+          desc='Round and rectangular sheet-metal air ducts, elbows, tees and reducers for ventilation and air-conditioning systems - made in our own plant in Tbilisi.''s own plant.'
           search='Search...'; filter='Filter'; clear='Clear'
           fType='Type'; fShape='Shape'; fSec='Category'
           empty='No products found.'
           all=@{ out='ducting-fittings-en.html'; crumb='Ducting & fittings'
                  eyebrow='Ducting & fittings'; h2='Ducting, grilles and accessories'
-                 title='Ducting & fittings - Biomi'
+                 title='Air Ducts, Fittings and Grilles - Own Manufacturing - Biomi'
                  lede='Ducts and fittings, grilles and accessories - all in one place.'
-                 desc='Ducts, elbows, tees, reducers, grilles and ducting accessories from Biomi Holding.'
+                 desc='Round and rectangular air ducts, fittings, grilles and accessories for ventilation and air conditioning - air ducts made in our own plant in Tbilisi.'
                  secDuct='Ducting' }
           cta='Request a quote'
           own=[ordered]@{
             accessories=@{ out='accessories-en.html'; crumb='Accessories'; eyebrow='Accessories'
                            h2='Ducting accessories'
-                           title='Ducting accessories - Biomi'
+                           title='Air Duct Accessories and Fixings - Biomi'
                            lede='Outlet boxes, sheet material, flange connectors and brackets.'
-                           desc='Ducting accessories - outlet boxes, sheet material, flange connectors, brackets and damper regulators.' }
+                           desc='Outlet boxes, brackets, flange connectors, sheet material and damper regulators - fixing parts for air-duct systems in Tbilisi.' }
             grilles=@{     out='grilles-en.html'; crumb='Grilles'; eyebrow='Grilles'
                            h2='Grilles'
-                           title='Grilles - Biomi'
+                           title='Ventilation Grilles for Ducting - Biomi'
                            lede='Grilles for duct and ventilation systems.'
-                           desc='Grilles for duct and ventilation systems, from Biomi Holding.' }
+                           desc='Ventilation grilles for ducting and air-conditioning systems - more than 30 models. Supply and installation in Tbilisi.' }
           } }
 }
 

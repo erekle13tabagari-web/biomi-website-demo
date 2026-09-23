@@ -37,7 +37,7 @@ function J($s)   { if ($null -eq $s) { return '' }; ($s -replace '\\','\\' -repl
 function PageUrl($rel) { if ($rel -eq 'index.html') { return "$BASE/" }; return "$BASE/$rel" }
 
 $files = Get-ChildItem $repo -Filter '*.html' -Recurse -File |
-         Where-Object { $_.Name -ne 'Launch Biomi Website.html' -and $_.FullName -notmatch '\\(backup|_files|\.git|\.claude|tools)' } |
+         Where-Object { $_.Name -ne 'Launch Biomi Website.html' -and $_.FullName -notmatch '\\(backup|_files|\.git|\.claude|tools|admin)' } |
          Sort-Object FullName
 
 # ---------------------------------------------------------------- OG images

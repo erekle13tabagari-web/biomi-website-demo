@@ -13,7 +13,7 @@
 #   -FolderMoved       live only: the folder the last upload went into has since
 #                      been renamed to -Folder, so its record still holds
 #   -NoPdf             live only: leave out the product PDFs (disk space)
-#   -Yes               live only: skip the "type biomi.ge" confirmation
+#   -Yes               live only: skip the "press Enter to upload" question
 #
 # Go-live day: the live FTP account is rooted at /domains/biomi.ge (DirectAdmin's
 # Custom directory "/domains/biomi.ge"), so the new site can be uploaded beside
@@ -29,10 +29,17 @@
 # many connections at once, so this uses ONE connection, sends files one after
 # another, and stops after a few failures in a row instead of hammering on.
 
+#   -Only a,b,...      send just these files (paths as in the repo), and delete
+#                      nothing - the GitHub build after an editor save uses it
+#
+# On GitHub the login comes from the environment instead (BIOMI_FTP_USER /
+# BIOMI_FTP_PASS, filled from the repository's secrets), since there is no
+# saved one there.
 param(
   [ValidateSet('test', 'live')][string]$Target = 'test',
   [switch]$DryRun, [switch]$Full, [switch]$ResetLogin,
-  [string]$Folder = '', [switch]$FolderMoved, [switch]$NoPdf, [switch]$Yes
+  [string]$Folder = '', [switch]$FolderMoved, [switch]$NoPdf, [switch]$Yes,
+  [string[]]$Only
 )
 
 $ErrorActionPreference = 'Stop'
@@ -216,8 +223,13 @@ function Test-Wanted([string]$p) {
   # the icons crawlers and phones look for at the root regardless of markup
   # (Google's search-result icon among them); the pages' own is favicon.svg
   if ($p -eq 'favicon.ico' -or $p -eq 'apple-touch-icon.png') { return $true }
+  # The content editor and its GitHub sign-in live on the test site only: that
+  # is where saving publishes to (see admin/config.yml).
+  if ($p -eq 'admin/index.html' -or $p -eq 'admin/config.yml' -or $p -eq 'api/decap-auth.php') { return -not $Live }
   if ($p -match '^api/[^/]+\.(php|png)$') { return $true }   # the form sender + its email logo; secrets live beside public_html, not here
   if ($FontAllow -contains $p) { return $true }
+  # the editor's full-size originals; the site uses the copies made from them
+  if ($p -like 'assets/img/uploads/*') { return $false }
   if ($p -notmatch '^(assets|products|news|projects)/') { return $false }
   if ($p -like 'assets/downloads/*') { if ($Live) { return -not $NoPdf } else { return $PdfAllow -contains $p } }
   $ext = [IO.Path]::GetExtension($p).TrimStart('.').ToLowerInvariant()
@@ -269,6 +281,11 @@ $toSend   = @($local.Keys | Where-Object { $sent[$_] -ne $local[$_].hash } | Sor
 # -NoPdf means "don't send the PDFs this time", not "remove them": without this
 # a run with it would delete every PDF an earlier run had put up.
 $toDelete = @($sent.Keys | Where-Object { -not $local.Contains($_) -and -not ($NoPdf -and $_ -like 'assets/downloads/*') } | Sort-Object)
+if ($Only) {
+  $onlySet = @{}; foreach ($o in $Only) { foreach ($x in ($o -split ',')) { if ($x.Trim()) { $onlySet[$x.Trim().Replace('\', '/')] = 1 } } }
+  $toSend = @($toSend | Where-Object { $onlySet.ContainsKey($_) })
+  $toDelete = @()
+}
 $sendBytes = 0; foreach ($p in $toSend) { $sendBytes += $local[$p].size }
 $allBytes  = 0; foreach ($p in $local.Keys) { $allBytes += $local[$p].size }
 
@@ -283,16 +300,28 @@ if ($DryRun) {
 }
 if ($toSend.Count -eq 0 -and $toDelete.Count -eq 0) { Say ($where + ' is already up to date.') Green; exit 0 }
 
+# Just Enter to go ahead. It used to want "biomi.ge" typed, which read as a
+# password prompt (the FTP password is saved and never asked again), and on the
+# Georgian keyboard layout comes out as other letters and cancels (2026-09-22).
 if ($Live -and -not $Yes) {
   Write-Host ''
+  $shown = 0
+  foreach ($p in $toSend) { if ($shown -ge 30) { break }; Say ('  + ' + $p); $shown++ }
+  if ($toSend.Count -gt $shown) { Say ('  ... and {0} more' -f ($toSend.Count - $shown)) }
+  foreach ($p in $toDelete) { Say ('  - ' + $p) }
+  Write-Host ''
   Say 'This changes the LIVE website that customers see.' Yellow
-  $answer = Read-Host '   Type biomi.ge and press Enter to go ahead'
-  if ($answer.Trim() -ne 'biomi.ge') { Say 'Nothing was uploaded.' Yellow; exit 1 }
+  Say 'No password is needed - the FTP login is saved on this computer.' White
+  $answer = Read-Host '   Press Enter to upload (or close this window to cancel)'
+  # n / no / ara, or the same keys on the Georgian layout (this file has no BOM,
+  # so the Georgian letters are written as codes: ნ = n, არა = ara)
+  if ($answer -and $answer.Trim() -match '^(n|no|ara|ნ|არა)$') { Say 'Nothing was uploaded.' Yellow; exit 1 }
 }
 
 # ------------------------------------------------------------------- the login
+$envLogin = [bool]($env:BIOMI_FTP_USER -and $env:BIOMI_FTP_PASS)
 if ($ResetLogin -and (Test-Path -LiteralPath $loginFile)) { Remove-Item -LiteralPath $loginFile }
-if (-not (Test-Path -LiteralPath $loginFile)) {
+if (-not $envLogin -and -not (Test-Path -LiteralPath $loginFile)) {
   # Asked for right here in the console: the Get-Credential dialog opened
   # off-screen under Windows Terminal (2026-09-15) and could not be brought up.
   Write-Host ''
@@ -307,7 +336,8 @@ if (-not (Test-Path -LiteralPath $loginFile)) {
   New-Item -ItemType Directory -Force -Path $store | Out-Null
   $cred | Export-Clixml -LiteralPath $loginFile
 }
-$netCred = (Import-Clixml -LiteralPath $loginFile).GetNetworkCredential()
+$netCred = if ($envLogin) { New-Object Net.NetworkCredential($env:BIOMI_FTP_USER, $env:BIOMI_FTP_PASS) }
+           else { (Import-Clixml -LiteralPath $loginFile).GetNetworkCredential() }
 
 # ------------------------------------------------------------------- FTP calls
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12

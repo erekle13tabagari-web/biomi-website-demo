@@ -1,0 +1,90 @@
+# An article saved in the content editor (https://test.biomi.ge/admin, Decap
+# CMS) arrives as a commit to content/ or assets/img/uploads/. This converts its
+# pictures, rebuilds the news pages, the homepage rail, the meta tags and the
+# search index with the same scripts used by hand, commits the result, and
+# uploads the changed files to test.biomi.ge. biomi.ge is still published by
+# hand ("Upload Live Site"), after a look at the test site.
+#
+# Needs two repository secrets (Settings > Secrets and variables > Actions):
+#   TEST_FTP_USER, TEST_FTP_PASS - the FTP account of the TEST site only
+name: CMS build
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/**', 'assets/img/uploads/**']
+  workflow_dispatch:
+
+concurrency:
+  group: cms-build
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install ImageMagick
+        shell: powershell
+        run: |
+          choco install imagemagick -y --no-progress | Out-Null
+          $dir = (Get-ChildItem 'C:\Program Files' -Directory -Filter 'ImageMagick*' | Select-Object -First 1).FullName
+          if (-not $dir) { throw 'ImageMagick was not found after installing it' }
+          Add-Content -Path $env:GITHUB_PATH -Value $dir
+          & (Join-Path $dir 'magick.exe') -version | Select-Object -First 1
+
+      - name: Build the pages
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          function Run($script, $a) {
+            & powershell -NoProfile -ExecutionPolicy Bypass -File $script @a
+            if ($LASTEXITCODE) { throw ($script + ' failed') }
+          }
+          Run 'tools\news\1-images.ps1' @('-UploadsOnly')
+          Run 'tools\news\build-news.ps1' @()
+          Run 'tools\build-meta.ps1' @()
+          Run 'build-search-index.ps1' @()
+          Run 'check-meta.ps1' @()
+          Run 'tools\divcheck.ps1' @()
+          & powershell -NoProfile -ExecutionPolicy Bypass -File 'tools\linkcheck.ps1'
+
+      - name: Commit the built pages
+        shell: powershell
+        run: |
+          git config user.name 'biomi-cms-build'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { 'Nothing new to commit.'; exit 0 }
+          git commit -m 'CMS build: news pages [skip ci]'
+          git pull --rebase origin main
+          if ($LASTEXITCODE) { throw 'Could not rebase onto main' }
+          git push origin HEAD:main
+          if ($LASTEXITCODE) { throw 'Could not push the built pages' }
+
+      - name: Upload to test.biomi.ge
+        shell: powershell
+        env:
+          BIOMI_FTP_USER: ${{ secrets.TEST_FTP_USER }}
+          BIOMI_FTP_PASS: ${{ secrets.TEST_FTP_PASS }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          # Until the secrets are added the pages are still built and committed;
+          # only this upload waits (a warning, not a failure e-mail every push).
+          if (-not $env:BIOMI_FTP_USER -or -not $env:BIOMI_FTP_PASS) {
+            '::warning::TEST_FTP_USER / TEST_FTP_PASS are not set - test.biomi.ge was not updated'
+            exit 0
+          }
+          $base = if ($env:BEFORE -and $env:BEFORE -notmatch '^0+$') { $env:BEFORE } else { 'HEAD~1' }
+          $files = @(git -c core.quotepath=off diff --name-only $base HEAD)
+          if (-not $files.Count) { 'Nothing to upload.'; exit 0 }
+          & powershell -NoProfile -ExecutionPolicy Bypass -File tools\deploy\deploy-site.ps1 -Target test -Only ($files -join ',')
+          if ($LASTEXITCODE) { throw 'The upload failed' }

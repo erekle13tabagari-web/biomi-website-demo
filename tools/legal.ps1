@@ -55,9 +55,9 @@ $DOCS = @(
              h2='Privacy Policy'
              lede='The personal-data protection policy of JSC Biomi Holding, published in Georgian.' } }
   @{ slug='consent'; body='consent-ka.html'
-     ka = @{ link='თანხმობა პერსონალურ მონაცემთა დამუშავების შესახებ'
-             title='თანხმობა პერსონალურ მონაცემთა დამუშავების შესახებ - ბიომი'
-             h2='თანხმობა პერსონალურ მონაცემთა დამუშავების შესახებ'
+     ka = @{ link='თანხმობა - პერსონალურ მონაცემთა დამუშავების შესახებ'
+             title='თანხმობა - პერსონალურ მონაცემთა დამუშავების შესახებ - ბიომი'
+             h2='თანხმობა - პერსონალურ მონაცემთა დამუშავების შესახებ'
              lede='რა მონაცემებს ვამუშავებთ ონლაინ ფორმიდან, რა მიზნით და რაზე გაძლევთ არჩევანს.' }
      en = @{ link='Data Processing Consent'
              title='Consent to the processing of personal data - Biomi'
@@ -66,9 +66,9 @@ $DOCS = @(
   # Split out of the consent document by the client's lawyers (2026-09-18): the
   # contact form's third, optional tick links here.
   @{ slug='marketing'; body='marketing-ka.html'
-     ka = @{ link='თანხმობა მარკეტინგული მიზნებისთვის'
-             title='თანხმობა მარკეტინგული მიზნებისთვის - ბიომი'
-             h2='თანხმობა მარკეტინგული მიზნებისთვის მონაცემთა დამუშავებაზე'
+     ka = @{ link='თანხმობა - მარკეტინგული მიზნებისთვის'
+             title='თანხმობა - მარკეტინგული მიზნებისთვის - ბიომი'
+             h2='თანხმობა - მარკეტინგული მიზნებისთვის მონაცემთა დამუშავებაზე'
              lede='სარეკლამო და საინფორმაციო შეტყობინებები: რა მონაცემებს ვიყენებთ, რა არხებით და როგორ შეგიძლიათ თანხმობის გამოხმობა.' }
      en = @{ link='Marketing Consent'
              title='Consent for marketing purposes - Biomi'

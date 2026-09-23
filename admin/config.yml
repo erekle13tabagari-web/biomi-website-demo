@@ -1,0 +1,142 @@
+# The content editor at https://test.biomi.ge/admin (Decap CMS).
+#
+# Saving an article commits content/news/<slug>.json (and any uploaded
+# pictures) to GitHub. .github/workflows/cms-build.yml then converts the
+# pictures, builds the pages with tools/news/*.ps1 and uploads them to
+# test.biomi.ge. biomi.ge is published by hand, as before.
+#
+# The file format is the one tools/news/load-news.ps1 reads; see
+# tools/news/README.md. Change a field here and there together.
+
+backend:
+  name: github
+  repo: erekle13tabagari-web/biomi-website-demo
+  branch: main
+  base_url: https://test.biomi.ge
+  auth_endpoint: api/decap-auth.php
+  commit_messages:
+    create: 'CMS: add {{collection}} "{{slug}}"'
+    update: 'CMS: update {{collection}} "{{slug}}"'
+    delete: 'CMS: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'CMS: upload "{{path}}"'
+    deleteMedia: 'CMS: delete "{{path}}"'
+
+site_url: https://test.biomi.ge
+display_url: https://test.biomi.ge
+logo_url: https://test.biomi.ge/assets/img/logo-geo.svg
+
+# Originals are kept here; the build makes the web-sized copies.
+media_folder: assets/img/uploads
+public_folder: /assets/img/uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: news
+    label: სიახლეები
+    label_singular: სიახლე
+    description: >-
+      სტატია ჩნდება test.biomi.ge-ზე შენახვიდან რამდენიმე წუთში. biomi.ge-ზე
+      გამოქვეყნდება მას შემდეგ, რაც საიტის ადმინისტრატორი დაადასტურებს.
+    folder: content/news
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    identifier_field: slug
+    summary: "{{date}} — {{ka.h1}}"
+    sortable_fields: [date, slug]
+    preview_path: "news/{{slug}}.html"
+    fields:
+      - label: მისამართი (ლათინურად)
+        name: slug
+        widget: string
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'მხოლოდ ლათინური პატარა ასოები, ციფრები და ტირე, მაგ. new-office']
+        hint: 'გვერდის მისამართი იქნება biomi.ge/news/ეს-სიტყვა.html. შენახვის შემდეგ აღარ შეცვალოთ.'
+      - label: თარიღი
+        name: date
+        widget: datetime
+        format: YYYY-MM-DD
+        date_format: YYYY-MM-DD
+        time_format: false
+        picker_utc: true
+      - label: მთავარი ფოტო
+        name: hero
+        widget: image
+        choose_url: false
+        hint: 'ჰორიზონტალური ფოტო, სასურველია 1600×900 ან უფრო დიდი. ავტომატურად მოიჭრება 16:9-ზე.'
+      - label: ფოტოგალერეა
+        name: gallery
+        widget: list
+        required: false
+        collapsed: true
+        hint: 'არასავალდებულო. ფოტოები გამოჩნდება სტატიის ქვემოთ, ამავე რიგით.'
+        field: { label: ფოტო, name: image, widget: image, choose_url: false }
+      - label: ფოტოები წარწერით (ტექსტის შიგნით)
+        name: figures
+        widget: list
+        required: false
+        collapsed: true
+        hint: 'ტექსტში ცალკე აბზაცად დაწერეთ FIGURE იქ, სადაც ფოტო უნდა ჩაჯდეს. პირველი FIGURE იღებს პირველ ფოტოს, მეორე - მეორეს.'
+        summary: '{{fields.ka.cap}}'
+        fields:
+          - { label: ფოტო, name: image, widget: image, choose_url: false }
+          - { label: წყარო, name: from, widget: hidden, required: false }
+          - label: ქართული
+            name: ka
+            widget: object
+            fields:
+              - { label: 'ფოტოს აღწერა (უსინათლო მკითხველისთვის)', name: alt, widget: string }
+              - { label: წარწერა, name: cap, widget: string }
+          - label: English
+            name: en
+            widget: object
+            fields:
+              - { label: 'Photo description (for screen readers)', name: alt, widget: string }
+              - { label: Caption, name: cap, widget: string }
+      - { label: წყარო, name: src, widget: hidden, required: false }
+
+      - label: ქართული
+        name: ka
+        widget: object
+        fields:
+          - { label: სათაური, name: h1, widget: string }
+          - { label: 'კატეგორია (მაგ. კომპანიის სიახლე)', name: cat, widget: string }
+          - { label: 'შესავალი (1-2 წინადადება)', name: lead, widget: text }
+          - label: ტექსტი
+            name: body
+            widget: markdown
+            modes: [rich_text, raw]
+            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list]
+            editor_components: []
+            hint: 'ფოტოს ჩასასმელად ცალკე აბზაცად დაწერეთ FIGURE.'
+          - { label: 'მთავარი ფოტოს აღწერა (უსინათლო მკითხველისთვის)', name: alt, widget: string }
+          - { label: 'მთავარი ფოტოს წარწერა', name: cap, widget: string, required: false }
+          - { label: 'ბრაუზერის სათაური', name: title, widget: string, required: false, hint: 'ცარიელი = სათაური + " - ბიომი"' }
+          - { label: 'Google-ის აღწერა', name: desc, widget: text, required: false, hint: 'ცარიელი = შესავალი' }
+          - { label: 'სათაური ნავიგაციაში', name: crumb, widget: string, required: false, hint: 'ცარიელი = სათაური' }
+          - { label: 'თარიღი ტექსტად', name: dateText, widget: string, required: false, hint: 'ცარიელი = თარიღიდან, მაგ. 15 მარტი, 2025' }
+
+      - label: English
+        name: en
+        widget: object
+        fields:
+          - { label: Headline, name: h1, widget: string }
+          - { label: 'Category (e.g. Company news)', name: cat, widget: string }
+          - { label: 'Lead (1-2 sentences)', name: lead, widget: text }
+          - label: Text
+            name: body
+            widget: markdown
+            modes: [rich_text, raw]
+            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list]
+            editor_components: []
+            hint: 'Write FIGURE as a paragraph of its own where a captioned photo goes.'
+          - { label: 'Hero photo description (for screen readers)', name: alt, widget: string }
+          - { label: 'Hero photo caption', name: cap, widget: string, required: false }
+          - { label: 'Browser title', name: title, widget: string, required: false, hint: 'Empty = headline + " - Biomi"' }
+          - { label: 'Google description', name: desc, widget: text, required: false, hint: 'Empty = the lead' }
+          - { label: 'Title in the breadcrumb', name: crumb, widget: string, required: false, hint: 'Empty = the headline' }
+          - { label: 'Date as text', name: dateText, widget: string, required: false, hint: 'Empty = from the date, e.g. 15 March 2025' }

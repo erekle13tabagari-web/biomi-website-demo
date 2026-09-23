@@ -7,7 +7,13 @@
 # a gallery of nothing, or a video panel with no video, reads as a broken page.
 $sp   = $PSScriptRoot
 $repo = Split-Path (Split-Path $sp -Parent) -Parent
-$DATA = Get-Content (Join-Path $sp 'news.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+# content/news/<slug>.json since 2026-09-22 (the editor at /admin writes them),
+# newest first - see load-news.ps1
+. (Join-Path $sp 'load-news.ps1')
+$DATA = Get-NewsItems
+# How many cards the homepage rail and each article's "other news" strip show:
+# the newest ones. Every article still has its own page.
+$RAIL = 3
 $UTF8 = New-Object Text.UTF8Encoding($true)
 $CRLF = [string][char]13 + [char]10
 $wrote = 0
@@ -163,8 +169,7 @@ foreach ($item in $DATA) {
       $card = $s.Substring($cs, $ce - $cs)
 
       $cards = @()
-      foreach ($o in $DATA) {
-        if ($o.slug -eq $item.slug) { continue }
+      foreach ($o in @($DATA | Where-Object { $_.slug -ne $item.slug } | Select-Object -First $RAIL)) {
         $ot = $o.$lang
         $c = $card
         $c = [regex]::Replace($c, 'src="\.\./assets/img/[^"]*"( loading="lazy")?', ('src="../assets/img/' + (CardImg $o.hero) + '" loading="lazy"'))
@@ -226,7 +231,7 @@ foreach ($lang in 'ka', 'en') {
   $ge = $s.LastIndexOf('</article>', $s.IndexOf('</section>', $gs)) + '</article>'.Length
 
   $cards = @()
-  foreach ($o in $DATA) {
+  foreach ($o in @($DATA | Select-Object -First $RAIL)) {
     $ot = $o.$lang
     $c = $card
     $c = [regex]::Replace($c, 'src="assets/img/[^"]*"( loading="lazy")?', ('src="assets/img/' + (CardImg $o.hero) + '" loading="lazy"'))
@@ -242,5 +247,14 @@ foreach ($lang in 'ka', 'en') {
   $s = [regex]::Replace($s, "`r`n|`n", $CRLF)
   [IO.File]::WriteAllText($fp, $s, $UTF8)
   Write-Host ("  rebuilt the news rail in $file : " + $cards.Count + ' cards')
+}
+# An article deleted in the editor takes its two pages with it. Every page in
+# news/ is written by this script, so one without a content file is stale.
+$keep = @{}; foreach ($o in $DATA) { $keep[$o.slug] = 1 }
+foreach ($old in Get-ChildItem (Join-Path $repo 'news') -Filter '*.html' -File) {
+  if (-not $keep.ContainsKey(($old.BaseName -replace '-en$', ''))) {
+    Remove-Item -LiteralPath $old.FullName
+    Write-Host ('  removed news\' + $old.Name + ' (no content file)')
+  }
 }
 Write-Host ('pages written: ' + $wrote)

@@ -161,15 +161,15 @@ $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
 
 "@
     if ($b.cat -eq 'burners') {
-      $title = "$($b.brand) - " + $(if ($lang -eq 'ka') { 'სანთურები - ბიომი' } else { 'burners - Biomi' })
+      $title = "$($b.brand) " + $(if ($lang -eq 'ka') { 'სანთურები - Gulliver, გაზი და დიზელი - ბიომი' } else { 'Burners - Gulliver, Gas and Light Oil - Biomi' })
       # names the series, so it is not word for word the burners category's own
       # description (found as a duplicate in the SEO audit, 2026-09-21)
-      $descr = if ($lang -eq 'ka') { "$($b.brand)-ის სანთურები - Gulliver BS ბუნებრივ აირზე და Gulliver RG დიზელის საწვავზე." }
-               else { "$($b.brand) burners - Gulliver BS for natural gas and Gulliver RG for light oil." }
+      $descr = if ($lang -eq 'ka') { "$($b.brand)-ის სანთურები - Gulliver BS ბუნებრივ აირზე და Gulliver RG დიზელის საწვავზე. შერჩევა ქვაბის სიმძლავრის მიხედვით და მონტაჟი თბილისში." }
+               else { "$($b.brand) burners - Gulliver BS for natural gas and Gulliver RG for light oil. Matched to the boiler output and installed in Tbilisi." }
     } else {
-      $title = "$($b.brand) - " + $(if ($lang -eq 'ka') { 'ბიომი' } else { 'Biomi' })
-      $descr = if ($lang -eq 'ka') { "$($b.brand)-ის გათბობის ქვაბები - კედლის და კომერციული სერიები." }
-               else { "$($b.brand) heating boilers - wall-hung and commercial ranges." }
+      $title = "$($b.brand) " + $(if ($lang -eq 'ka') { 'გათბობის ქვაბები - ბიომი' } else { 'Heating Boilers - Biomi' })
+      $descr = if ($lang -eq 'ka') { "$($b.brand)-ის გათბობის ქვაბები - კედლის და კომერციული სერიები. შერჩევა სიმძლავრის მიხედვით და მონტაჟი თბილისში." }
+               else { "$($b.brand) heating boilers - wall-hung and commercial ranges. Sized to your output and installed in Tbilisi." }
     }
     $h = [regex]::Replace($h,'(?s)<title>.*?</title>',('<title>' + (HtmlEnc $title) + '</title>'))
     $h = [regex]::Replace($h,'(?s)(<meta name="description" content=").*?(">)',('${1}' + (HtmlEnc $descr) + '${2}'))

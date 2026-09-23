@@ -79,7 +79,7 @@ $L = @{
     catEyebrow='ვენტილაცია'; catH='აირჩიეთ ბრენდი'
     catP='ჩვენი სავენტილაციო პარტნიორი ბრენდები - დააჭირეთ ლოგოს პროდუქტების სანახავად.'
     goto='პროდუქტები'
-    hubTitle='Vortice - ბიომი'; hubDesc='Vortice-ის სავენტილაციო ტექნიკა - აბაზანის, არხული, სამრეწველო ვენტილატორები და რეკუპერატორები.'
+    hubTitle='Vortice ვენტილატორები და რეკუპერატორები - ბიომი'; hubDesc='Vortice-ის სავენტილაციო ტექნიკა - აბაზანის, არხული და სამრეწველო ვენტილატორები და რეკუპერატორები. მიწოდება და მონტაჟი თბილისში.'
     catTitle='ვენტილაცია - ბიომი'; catDesc='სავენტილაციო სისტემები და ტექნიკა - აირჩიეთ ბრენდი პროდუქტების სანახავად.' }
   en = @{ file='-en.html'; hubTpl='mitsubishi-electric-en.html'; catTpl='vrf-vrv-en.html'
     home='Home'; products='Products'; vent='Ventilation'
@@ -92,7 +92,7 @@ $L = @{
     catEyebrow='Ventilation'; catH='Choose a brand'
     catP='Our ventilation partner brands - click a logo to see the products.'
     goto='Products'
-    hubTitle='Vortice - Biomi'; hubDesc='Vortice ventilation equipment - bathroom, in-line and commercial fans, and heat recovery units.'
+    hubTitle='Vortice Fans and Heat Recovery Units - Biomi'; hubDesc='Vortice ventilation equipment - bathroom, in-line and commercial fans, and heat-recovery units. Supply and installation in Tbilisi.'
     catTitle='Ventilation - Biomi'; catDesc='Ventilation systems and equipment - choose a brand to see the products.' }
 }
 function HtmlEnc($s) { $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }

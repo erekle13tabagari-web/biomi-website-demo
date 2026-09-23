@@ -22,6 +22,7 @@ $pages = Get-ChildItem $repo -Filter '*.html' -Recurse -File | Where-Object {
   $_.Name -ne 'Launch Biomi Website.html' -and
   $rel -notlike 'backup*'  -and
   $rel -notlike 'tools*'   -and
+  $rel -notlike 'admin*'   -and   # the content editor: no share card or canonical wanted
   $rel -notlike '.git*'    -and
   $rel -notlike '.claude*' -and
   $rel -notlike '*_files*'

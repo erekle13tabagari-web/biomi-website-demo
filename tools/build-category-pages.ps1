@@ -33,10 +33,10 @@ $PAGES = @(
      eyebrowKa='გაგრილება'; eyebrowEn='Cooling'
      headKa='Multisplit / VRV / VRF'; headEn='Multisplit / VRV / VRF'
      crumbKa='გაგრილება'; crumbEn='Cooling'
-     titleKa='გაგრილება - ბიომი'; titleEn='Cooling - Biomi'
+     titleKa='კონდიციონერები და VRF სისტემები - Samsung, Mitsubishi - ბიომი'; titleEn='Air Conditioners and VRF Systems - Samsung, Mitsubishi - Biomi'
      # no intro line under the heading (removed at the user's request, 2026-09-17)
      ledeKa=''; ledeEn=''
-     pdescKa='Multisplit, VRV და VRF სისტემები Samsung-ისა და Mitsubishi Electric-ისგან.'; pdescEn='Multisplit, VRV and VRF systems from Samsung and Mitsubishi Electric.'
+     pdescKa='კედლის, კასეტური, არხული და ჭერის კონდიციონერები, მულტისპლიტ და VRF სისტემები Samsung-ისა და Mitsubishi Electric-ისგან - მიწოდება და მონტაჟი თბილისში.'; pdescEn='Wall, cassette, ducted and ceiling air conditioners, multi-split and VRF systems from Samsung and Mitsubishi Electric - supplied and installed in Tbilisi.'
      # Plain names in the filter. What each range is and how it differs from the
      # others is explained under the filter instead (notes), at a length a
      # one-line gloss under a checkbox could not hold.
@@ -86,7 +86,7 @@ $PAGES = @(
      eyebrowKa='გათბობა'; eyebrowEn='Heating'
      headKa='გათბობის ქვაბი'; headEn='Heating boilers'
      crumbKa='ქვაბი'; crumbEn='Boilers'
-     titleKa='გათბობის ქვაბი - ბიომი'; titleEn='Heating boilers - Biomi'
+     titleKa='გათბობის ქვაბები - Beretta, Riello, Warmhaus - ბიომი'; titleEn='Heating Boilers - Beretta, Riello, Warmhaus - Biomi'
      # Commercial only while the wall-hung ranges are held back: the old copy
      # promised flats, private houses and wall-hung boilers, none of which the
      # page can still show. The description is what a search result prints, so
@@ -95,7 +95,7 @@ $PAGES = @(
      # "Gas" came off when RTQ 3S arrived: it takes a separate burner, and the
      # burner can be an oil one.
      ledeKa='ქვაბები კომერციული ობიექტისთვის - კასკადური სერიები და ფოლადის ქვაბი ცალკე სანთურასთან სამუშაოდ.'; ledeEn='Boilers for commercial buildings - cascade ranges, and a steel boiler that takes a separate burner.'
-     pdescKa='გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან - კომერციული კასკადური სერიები და ფოლადის ქვაბები სანთურისთვის.'; pdescEn='Heating boilers from Beretta, Riello and Warmhaus - commercial cascade ranges and steel boilers for a separate burner.'
+     pdescKa='კომერციული და კასკადური გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან, ფოლადის ქვაბები სანთურისთვის - შერჩევა სიმძლავრის მიხედვით და მონტაჟი თბილისში.'; pdescEn='Commercial and cascade boilers from Beretta, Riello and Warmhaus, plus steel boilers for a separate burner - sized to your output and installed in Tbilisi.'
      # the hub cards carry data-cat="<brand slug>", so the second group would just
      # repeat the brand filter -- output band is the useful second axis here
      # Bands follow the published range, the same way the brand hubs build
@@ -120,9 +120,9 @@ $PAGES = @(
      eyebrowKa='გათბობა'; eyebrowEn='Heating'
      headKa='სანთურები'; headEn='Burners'
      crumbKa='სანთურები'; crumbEn='Burners'
-     titleKa='სანთურები - ბიომი'; titleEn='Burners - Biomi'
+     titleKa='სანთურები ქვაბისთვის - Riello, გაზი და დიზელი - ბიომი'; titleEn='Boiler Burners - Riello, Gas and Light Oil - Biomi'
      ledeKa='ვენტილატორიანი სანთურები ქვაბისთვის - ბუნებრივ აირზე და დიზელის საწვავზე.'; ledeEn='Forced-draught burners for boilers - natural gas and light oil.'
-     pdescKa='Riello-ს სანთურები ქვაბისთვის - ბუნებრივ აირზე და დიზელის საწვავზე.'; pdescEn='Riello burners for boilers - natural gas and light oil.'
+     pdescKa='Riello Gulliver-ის სანთურები გათბობის ქვაბისთვის - ბუნებრივ აირზე და დიზელის საწვავზე. შერჩევა ქვაბის სიმძლავრის მიხედვით და მონტაჟი თბილისში.'; pdescEn='Riello Gulliver burners for heating boilers - natural gas and light oil. Matched to the boiler output and installed in Tbilisi.'
      series=@(); seriesKa=''; seriesEn=''
      typeKa='საწვავი'; typeEn='Fuel'
      types=@(@('gas','ბუნებრივი აირი','Natural gas'),@('oil','დიზელის საწვავი','Light oil'))
@@ -133,9 +133,9 @@ $PAGES = @(
      eyebrowKa='ვენტილაცია'; eyebrowEn='Ventilation'
      headKa='სავენტილაციო სისტემები'; headEn='Ventilation systems'
      crumbKa='ვენტილაცია'; crumbEn='Ventilation'
-     titleKa='ვენტილაცია - ბიომი'; titleEn='Ventilation - Biomi'
+     titleKa='ვენტილაციის სისტემები და რეკუპერაცია - Vortice - ბიომი'; titleEn='Ventilation Systems and Heat Recovery - Vortice - Biomi'
      ledeKa='აბაზანის, არხული და სამრეწველო ვენტილატორები, აგრეთვე რეკუპერაციის სისტემები.'; ledeEn='Bathroom, in-line and commercial fans, plus heat-recovery units.'
-     pdescKa='სავენტილაციო სისტემები და ტექნიკა Vortice-ისგან.'; pdescEn='Ventilation systems and equipment from Vortice.'
+     pdescKa='საყოფაცხოვრებო, არხული და სამრეწველო ვენტილატორები და რეკუპერაციის დანადგარები Vortice-ისგან - ვენტილაციის პროექტირება და მონტაჟი თბილისში.'; pdescEn='Domestic, in-line and industrial fans and heat-recovery units from Vortice - ventilation design and installation in Tbilisi.'
      series=@(@('home','საყოფაცხოვრებო','Residential'),@('duct','არხული','In-line'),
               @('ind','სამრეწველო','Commercial'),@('hrv','რეკუპერაცია','Heat recovery'))
      # Sections rather than a facet: these four are the parts the range divides
@@ -163,9 +163,9 @@ $PAGES = @(
      eyebrowKa='გათბობა'; eyebrowEn='Heating'
      headKa='გათბობის ტექნიკა'; headEn='Heating equipment'
      crumbKa='გათბობა'; crumbEn='Heating'
-     titleKa='გათბობა - ბიომი'; titleEn='Heating - Biomi'
+     titleKa='გათბობის სისტემები - ქვაბები, სანთურები, ბოილერები - ბიომი'; titleEn='Heating Systems - Boilers, Burners, Water Heaters - Biomi'
      ledeKa='გათბობის ქვაბები, სანთურები და ბოილერები - ყველა ერთ ადგილას.'; ledeEn='Heating boilers, burners and water heaters - all in one place.'
-     pdescKa='გათბობის ქვაბები, სანთურები და ბოილერები - Beretta, Riello, Warmhaus, Omega.'; pdescEn='Heating boilers, burners and water heaters - Beretta, Riello, Warmhaus, Omega.'
+     pdescKa='გათბობის ქვაბები, სანთურები და ბოილერები Beretta-ს, Riello-ს, Warmhaus-ისა და Omega-სგან - შერჩევა, მონტაჟი და სერვისი თბილისში.'; pdescEn='Heating boilers, burners and water heaters from Beretta, Riello, Warmhaus and Omega - selection, installation and service in Tbilisi.'
      series=@(); seriesKa='კატეგორია'; seriesEn='Category'; seriesName='sec'; seriesFirst=$true
      typeKa=''; typeEn=''; types=@()
      extraKa=''; extraEn=''; extraName=''; extras=@() }
