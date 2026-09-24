@@ -93,8 +93,8 @@ function Projects($en, $kind) {
 }
 
 # hub file -> brand label shown next to a product result
-$hubsKa = @{ 'samsung.html' = 'Samsung'; 'mitsubishi-electric.html' = 'Mitsubishi Electric'; 'vortice.html' = 'Vortice'; 'beretta.html' = 'Beretta'; 'riello.html' = 'Riello'; 'riello-burners.html' = 'Riello'; 'warmhaus.html' = 'Warmhaus'; 'water-heaters.html' = '' }
-$hubsEn = @{ 'samsung-en.html' = 'Samsung'; 'mitsubishi-electric-en.html' = 'Mitsubishi Electric'; 'vortice-en.html' = 'Vortice'; 'beretta-en.html' = 'Beretta'; 'riello-en.html' = 'Riello'; 'riello-burners-en.html' = 'Riello'; 'warmhaus-en.html' = 'Warmhaus'; 'water-heaters-en.html' = '' }
+$hubsKa = @{ 'samsung.html' = 'Samsung'; 'mitsubishi-electric.html' = 'Mitsubishi Electric'; 'vortice.html' = 'Vortice'; 'beretta.html' = 'Beretta'; 'riello.html' = 'Riello'; 'riello-burners.html' = 'Riello'; 'warmhaus.html' = 'Warmhaus'; 'emtas.html' = ('Emta' + [char]0x15F); 'water-heaters.html' = '' }
+$hubsEn = @{ 'samsung-en.html' = 'Samsung'; 'mitsubishi-electric-en.html' = 'Mitsubishi Electric'; 'vortice-en.html' = 'Vortice'; 'beretta-en.html' = 'Beretta'; 'riello-en.html' = 'Riello'; 'riello-burners-en.html' = 'Riello'; 'warmhaus-en.html' = 'Warmhaus'; 'emtas-en.html' = ('Emta' + [char]0x15F); 'water-heaters-en.html' = '' }
 
 $rxCard = [regex]'(?s)<a class="pcard"\s+href="([^"]+)"[^>]*?data-name="([^"]*)"[^>]*>(.*?)</a>'
 $rxImg  = [regex]'<img src="([^"]+)"'

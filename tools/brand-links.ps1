@@ -27,6 +27,7 @@ function HubFor([string]$name) {
     '^riello-gulliver-'  { return 'riello-burners' }
     '^riello-'           { return 'riello' }
     '^warmhaus-'         { return 'warmhaus' }
+    '^emtas-'            { return 'emtas' }
   }
   return $null
 }

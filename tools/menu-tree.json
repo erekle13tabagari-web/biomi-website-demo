@@ -3,7 +3,8 @@
   {"ka":"ქვაბი","en":"Boilers","page":"boilers","kids":[
     {"ka":"Beretta","en":"Beretta","page":"boilers","brand":"beretta"},
     {"ka":"Riello","en":"Riello","page":"boilers","brand":"riello"},
-    {"ka":"Warmhaus","en":"Warmhaus","page":"boilers","brand":"warmhaus"}]},
+    {"ka":"Warmhaus","en":"Warmhaus","page":"boilers","brand":"warmhaus"},
+    {"ka":"Emtaş","en":"Emtaş","page":"boilers","brand":"emtas"}]},
   {"ka":"სანთურები","en":"Burners","page":"burners","kids":[
     {"ka":"Riello","en":"Riello","page":"burners","brand":"riello"}]},
   {"ka":"ბოილერები","en":"Water heaters","page":"water-heaters","kids":[

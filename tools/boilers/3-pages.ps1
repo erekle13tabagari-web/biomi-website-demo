@@ -35,6 +35,9 @@ $L = @{
     home='მთავარი'; products='პროდუქტი'; cat='ქვაბი'; catBurners='სანთურები'
     thFuel='საწვავი'; thStage='მუშაობის რეჟიმი'; thFlow='საწვავის ხარჯი'; thElec='ელ. სიმძლავრე'
     thNoxmg='NOx ემისია'; thStd='სტანდარტი'
+    thKcal='თბური სიმძლავრე'; thFeed='საწვავის მიწოდება'; thPasses='სვლების რაოდენობა'; thPress='სამუშაო წნევა'
+    thWater='წყლის მოცულობა'; thConn='მიწოდება / დაბრუნება'; thFlue='საკვამურის დიამეტრი'
+    thDims='ზომები (სიგ. × სიღრ. × სიმ.)'; thHopper='სიგანე ბუნკერით'; thWeight='წონა'
     lblModel='მოდელი'; specs='მახასიათებლები'; cert='სერტიფიკატები'; dl='დოკუმენტაცია'
     thModel='მოდელი'; thCode='კოდი'; thMfr='მწარმოებლის კოდი'; thBrand='ბრენდი'
     thKw='სიმძლავრე'; thCountry='წარმოშობა'; thRange='მოდელების რიგი'
@@ -47,6 +50,9 @@ $L = @{
     home='Home'; products='Products'; cat='Boilers'; catBurners='Burners'
     thFuel='Fuel'; thStage='Operation'; thFlow='Fuel consumption'; thElec='Electrical power'
     thNoxmg='NOx emission'; thStd='Standard'
+    thKcal='Heat output'; thFeed='Fuel feed'; thPasses='Flue-gas passes'; thPress='Working pressure'
+    thWater='Water content'; thConn='Flow / return'; thFlue='Flue diameter'
+    thDims='Dimensions (W × D × H)'; thHopper='Width with hopper'; thWeight='Weight'
     lblModel='Model'; specs='Specifications'; cert='Certificates'; dl='Documentation'
     thModel='Model'; thCode='Code'; thMfr='Manufacturer code'; thBrand='Brand'
     thKw='Output'; thCountry='Origin'; thRange='Model range'
@@ -73,10 +79,17 @@ foreach ($pr in $raw.PSObject.Properties) {
   if ($pr.Name -eq '_source') { continue }
   $SPECS[$pr.Name] = $pr.Value
 }
+# Emtaş publishes a full datasheet per size; emtas.ps1 turns emtas.json into
+# the same chip-label -> figures shape.
+. (Join-Path $sp 'emtas.ps1')
+$EMTAS = Get-EmtasData
+foreach ($k in $EMTAS.specs.Keys) { $SPECS[$k] = $EMTAS.specs[$k] }
 # The burner keys (fuel .. std) sit among the boiler ones, but no boiler has
 # any of them and a row only renders where some model does, so the boiler
-# tables come out exactly as before.
-$SPECKEYS = @('heat','fuel','stage','flow','elec','dhw','eff','mod','nox','noxmg','std')
+# tables come out exactly as before. The same holds for the Emtaş datasheet
+# keys (kcal, feed, passes, press .. weight): only Emtaş has them.
+$SPECKEYS = @('heat','kcal','fuel','feed','passes','stage','flow','elec','dhw','eff','mod','nox','noxmg','std',
+              'press','water','conn','flue','dims','hopper','weight')
 function SpecAttrs($name, $t) {
   $out = ''
   foreach ($k in $SPECKEYS) {
@@ -105,6 +118,14 @@ function Kw($name){ $m=[regex]::Match($name,'\b(\d{2,3})\b'); if($m.Success){ret
 # A name with no output in it -- "RTQ 3S", a burner -- has it from its family,
 # copied onto the model by 2-images.ps1 as a range like "35-91".
 function KwOf($m){ if ($m.kw) { return [string]$m.kw }; return (Kw $m.name) }
+# The top of KwOf as a number, for sorting and the range line. An Emtaş name
+# carries kcal/h, not kW (EK3G-60 is 70 kW), so the name alone would mislead.
+function KwTop($m){ $v = ((KwOf $m) -split '-')[-1]; if ($v -match '^\d+$') { return [int]$v }; return 0 }
+# "Emtaş" -> "emtas": the logo file and data attributes want plain letters.
+function BrandSlug($s) {
+  $n = ([string]$s).Normalize([Text.NormalizationForm]::FormD)
+  return ((($n.ToCharArray() | Where-Object { [Globalization.CharUnicodeInfo]::GetUnicodeCategory($_) -ne 'NonSpacingMark' }) -join '')).ToLower()
+}
 # strip the Georgian boilerplate and the brand off the end for a chip label.
 # The burners are priced as "3761258 სანთურა BURNER GULLIVER BS2 DB DGT RIELLO"
 # and "3736450 სანთურა BURNER RG1R/50 RIELLO"; the chip is Riello's own model
@@ -130,7 +151,7 @@ foreach ($lang in 'ka','en') {
     $f = $fams[$fi]
     $name = if ($lang -eq 'ka') { $f.nameKa } else { $f.nameEn }
     $desc = if ($lang -eq 'ka') { $f.descKa } else { $f.descEn }
-    $g = @($mods | Where-Object { $_.slug -eq $f.slug } | Sort-Object { [int]("0" + (Kw $_.name)) })
+    $g = @($mods | Where-Object { $_.slug -eq $f.slug } | Sort-Object { KwTop $_ })
     # "LAWA 18 BLACK" is the same boiler in a black body. It comes out of the
     # chip list and becomes a finish switch below, so the range is not padded
     # with a second entry for a colour.
@@ -179,7 +200,9 @@ foreach ($lang in 'ka','en') {
     # it: an all-empty row reads as a hole in the datasheet rather than as an
     # absence of data. Beretta and Riello therefore keep the original table.
     $LBL = @{ heat=$t.thHeat; dhw=$t.thDhw; eff=$t.thEff; mod=$t.thMod; nox=$t.thNox
-              fuel=$t.thFuel; stage=$t.thStage; flow=$t.thFlow; elec=$t.thElec; noxmg=$t.thNoxmg; std=$t.thStd }
+              fuel=$t.thFuel; stage=$t.thStage; flow=$t.thFlow; elec=$t.thElec; noxmg=$t.thNoxmg; std=$t.thStd
+              kcal=$t.thKcal; feed=$t.thFeed; passes=$t.thPasses; press=$t.thPress; water=$t.thWater
+              conn=$t.thConn; flue=$t.thFlue; dims=$t.thDims; hopper=$t.thHopper; weight=$t.thWeight }
     $specRows = ''
     foreach ($k in $SPECKEYS) {
       if (-not @($g | Where-Object { SpecOf (Chip $_.name) $k $lang }).Count) { continue }
@@ -187,7 +210,7 @@ foreach ($lang in 'ka','en') {
       if (-not $v) { $v = '-' } elseif ($k -eq 'dhw') { $v = "$v $($t.dhwUnit)" }
       $specRows += "`r`n          <tr><th>$($LBL[$k])</th><td data-spec=`"$k`">" + (HtmlEnc $v) + '</td></tr>'
     }
-    $kws = @($g | ForEach-Object { Kw $_.name } | Where-Object { $_ } | ForEach-Object { [int]$_ } | Sort-Object)
+    $kws = @($g | ForEach-Object { KwTop $_ } | Where-Object { $_ } | Sort-Object)
     $range = if ($g.Count -eq 1 -and $first.kw) { "$($first.kw) $($t.kw)" }
              elseif ($kws.Count -gt 1) { "$($kws[0])-$($kws[-1]) $($t.kw)" } elseif ($kws.Count) { "$($kws[0]) $($t.kw)" } else { '-' }
 
@@ -250,7 +273,7 @@ $thumbs
         <h1>$(HtmlEnc $name)</h1>
         <div class="pbuy__ident">
           <div>
-            <div class="pbuy__brand" style="--m:url('../img/partners/$($f.brand.ToLower()).svg')"><img src="../assets/img/partners/$($f.brand.ToLower()).svg" alt="$($f.brand)"></div>
+            <div class="pbuy__brand" style="--m:url('../img/partners/$(BrandSlug $f.brand).svg')"><img src="../assets/img/partners/$(BrandSlug $f.brand).svg" alt="$($f.brand)"></div>
             <div class="pbuy__kw">$range</div>
           </div>
 $flagTag
@@ -307,7 +330,10 @@ $rel
       $to = if ($s -like '*-en.html') { $f.slug + '-en.html' } else { $f.slug + '.html' }
       $h = $h.Replace($s,$to); $tl = $tl.Replace($s,$to)
     }
-    $h = [regex]::Replace($h,'(?s)<title>.*?</title>',('<title>' + (HtmlEnc $name) + ' - ' + $(if($lang -eq 'ka'){'ბიომი'}else{'Biomi'}) + '</title>'))
+    # A family may give its tab and search title separately -- Emtaş leads with
+    # the brand, which the heading beside the logo does not need to repeat.
+    $ttlName = if ($lang -eq 'ka' -and $f.titleKa) { $f.titleKa } elseif ($lang -eq 'en' -and $f.titleEn) { $f.titleEn } else { $name }
+    $h = [regex]::Replace($h,'(?s)<title>.*?</title>',('<title>' + (HtmlEnc $ttlName) + ' - ' + $(if($lang -eq 'ka'){'ბიომი'}else{'Biomi'}) + '</title>'))
     $h = [regex]::Replace($h,'(?s)(<meta name="description" content=").*?(">)',('${1}' + (HtmlEnc $desc) + '${2}'))
     # With the BOM every other page carries. These pages are finished by later
     # passes -- tools/add-card-brands.ps1 stamps the related cards' logos and

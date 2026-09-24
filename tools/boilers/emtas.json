@@ -1,0 +1,71 @@
+{
+  "_source": [
+    "Emtaş solid fuel boilers (and one steel boiler for a burner), 45-100 kW, supplied through Sakra.",
+    "Figures read on 2026-09-24 off the technical-table images on sakra.com.tr, one per range:",
+    "  https://www.sakra.com.tr/tr/urun/kazan  ->  each range's Dokümantasyon image, named under 'sheet' below.",
+    "Sakra's site shows Emtaş boilers: Emtaş model codes, 'emtaş' on every boiler in the photos, Emtaş named in the copy.",
+    "Only sizes of 45 kW and up to 100 kW are listed (the band asked for). kW is as printed on the sheet.",
+    "Values the sheets get visibly wrong are left out (null) rather than corrected by guesswork:",
+    "  EKY/3K-45 depth printed as 9100 mm; EKYB/S weight and water copied from a smaller boiler.",
+    "Ranges 11 (4-pass 2-door) and 16 (5-pass baffled) publish no table, so they are not listed.",
+    "Photos: ქვაბები\\Emtas\\<range>, from sakra.com.tr; the versions with Turkish badges are set aside in სხვა."
+  ],
+  "fuel": {
+    "manual": { "ka": "მყარი საწვავი - ქვანახშირი, შეშა", "en": "Solid fuel - coal, wood" },
+    "auto":   { "ka": "მყარი საწვავი - წვრილი ქვანახშირი, პელეტი", "en": "Solid fuel - nut coal, pellets" },
+    "burner": { "ka": "ბუნებრივი აირი ან დიზელი - ცალკე სანთურით", "en": "Natural gas or light oil - with a separate burner" }
+  },
+  "feed": {
+    "manual": { "ka": "ხელით", "en": "Manual" },
+    "auto":   { "ka": "ავტომატური - შნეკი და ბუნკერი", "en": "Automatic - auger and hopper" }
+  },
+  "ranges": [
+    { "family": "emtas-ekb-3g", "sheet": "dokuman9.jpg", "fuel": "manual", "feed": "manual", "passes": "3", "bar": 3,
+      "models": [
+        { "mfr": "EKB/3G-45", "kw": 53, "kcal": 45000, "w": 700, "d": 850,  "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 380, "l": 105 },
+        { "mfr": "EKB/3G-60", "kw": 70, "kcal": 60000, "w": 800, "d": 980,  "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 420, "l": 127 },
+        { "mfr": "EKB/3G-80", "kw": 93, "kcal": 80000, "w": 800, "d": 1160, "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 490, "l": 195 } ] },
+    { "family": "emtas-ek3g", "sheet": "dokuman12.jpg", "fuel": "manual", "feed": "manual", "passes": "3", "bar": 3,
+      "models": [
+        { "mfr": "EK3G-45", "kw": 53, "kcal": 45000, "w": 700, "d": 850,  "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 350, "l": 140 },
+        { "mfr": "EK3G-60", "kw": 70, "kcal": 60000, "w": 800, "d": 980,  "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 425, "l": 210 },
+        { "mfr": "EK3G-80", "kw": 93, "kcal": 80000, "w": 800, "d": 1160, "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 490, "l": 260 } ] },
+    { "family": "emtas-eky-3k", "sheet": "dokuman18.jpg", "fuel": "manual", "feed": "manual", "passes": "4", "bar": 3,
+      "models": [
+        { "mfr": "EKY/3K-45", "kw": 53, "kcal": 45000, "w": 700, "d": null, "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 365, "l": 121 },
+        { "mfr": "EKY/3K-60", "kw": 70, "kcal": 60000, "w": 800, "d": 980,  "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 440, "l": 154 },
+        { "mfr": "EKY/3K-80", "kw": 93, "kcal": 80000, "w": 800, "d": 1160, "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 505, "l": 231 } ] },
+    { "family": "emtas-ek3gp-csoa-s", "sheet": "dokuman10.jpg", "fuel": "auto", "feed": "auto", "passes": "3", "bar": 3,
+      "models": [
+        { "mfr": "EK3GP-ÇSOA/S-40", "kw": 47, "kcal": 40000, "w": 640, "w1": 1240, "d": 890,  "h": 1370, "flue": 130, "conn": "1\"",     "kg": 360, "l": 87 },
+        { "mfr": "EK3GP-ÇSOA/S-50", "kw": 58, "kcal": 50000, "w": 640, "w1": 1240, "d": 1000, "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 430, "l": 110 },
+        { "mfr": "EK3GP-ÇSOA/S-70", "kw": 81, "kcal": 70000, "w": 745, "w1": 1390, "d": 1070, "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 505, "l": 140 } ] },
+    { "family": "emtas-ek3g-s", "sheet": "dokuman14.jpg", "fuel": "auto", "feed": "auto", "passes": "3", "bar": 3,
+      "models": [
+        { "mfr": "EK3G/S-40", "kw": 47, "kcal": 40000, "w": 640, "w1": 1240, "d": 800, "h": 1370, "flue": 130, "conn": "1\"",     "kg": 350, "l": 87 },
+        { "mfr": "EK3G/S-50", "kw": 58, "kcal": 50000, "w": 640, "w1": 1240, "d": 910, "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 420, "l": 110 },
+        { "mfr": "EK3G/S-70", "kw": 81, "kcal": 70000, "w": 745, "w1": 1390, "d": 980, "h": 1370, "flue": 170, "conn": "1 1/2\"", "kg": 500, "l": 140 } ] },
+    { "family": "emtas-ekb-4g-s", "sheet": "dokuman15.jpg", "fuel": "auto", "feed": "auto", "passes": "4", "bar": 3,
+      "models": [
+        { "mfr": "EKB/4G-S-40", "kw": 53, "kcal": 45000, "w": 700, "w1": 1240, "d": 850,  "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 380, "l": 105 },
+        { "mfr": "EKB/4G-S-50", "kw": 70, "kcal": 60000, "w": 800, "w1": 1240, "d": 980,  "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 420, "l": 127 },
+        { "mfr": "EKB/4G-S-70", "kw": 93, "kcal": 80000, "w": 800, "w1": 1390, "d": 1160, "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 490, "l": 195 } ] },
+    { "family": "emtas-ek3g-s-kb", "sheet": "dokuman16.jpg", "fuel": "auto", "feed": "auto", "passes": "3", "bar": 3,
+      "models": [
+        { "mfr": "EK3G/S-KB-40", "kw": 47, "kcal": 40000, "w": 640, "w1": 1640, "d": 800, "h": 1370, "flue": 130, "conn": "1\"",     "kg": 350, "l": 87 },
+        { "mfr": "EK3G/S-KB-50", "kw": 58, "kcal": 50000, "w": 640, "w1": 1640, "d": 910, "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 420, "l": 110 },
+        { "mfr": "EK3G/S-KB-70", "kw": 81, "kcal": 70000, "w": 745, "w1": 1790, "d": 980, "h": 1370, "flue": 170, "conn": "1 1/2\"", "kg": 500, "l": 140 } ] },
+    { "family": "emtas-ekyb-s", "sheet": "dokuman19.jpg", "fuel": "auto", "feed": "auto", "passes": "5", "bar": 3,
+      "models": [
+        { "mfr": "EKYB/S-50", "kw": 58, "kcal": 50000, "w": 640, "w1": 1020, "d": 560, "h": 1630, "flue": 170, "conn": "1\"",     "kg": null, "l": null },
+        { "mfr": "EKYB/S-70", "kw": 82, "kcal": 70000, "w": 640, "w1": 1240, "d": 670, "h": 1630, "flue": 170, "conn": "1 1/4\"", "kg": null, "l": null } ] },
+    { "family": "emtas-eky-s", "sheet": "dokuman20.jpg", "fuel": "auto", "feed": "auto", "passes": "4", "bar": 3,
+      "models": [
+        { "mfr": "EKY/S-40", "kw": 47, "kcal": 40000, "w": 610, "w1": 1210, "d": 770, "h": 1350, "flue": 130, "conn": "1\"",     "kg": 370, "l": 95 },
+        { "mfr": "EKY/S-50", "kw": 59, "kcal": 50000, "w": 610, "w1": 1210, "d": 880, "h": 1350, "flue": 130, "conn": "1 1/4\"", "kg": 440, "l": 121 },
+        { "mfr": "EKY/S-70", "kw": 82, "kcal": 70000, "w": 715, "w1": 1360, "d": 950, "h": 1470, "flue": 170, "conn": "1 1/2\"", "kg": 520, "l": 154 } ] },
+    { "family": "emtas-egs-3g", "sheet": "dokuman11.jpg", "fuel": "burner", "feed": null, "passes": "3", "bar": 4,
+      "models": [
+        { "mfr": "EGS/3G-80", "kw": 93, "kcal": 80000, "w": 670, "d": 1000, "h": 1280, "flue": 180, "conn": "2\"", "kg": null, "l": null } ] }
+  ]
+}

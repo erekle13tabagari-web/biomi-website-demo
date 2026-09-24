@@ -13,7 +13,9 @@ $BRANDS = @(
   @{ prefix='beretta';    file='beretta.svg';             name='Beretta' },
   @{ prefix='riello';     file='riello.svg';              name='Riello' },
   @{ prefix='warmhaus';   file='warmhaus.svg';            name='Warmhaus' },
-  @{ prefix='omega';      file='omega.svg';               name='Omega' }
+  @{ prefix='omega';      file='omega.svg';               name='Omega' },
+  # "Emtaş", its ş as a code so the name survives a file saved without a BOM
+  @{ prefix='emtas';      file='emtas.svg';               name=('Emta' + [char]0x15F) }
 )
 
 $files = Get-ChildItem $repo -Filter '*.html' -Recurse -File |

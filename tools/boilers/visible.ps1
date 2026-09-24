@@ -26,7 +26,10 @@
 # the old copy promised flats and wall-hung boilers the page can no longer show.
 # Put those two lines back at the same time, or the category will undersell the
 # range it is once again carrying.
-$BOILER_KWMIN = 50
+# Lowered from 50 to 45 on 2026-09-24 for the Emtaş solid fuel boilers, whose
+# smallest size on sale is 47 kW. No Beretta, Riello or Warmhaus boiler lies
+# between 45 and 49 kW, so the wall-hung ranges stay held back as before.
+$BOILER_KWMIN = 45
 
 # The output is the number in the model name, the same reading the kW chips and
 # the filter bands already use: CITY 24 -> 24, VIWA S 150 -> 150. The six-digit

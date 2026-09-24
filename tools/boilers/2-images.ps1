@@ -35,6 +35,12 @@ if (-not ($mods | Where-Object { $_.name -match '^RTQ' })) {
   $mods += [pscustomobject]@{ brand='Riello'; code=''; name='RTQ 3S გათბობის ქვაბი RIELLO'
                               mfr=''; country=$null; dummy=$false; kit=$false }
 }
+# Emtaş comes through Sakra and is not in the price list either. Its boilers,
+# each with its kW, are kept in emtas.json -- see emtas.ps1.
+. (Join-Path $sp 'emtas.ps1')
+foreach ($e in (Get-EmtasData).models) {
+  if (-not ($mods | Where-Object { $_.name -eq $e.name })) { $mods += $e }
+}
 
 # ---- collapse the Warmhaus kit/plain pairs
 # Most Warmhaus boilers appear twice: a "(კომპლექტში)" kit SKU and a plain one,

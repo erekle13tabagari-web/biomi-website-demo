@@ -82,3 +82,30 @@ What must stay blank rather than be invented:
 4. The ქვაბი category listing, built the same way as `tools/build-category-pages.ps1`
 5. Menu wiring — ქვაბი already lists all three brands
 6. `build-search-index.ps1`, `tools/build-meta.ps1`, `tools/linkcheck.ps1`
+
+## Emtaş (added 2026-09-24)
+
+Emtaş solid fuel boilers, bought through Sakra (sakra.com.tr sells Emtaş: the
+model codes, the photos and the copy are all Emtaş's). Only 45-100 kW sizes.
+
+- **Data:** `emtas.json` — figures read off the technical-table images on
+  sakra.com.tr (the file names each range's sheet). `emtas.ps1` turns it into
+  model records (for `2-images.ps1`) and spec rows (for `3-pages.ps1`).
+- **Output is `.kw` on every record.** The number in an Emtaş model name is
+  thousands of kcal/h (EK3G-60 is 70 kW), so it must never be read as kW.
+- **Photos:** `ქვაბები\Emtas\<range>\a,b,c.jpg`, cleaned copies. Sakra's
+  originals with Turkish badges sit in each folder's `სხვა - ...` subfolder,
+  which `2-images.ps1` skips.
+- **Floor:** `visible.ps1` went from 50 to 45 kW for Emtaş's 47 kW sizes; no
+  other brand has anything between 45 and 49.
+- **Left out on purpose:** EKY/3K-45 depth (sheet says 9100 mm), EKYB/S weight
+  and water (copied from a smaller boiler on the sheet), ranges 11 and 16 (no
+  table published).
+- **Fuel filter:** every boiler family carries `fuel` (gas / solid / burner);
+  Emtaş families also `feed` (manual / auto). `4-hubs.ps1` stamps them on the
+  cards; the boilers category filters on fuel, the Emtaş hub on both.
+
+Regenerating the family pages wipes what later steps added. After
+`3-pages.ps1` / `4-hubs.ps1`, run in order: `tools/add-card-brands.ps1`,
+`tools/brand-links.ps1`, `tools/docs/3-pages.ps1` (the PDF download lists),
+`tools/build-category-pages.ps1`, `tools/build-meta.ps1`, `build-search-index.ps1`.

@@ -134,6 +134,7 @@ foreach ($f in $files) {
       '^riello'     { 'Riello' }
       '^warmhaus'   { 'Warmhaus' }
       '^omega'      { 'Omega' }
+      '^emtas'      { 'Emta' + [char]0x15F }   # "Emtaş"
       default       { $ORG[$lang].name }
     }
     $h1 = ([regex]::Match($txt,'(?s)<h1>(.*?)</h1>')).Groups[1].Value -replace '<[^>]+>',''

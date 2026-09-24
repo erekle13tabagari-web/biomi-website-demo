@@ -19,6 +19,12 @@ $BRANDS = @(
   @{ brand='Beretta';  slug='beretta';  logo='beretta.svg';  cat='boilers' },
   @{ brand='Riello';   slug='riello';   logo='riello.svg';   cat='boilers' },
   @{ brand='Warmhaus'; slug='warmhaus'; logo='warmhaus.svg'; cat='boilers' },
+  # Emtaş: solid fuel, not the gas "wall-hung and commercial" copy the other
+  # three share, so it states its own title and description.
+  @{ brand='Emtaş';    slug='emtas';    logo='emtas.svg';    cat='boilers'
+     titleKa='Emtaş მყარი საწვავის ქვაბები - ბიომი'; titleEn='Emtaş Solid Fuel Boilers - Biomi'
+     descKa='Emtaş-ის მყარი საწვავის ქვაბები 47-დან 93 kW-მდე, ხელით და ავტომატური მიწოდებით, და ფოლადის ქვაბი სანთურისთვის. მიწოდება და მონტაჟი თბილისში.'
+     descEn='Emtaş solid fuel boilers from 47 to 93 kW, with manual or automatic feed, and a steel boiler for a separate burner. Supply and installation in Tbilisi.' },
   # The burners are not boilers and get a hub of their own, which
   # build-category-pages.ps1 lifts into products/burners the same way it lifts
   # the three above into products/boilers.
@@ -43,14 +49,23 @@ $L = @{
   ka = @{ file='.html'; tpl='vortice.html'; home='მთავარი'; products='პროდუქტი'; cat='ქვაბი'
           search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'; fKw='სიმძლავრე'
           k1="$($KWMIN)-35 kW"; k2="$($KWLO)-99 kW"; k3='100 kW და მეტი'; empty='პროდუქტი ვერ მოიძებნა.'
-          catBurners='სანთურები'; fFuel='საწვავი'; gas='ბუნებრივი აირი'; oil='დიზელის საწვავი' }
+          catBurners='სანთურები'; fFuel='საწვავი'; gas='ბუნებრივი აირი'; oil='დიზელის საწვავი'
+          solid='მყარი საწვავი'; burner='სანთურით - აირი ან დიზელი'
+          fFeed='საწვავის მიწოდება'; manual='ხელით'; auto='ავტომატური' }
   en = @{ file='-en.html'; tpl='vortice-en.html'; home='Home'; products='Products'; cat='Boilers'
           search='Search...'; filter='Filter'; clear='Clear'; fKw='Output'
           k1="$($KWMIN)-35 kW"; k2="$($KWLO)-99 kW"; k3='100 kW and above'; empty='No products found.'
-          catBurners='Burners'; fFuel='Fuel'; gas='Natural gas'; oil='Light oil' }
+          catBurners='Burners'; fFuel='Fuel'; gas='Natural gas'; oil='Light oil'
+          solid='Solid fuel'; burner='With a burner - gas or oil'
+          fFeed='Fuel feed'; manual='Manual'; auto='Automatic' }
 }
 $CARET='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
 function HtmlEnc($s){ if($null -eq $s){return ''}; $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
+# "Emtaş" -> "emtas" for data attributes; the other brands come out as before
+function BrandSlug($s) {
+  $n = ([string]$s).Normalize([Text.NormalizationForm]::FormD)
+  return ((($n.ToCharArray() | Where-Object { [Globalization.CharUnicodeInfo]::GetUnicodeCategory($_) -ne 'NonSpacingMark' }) -join '')).ToLower()
+}
 
 
 foreach ($b in $BRANDS) {
@@ -89,6 +104,9 @@ foreach ($b in $BRANDS) {
       # every card is a boiler. The full name stays in data-name for search.
       $short = if ($lang -eq 'ka') { $name -replace '\s*((კედლის\s+)?ქვაბი|სანთურა)\s*$','' }
                else                { $name -replace '\s*((wall-hung\s+)?boiler|burner)\s*$','' }
+      # a family can name its card outright: "EK3G/S automatic feed boiler"
+      # has no single descriptor the pattern above could take off
+      if ($lang -eq 'ka' -and $f.shortKa) { $short = $f.shortKa } elseif ($lang -eq 'en' -and $f.shortEn) { $short = $f.shortEn }
       # one output or a span, taken from the models actually on the page; a
       # family that states its own range is printed as that range
       $kws = @($g | ForEach-Object { Kw $_ } | Where-Object { $_ -gt 0 } | Sort-Object -Unique)
@@ -97,7 +115,12 @@ foreach ($b in $BRANDS) {
                elseif ($kws[0] -eq $kws[-1]) { "$($kws[0]) kW" }
                else { "$($kws[0])-$($kws[-1]) kW" }      $kwSpan = ''
       if ($kwTxt) { $kwSpan = '<span class="pcard__kw">' + $kwTxt + '</span>' }
-      $cards += "        <a class=`"pcard`" href=`"$($f.slug)$sfx`" data-cat=`"$($b.brand.ToLower())`" data-name=`"$(HtmlEnc $terms)`" data-kw=`"$band`" data-type=`"$origin`">`r`n" +
+      # What a boiler burns (gas / solid / burner) and, for solid fuel, how it
+      # is fed: the boilers category filters on the first, the Emtaş hub on both.
+      $more = ''
+      if ($b.cat -ne 'burners' -and $f.fuel) { $more += " data-fuel=`"$($f.fuel)`"" }
+      if ($f.feed) { $more += " data-feed=`"$($f.feed)`"" }
+      $cards += "        <a class=`"pcard`" href=`"$($f.slug)$sfx`" data-cat=`"$(BrandSlug $b.brand)`" data-name=`"$(HtmlEnc $terms)`" data-kw=`"$band`" data-type=`"$origin`"$more>`r`n" +
                 "          <span class=`"pcard__img`"><img src=`"../assets/img/products/$($f.slug)/main.avif`" alt=`"$(HtmlEnc $name)`"></span>`r`n" +
                 "          <span class=`"pcard__body`"><h4>$(HtmlEnc $short)</h4>$kwSpan</span>`r`n        </a>`r`n"
     }
@@ -117,6 +140,23 @@ foreach ($b in $BRANDS) {
       foreach ($k in 'k1','k2','k3') {
         if ($cards -notmatch ('data-kw="' + $k + '"')) { continue }
         $kwOpts += "            <label><input type=`"checkbox`" name=`"kw`" value=`"$k`">$($t.$k)</label>`r`n"
+      }
+    }
+    # Fuel and feed get a group only where this brand's cards differ on them:
+    # Riello has gas boilers and one for a separate burner; Emtaş has solid
+    # fuel and burner, manual and automatic feed. One option alone is no filter.
+    $moreGroups = ''
+    if ($b.cat -ne 'burners') {
+      foreach ($grp in @(@('fuel', $t.fFuel, @('gas','solid','burner')), @('feed', $t.fFeed, @('manual','auto')))) {
+        $opts = ''; $n = 0
+        foreach ($k in $grp[2]) {
+          if ($cards -notmatch ('data-' + $grp[0] + '="' + $k + '"')) { continue }
+          $opts += "            <label><input type=`"checkbox`" name=`"$($grp[0])`" value=`"$k`">$($t.$k)</label>`r`n"; $n++
+        }
+        if ($n -gt 1) {
+          $moreGroups += "        <div class=`"pfilter__group`">`r`n          <h4>$($grp[1]) $CARET</h4>`r`n" +
+                         "          <div class=`"pfilter__opts`">`r`n$opts          </div>`r`n        </div>`r`n"
+        }
       }
     }
     $catLbl = if ($b.cat -eq 'burners') { $t.catBurners } else { $t.cat }
@@ -150,7 +190,7 @@ foreach ($b in $BRANDS) {
 $kwOpts
           </div>
         </div>
-      </aside>
+$moreGroups      </aside>
 
       <div class="pgrid">
 $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
@@ -166,6 +206,9 @@ $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>
       # description (found as a duplicate in the SEO audit, 2026-09-21)
       $descr = if ($lang -eq 'ka') { "$($b.brand)-ის სანთურები - Gulliver BS ბუნებრივ აირზე და Gulliver RG დიზელის საწვავზე. შერჩევა ქვაბის სიმძლავრის მიხედვით და მონტაჟი თბილისში." }
                else { "$($b.brand) burners - Gulliver BS for natural gas and Gulliver RG for light oil. Matched to the boiler output and installed in Tbilisi." }
+    } elseif ($b.titleKa) {
+      $title = if ($lang -eq 'ka') { $b.titleKa } else { $b.titleEn }
+      $descr = if ($lang -eq 'ka') { $b.descKa } else { $b.descEn }
     } else {
       $title = "$($b.brand) " + $(if ($lang -eq 'ka') { 'გათბობის ქვაბები - ბიომი' } else { 'Heating Boilers - Biomi' })
       $descr = if ($lang -eq 'ka') { "$($b.brand)-ის გათბობის ქვაბები - კედლის და კომერციული სერიები. შერჩევა სიმძლავრის მიხედვით და მონტაჟი თბილისში." }

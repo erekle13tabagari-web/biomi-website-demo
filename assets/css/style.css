@@ -1524,6 +1524,7 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .pcard__brand img[src*="beretta"]{height:18px}
 .pcard__brand img[src*="riello"]{height:22px}
 .pcard__brand img[src*="warmhaus"]{height:20px}
+.pcard__brand img[src*="emtas"]{height:28px}   /* 278x132 - the steam mark fills the top 40%, so the word needs the height */
 .pcard__brand img[src*="vortice"]{height:38px;border-radius:4px}
 /* the compat tab's cards are about a third the size, so the marks scale too */
 .ptabs__panel[data-panel="compat"] .pcard__brand{top:8px;left:8px}
@@ -2232,6 +2233,7 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    --m is set inline by the page generator, which knows the brand. */
 .pbuy__brand{position:relative;display:inline-block;width:max-content;margin:0 0 11px}
 .pbuy__brand img{height:22px;width:auto;max-width:150px;display:block;visibility:hidden}
+.pbuy__brand img[src*="emtas"]{height:32px}   /* same reason as its card logo */
 .pbuy__brand::after{content:'';position:absolute;inset:0;background:#1b1b33;
   -webkit-mask:var(--m) no-repeat left center/contain;mask:var(--m) no-repeat left center/contain}
 /* navy on the light panel, white on the dark one */
@@ -2403,6 +2405,7 @@ a.pbuy__brand:hover::after,a.pbuy__brand:focus-visible::after{background:var(--g
   .pbuy__origin img{height:30px;width:auto}
   .pbuy__brand{margin-bottom:9px}
   .pbuy__brand img{height:19px}
+  .pbuy__brand img[src*="emtas"]{height:28px}
   .pbuy__kw{font-size:19px;margin-bottom:3px}
   .pbuy__label{font-size:10px;margin:20px 0 8px}
   .chipset{gap:7px}

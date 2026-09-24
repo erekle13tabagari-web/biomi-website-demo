@@ -82,11 +82,12 @@ $PAGES = @(
   @{ out='boilers'; from=@(
        @{ hub='beretta';  brand='beretta';  ka='Beretta';  en='Beretta'  },
        @{ hub='riello';   brand='riello';   ka='Riello';   en='Riello'   },
-       @{ hub='warmhaus'; brand='warmhaus'; ka='Warmhaus'; en='Warmhaus' })
+       @{ hub='warmhaus'; brand='warmhaus'; ka='Warmhaus'; en='Warmhaus' },
+       @{ hub='emtas';    brand='emtas';    ka='Emtaş';    en='Emtaş'    })
      eyebrowKa='გათბობა'; eyebrowEn='Heating'
      headKa='გათბობის ქვაბი'; headEn='Heating boilers'
      crumbKa='ქვაბი'; crumbEn='Boilers'
-     titleKa='გათბობის ქვაბები - Beretta, Riello, Warmhaus - ბიომი'; titleEn='Heating Boilers - Beretta, Riello, Warmhaus - Biomi'
+     titleKa='გათბობის ქვაბები - Beretta, Riello, Warmhaus, Emtaş - ბიომი'; titleEn='Heating Boilers - Beretta, Riello, Warmhaus, Emtaş - Biomi'
      # Commercial only while the wall-hung ranges are held back: the old copy
      # promised flats, private houses and wall-hung boilers, none of which the
      # page can still show. The description is what a search result prints, so
@@ -94,8 +95,8 @@ $PAGES = @(
      # Both lines go back when tools/boilers/visible.ps1 opens the range again.
      # "Gas" came off when RTQ 3S arrived: it takes a separate burner, and the
      # burner can be an oil one.
-     ledeKa='ქვაბები კომერციული ობიექტისთვის - კასკადური სერიები და ფოლადის ქვაბი ცალკე სანთურასთან სამუშაოდ.'; ledeEn='Boilers for commercial buildings - cascade ranges, and a steel boiler that takes a separate burner.'
-     pdescKa='კომერციული და კასკადური გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან, ფოლადის ქვაბები სანთურისთვის - შერჩევა სიმძლავრის მიხედვით და მონტაჟი თბილისში.'; pdescEn='Commercial and cascade boilers from Beretta, Riello and Warmhaus, plus steel boilers for a separate burner - sized to your output and installed in Tbilisi.'
+     ledeKa='ქვაბები კომერციული ობიექტისთვის - გაზის კასკადური სერიები, მყარი საწვავის ქვაბები და ფოლადის ქვაბები ცალკე სანთურასთან სამუშაოდ.'; ledeEn='Boilers for commercial buildings - gas cascade ranges, solid fuel boilers, and steel boilers that take a separate burner.'
+     pdescKa='გაზის კასკადური ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან, Emtaş-ის მყარი საწვავის ქვაბები და ფოლადის ქვაბები სანთურისთვის. მონტაჟი თბილისში.'; pdescEn='Gas cascade boilers from Beretta, Riello and Warmhaus, Emtaş solid fuel boilers and steel boilers for a burner. Sized and installed in Tbilisi.'
      # the hub cards carry data-cat="<brand slug>", so the second group would just
      # repeat the brand filter -- output band is the useful second axis here
      # Bands follow the published range, the same way the brand hubs build
@@ -110,7 +111,10 @@ $PAGES = @(
      seriesKa='სიმძლავრე'; seriesEn='Output'; seriesName='kw'
      typeKa='წარმოშობა'; typeEn='Origin'
      types=@(@('it','იტალია','Italy'),@('tr','თურქეთი','Turkey'))
-     extraKa=''; extraEn=''; extraName=''; extras=@() },
+     # what it burns: gas, solid fuel (Emtaş), or a separate burner (RTQ 3S,
+     # Emtaş EGS/3G). The brand hubs stamp it on every card as data-fuel.
+     extraKa='საწვავი'; extraEn='Fuel'; extraName='fuel'
+     extras=@(@('gas','ბუნებრივი აირი','Natural gas'),@('solid','მყარი საწვავი','Solid fuel'),@('burner','სანთურით - აირი ან დიზელი','With a burner - gas or oil')) },
 
   # Burners, the other half of RTQ 3S. One brand today, so the brand group
   # holds a single box; the fuel is the axis worth filtering on, and the hub
@@ -165,14 +169,14 @@ $PAGES = @(
      crumbKa='გათბობა'; crumbEn='Heating'
      titleKa='გათბობის სისტემები - ქვაბები, სანთურები, ბოილერები - ბიომი'; titleEn='Heating Systems - Boilers, Burners, Water Heaters - Biomi'
      ledeKa='გათბობის ქვაბები, სანთურები და ბოილერები - ყველა ერთ ადგილას.'; ledeEn='Heating boilers, burners and water heaters - all in one place.'
-     pdescKa='გათბობის ქვაბები, სანთურები და ბოილერები Beretta-ს, Riello-ს, Warmhaus-ისა და Omega-სგან - შერჩევა, მონტაჟი და სერვისი თბილისში.'; pdescEn='Heating boilers, burners and water heaters from Beretta, Riello, Warmhaus and Omega - selection, installation and service in Tbilisi.'
+     pdescKa='გათბობის ქვაბები, სანთურები და ბოილერები Beretta-ს, Riello-ს, Warmhaus-ის, Emtaş-ისა და Omega-სგან - შერჩევა, მონტაჟი და სერვისი თბილისში.'; pdescEn='Heating boilers, burners and water heaters from Beretta, Riello, Warmhaus, Emtaş and Omega - selection, installation and service in Tbilisi.'
      series=@(); seriesKa='კატეგორია'; seriesEn='Category'; seriesName='sec'; seriesFirst=$true
      typeKa=''; typeEn=''; types=@()
      extraKa=''; extraEn=''; extraName=''; extras=@() }
 )
 # The make as the brand filter prints it, where that is more than the slug with
 # a capital letter.
-$BRANDNAME = @{ mitsubishi='Mitsubishi Electric' }
+$BRANDNAME = @{ mitsubishi='Mitsubishi Electric'; emtas='Emtaş' }
 $L = @{
   ka = @{ sfx='.html'; home='მთავარი'; products='პროდუქტი'; search='ძებნა...'
           filter='ფილტრი'; clear='გასუფთავება'; brand='ბრენდი'
