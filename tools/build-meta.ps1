@@ -45,6 +45,23 @@ $files = Get-ChildItem $repo -Filter '*.html' -Recurse -File |
 # the 1.91:1 ratio Facebook and LinkedIn crop to.
 $ogFor = @{}
 $made = @{}
+# Each share image is rebuilt only when its source picture changes, judged by
+# the source's MD5 in og-sources.json. Rebuilding all of them every run was
+# harmless here, where ImageMagick gives the same bytes each time, but GitHub's
+# news build encodes them slightly differently and committed ~70 changed JPGs
+# per editor save (2026-09-24). An image already present with no recorded
+# fingerprint is trusted as current and fingerprinted, not rebuilt.
+$ogIdxPath = Join-Path $PSScriptRoot 'og-sources.json'
+$ogIdx = @{}
+if (Test-Path $ogIdxPath) {
+  (Get-Content $ogIdxPath -Raw -Encoding UTF8 | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $ogIdx[$_.Name] = $_.Value }
+}
+function OgStale([string]$key, [string]$src, [string]$out) {
+  $h = (Get-FileHash -LiteralPath $src -Algorithm MD5).Hash
+  $stale = -not (Test-Path -LiteralPath $out) -or ($ogIdx.ContainsKey($key) -and $ogIdx[$key] -ne $h)
+  $script:ogIdx[$key] = $h
+  return $stale
+}
 foreach ($f in $files) {
   $txt = [IO.File]::ReadAllText($f.FullName)
   $m = [regex]::Match($txt, '(?s)<div class="pgal__main">.*?<img src="([^"]+)"')
@@ -56,13 +73,18 @@ foreach ($f in $files) {
   $ogFor[$f.FullName] = $key
   if (-not $made.ContainsKey($key)) {
     $made[$key] = $true
-    & magick $src -resize 1000x520 -background white -alpha remove -alpha off `
-             -gravity center -extent 1200x630 -quality 82 (Join-Path $OGDIR ($key + '.jpg'))
+    $ogOut = Join-Path $OGDIR ($key + '.jpg')
+    if (OgStale $key $src $ogOut) {
+      & magick $src -resize 1000x520 -background white -alpha remove -alpha off `
+               -gravity center -extent 1200x630 -quality 82 $ogOut
+    }
   }
 }
 $def = Join-Path $OGDIR 'default.jpg'
 $defSrc = Join-Path $repo 'assets\img\about-us.webp'
-if (Test-Path $defSrc) { & magick $defSrc -resize 1200x630^ -gravity center -extent 1200x630 -quality 82 $def }
+if ((Test-Path $defSrc) -and (OgStale 'default' $defSrc $def)) { & magick $defSrc -resize 1200x630^ -gravity center -extent 1200x630 -quality 82 $def }
+$ogSorted = [ordered]@{}; foreach ($k in ($ogIdx.Keys | Sort-Object)) { $ogSorted[$k] = $ogIdx[$k] }
+[IO.File]::WriteAllText($ogIdxPath, ($ogSorted | ConvertTo-Json), (New-Object Text.UTF8Encoding $false))
 
 # ------------------------------------------------------------------- pages
 # Pages that still exist and still work on their own URL, but are not offered
