@@ -13,11 +13,45 @@
   "fuel": {
     "manual": { "ka": "მყარი საწვავი - ქვანახშირი, შეშა", "en": "Solid fuel - coal, wood" },
     "auto":   { "ka": "მყარი საწვავი - წვრილი ქვანახშირი, პელეტი", "en": "Solid fuel - nut coal, pellets" },
+    "auto20": { "ka": "მყარი საწვავი - წვრილი ქვანახშირი, პელეტი, თხილის ნაჭუჭი (20 მმ-მდე)", "en": "Solid fuel - nut coal, pellets, hazelnut shells (up to 20 mm)" },
     "burner": { "ka": "ბუნებრივი აირი ან დიზელი - ცალკე სანთურით", "en": "Natural gas or light oil - with a separate burner" }
   },
   "feed": {
     "manual": { "ka": "ხელით", "en": "Manual" },
     "auto":   { "ka": "ავტომატური - შნეკი და ბუნკერი", "en": "Automatic - auger and hopper" }
+  },
+  "features": {
+    "_note": "Shown beside the datasheet. Taken from the feature list and title Sakra gives each range, not from its descriptions, which contradict the titles in places.",
+    "emtas-ekb-3g": {
+      "ka": ["3-სვლიანი თბომცვლელი", "ბაფლები - ყოველკვირეული წმენდა საჭირო არ არის", "სამი კარი", "ტემპერატურის ავტომატური კონტროლი", "ვენტილატორის სიჩქარის რეგულირება", "ციფრული დისპლეი", "საწვავი - ქვანახშირი და შეშა", "სტანდარტი EN 303-5"],
+      "en": ["3-pass heat exchanger", "Flue baffles - no weekly cleaning", "Three doors", "Automatic temperature control", "Fan speed control", "Digital display", "Burns coal and wood", "Built to EN 303-5"] },
+    "emtas-ek3g": {
+      "ka": ["3-სვლიანი თბომცვლელი", "სამი კარი", "ტემპერატურის ავტომატური კონტროლი", "ვენტილატორის სიჩქარის რეგულირება", "ციფრული დისპლეი", "საწვავი - ქვანახშირი და შეშა", "სტანდარტი EN 303-5"],
+      "en": ["3-pass heat exchanger", "Three doors", "Automatic temperature control", "Fan speed control", "Digital display", "Burns coal and wood", "Built to EN 303-5"] },
+    "emtas-eky-3k": {
+      "ka": ["4-სვლიანი თბომცვლელი", "წყლის პერანგიანი საკვამური", "სამი კარი", "ტემპერატურის ავტომატური კონტროლი", "ვენტილატორის სიჩქარის რეგულირება", "ციფრული დისპლეი", "საწვავი - ქვანახშირი და შეშა", "სტანდარტი EN 303-5"],
+      "en": ["4-pass heat exchanger", "Water-jacketed flue section", "Three doors", "Automatic temperature control", "Fan speed control", "Digital display", "Burns coal and wood", "Built to EN 303-5"] },
+    "emtas-ek3gp-csoa-s": {
+      "ka": ["3-სვლიანი თბომცვლელი", "ავტომატური მიწოდება ორმაგი შნეკით", "ავტომატური ანთება, საკვამურის ტემპერატურით მართული", "ძილის რეჟიმის დაპროგრამება", "ტემპერატურის ავტომატური კონტროლი", "ვენტილატორის სიჩქარის რეგულირება", "დროის 5 დაპროგრამებადი რეჟიმი", "ციფრული დისპლეი", "სტანდარტი EN 303-5"],
+      "en": ["3-pass heat exchanger", "Automatic feed with a double auger", "Automatic ignition, controlled by the flue temperature", "Programmable sleep mode", "Automatic temperature control", "Fan speed control", "5 programmable time settings", "Digital display", "Built to EN 303-5"] },
+    "emtas-ek3g-s": {
+      "ka": ["3-სვლიანი თბომცვლელი", "ავტომატური მიწოდება - შნეკი ბუნკერიდან", "სამი კარი", "ვენტილატორის სიჩქარის რეგულირება", "დროის 5 დაპროგრამებადი რეჟიმი", "ციფრული დისპლეი", "წვრილი ქვანახშირი, პელეტი ან თხილის ნაჭუჭი, 20 მმ-მდე", "სტანდარტი EN 303-5"],
+      "en": ["3-pass heat exchanger", "Automatic feed - an auger from the hopper", "Three doors", "Fan speed control", "5 programmable time settings", "Digital display", "Nut coal, pellets or hazelnut shells, up to 20 mm", "Built to EN 303-5"] },
+    "emtas-ekb-4g-s": {
+      "ka": ["4-სვლიანი თბომცვლელი", "ბაფლები - ყოველკვირეული წმენდა საჭირო არ არის", "ავტომატური მიწოდება - შნეკი ბუნკერიდან", "ვენტილატორის სიჩქარის რეგულირება", "დროის 5 დაპროგრამებადი რეჟიმი", "ციფრული დისპლეი", "სტანდარტი EN 303-5"],
+      "en": ["4-pass heat exchanger", "Flue baffles - no weekly cleaning", "Automatic feed - an auger from the hopper", "Fan speed control", "5 programmable time settings", "Digital display", "Built to EN 303-5"] },
+    "emtas-ek3g-s-kb": {
+      "ka": ["3-სვლიანი თბომცვლელი", "ავტომატური მიწოდება - შნეკი ბუნკერიდან", "ნაცრის ავტომატური გამოტანა ცალკე ყუთში", "სამი კარი", "ვენტილატორის სიჩქარის რეგულირება", "დროის 5 დაპროგრამებადი რეჟიმი", "ციფრული დისპლეი", "წვრილი ქვანახშირი, პელეტი ან თხილის ნაჭუჭი, 20 მმ-მდე", "სტანდარტი EN 303-5"],
+      "en": ["3-pass heat exchanger", "Automatic feed - an auger from the hopper", "Automatic ash removal into a separate ash box", "Three doors", "Fan speed control", "5 programmable time settings", "Digital display", "Nut coal, pellets or hazelnut shells, up to 20 mm", "Built to EN 303-5"] },
+    "emtas-ekyb-s": {
+      "ka": ["5-სვლიანი თბომცვლელი", "ბაფლები - ყოველკვირეული წმენდა საჭირო არ არის", "ავტომატური მიწოდება - შნეკი ბუნკერიდან", "მარტივი მონტაჟი", "ვენტილატორის სიჩქარის რეგულირება", "დროის 5 დაპროგრამებადი რეჟიმი", "ციფრული დისპლეი", "სტანდარტი EN 303-5"],
+      "en": ["5-pass heat exchanger", "Flue baffles - no weekly cleaning", "Automatic feed - an auger from the hopper", "Easy installation", "Fan speed control", "5 programmable time settings", "Digital display", "Built to EN 303-5"] },
+    "emtas-eky-s": {
+      "ka": ["4-სვლიანი თბომცვლელი", "წყლის პერანგიანი საკვამური", "ავტომატური მიწოდება - შნეკი ბუნკერიდან", "ტემპერატურის ავტომატური კონტროლი", "ვენტილატორის სიჩქარის რეგულირება", "დროის 5 დაპროგრამებადი რეჟიმი", "ციფრული დისპლეი", "წვრილი ქვანახშირი, პელეტი ან თხილის ნაჭუჭი, 20 მმ-მდე", "სტანდარტი EN 303-5"],
+      "en": ["4-pass heat exchanger", "Water-jacketed flue section", "Automatic feed - an auger from the hopper", "Automatic temperature control", "Fan speed control", "5 programmable time settings", "Digital display", "Nut coal, pellets or hazelnut shells, up to 20 mm", "Built to EN 303-5"] },
+    "emtas-egs-3g": {
+      "ka": ["3-სვლიანი თბომცვლელი", "ცალკე აირის ან დიზელის სანთურისთვის", "ფოლადის ტურბულატორები", "საკვამური აირების დაბალი ტემპერატურა", "კომპაქტური, მარტივი მონტაჟით", "წმენდისთვის მოსახერხებელი კარი", "ფხვნილოვანი საღებავით დაფარული კორპუსი", "ელექტრონული მართვის პანელი"],
+      "en": ["3-pass heat exchanger", "For a separate gas or light oil burner", "Steel turbulators", "Low flue gas temperature", "Compact and easy to install", "A practical door for cleaning", "Powder-coated casing", "Electronic control panel"] }
   },
   "ranges": [
     { "family": "emtas-ekb-3g", "sheet": "dokuman9.jpg", "fuel": "manual", "feed": "manual", "passes": "3", "bar": 3,
@@ -40,7 +74,7 @@
         { "mfr": "EK3GP-ÇSOA/S-40", "kw": 47, "kcal": 40000, "w": 640, "w1": 1240, "d": 890,  "h": 1370, "flue": 130, "conn": "1\"",     "kg": 360, "l": 87 },
         { "mfr": "EK3GP-ÇSOA/S-50", "kw": 58, "kcal": 50000, "w": 640, "w1": 1240, "d": 1000, "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 430, "l": 110 },
         { "mfr": "EK3GP-ÇSOA/S-70", "kw": 81, "kcal": 70000, "w": 745, "w1": 1390, "d": 1070, "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 505, "l": 140 } ] },
-    { "family": "emtas-ek3g-s", "sheet": "dokuman14.jpg", "fuel": "auto", "feed": "auto", "passes": "3", "bar": 3,
+    { "family": "emtas-ek3g-s", "sheet": "dokuman14.jpg", "fuel": "auto20", "feed": "auto", "passes": "3", "bar": 3,
       "models": [
         { "mfr": "EK3G/S-40", "kw": 47, "kcal": 40000, "w": 640, "w1": 1240, "d": 800, "h": 1370, "flue": 130, "conn": "1\"",     "kg": 350, "l": 87 },
         { "mfr": "EK3G/S-50", "kw": 58, "kcal": 50000, "w": 640, "w1": 1240, "d": 910, "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 420, "l": 110 },
@@ -50,7 +84,7 @@
         { "mfr": "EKB/4G-S-40", "kw": 53, "kcal": 45000, "w": 700, "w1": 1240, "d": 850,  "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 380, "l": 105 },
         { "mfr": "EKB/4G-S-50", "kw": 70, "kcal": 60000, "w": 800, "w1": 1240, "d": 980,  "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 420, "l": 127 },
         { "mfr": "EKB/4G-S-70", "kw": 93, "kcal": 80000, "w": 800, "w1": 1390, "d": 1160, "h": 1490, "flue": 170, "conn": "1 1/2\"", "kg": 490, "l": 195 } ] },
-    { "family": "emtas-ek3g-s-kb", "sheet": "dokuman16.jpg", "fuel": "auto", "feed": "auto", "passes": "3", "bar": 3,
+    { "family": "emtas-ek3g-s-kb", "sheet": "dokuman16.jpg", "fuel": "auto20", "feed": "auto", "passes": "3", "bar": 3,
       "models": [
         { "mfr": "EK3G/S-KB-40", "kw": 47, "kcal": 40000, "w": 640, "w1": 1640, "d": 800, "h": 1370, "flue": 130, "conn": "1\"",     "kg": 350, "l": 87 },
         { "mfr": "EK3G/S-KB-50", "kw": 58, "kcal": 50000, "w": 640, "w1": 1640, "d": 910, "h": 1370, "flue": 130, "conn": "1 1/4\"", "kg": 420, "l": 110 },
@@ -59,7 +93,7 @@
       "models": [
         { "mfr": "EKYB/S-50", "kw": 58, "kcal": 50000, "w": 640, "w1": 1020, "d": 560, "h": 1630, "flue": 170, "conn": "1\"",     "kg": null, "l": null },
         { "mfr": "EKYB/S-70", "kw": 82, "kcal": 70000, "w": 640, "w1": 1240, "d": 670, "h": 1630, "flue": 170, "conn": "1 1/4\"", "kg": null, "l": null } ] },
-    { "family": "emtas-eky-s", "sheet": "dokuman20.jpg", "fuel": "auto", "feed": "auto", "passes": "4", "bar": 3,
+    { "family": "emtas-eky-s", "sheet": "dokuman20.jpg", "fuel": "auto20", "feed": "auto", "passes": "4", "bar": 3,
       "models": [
         { "mfr": "EKY/S-40", "kw": 47, "kcal": 40000, "w": 610, "w1": 1210, "d": 770, "h": 1350, "flue": 130, "conn": "1\"",     "kg": 370, "l": 95 },
         { "mfr": "EKY/S-50", "kw": 59, "kcal": 50000, "w": 610, "w1": 1210, "d": 880, "h": 1350, "flue": 130, "conn": "1 1/4\"", "kg": 440, "l": 121 },

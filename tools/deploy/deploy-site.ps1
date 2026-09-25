@@ -214,9 +214,26 @@ if ($Live) {
   }
 }
 
+# Preview brands (tools/boilers/visible.ps1, $PREVIEW) go to the test site only:
+# their pages, product and share images and logo. Read from that file's own
+# line, as $HIDDEN is above, so there is one list. On the live site this also
+# removes whatever an earlier upload put there, like any file no longer wanted.
+$Preview = @()
+$visSrc = [IO.File]::ReadAllText((Join-Path $root 'tools\boilers\visible.ps1'))
+if ($visSrc -match '(?m)^\$PREVIEW\s*=\s*(.+)$') {
+  $Preview = @([regex]::Matches($Matches[1], "'([^']+)'") | ForEach-Object { $_.Groups[1].Value })
+}
+function Test-PreviewFile([string]$p) {
+  foreach ($pv in $Preview) {
+    if ($p -match ('^(products|assets/img/products|assets/img/og|assets/img/partners)/' + [regex]::Escape($pv) + '([-./]|$)')) { return $true }
+  }
+  return $false
+}
+
 # ---------------------------------------------------------------- files to send
 function Test-Wanted([string]$p) {
   if ($Hidden -contains $p) { return $false }
+  if ($Live -and (Test-PreviewFile $p)) { return $false }
   if ($p -match '^[^/]+\.html$') { return $p -ne 'Launch Biomi Website.html' }
   if ($p -eq 'sitemap.xml') { return $true }
   if ($p -eq 'robots.txt') { return $Live }

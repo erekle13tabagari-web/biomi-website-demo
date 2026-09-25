@@ -10,6 +10,7 @@
 # inner closing tag.
 $repo = Split-Path $PSScriptRoot -Parent
 $sp   = $PSScriptRoot
+. (Join-Path $PSScriptRoot 'boilers\visible.ps1')   # IsPreviewSlug
 $tree = Get-Content (Join-Path $sp 'menu-tree.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 
 $CARET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
@@ -136,6 +137,9 @@ foreach ($f in $files) {
       $draw += '                </div>' + "`r`n"
       $draw += '                <div class="m-itm__panel">' + "`r`n"
       foreach ($k in $kids) {
+        # an entry marked "preview" stays out while that brand is a preview
+        # (boilers/visible.ps1): the live site has no pages for it
+        if ($k.preview -and (IsPreviewSlug ([string]$k.preview))) { continue }
         $draw += '                  <a class="m-sub" href="' + (Href $k) + '" data-close>' + $k.$lang + '</a>' + "`r`n"
       }
       $draw += '                </div>' + "`r`n"

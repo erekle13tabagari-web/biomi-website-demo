@@ -38,6 +38,7 @@ $L = @{
     thKcal='თბური სიმძლავრე'; thFeed='საწვავის მიწოდება'; thPasses='სვლების რაოდენობა'; thPress='სამუშაო წნევა'
     thWater='წყლის მოცულობა'; thConn='მიწოდება / დაბრუნება'; thFlue='საკვამურის დიამეტრი'
     thDims='ზომები (სიგ. × სიღრ. × სიმ.)'; thHopper='სიგანე ბუნკერით'; thWeight='წონა'
+    featHead='ძირითადი თვისებები'
     lblModel='მოდელი'; specs='მახასიათებლები'; cert='სერტიფიკატები'; dl='დოკუმენტაცია'
     thModel='მოდელი'; thCode='კოდი'; thMfr='მწარმოებლის კოდი'; thBrand='ბრენდი'
     thKw='სიმძლავრე'; thCountry='წარმოშობა'; thRange='მოდელების რიგი'
@@ -53,6 +54,7 @@ $L = @{
     thKcal='Heat output'; thFeed='Fuel feed'; thPasses='Flue-gas passes'; thPress='Working pressure'
     thWater='Water content'; thConn='Flow / return'; thFlue='Flue diameter'
     thDims='Dimensions (W × D × H)'; thHopper='Width with hopper'; thWeight='Weight'
+    featHead='Key features'
     lblModel='Model'; specs='Specifications'; cert='Certificates'; dl='Documentation'
     thModel='Model'; thCode='Code'; thMfr='Manufacturer code'; thBrand='Brand'
     thKw='Output'; thCountry='Origin'; thRange='Model range'
@@ -121,6 +123,18 @@ function KwOf($m){ if ($m.kw) { return [string]$m.kw }; return (Kw $m.name) }
 # The top of KwOf as a number, for sorting and the range line. An Emtaş name
 # carries kcal/h, not kW (EK3G-60 is 70 kW), so the name alone would mislead.
 function KwTop($m){ $v = ((KwOf $m) -split '-')[-1]; if ($v -match '^\d+$') { return [int]$v }; return 0 }
+# Empty cells that complete the last row of a run of $n datasheet cells, for
+# the 3-column layout (pad3) and the 2-column one (pad2) at once.
+function SpecPads([int]$n) {
+  $need3 = (3 - $n % 3) % 3; $need2 = $n % 2; $padOut = ''
+  for ($pi = 1; $pi -le [Math]::Max($need2, $need3); $pi++) {
+    $padCls = 'spec-cell spec-cell--pad'
+    if ($pi -le $need3) { $padCls += ' pad3' }
+    if ($pi -le $need2) { $padCls += ' pad2' }
+    $padOut += "`r`n          <div class=`"$padCls`" aria-hidden=`"true`"></div>"
+  }
+  return $padOut
+}
 # "Emtaş" -> "emtas": the logo file and data attributes want plain letters.
 function BrandSlug($s) {
   $n = ([string]$s).Normalize([Text.NormalizationForm]::FormD)
@@ -210,9 +224,56 @@ foreach ($lang in 'ka','en') {
       if (-not $v) { $v = '-' } elseif ($k -eq 'dhw') { $v = "$v $($t.dhwUnit)" }
       $specRows += "`r`n          <tr><th>$($LBL[$k])</th><td data-spec=`"$k`">" + (HtmlEnc $v) + '</td></tr>'
     }
+    # Identity rows that would only repeat another are left out: "code" when no
+    # model has a Biomi code, the manufacturer code when it is just the model
+    # name again, the range line on a page with one model. The Emtaş datasheet
+    # runs to 18 rows, and these three said nothing.
+    $rowCode = ''; $rowMfr = ''; $rowRange = ''
+    if (@($g | Where-Object { $_.code }).Count) {
+      $rowCode = "`r`n          <tr><th>$($t.thCode)</th><td data-spec=`"code`">" + (HtmlEnc $(if($first.code){$first.code}else{'-'})) + '</td></tr>'
+    }
+    if (@($g | Where-Object { $_.mfr -and $_.mfr -ne (Chip $_.name) }).Count) {
+      $rowMfr = "`r`n          <tr><th>$($t.thMfr)</th><td data-spec=`"mfr`">" + (HtmlEnc $(if($first.mfr){$first.mfr}else{'-'})) + '</td></tr>'
+    }
+    # A family's key features, where it has them, sit beside the table in the
+    # space the 640px table used to leave empty (Emtaş, from emtas.json).
+    $featSrc = $EMTAS.features[$f.slug]
+    $feat = if ($featSrc) { @($featSrc.$lang) } else { @() }
     $kws = @($g | ForEach-Object { KwTop $_ } | Where-Object { $_ } | Sort-Object)
     $range = if ($g.Count -eq 1 -and $first.kw) { "$($first.kw) $($t.kw)" }
              elseif ($kws.Count -gt 1) { "$($kws[0])-$($kws[-1]) $($t.kw)" } elseif ($kws.Count) { "$($kws[0]) $($t.kw)" } else { '-' }
+    # one model: the range is its own output, already in the row above
+    if ($g.Count -gt 1) { $rowRange = "`r`n          <tr><th>$($t.thRange)</th><td>$range</td></tr>" }
+
+    $allRows = "`r`n          <tr><th>$($t.thModel)</th><td data-spec=`"model`">$(HtmlEnc (Chip $first.name))</td></tr>" +
+               "`r`n          <tr><th>$($t.thBrand)</th><td>$($f.brand)</td></tr>" +
+               "`r`n          <tr><th>$($t.thKw)</th><td data-spec=`"kw`">$fKwTxt</td></tr>" + $rowCode + $rowMfr +
+               "`r`n          <tr><th>$($t.thCountry)</th><td data-spec=`"country`">$(HtmlEnc $fCtry)</td></tr>" + $rowRange + $specRows
+    if ($feat.Count) {
+      # Beside a features panel the datasheet is a two-column grid of cells,
+      # label over value: as a table its 16 rows ran to ~760px (2026-09-25).
+      # The cells keep data-spec, so a model chip updates them as it did the
+      # table. The fuel line is long enough to take the full width.
+      # Each run of ordinary cells (up to the full-width fuel line, and at the
+      # end) is padded with empty cells to whole rows, so every row carries its
+      # full set of grid lines; a short last row had none past its last cell.
+      # The grid shows 3 or 2 columns depending on the screen, so the pads are
+      # marked for either (pad3 / pad2) and the CSS shows the right ones.
+      $cells = ''; $runLen = 0
+      foreach ($m in [regex]::Matches($allRows, '<tr><th>(.*?)</th><td([^>]*)>(.*?)</td></tr>')) {
+        $isWide = $m.Groups[2].Value -match 'data-spec="fuel"'
+        if ($isWide) { $cells += (SpecPads $runLen); $runLen = 0 } else { $runLen++ }
+        $cellCls = if ($isWide) { 'spec-cell spec-cell--wide' } else { 'spec-cell' }
+        $cells += "`r`n          <div class=`"$cellCls`"><span>" + $m.Groups[1].Value + '</span><b' + $m.Groups[2].Value + '>' + $m.Groups[3].Value + '</b></div>'
+      }
+      $cells += (SpecPads $runLen)
+      $specBlock = "        <div class=`"spec-split`">`r`n        <div class=`"spec-grid`">" + $cells + "`r`n        </div>" +
+                   "`r`n        <aside class=`"spec-about`">`r`n          <h3>$($t.featHead)</h3>`r`n          <ul>`r`n" +
+                   (($feat | ForEach-Object { '            <li>' + (HtmlEnc $_) + '</li>' }) -join "`r`n") +
+                   "`r`n          </ul>`r`n        </aside>`r`n        </div>"
+    } else {
+      $specBlock = '        <table class="spec-table" style="max-width:640px">' + $allRows + "`r`n        </table>"
+    }
 
     $finish = ''
     if ($blackImgs.Count) {
@@ -233,6 +294,9 @@ foreach ($lang in 'ka','en') {
     # in "related" -- the boiler a burner is fitted to -- then the rest in
     # families.json order. For a boiler page this is the same pair as before.
     $ring = @(); for ($k=1; $k -lt $fams.Count; $k++) { $ring += $fams[($fi+$k) % $fams.Count] }
+    # a published page never suggests a preview one (visible.ps1), which the
+    # live site does not have
+    if (-not (IsPreviewSlug $f.slug)) { $ring = @($ring | Where-Object { -not (IsPreviewSlug $_.slug) }) }
     $want = @($ring | Where-Object { (CatOf $_) -eq (CatOf $f) }) +
             @($ring | Where-Object { @($f.related) -contains $_.slug }) + $ring
     $sib = @(); $taken = @{}
@@ -299,15 +363,7 @@ $finish        <p class="pbuy__desc">$(HtmlEnc $desc)</p>
         <button type="button" data-tab="dl">$($t.dl)</button>
       </div>
       <div class="ptabs__panel active" data-panel="specs">
-        <table class="spec-table" style="max-width:640px">
-          <tr><th>$($t.thModel)</th><td data-spec="model">$(HtmlEnc (Chip $first.name))</td></tr>
-          <tr><th>$($t.thBrand)</th><td>$($f.brand)</td></tr>
-          <tr><th>$($t.thKw)</th><td data-spec="kw">$fKwTxt</td></tr>
-          <tr><th>$($t.thCode)</th><td data-spec="code">$(HtmlEnc $(if($first.code){$first.code}else{'-'}))</td></tr>
-          <tr><th>$($t.thMfr)</th><td data-spec="mfr">$(HtmlEnc $(if($first.mfr){$first.mfr}else{'-'}))</td></tr>
-          <tr><th>$($t.thCountry)</th><td data-spec="country">$(HtmlEnc $fCtry)</td></tr>
-          <tr><th>$($t.thRange)</th><td>$range</td></tr>$specRows
-        </table>
+$specBlock
       </div>
       <div class="ptabs__panel" data-panel="cert"><p style="color:var(--muted)">$($t.certTxt)</p></div>
       <div class="ptabs__panel" data-panel="dl"><p style="color:var(--muted)">$($t.dlTxt)</p></div>

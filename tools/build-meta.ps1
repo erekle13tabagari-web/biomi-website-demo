@@ -100,6 +100,7 @@ $ERRORPAGES = '404.html', '404-en.html'
 # has a page, and a "coming soon" page in the index is thin content (SEO
 # audit, 2026-09-21). Not in $HIDDEN, which would stop it being uploaded.
 $NOINDEX = 'soon.html', 'soon-en.html'
+. (Join-Path $PSScriptRoot 'boilers\visible.ps1')   # IsPreviewSlug
 
 $urls = New-Object System.Collections.ArrayList
 foreach ($f in $files) {
@@ -122,7 +123,10 @@ foreach ($f in $files) {
   # Not $hidden: PowerShell variable names are case-insensitive, so assigning
   # to that would overwrite $HIDDEN with a boolean on the first page and every
   # test after it would be false.
-  $isHidden = ($HIDDEN -contains $f.Name) -or ($ERRORPAGES -contains $f.Name) -or ($NOINDEX -contains $f.Name)
+  # a preview brand's pages (boilers/visible.ps1) exist on the test site only,
+  # so they must not be in the sitemap the live site serves
+  $isHidden = ($HIDDEN -contains $f.Name) -or ($ERRORPAGES -contains $f.Name) -or ($NOINDEX -contains $f.Name) -or
+              ($rel -like 'products/*' -and (IsPreviewSlug $f.BaseName))
   if ($isHidden) { [void]$b.AppendLine('<meta name="robots" content="noindex,nofollow">') }
   if ($hasPair) {
     [void]$b.AppendLine('<link rel="alternate" hreflang="ka" href="' + (PageUrl $kaRel) + '">')
@@ -144,7 +148,8 @@ foreach ($f in $files) {
   [void]$b.AppendLine('<meta name="twitter:image" content="' + "$BASE/assets/img/og/$og.jpg" + '">')
 
   # ---- structured data
-  $isProduct = $txt -match 'class="spec-table' -and $txt -match 'class="pgal__main"'
+  # a datasheet as a table, or as the grid of cells the Emtaş pages use
+  $isProduct = $txt -match 'class="(spec-table|spec-grid)' -and $txt -match 'class="pgal__main"'
   if ($isProduct) {
     # Every make the catalogue carries. Beretta, Riello, Warmhaus and Omega were
     # missing, so their 30-odd product pages told Google the maker was Biomi.

@@ -21,10 +21,14 @@ if (Test-Path $bp) {
   # Held-back outputs must not set the label either: see tools/boilers/visible.ps1.
   . (Join-Path $repo 'tools\boilers\visible.ps1')
   # The burners share that file but are not boilers and have no band here.
-  $bm = @($bm | Where-Object { (Visible $_) -and $_.cat -ne 'burners' })
+  $bm = @($bm | Where-Object { (Visible $_) -and $_.cat -ne 'burners' -and -not (IsPreviewSlug $_.slug) })
   $vals = @($bm | ForEach-Object { BoilerKw $_ } | Where-Object { $_ -gt 0 })
   if ($vals.Count) { $KWMIN = ($vals | Measure-Object -Minimum).Minimum }
 }
+
+# Emtaş is a preview brand for now (boilers/visible.ps1): the boilers and
+# heating pages keep their earlier wording until it is published.
+$EMTAS_LIVE = -not (IsPreviewSlug 'emtas')
 
 $PAGES = @(
   @{ out='vrf-vrv'; from=@(
@@ -87,7 +91,8 @@ $PAGES = @(
      eyebrowKa='გათბობა'; eyebrowEn='Heating'
      headKa='გათბობის ქვაბი'; headEn='Heating boilers'
      crumbKa='ქვაბი'; crumbEn='Boilers'
-     titleKa='გათბობის ქვაბები - Beretta, Riello, Warmhaus, Emtaş - ბიომი'; titleEn='Heating Boilers - Beretta, Riello, Warmhaus, Emtaş - Biomi'
+     titleKa=$(if ($EMTAS_LIVE) { 'გათბობის ქვაბები - Beretta, Riello, Warmhaus, Emtaş - ბიომი' } else { 'გათბობის ქვაბები - Beretta, Riello, Warmhaus - ბიომი' })
+     titleEn=$(if ($EMTAS_LIVE) { 'Heating Boilers - Beretta, Riello, Warmhaus, Emtaş - Biomi' } else { 'Heating Boilers - Beretta, Riello, Warmhaus - Biomi' })
      # Commercial only while the wall-hung ranges are held back: the old copy
      # promised flats, private houses and wall-hung boilers, none of which the
      # page can still show. The description is what a search result prints, so
@@ -95,8 +100,10 @@ $PAGES = @(
      # Both lines go back when tools/boilers/visible.ps1 opens the range again.
      # "Gas" came off when RTQ 3S arrived: it takes a separate burner, and the
      # burner can be an oil one.
-     ledeKa='ქვაბები კომერციული ობიექტისთვის - გაზის კასკადური სერიები, მყარი საწვავის ქვაბები და ფოლადის ქვაბები ცალკე სანთურასთან სამუშაოდ.'; ledeEn='Boilers for commercial buildings - gas cascade ranges, solid fuel boilers, and steel boilers that take a separate burner.'
-     pdescKa='გაზის კასკადური ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან, Emtaş-ის მყარი საწვავის ქვაბები და ფოლადის ქვაბები სანთურისთვის. მონტაჟი თბილისში.'; pdescEn='Gas cascade boilers from Beretta, Riello and Warmhaus, Emtaş solid fuel boilers and steel boilers for a burner. Sized and installed in Tbilisi.'
+     ledeKa=$(if ($EMTAS_LIVE) { 'ქვაბები კომერციული ობიექტისთვის - გაზის კასკადური სერიები, მყარი საწვავის ქვაბები და ფოლადის ქვაბები ცალკე სანთურასთან სამუშაოდ.' } else { 'ქვაბები კომერციული ობიექტისთვის - კასკადური სერიები და ფოლადის ქვაბი ცალკე სანთურასთან სამუშაოდ.' })
+     ledeEn=$(if ($EMTAS_LIVE) { 'Boilers for commercial buildings - gas cascade ranges, solid fuel boilers, and steel boilers that take a separate burner.' } else { 'Boilers for commercial buildings - cascade ranges, and a steel boiler that takes a separate burner.' })
+     pdescKa=$(if ($EMTAS_LIVE) { 'გაზის კასკადური ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან, Emtaş-ის მყარი საწვავის ქვაბები და ფოლადის ქვაბები სანთურისთვის. მონტაჟი თბილისში.' } else { 'კომერციული და კასკადური გათბობის ქვაბები Beretta-ს, Riello-სა და Warmhaus-ისგან, ფოლადის ქვაბები სანთურისთვის - შერჩევა სიმძლავრის მიხედვით და მონტაჟი თბილისში.' })
+     pdescEn=$(if ($EMTAS_LIVE) { 'Gas cascade boilers from Beretta, Riello and Warmhaus, Emtaş solid fuel boilers and steel boilers for a burner. Sized and installed in Tbilisi.' } else { 'Commercial and cascade boilers from Beretta, Riello and Warmhaus, plus steel boilers for a separate burner - sized to your output and installed in Tbilisi.' })
      # the hub cards carry data-cat="<brand slug>", so the second group would just
      # repeat the brand filter -- output band is the useful second axis here
      # Bands follow the published range, the same way the brand hubs build
@@ -169,7 +176,8 @@ $PAGES = @(
      crumbKa='გათბობა'; crumbEn='Heating'
      titleKa='გათბობის სისტემები - ქვაბები, სანთურები, ბოილერები - ბიომი'; titleEn='Heating Systems - Boilers, Burners, Water Heaters - Biomi'
      ledeKa='გათბობის ქვაბები, სანთურები და ბოილერები - ყველა ერთ ადგილას.'; ledeEn='Heating boilers, burners and water heaters - all in one place.'
-     pdescKa='გათბობის ქვაბები, სანთურები და ბოილერები Beretta-ს, Riello-ს, Warmhaus-ის, Emtaş-ისა და Omega-სგან - შერჩევა, მონტაჟი და სერვისი თბილისში.'; pdescEn='Heating boilers, burners and water heaters from Beretta, Riello, Warmhaus, Emtaş and Omega - selection, installation and service in Tbilisi.'
+     pdescKa=$(if ($EMTAS_LIVE) { 'გათბობის ქვაბები, სანთურები და ბოილერები Beretta-ს, Riello-ს, Warmhaus-ის, Emtaş-ისა და Omega-სგან - შერჩევა, მონტაჟი და სერვისი თბილისში.' } else { 'გათბობის ქვაბები, სანთურები და ბოილერები Beretta-ს, Riello-ს, Warmhaus-ისა და Omega-სგან - შერჩევა, მონტაჟი და სერვისი თბილისში.' })
+     pdescEn=$(if ($EMTAS_LIVE) { 'Heating boilers, burners and water heaters from Beretta, Riello, Warmhaus, Emtaş and Omega - selection, installation and service in Tbilisi.' } else { 'Heating boilers, burners and water heaters from Beretta, Riello, Warmhaus and Omega - selection, installation and service in Tbilisi.' })
      series=@(); seriesKa='კატეგორია'; seriesEn='Category'; seriesName='sec'; seriesFirst=$true
      typeKa=''; typeEn=''; types=@()
      extraKa=''; extraEn=''; extraName=''; extras=@() }
@@ -187,6 +195,13 @@ $L = @{
 }
 $CARET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'
 
+# Only the options some card on the page actually carries: with a brand held
+# back as a preview, "solid fuel" on the boilers page would otherwise be a box
+# that can only ever answer "no products found".
+function PresentOpts($opts, $name, $cardsHtml) {
+  if (-not $name -or -not $opts) { return $opts }
+  return @($opts | Where-Object { $cardsHtml -match ('data-' + $name + '="([^"]*,)?' + [regex]::Escape([string]$_[0]) + '(,[^"]*)?"') })
+}
 function FilterGroup($label, $name, $opts, $li, $cls) {
   # a group with nothing in it renders as a dead heading, so drop it entirely.
   # Not every category has four useful axes.
@@ -223,6 +238,8 @@ foreach ($p in $PAGES) {
     $secSubs = @{}
     $brandSeen = [ordered]@{}
     foreach ($src in $p.from) {
+      # a preview brand's hub is built, but not listed here (boilers/visible.ps1)
+      if (IsPreviewSlug $src.hub) { continue }
       $hubFile = Join-Path $prod ($src.hub + $sfx)
       if (-not (Test-Path $hubFile)) { Write-Host "  missing hub $hubFile"; continue }
       $hub = [IO.File]::ReadAllText($hubFile)
@@ -343,7 +360,7 @@ foreach ($p in $PAGES) {
           <input type="search" placeholder="$($t.search)">
         </div>
         <div class="pfilter__head"><span>$($t.filter)</span><a data-clear>$($t.clear)</a></div>
-$grpTop$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName $p.extras $lang)      </aside>
+$grpTop$(FilterGroup $typeLbl 'type' $p.types $lang)$(FilterGroup $extraLbl $p.extraName (PresentOpts $p.extras $p.extraName $cards) $lang)      </aside>
 
       <div class="pgrid">
 $cards        <div class="pgrid__empty" style="display:none">$($t.empty)</div>

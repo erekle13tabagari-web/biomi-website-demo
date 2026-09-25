@@ -40,7 +40,9 @@ function Kw($m){
 # lowest output in the range, so the "from N kW" label cannot drift from the
 # products: it is the LAWA 18 today, and a typed figure would quietly lie the
 # moment a smaller unit is added. Boilers only -- the burners are banded by fuel.
-$KWMIN = ($mods | Where-Object { (CatOf $_) -eq 'boilers' } | ForEach-Object { Kw $_ } | Where-Object { $_ -gt 0 } | Measure-Object -Minimum).Minimum
+# Preview brands (visible.ps1) are left out, so the published hubs keep the
+# band their own range gives; a preview hub works out its own further down.
+$KWMIN = ($mods | Where-Object { (CatOf $_) -eq 'boilers' -and -not (IsPreviewSlug $_.slug) } | ForEach-Object { Kw $_ } | Where-Object { $_ -gt 0 } | Measure-Object -Minimum).Minimum
 # The middle band starts at the smallest output actually on sale, not at a typed
 # 36: with the small ranges held back (visible.ps1) the lowest boiler is a 50,
 # and a band advertising 36 would promise a size the page cannot show.
@@ -70,7 +72,13 @@ function BrandSlug($s) {
 
 foreach ($b in $BRANDS) {
   foreach ($lang in 'ka','en') {
-    $t = $L[$lang]; $sfx = $t.file
+    $t = $L[$lang].Clone(); $sfx = $t.file
+    # A preview hub's smallest boiler can sit below the published ones' (Emtas
+    # starts at 47 kW), so its middle band starts there instead.
+    if (IsPreviewSlug $b.slug) {
+      $ownMin = ($mods | Where-Object { $_.brand -eq $b.brand -and (CatOf $_) -eq 'boilers' } | ForEach-Object { Kw $_ } | Where-Object { $_ -gt 0 } | Measure-Object -Minimum).Minimum
+      if ($ownMin -and $ownMin -lt $KWMIN) { $t.k2 = "$([Math]::Max($ownMin, 36))-99 kW" }
+    }
     $tplPath = Join-Path $repo ('products\' + $t.tpl)
     $tpl = Get-Content $tplPath -Raw -Encoding UTF8
     $i = $tpl.IndexOf('<!-- ===================== BRAND LISTING')

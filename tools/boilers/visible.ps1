@@ -31,6 +31,20 @@
 # between 45 and 49 kW, so the wall-hung ranges stay held back as before.
 $BOILER_KWMIN = 45
 
+# Brands shown on test.biomi.ge only, as a preview (2026-09-25: Emtas, while
+# its range and wording are still being settled). Their pages are built as
+# usual, but nothing on the live site leads to them - the boilers and heating
+# listings, the menu, search, the sitemap and other pages' "related" cards all
+# leave them out - and tools/deploy/deploy-site.ps1 uploads their files to the
+# test site only (and removes them from biomi.ge). Matched against slugs:
+# 'emtas' covers the hub emtas.html and every emtas-* page, image and logo.
+# To publish: empty the list, then rebuild as in README.md and upload.
+$PREVIEW = @('emtas')
+function IsPreviewSlug([string]$slug) {
+  foreach ($p in $PREVIEW) { if ($slug -eq $p -or $slug -like "$p-*") { return $true } }
+  return $false
+}
+
 # The output is the number in the model name, the same reading the kW chips and
 # the filter bands already use: CITY 24 -> 24, VIWA S 150 -> 150. The six-digit
 # manufacturer codes that lead some names cannot match, since \b(\d{2,3})\b

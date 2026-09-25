@@ -102,6 +102,8 @@ $rxH4   = [regex]'(?s)<h4>(.*?)</h4>'
 $rxSub  = [regex]'<span class="pcard__sub">([^<]*)</span>'
 $rxBadge= [regex]'<span class="pcard__badge">([^<]*)</span>'
 
+. (Join-Path $root 'tools\boilers\visible.ps1')   # IsPreviewSlug
+
 function Esc([string]$s) {
   if ($null -eq $s) { return '' }
   $s = $s -replace '<[^>]+>', ''            # strip any nested tags
@@ -122,6 +124,8 @@ function Build($hubs, $static, $projects, $outFile) {
   # sorted: hashtable key order is not guaranteed stable between runs, and an
   # index that reshuffles itself would show up as a change on every publish
   foreach ($hubFile in ($hubs.Keys | Sort-Object)) {
+    # a preview brand (tools/boilers/visible.ps1) is not on the live site
+    if (IsPreviewSlug ([IO.Path]::GetFileNameWithoutExtension($hubFile))) { continue }
     $path = Join-Path $root "products\$hubFile"
     if (-not (Test-Path $path)) { Write-Host "missing hub: $hubFile"; continue }
     $html = [IO.File]::ReadAllText($path)

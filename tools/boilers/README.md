@@ -109,3 +109,17 @@ Regenerating the family pages wipes what later steps added. After
 `3-pages.ps1` / `4-hubs.ps1`, run in order: `tools/add-card-brands.ps1`,
 `tools/brand-links.ps1`, `tools/docs/3-pages.ps1` (the PDF download lists),
 `tools/build-category-pages.ps1`, `tools/build-meta.ps1`, `build-search-index.ps1`.
+
+### Emtaş is a test-site preview (since 2026-09-25)
+
+`$PREVIEW = @('emtas')` in `visible.ps1` keeps Emtaş on test.biomi.ge only while
+its range and wording are settled. Its pages and hub are still built, but the
+boilers and heating listings, the menu (the entry carries `"preview":"emtas"`
+in `tools/menu-tree.json`), search, the sitemap and other pages' related cards
+leave it out, and `tools/deploy/deploy-site.ps1` uploads its files to the test
+site only. The boilers and heating descriptions switch on the same flag in
+`tools/build-category-pages.ps1` (`$EMTAS_LIVE`).
+
+**To publish Emtaş:** set `$PREVIEW = @()`, run the full rebuild listed above
+plus `tools/menu-rebuild.ps1`, then Update Website and both uploads. Preview
+link while it lasts: https://test.biomi.ge/products/emtas.html

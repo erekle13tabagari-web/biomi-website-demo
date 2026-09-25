@@ -46,5 +46,8 @@ function Get-EmtasData {
       $specs[[string]$m.mfr] = [pscustomobject]$s
     }
   }
-  return @{ models = $models; specs = $specs }
+  # family slug -> { ka = [...]; en = [...] }, listed beside the datasheet
+  $features = @{}
+  foreach ($p in $j.features.PSObject.Properties) { if ($p.Name -ne '_note') { $features[$p.Name] = $p.Value } }
+  return @{ models = $models; specs = $specs; features = $features }
 }
