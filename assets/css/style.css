@@ -1200,6 +1200,20 @@ a.news__img img{transition:transform .5s var(--ease)}
    Mtavruli is wide enough already that Latin's tracking pulls it apart. */
 html[lang="ka"] .footer__made{letter-spacing:.04em}
 .footer__made .heart{height:.754em;width:auto;fill:currentColor;vertical-align:baseline}
+/* The credit links to the studio (2026-09-25): white, with the heart in
+   BAGARI's red "breathing" exactly as it does on bagari.studio - a slow swell
+   and a slower release, not a beat - and still for anyone who asks for less
+   motion. */
+.footer__made{color:#fff;text-decoration:none;transition:opacity .2s}
+.footer__made:hover,.footer__made:focus-visible{opacity:.78}
+.footer__made .heart{display:inline-block;fill:#CB3534;transform-origin:50% 55%;
+  animation:heart-breathe 4.2s ease-in-out infinite}
+@keyframes heart-breathe{
+  0%,100%{transform:scale(1)}
+  38%{transform:scale(1.12)}
+  55%{transform:scale(1.09)}
+}
+@media (prefers-reduced-motion:reduce){.footer__made .heart{animation:none}}
 
 /* =========================================================================
    FLOATING chat (messenger · whatsapp · phone)
