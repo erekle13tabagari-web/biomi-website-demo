@@ -103,6 +103,20 @@ function ConvertFrom-NewsMarkdown([string]$md) {
   return ,$out.ToArray()
 }
 
+# A headline's line breaks: a new line breaks on every screen, {pc} only on a
+# computer, {phone} only on a phone. H1Plain is the one-line text for the tab
+# title, cards and breadcrumb; H1Html the article's own heading, where each
+# break is " <br>" so a hidden one still leaves a space between the words.
+function H1Plain([string]$s) {
+  return (($s -replace '\{(pc|phone)\}', ' ' -replace '\s*\r?\n\s*', ' ') -replace '\s{2,}', ' ').Trim()
+}
+function H1Html([string]$s) {
+  $lines = @(($s.Trim() -split '\r?\n') | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+  $h = ($lines -join ' <br>')
+  $h = $h -replace '\s*\{pc\}\s*', ' <br class="br-pc">' -replace '\s*\{phone\}\s*', ' <br class="br-phone">'
+  return ($h -replace '[ ]{2,}', ' ').Trim()
+}
+
 # "/assets/img/x.jpg" -> "x.jpg"; an upload keeps its full repo path
 function NewsImgName([string]$p) { return ($p -replace '^/?assets/img/', '') }
 function IsUpload([string]$p) { return ($p -and $p.StartsWith($UPLOADPFX)) }
@@ -128,6 +142,8 @@ function Get-NewsItems {
       hero = $(if (IsUpload $heroRaw) { 'news-' + $slug + '.jpg' } else { NewsImgName $heroRaw })
       heroUpload = $(if (IsUpload $heroRaw) { $heroRaw.TrimStart('/') } else { '' })
       gallery = @(@($j.gallery) | Where-Object { $_ } | ForEach-Object { ([string]$_).TrimStart('/') })
+      # where the story was first published: a link in the article's closing row
+      source = [string]$j.source
       # an office folder's "Main gallery" is used unless the file says false
       folderGallery = -not ($j.PSObject.Properties['folderGallery'] -and $j.folderGallery -eq $false)
       figures = @()
@@ -153,9 +169,15 @@ function Get-NewsItems {
       $suffix = if ($lang -eq 'ka') { ' - ბიომი' } else { ' - Biomi' }
       $it[$lang] = [pscustomobject]@{
         cat      = [string]$t.cat
-        h1       = [string]$t.h1
-        crumb    = $(if ($t.crumb) { [string]$t.crumb } else { [string]$t.h1 })
-        title    = $(if ($t.title) { [string]$t.title } else { [string]$t.h1 + $suffix })
+        # A line break typed into the headline is kept for the article's own
+        # heading (h1Lines) and read as a space everywhere else: tab title,
+        # breadcrumb, news cards (2026-09-30, the rebrand headline's 3 lines).
+        # {pc} and {phone} are breaks for one screen size only (the rebrand
+        # headline wraps differently on a phone); both read as spaces here.
+        h1       = (H1Plain ([string]$t.h1))
+        h1Html   = (H1Html ([string]$t.h1))
+        crumb    = $(if ($t.crumb) { [string]$t.crumb } else { H1Plain ([string]$t.h1) })
+        title    = $(if ($t.title) { [string]$t.title } else { (H1Plain ([string]$t.h1)) + $suffix })
         desc     = $(if ($t.desc) { [string]$t.desc } else { ([string]$t.lead -replace '\s+', ' ').Trim() })
         dateText = $(if ($t.dateText) { [string]$t.dateText } else { DateText $date $lang })
         alt      = [string]$t.alt

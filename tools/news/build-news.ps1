@@ -79,7 +79,9 @@ foreach ($item in $DATA) {
     # the date text is the last line inside <time>, after the calendar icon
     $s = [regex]::Replace($s, '(?s)(</svg>\s*\r?\n\s*)[^<\r\n]+(\r?\n\s*</time>)',
                           ('${1}' + $t.dateText + '${2}'))
-    $s = Swap $s '<h1>' '</h1>' ('<h1>' + $t.h1 + '</h1>') 'h1'
+    # the headline with its own line breaks (load-news.ps1, H1Html); " <br>"
+    # keeps a space in the text that build-meta.ps1 reads back out of it
+    $s = Swap $s '<h1>' '</h1>' ('<h1>' + $t.h1Html + '</h1>') 'h1'
     $s = Swap $s '<p class="article__lead">' '</p>' `
                ('<p class="article__lead">' + $t.lead + '</p>') 'lead'
 
@@ -162,6 +164,15 @@ foreach ($item in $DATA) {
 
     # ---- neither article has a video
     $s = [regex]::Replace($s, '(?s)\s*<h2 class="video-h">.*?</div>\s*(?=<div class="article__foot">)', ($CRLF + $CRLF + '      '))
+
+    # ---- where the story was first published, on the left of the closing row
+    #      (the share button keeps the right). Labelled with the site's name.
+    if ($item.source -match '^https?://([^/]+)') {
+      $srcHost = $Matches[1] -replace '^www\.', ''
+      $srcLbl = if ($lang -eq 'ka') { 'წყარო:' } else { 'Source:' }
+      $s = $s.Replace('<div class="article__foot">', '<div class="article__foot">' + $CRLF +
+             '        <span class="article__source">' + $srcLbl + ' <a href="' + (Esc $item.source) + '" target="_blank" rel="noopener">' + $srcHost + '</a></span>')
+    }
 
     # ---- the "other news" strip at the foot. The template carries three
     #      placeholder cards; rebuild it from news.json so it lists the real

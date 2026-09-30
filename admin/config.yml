@@ -98,13 +98,14 @@ collections:
             fields:
               - { label: 'Photo description (for screen readers)', name: alt, widget: string }
               - { label: Caption, name: cap, widget: string }
+      - { label: 'პირველწყარო (ბმული)', name: source, widget: string, required: false, hint: 'თუ სტატია სხვა საიტზეც გამოქვეყნდა, მისი ბმული - სტატიის ბოლოს გამოჩნდება როგორც წყარო.' }
       - { label: წყარო, name: src, widget: hidden, required: false }
 
       - label: ქართული
         name: ka
         widget: object
         fields:
-          - { label: სათაური, name: h1, widget: string }
+          - { label: სათაური, name: h1, widget: text, hint: 'ახალი სტრიქონი (Enter) - ახალი ხაზი ყველგან; {pc} - მხოლოდ კომპიუტერზე; {phone} - მხოლოდ ტელეფონზე.' }
           - { label: 'კატეგორია (მაგ. კომპანიის სიახლე)', name: cat, widget: string }
           - { label: 'შესავალი (1-2 წინადადება)', name: lead, widget: text }
           - label: ტექსტი
@@ -126,7 +127,7 @@ collections:
         name: en
         widget: object
         fields:
-          - { label: Headline, name: h1, widget: string }
+          - { label: Headline, name: h1, widget: text, hint: 'A new line (Enter) breaks everywhere; {pc} breaks on computers only, {phone} on phones only.' }
           - { label: 'Category (e.g. Company news)', name: cat, widget: string }
           - { label: 'Lead (1-2 sentences)', name: lead, widget: text }
           - label: Text

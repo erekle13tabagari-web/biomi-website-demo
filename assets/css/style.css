@@ -1866,6 +1866,20 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .article__date svg{width:15px;height:15px;color:var(--gold-600)}
 .article h1{font-size:clamp(28px,3.4vw,42px);margin:10px 0 24px}
 .article__lead{font-size:19px;color:var(--ink);margin-bottom:6px}
+/* News articles only (2026-09-30): headlines run long - the rebrand one took
+   four lines of capitals at 42px - so they are set smaller, and the lead is
+   set oblique. Project pages share .article and keep their sizes. */
+.article--news h1{font-size:clamp(23px,2.5vw,31px)}
+.article--news .article__lead{font-style:italic}
+/* headline breaks for one screen size ({pc} / {phone} in the article file) */
+.br-phone{display:none}
+@media (max-width:600px){ .br-pc{display:none} .br-phone{display:inline} }
+/* On a phone the headline scales with the screen, at most 23px: sized so the
+   rebrand headline's widest phone line ("სივრცეში“ - ახალი ეტაპი" in drawn
+   capitals, about 15.75 times the font size wide - measured) fits the column
+   (screen width less 56px), with a little room for other phones' fonts, and
+   the lines break where they were set to, not one word early. */
+@media (max-width:600px){ .article--news h1{font-size:min(23px, calc((100vw - 56px) / 16.3))} }
 .article__img{border-radius:var(--radius);overflow:hidden;margin:30px 0;box-shadow:var(--shadow-sm)}
 .article__img img{width:100%;display:block}
 /* The caption sits inside the figure, which is a rounded card with
@@ -1880,7 +1894,10 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    always start below it. */
 .article__img--portrait{float:right;width:min(38%,280px);margin:6px 0 18px 28px}
 .article__body h2,.article__body h3,.article__video,.article__img:not(.article__img--portrait){clear:both}
-@media (max-width:600px){ .article__img--portrait{width:44%;margin:4px 0 12px 16px} }
+/* Phones: a column too narrow to share - beside the photo the quote ran a
+   few words a line with a gap under it - so the portrait stands alone,
+   larger and centred, and the text follows below it. */
+@media (max-width:600px){ .article__img.article__img--portrait{float:none;width:min(80%,320px);margin:22px auto} }
 .article__body p{margin-bottom:18px;color:var(--body)}
 .article__body h2{font-size:23px;margin:36px 0 14px}
 .article__body ul{margin:0 0 18px 22px;list-style:disc;color:var(--body)}
@@ -1898,6 +1915,14 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 /* news articles carry only the share button here, so keep it on the right
    where it sat when there was a line of text beside it */
 .article__foot .news__share{margin-left:auto}
+/* where a news story was first published (2026-09-30) */
+.article__source a{color:var(--gold-600);text-decoration:underline;text-underline-offset:3px}
+.article__source a:hover{color:var(--gold)}
+/* the share button sits right after the source rather than across the row
+   from it; on phones the row stays a row (it stacks for project pages' buttons) */
+.article--news .article__foot{justify-content:flex-start}
+.article__source + .news__share{margin-left:0}
+@media (max-width:600px){ .article--news .article__foot{flex-direction:row;align-items:center} }
 /* Two CTAs side by side squeeze each label onto three lines at phone width --
    the service page is the first article foot to carry two buttons rather than
    a line of text and one. Stack them and let each take the full width. */
