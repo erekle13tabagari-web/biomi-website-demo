@@ -133,12 +133,21 @@ foreach ($item in $DATA) {
         $fi++
         if ($fig) {
           $ft = $fig.$lang
-          $lines += '<figure class="article__img">'
+          $lines += $(if ($fig.portrait) { '<figure class="article__img article__img--portrait">' } else { '<figure class="article__img">' })
           # further down the article than the hero: fetched as the reader nears it
           $lines += '  <img src="../assets/img/' + (PageImg $fig.img) + '" alt="' + (Esc $ft.alt) + '" loading="lazy" data-lightbox>'
           $lines += '  <figcaption>' + $ft.cap + '</figcaption>'
           $lines += '</figure>'
         }
+      } elseif ($line -like 'VIDEO:*') {
+        # the project pages' player: youtube-nocookie, 16:9, fetched only
+        # when the reader scrolls near it
+        $vidTitle = (Esc $t.h1) + $(if ($lang -eq 'ka') { ' - ვიდეო' } else { ' - video' })
+        $lines += '<div class="article__video">'
+        $lines += '  <iframe src="https://www.youtube-nocookie.com/embed/' + $line.Substring(6) + '?rel=0" title="' + $vidTitle + '" loading="lazy"'
+        $lines += '    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen'
+        $lines += '    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>'
+        $lines += '</div>'
       } else {
         $lines += $line
       }

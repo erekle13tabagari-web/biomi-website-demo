@@ -69,3 +69,18 @@ served, never tagged by `build-meta.ps1`, and never reach the sitemap.
 resolve against the wrong folder.
 
 To move the layout on, edit a template and re-run.
+
+## Quotes, video, portraits (2026-09-30)
+
+- **Quote:** every line of the paragraph starts with `>`. A last line starting
+  with a dash (`> — Name, role`) becomes the quote's attribution. The editor's
+  quote button writes the `>` lines.
+- **Video:** a paragraph `VIDEO https://www.youtube.com/watch?v=…` becomes the
+  project pages' privacy-mode player (youtube-nocookie, 16:9, loads lazily).
+- **Portrait:** a figure with `"portrait": true` (the editor's "პორტრეტი"
+  switch) floats right beside the text at about a third of the column - for
+  the person quoted next to it. Headings, videos and wide pictures start below it.
+- An office folder's hero may be `Cover.*` as well as `thumbnail.*`.
+- `"folderGallery": false` keeps a folder's `Main gallery` off the page
+  (duct-production was published without its gallery).
+- Folder pictures are made again only when the source is newer than the result.

@@ -1874,6 +1874,13 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    the sides. It never showed while every caption was one short line. */
 .article__img figcaption{font-size:13px;color:var(--muted);line-height:1.5;
   padding:12px 16px 14px}
+/* A portrait beside the text - the person quoted next to it (2026-09-30). At
+   full width a 2:3 photo took a screen of its own; floated at about a third
+   of the column it sits by the quote. Headings, videos and wide pictures
+   always start below it. */
+.article__img--portrait{float:right;width:min(38%,280px);margin:6px 0 18px 28px}
+.article__body h2,.article__body h3,.article__video,.article__img:not(.article__img--portrait){clear:both}
+@media (max-width:600px){ .article__img--portrait{width:44%;margin:4px 0 12px 16px} }
 .article__body p{margin-bottom:18px;color:var(--body)}
 .article__body h2{font-size:23px;margin:36px 0 14px}
 .article__body ul{margin:0 0 18px 22px;list-style:disc;color:var(--body)}

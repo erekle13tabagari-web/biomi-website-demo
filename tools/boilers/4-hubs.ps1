@@ -23,8 +23,8 @@ $BRANDS = @(
   # three share, so it states its own title and description.
   @{ brand='Emtaş';    slug='emtas';    logo='emtas.svg';    cat='boilers'
      titleKa='Emtaş მყარი საწვავის ქვაბები - ბიომი'; titleEn='Emtaş Solid Fuel Boilers - Biomi'
-     descKa='Emtaş-ის მყარი საწვავის ქვაბები 47-დან 93 kW-მდე, ხელით და ავტომატური მიწოდებით, და ფოლადის ქვაბი სანთურისთვის. მიწოდება და მონტაჟი თბილისში.'
-     descEn='Emtaş solid fuel boilers from 47 to 93 kW, with manual or automatic feed, and a steel boiler for a separate burner. Supply and installation in Tbilisi.' },
+     descKa='Emtaş-ის მყარი საწვავის ქვაბები 47-დან 93 kW-მდე - EK3G ხელით და EK3G/S ავტომატური მიწოდებით. მიწოდება და მონტაჟი თბილისში.'
+     descEn='Emtaş solid fuel boilers from 47 to 93 kW - the EK3G with manual feed and the EK3G/S with automatic feed. Supply and installation in Tbilisi.' },
   # The burners are not boilers and get a hub of their own, which
   # build-category-pages.ps1 lifts into products/burners the same way it lifts
   # the three above into products/boilers.

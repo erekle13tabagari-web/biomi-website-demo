@@ -85,6 +85,7 @@ collections:
         fields:
           - { label: ფოტო, name: image, widget: image, choose_url: false }
           - { label: წყარო, name: from, widget: hidden, required: false }
+          - { label: 'პორტრეტი - ტექსტის გვერდით, ვიწროდ', name: portrait, widget: boolean, required: false, default: false, hint: 'ვერტიკალური ფოტოსთვის (მაგ. ციტირებული ადამიანის): ჩაჯდება მარჯვნივ, ტექსტის გვერდით.' }
           - label: ქართული
             name: ka
             widget: object
@@ -110,8 +111,9 @@ collections:
             name: body
             widget: markdown
             modes: [rich_text, raw]
-            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list]
+            buttons: [bold, italic, link, heading-two, heading-three, quote, bulleted-list, numbered-list]
             editor_components: []
+            hint: 'ციტატა - ღილაკით ციტატა (ან სტრიქონის თავში >), ბოლო სტრიქონი ტირით - ვინ თქვა. ვიდეო - ცალკე აბზაცად VIDEO და YouTube-ის ბმული.'
             hint: 'ფოტოს ჩასასმელად ცალკე აბზაცად დაწერეთ FIGURE.'
           - { label: 'მთავარი ფოტოს აღწერა (უსინათლო მკითხველისთვის)', name: alt, widget: string }
           - { label: 'მთავარი ფოტოს წარწერა', name: cap, widget: string, required: false }
@@ -131,8 +133,9 @@ collections:
             name: body
             widget: markdown
             modes: [rich_text, raw]
-            buttons: [bold, italic, link, heading-two, heading-three, bulleted-list, numbered-list]
+            buttons: [bold, italic, link, heading-two, heading-three, quote, bulleted-list, numbered-list]
             editor_components: []
+            hint: 'ციტატა - ღილაკით ციტატა (ან სტრიქონის თავში >), ბოლო სტრიქონი ტირით - ვინ თქვა. ვიდეო - ცალკე აბზაცად VIDEO და YouTube-ის ბმული.'
             hint: 'Write FIGURE as a paragraph of its own where a captioned photo goes.'
           - { label: 'Hero photo description (for screen readers)', name: alt, widget: string }
           - { label: 'Hero photo caption', name: cap, widget: string, required: false }

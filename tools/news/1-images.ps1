@@ -62,6 +62,13 @@ function MakeHero([string]$source, [string]$name) {
   & $MAGICK $dst -quality 55 ($dst -replace '\.jpe?g$', '.avif')
   return ('' + $tw + 'x' + $th)
 }
+# A picture from an office folder is made again only when its source is newer
+# than what it made: re-encoding an unchanged photo rewrote published files
+# with a few bytes' difference on every run (2026-09-30).
+function Fresh([string]$source, [string]$name) {
+  $dst = Join-Path $IMG $name
+  return ((Test-Path -LiteralPath $dst) -and (Get-Item -LiteralPath $dst).LastWriteTime -ge (Get-Item -LiteralPath $source).LastWriteTime)
+}
 function MakeFigure([string]$source, [string]$name) {
   $dst = Join-Path $IMG $name
   & $MAGICK ($source + '[0]') -auto-orient -resize '1400x1400>' -quality 82 $dst
@@ -123,12 +130,18 @@ foreach ($item in $DATA) {
     $folder = Join-Path $SRC $item.src
     if (Test-Path -LiteralPath $folder) {
       if (-not $item.heroUpload) {
+        # "thumbnail.*" in the first folders; the rebrand article (2026-09-30)
+        # names its hero "Cover.*"
         $thumb = Get-ChildItem -LiteralPath $folder -File |
-                 Where-Object { $_.BaseName -eq 'thumbnail' } | Select-Object -First 1
-        if ($thumb) { $heroNote = 'folder ' + (MakeHero $thumb.FullName $item.hero) }
+                 Where-Object { $_.BaseName -in 'thumbnail', 'cover' } |
+                 Sort-Object { if ($_.BaseName -eq 'thumbnail') { 0 } else { 1 } } | Select-Object -First 1
+        if ($thumb -and (Fresh $thumb.FullName $item.hero)) { $heroNote = 'folder (current)' }
+        elseif ($thumb) { $heroNote = 'folder ' + (MakeHero $thumb.FullName $item.hero) }
       }
       $main = Join-Path $folder 'Main gallery'
-      if (-not @($item.gallery).Count -and (Test-Path -LiteralPath $main)) {
+      # "folderGallery": false in the article file keeps a folder's Main gallery
+      # off the page (duct-production: published without it)
+      if ($item.folderGallery -and -not @($item.gallery).Count -and (Test-Path -LiteralPath $main)) {
         $shots = @(Get-ChildItem -LiteralPath $main -File |
                    Where-Object { $_.Extension -match '^\.(png|jpg|jpeg|webp)$' } |
                    Sort-Object { NaturalKey $_.Name } | ForEach-Object { $_.FullName })
@@ -158,6 +171,8 @@ foreach ($item in $DATA) {
           if ($file) { $raw = $file.FullName }
         }
         if (-not $raw) { Write-Host ('  ! figure source missing: ' + $fig.from); continue }
+        # a picture pulled out of the Word file is always new; a folder file only when changed
+        if (-not $tmpRaw -and (Fresh $raw $fig.img)) { continue }
         MakeFigure $raw $fig.img
         if ($tmpRaw) { Remove-Item $tmpRaw -Force }
         $figNote = if ($figNote -eq '-') { $fig.img } else { $figNote + ', ' + $fig.img }

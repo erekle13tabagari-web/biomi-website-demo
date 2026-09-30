@@ -57,7 +57,24 @@ function ConvertFrom-NewsMarkdown([string]$md) {
     $b = $block.Trim("`n", ' ', "`t")
     if (-not $b) { continue }
     if ($b -eq 'FIGURE') { $out.Add('FIGURE'); continue }
+    # "VIDEO <YouTube link>" on its own: the builder turns it into the same
+    # privacy-mode 16:9 player the project pages use
+    if ($b -match '^VIDEO\s+(\S+)$') {
+      $vid = [regex]::Match(($Matches[1] -replace '&amp;', '&'), '(?:youtu\.be/|[?&]v=|/embed/|/shorts/)([A-Za-z0-9_-]{11})')
+      if ($vid.Success) { $out.Add('VIDEO:' + $vid.Groups[1].Value) }
+      continue
+    }
     $lines = @($b -split '\n')
+    # a quote: every line starts with ">"; a last line starting with a dash is
+    # who said it, and becomes the quote's attribution
+    if (-not ($lines | Where-Object { $_ -notmatch '^\s*>' })) {
+      $ql = @($lines | ForEach-Object { ($_ -replace '^\s*>\s?', '').Trim() } | Where-Object { $_ })
+      $cite = ''
+      if ($ql.Count -gt 1 -and $ql[-1] -match '^(—|–|-)\s*(.+)$') { $cite = $Matches[2]; $ql = @($ql[0..($ql.Count - 2)]) }
+      $q = '<blockquote><p>' + (($ql | ForEach-Object { MdInline $_ }) -join ' ') + '</p>'
+      if ($cite) { $q += '<cite>' + (MdInline $cite) + '</cite>' }
+      $out.Add($q + '</blockquote>'); continue
+    }
     if ($lines.Count -eq 1 -and $b -match '^(#{2,3})\s+(.+?)\s*#*$') {
       $lvl = $Matches[1].Length
       $out.Add('<h' + $lvl + '>' + (MdInline $Matches[2]) + '</h' + $lvl + '>'); continue
@@ -111,6 +128,8 @@ function Get-NewsItems {
       hero = $(if (IsUpload $heroRaw) { 'news-' + $slug + '.jpg' } else { NewsImgName $heroRaw })
       heroUpload = $(if (IsUpload $heroRaw) { $heroRaw.TrimStart('/') } else { '' })
       gallery = @(@($j.gallery) | Where-Object { $_ } | ForEach-Object { ([string]$_).TrimStart('/') })
+      # an office folder's "Main gallery" is used unless the file says false
+      folderGallery = -not ($j.PSObject.Properties['folderGallery'] -and $j.folderGallery -eq $false)
       figures = @()
     }
     $n = 0
@@ -122,6 +141,8 @@ function Get-NewsItems {
         img    = $(if (IsUpload $raw) { 'news-' + $slug + '-fig' + $n + '.jpg' } else { NewsImgName $raw })
         upload = $(if (IsUpload $raw) { $raw.TrimStart('/') } else { '' })
         from   = [string]$fg.from
+        # a tall picture (a portrait) sits beside the text instead of across it
+        portrait = [bool]$fg.portrait
         ka     = $fg.ka
         en     = $fg.en
       }
