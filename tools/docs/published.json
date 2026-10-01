@@ -773,10 +773,10 @@
                   ]
     },
     {
-        "file":  "vortice-cms-booklet.pdf",
+        "file":  "vortice-cms-12-5-m4-0-06kw-booklet.pdf",
         "class":  "booklet",
         "cat":  "vortice",
-        "model":  "",
+        "model":  "CMS 12/5 M4 0,06KW",
         "name":  "70_EN_30139_Libretti_Istruzioni_5571084886__12-05-2021_173570.pdf",
         "mb":  0.5,
         "srcmb":  1.06,
@@ -786,10 +786,10 @@
                   ]
     },
     {
-        "file":  "vortice-cms-wiring.pdf",
+        "file":  "vortice-cms-12-5-m4-0-06kw-wiring.pdf",
         "class":  "wiring",
         "cat":  "vortice",
-        "model":  "",
+        "model":  "CMS 12/5 M4 0,06KW",
         "name":  "70_EN_30139_Schemi_collegamento_E960590A_173973.pdf",
         "mb":  0.17,
         "srcmb":  0.54,
@@ -798,10 +798,10 @@
                   ]
     },
     {
-        "file":  "vortice-cms-wiring-2.pdf",
+        "file":  "vortice-cms-12-5-m4-0-06kw-wiring-2.pdf",
         "class":  "wiring",
         "cat":  "vortice",
-        "model":  "",
+        "model":  "CMS 12/5 M4 0,06KW",
         "name":  "70_EN_30139_Schemi_collegamento_E960590B_192846.pdf",
         "mb":  0.43,
         "srcmb":  1.86,
@@ -1636,7 +1636,7 @@
         "mb":  0.11,
         "srcmb":  0.69,
         "slugs":  [
-                      "vortice-qe"
+                      "vortice-accessories"
                   ]
     },
     {
@@ -1648,7 +1648,7 @@
         "mb":  0,
         "srcmb":  5.72,
         "slugs":  [
-                      "vortice-qe"
+                      "vortice-accessories"
                   ]
     },
     {
@@ -1928,10 +1928,10 @@
                   ]
     },
     {
-        "file":  "vortice-qbk-sal-wiring.pdf",
+        "file":  "vortice-vort-qbk-sal-kc-evo-315-m4-0-25kw-wiring.pdf",
         "class":  "wiring",
         "cat":  "vortice",
-        "model":  "",
+        "model":  "VORT QBK-SAL KC EVO 315 M4 0,25kW",
         "name":  "70_EN_43151_Schemi_collegamento.pdf",
         "mb":  0.17,
         "srcmb":  0.98,
@@ -1940,10 +1940,10 @@
                   ]
     },
     {
-        "file":  "vortice-qbk-sal-wiring-2.pdf",
+        "file":  "vortice-vort-qbk-sal-kc-evo-400-t4-0-55kw-wiring.pdf",
         "class":  "wiring",
         "cat":  "vortice",
-        "model":  "",
+        "model":  "VORT QBK-SAL KC EVO 400 T4 0,55kW",
         "name":  "70_EN_43157_Schemi_collegamento_E96.pdf",
         "mb":  0,
         "srcmb":  0.97,
@@ -2069,6 +2069,42 @@
         "srcmb":  1.04,
         "slugs":  [
                       "vortice-qbk"
+                  ]
+    },
+    {
+        "file":  "vortice-cr5n-booklet.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CR5N",
+        "name":  "70_EN_12941_Libretti_Istruzioni_5371084616_22_07_2009_23615.pdf",
+        "mb":  1.18,
+        "srcmb":  1.22,
+        "slugs":  [
+                      "vortice-accessories"
+                  ]
+    },
+    {
+        "file":  "vortice-cr5n-booklet-2.pdf",
+        "class":  "booklet",
+        "cat":  "vortice",
+        "model":  "CR5N",
+        "name":  "70_EN_12941_Libretti_Istruzioni_5671084086__21-03-2022_176161.pdf",
+        "mb":  1.42,
+        "srcmb":  2.11,
+        "slugs":  [
+                      "vortice-accessories"
+                  ]
+    },
+    {
+        "file":  "vortice-cr5n-wiring.pdf",
+        "class":  "wiring",
+        "cat":  "vortice",
+        "model":  "CR5N",
+        "name":  "70_EN_12941_Schemi_collegamento_E960033D_186443.pdf",
+        "mb":  0.04,
+        "srcmb":  0.17,
+        "slugs":  [
+                      "vortice-accessories"
                   ]
     },
     {

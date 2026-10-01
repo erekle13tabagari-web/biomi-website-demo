@@ -28,7 +28,7 @@ $L = @{
     lblModel='მოდელი'; lblColor='ფერი'; specs='მახასიათებლები'; cert='სერტიფიკატები'; dl='დოკუმენტაცია'
     thModel='მოდელი'; thCode='კოდი'; thType='ტიპი'; thAir='ჰაერის ხარჯი'
     thWatt='მოხმარებული სიმძლავრე'; thDia='ნომინალური დიამეტრი'; thNoise='ხმაური'
-    thPower='კვება'; thRange='მოდელების რიგი'
+    thPower='კვება'; thRange='მოდელების რიგი'; thUse='დანიშნულება'
     cta='მოითხოვეთ შეთავაზება'; eyebrowRel='მსგავსი პროდუქტი'; headRel='Vortice-ის სხვა სერიები'
     eyebrowCmp='შედარება'; headCmp='პროდუქტების შედარება'; view='ნახვა'
     certTxt='CE · RoHS · ERP. სრული სერტიფიცირება მოთხოვნისამებრ.'
@@ -43,7 +43,7 @@ $L = @{
     lblModel='Model'; lblColor='Colour'; specs='Specifications'; cert='Certificates'; dl='Documentation'
     thModel='Model'; thCode='Code'; thType='Type'; thAir='Airflow'
     thWatt='Absorbed power'; thDia='Nominal diameter'; thNoise='Sound pressure'
-    thPower='Power supply'; thRange='Model range'
+    thPower='Power supply'; thRange='Model range'; thUse='Purpose'
     cta='Request a quote'; eyebrowRel='Related products'; headRel='Other Vortice ranges'
     eyebrowCmp='Comparison'; headCmp='Compare products'; view='View'
     certTxt='CE · RoHS · ERP. Full certification available on request.'
@@ -52,8 +52,16 @@ $L = @{
     ph1='1 phase, 220-240 V, 50 Hz'; phMix='1 / 3 phase (depending on model)'
   }
 }
-# ranges that mix single- and three-phase models
-$MIXED = @('vortice-qbk','vortice-qbk-sal','vortice-cms','vortice-roof')
+# ranges that mix single- and three-phase models (CA IL ES RECT: 7050 and 8060
+# are 400 V three-phase, the four smaller sizes 230 V)
+$MIXED = @('vortice-qbk','vortice-qbk-sal','vortice-cms','vortice-roof','vortice-ca-il-rect')
+
+# Accessory pages ("accessory": true in vortice-families.json - the CR5N
+# controller, the QE-B M housing, the SF 90-100 ceiling kit) move no air, so
+# their chips and spec table carry each item's purpose ("notes" by code)
+# instead of airflow, power, diameter and noise, and they have no comparison
+# table. Fan pages do not pick them as related ranges either.
+$FANS = @($fams | Where-Object { -not $_.accessory })
 
 function HtmlEnc($s) { $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
 
@@ -196,6 +204,14 @@ foreach ($lang in 'ka','en') {
     if ($dupe.Count) {
       foreach ($m in $cg) { if ($dupe -contains $labels[$m.code]) { $labels[$m.code] = $m.model + ' · ' + $m.code } }
     }
+    $acc = [bool]$f.accessory
+    # an accessory's one line of purpose, by article code
+    function NoteFor($fam, $code) {
+      if (-not $fam.notes) { return '' }
+      $n = $fam.notes.PSObject.Properties[[string]$code]
+      if (-not $n) { return '' }
+      return [string]$n.Value.$lang
+    }
     $chips = @()
     for ($i = 0; $i -lt $cg.Count; $i++) {
       $m = $cg[$i]
@@ -209,10 +225,10 @@ foreach ($lang in 'ka','en') {
       if ($lst) { $imgAttr = '" data-alt="' + (HtmlEnc $m.model) + '" data-imgs="' + ($lst -join ',') }
       # the chip that stands for the finishes opens the colour row (main.js)
       $colAttr = if ($colorCodes.Count -and $colorCodes -contains [string]$m.code) { '" data-colors="' } else { '' }
+      $specAttr = if ($acc) { '" data-use="' + (HtmlEnc (NoteFor $f $m.code)) }
+                  else { '" data-air="' + $m.airflow + ' ' + $t.uAir + '" data-watt="' + $watt + '" data-dia="' + $dia + '" data-db="' + $db }
       $chips += '          <button class="' + $cls + '" type="button" data-model="' + (HtmlEnc $m.model) +
-                '" data-code="' + $m.code + '" data-air="' + $m.airflow + ' ' + $t.uAir +
-                '" data-watt="' + $watt + '" data-dia="' + $dia +
-                '" data-db="' + $db + $imgAttr + $colAttr + '">' + (HtmlEnc $labels[$m.code]) + '</button>'
+                '" data-code="' + $m.code + $specAttr + $imgAttr + $colAttr + '">' + (HtmlEnc $labels[$m.code]) + '</button>'
     }
     # the colour swatches: one per finish, each a whole model switch
     $colorRow = ''
@@ -245,11 +261,16 @@ foreach ($lang in 'ka','en') {
     $fWatt = if ($first.watts)   { $first.watts + ' ' + $t.uW }     else { '-' }
     $lo = [double]($g[0].airflow); $hi = [double]($g[-1].airflow)
     $range = if ($g.Count -gt 1) { "$lo-$hi $($t.uAir)" } else { "$lo $($t.uAir)" }
+    # an accessory page's label under the logo names what it is, not a range
+    if ($acc) { $range = HtmlEnc $type }
     $power = if ($MIXED -contains $f.slug) { $t.phMix } else { $t.ph1 }
 
-    # ---- siblings for the related + comparison blocks
+    # ---- siblings for the related + comparison blocks: the next two fan
+    #      ranges after this page, never an accessory page
     $sib = @()
-    for ($k = 1; $k -le 2; $k++) { $sib += $fams[($fi + $k) % $fams.Count] }
+    $ix = [array]::IndexOf(@($FANS | ForEach-Object { $_.slug }), $f.slug)
+    if ($ix -lt 0) { $ix = @($FANS).Count - 1 }
+    for ($k = 1; $k -le 2; $k++) { $sib += $FANS[($ix + $k) % $FANS.Count] }
     $relCards = ($sib | ForEach-Object {
       $sn = if ($lang -eq 'ka') { $_.nameKa } else { $_.nameEn }
       '      <a class="pcard" href="' + $_.slug + $t.file + '"><span class="pcard__img"><img src="../assets/img/products/' +
@@ -291,6 +312,45 @@ foreach ($lang in 'ka','en') {
     }
     $cmpLinks = ($cmpCols | ForEach-Object { '<td><a class="link-more" href="' + $_.slug + $t.file + '">' + $t.view + '</a></td>' }) -join ''
     $cmpRows += '          <tr><th></th>' + $cmpLinks + '</tr>'
+
+    # ---- spec table and comparison: a fan's figures, or an accessory's purpose
+    if ($acc) {
+      $specRows = @(
+        "          <tr><th>$($t.thModel)</th><td data-spec=`"model`">$(HtmlEnc $first.model)</td></tr>",
+        "          <tr><th>$($t.thCode)</th><td data-spec=`"code`">$($first.code)</td></tr>",
+        "          <tr><th>$($t.thType)</th><td>$(HtmlEnc $type)</td></tr>",
+        "          <tr><th>$($t.thUse)</th><td data-spec=`"use`">$(HtmlEnc (NoteFor $f $first.code))</td></tr>"
+      ) -join "`r`n"
+      $cmpSection = ''
+    } else {
+      $specRows = @(
+        "          <tr><th>$($t.thModel)</th><td data-spec=`"model`">$(HtmlEnc $first.model)</td></tr>",
+        "          <tr><th>$($t.thCode)</th><td data-spec=`"code`">$($first.code)</td></tr>",
+        "          <tr><th>$($t.thType)</th><td>$(HtmlEnc $type)</td></tr>",
+        "          <tr><th>$($t.thAir)</th><td data-spec=`"air`">$($first.airflow) $($t.uAir)</td></tr>",
+        "          <tr><th>$($t.thWatt)</th><td data-spec=`"watt`">$fWatt</td></tr>",
+        "          <tr><th>$($t.thDia)</th><td data-spec=`"dia`">$fDia</td></tr>",
+        "          <tr><th>$($t.thNoise)</th><td data-spec=`"db`">$fDb</td></tr>",
+        "          <tr><th>$($t.thPower)</th><td>$power</td></tr>",
+        "          <tr><th>$($t.thRange)</th><td>$range</td></tr>"
+      ) -join "`r`n"
+      $cmpSection = @"
+<section class="section">
+  <div class="container">
+    <div class="section__head reveal"><span class="eyebrow">$($t.eyebrowCmp)</span><h2>$($t.headCmp)</h2></div>
+    <div class="compare reveal">
+      <table>
+        <thead><tr><th></th>$cmpHead</tr></thead>
+        <tbody>
+$cmpRows
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+"@
+    }
 
     # ---- assemble
     $body = @"
@@ -346,15 +406,7 @@ $($chips -join "`r`n")
       </div>
       <div class="ptabs__panel active" data-panel="specs">
         <table class="spec-table" style="max-width:640px">
-          <tr><th>$($t.thModel)</th><td data-spec="model">$(HtmlEnc $first.model)</td></tr>
-          <tr><th>$($t.thCode)</th><td data-spec="code">$($first.code)</td></tr>
-          <tr><th>$($t.thType)</th><td>$(HtmlEnc $type)</td></tr>
-          <tr><th>$($t.thAir)</th><td data-spec="air">$($first.airflow) $($t.uAir)</td></tr>
-          <tr><th>$($t.thWatt)</th><td data-spec="watt">$fWatt</td></tr>
-          <tr><th>$($t.thDia)</th><td data-spec="dia">$fDia</td></tr>
-          <tr><th>$($t.thNoise)</th><td data-spec="db">$fDb</td></tr>
-          <tr><th>$($t.thPower)</th><td>$power</td></tr>
-          <tr><th>$($t.thRange)</th><td>$range</td></tr>
+$specRows
         </table>
       </div>
       <div class="ptabs__panel" data-panel="cert"><p style="color:var(--muted)">$($t.certTxt)</p></div>
@@ -372,20 +424,7 @@ $relCards
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section__head reveal"><span class="eyebrow">$($t.eyebrowCmp)</span><h2>$($t.headCmp)</h2></div>
-    <div class="compare reveal">
-      <table>
-        <thead><tr><th></th>$cmpHead</tr></thead>
-        <tbody>
-$cmpRows
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
+$cmpSection
 "@
 
     # ---- head/tail: point every self-reference at this page, then retitle

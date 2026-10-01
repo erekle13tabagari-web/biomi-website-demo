@@ -90,6 +90,32 @@ name, because that folder has already been renamed once.
 **PowerShell 5.1**: these files need a UTF-8 BOM for the Georgian literals, and
 `return @(...)` unrolls a one-element array to a scalar — wrap at the call site.
 
+## Models the price list does not have
+
+`vortice-extra.json` carries them in the price list's own fields, and
+`vortice-build.ps1` adds every row that has a `code`. Since 2026-10-01 that
+includes the 19 items of the stock list (`Desktop\Vortice_ნაშთები`) the site
+lacked: the CA IL ES RECT range (its own page, `vortice-ca-il-rect`), the
+QBK-SAL KC EVO models (on the QBK-SAL page), MF 100/4" T IPX5, MG 100/4",
+CMS 12/5, the ANGOL K / AXIAL K kitchen-cabinet fans (`vortice-k`) and three
+accessories.
+
+## Accessories
+
+`"accessory": true` on a family (`vortice-accessories`: CR5N, QE-B M,
+SF 90-100) makes a page for things that move no air. Its chips and spec table
+carry each item's purpose from the family's `"notes"` (by article code, `ka`
+and `en`) instead of airflow, power, diameter and noise; it has no comparison
+table; fan pages never pick it as a related range; and the hub gives it the
+`acc` category ("აქსესუარები"), no type and no airflow bucket. The ventilation
+page (`tools/build-category-pages.ps1`) and the menu (`tools/menu-tree.json`)
+have the matching `acc` entries. The library's `აქსესუარები` folder is
+scanned for photos since then; it used to be skipped.
+
+`"onegallery": true` is set on MF and QBK-SAL: the new models brought photos
+of their own, and without it `vortice-images2.ps1` would start switching photos
+on those pages without their pictures having been made.
+
 ## After regenerating
 
 ```powershell

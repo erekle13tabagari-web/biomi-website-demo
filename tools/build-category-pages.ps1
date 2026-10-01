@@ -148,7 +148,8 @@ $PAGES = @(
      ledeKa='აბაზანის, არხული და სამრეწველო ვენტილატორები, აგრეთვე რეკუპერაციის სისტემები.'; ledeEn='Bathroom, in-line and commercial fans, plus heat-recovery units.'
      pdescKa='საყოფაცხოვრებო, არხული და სამრეწველო ვენტილატორები და რეკუპერაციის დანადგარები Vortice-ისგან - ვენტილაციის პროექტირება და მონტაჟი თბილისში.'; pdescEn='Domestic, in-line and industrial fans and heat-recovery units from Vortice - ventilation design and installation in Tbilisi.'
      series=@(@('home','საყოფაცხოვრებო','Residential'),@('duct','არხული','In-line'),
-              @('ind','სამრეწველო','Commercial'),@('hrv','რეკუპერაცია','Heat recovery'))
+              @('ind','სამრეწველო','Commercial'),@('hrv','რეკუპერაცია','Heat recovery'),
+              @('acc','აქსესუარები','Accessories'))
      # Sections rather than a facet: these four are the parts the range divides
      # into, so they lead the panel and the filters follow.
      seriesKa='კატეგორია'; seriesEn='Category'; seriesFirst=$true

@@ -18,7 +18,7 @@
  "descKa":"Punto-ს ბაზისური მოდელი - კომპაქტური აბაზანის ვენტილატორი ოთხკუთხა ცხაურით, 100 მმ, 90 მ³/სთ-მდე. დამონტაჟდება კედელსა ან ფანჯარაზე.",
  "descEn":"The basic Punto - a compact bathroom fan with a square grille, 100 mm, up to 90 m³/h. Fits in a wall or a window."},
 
-{"slug":"vortice-mf","line":"punto","match":"^MF \\d","imgdirs":["MFO_","MF_"],"imgfilter":"punto_filo",
+{"slug":"vortice-mf","line":"punto","match":"^MF \\d","imgdirs":["MFO_","MF_"],"imgfilter":"punto_filo","onegallery":true,
  "nameKa":"MF Punto Filo აბაზანის ვენტილატორი","nameEn":"MF Punto Filo bathroom fan",
  "tagKa":"მრგვალი ცხაური · 90-150 მმ","tagEn":"Round grille · 90-150 mm",
  "typeKa":"აბაზანის კედლის/ჭერის ვენტილატორი","typeEn":"Wall / ceiling bathroom fan",
@@ -60,6 +60,13 @@
  "descKa":"ფანჯრის მინაში ან კედელში ჩასაყენებელი ვენტილატორი 700 მ³/სთ-მდე. AR ვერსია ავტომატური ჟალუზით არის აღჭურვილი.",
  "descEn":"A fan for window glazing or a wall, up to 700 m³/h. The AR version comes with an automatic shutter."},
 
+{"slug":"vortice-k","match":"^(ANGOL|AXIAL) K$","imgdirs":["ANGOL K_AXIAL K"],
+ "nameKa":"ANGOL K / AXIAL K სამზარეულოს ვენტილატორი","nameEn":"ANGOL K / AXIAL K kitchen cabinet fan",
+ "tagKa":"სამზარეულოს კარადაში · 100 მმ","tagEn":"Inside a kitchen cabinet · 100 mm",
+ "typeKa":"არხული ცენტრიდანული ვენტილატორი","typeEn":"In-line centrifugal fan",
+ "descKa":"სამზარეულოს კარადაში ჩასამონტაჟებელი ცენტრიდანული ვენტილატორი 100 მმ არხისთვის - 140 მ³/სთ-მდე. ANGOL K კუთხის ვერსიაა, ორი სიჩქარით, AXIAL K - პირდაპირი. UV-მედეგი პლასტმასის კორპუსი, ძრავის თერმული დაცვა და დამცავი ცხაური შესასვლელზე.",
+ "descEn":"A centrifugal fan that fits inside a kitchen cabinet, on a 100 mm duct - up to 140 m³/h. ANGOL K is the corner version, with two speeds; AXIAL K is the straight one. A UV-resistant plastic body, thermal overload protection and a guard grille on the inlet."},
+
 {"slug":"vortice-ca-v0","line":"ca","match":"^CA \\d+ V0","imgdirs":["CA_V0_D"],
  "nameKa":"CA V0 პლასტმასის არხული ვენტილატორი","nameEn":"CA V0 plastic duct fan",
  "tagKa":"მრგვალი არხი · 100-315 მმ","tagEn":"Round duct · 100-315 mm",
@@ -74,7 +81,7 @@
  "descKa":"ლითონის კორპუსიანი არხული ვენტილატორი 1735 მ³/სთ-მდე. E RF ვერსია ხმაურს 40.7 dBA-მდე აქვეითებს.",
  "descEn":"A metal-bodied in-line duct fan up to 1735 m³/h. The E RF version brings noise down to 40.7 dBA."},
 
-{"slug":"vortice-ca-il","line":"ca","match":"^CA IL","imgdirs":["CA_IL _Q"],"imgfilter":"_ca_il_","onegallery":true,"galleryfrom":"16253",
+{"slug":"vortice-ca-il","line":"ca","match":"^CA IL \\d+( Q)?$","imgdirs":["CA_IL _Q"],"imgfilter":"_ca_il_","onegallery":true,"galleryfrom":"16253",
  "nameKa":"CA IL არხული ვენტილატორი","nameEn":"CA IL duct fan",
  "tagKa":"ოთხკუთხა კორპუსი · 150-200 მმ","tagEn":"Square body · 150-200 mm",
  "typeKa":"არხული ცენტრიდანული ვენტილატორი","typeEn":"In-line centrifugal duct fan",
@@ -87,6 +94,13 @@
  "typeKa":"ლითონის არხული ცენტრიდანული ვენტილატორი","typeEn":"Metal in-line centrifugal duct fan",
  "descKa":"ლითონის არხული ცენტრიდანული ვენტილატორი EC (უჯაგრისო) ძრავით, რადონის გაზის გამოსაწოვად - სიჩქარე 0-10 V სიგნალით რეგულირდება. 1210 მ³/სთ-მდე, ოთხ დიამეტრში.",
  "descEn":"A metal in-line centrifugal fan with an EC (brushless) motor, built for radon gas extraction - speed is set by a 0-10 V signal. Up to 1210 m³/h, in four diameters."},
+
+{"slug":"vortice-ca-il-rect","line":"ca","match":"^CA IL \\d+ ES RECT$","imgdirs":["CA_IL_ES_RECT"],"imgfilter":"^original-","onegallery":true,
+ "nameKa":"CA IL ES RECT მართკუთხა არხული ვენტილატორი","nameEn":"CA IL ES RECT rectangular duct fan",
+ "tagKa":"მართკუთხა არხი · EC ძრავა","tagEn":"Rectangular duct · EC motor",
+ "typeKa":"მართკუთხა არხის ცენტრიდანული ვენტილატორი","typeEn":"Rectangular in-line centrifugal fan",
+ "descKa":"მართკუთხა არხში ჩასაყენებელი ცენტრიდანული ვენტილატორი მოთუთიებული ფოლადის კორპუსით და მართკუთხა მიმაერთებელი ფლანეცებით - უკან მოხრილფრთიანი თვითწმენდადი როტორი და EC ძრავა, სიჩქარე 0-10 V ან PWM სიგნალით რეგულირდება. 440-დან 7030 მ³/სთ-მდე, ექვს ზომაში.",
+ "descEn":"An in-line centrifugal fan for rectangular ducts, in a galvanised steel box with rectangular connection flanges - a self-cleaning backward-curved impeller and an EC motor, with speed set by a 0-10 V or PWM signal. From 440 to 7030 m³/h, in six sizes."},
 
 {"slug":"vortice-lineo-quiet-es","line":"lineo","match":"^LINEO \\d+ QUIET ES$","imgdirs":["LINEO_Q"],"imgfilter":"_17170_",
  "nameKa":"LINEO QUIET ES არხული ვენტილატორი","nameEn":"LINEO QUIET ES duct fan",
@@ -141,12 +155,12 @@
  "descKa":"სამრეწველო სამზარეულოს გამწოვი ვენტილატორი ხმაურჩამხშობ კორპუსში - 18152 მ³/სთ-მდე. ორმაგი შეწოვის ცენტრიდანული როტორი.",
  "descEn":"A commercial-kitchen extract fan in an acoustic box - up to 18152 m³/h, with a double-inlet centrifugal impeller."},
 
-{"slug":"vortice-qbk-sal","line":"qbk","match":"^VORT QBK-SAL","imgdirs":["VORT_QBK-SAL_KC_EVO"],
- "nameKa":"VORT QBK-SAL KC გამწოვი","nameEn":"VORT QBK-SAL KC box fan",
+{"slug":"vortice-qbk-sal","line":"qbk","match":"^VORT QBK-SAL","imgdirs":["VORT_QBK-SAL_KC_EVO"],"onegallery":true,
+ "nameKa":"VORT QBK-SAL KC / KC EVO გამწოვი","nameEn":"VORT QBK-SAL KC / KC EVO box fan",
  "tagKa":"სამზარეულოს გამწოვი · 315-560 მმ","tagEn":"Kitchen extract · 315-560 mm",
  "typeKa":"ხმაურჩამხშობი კორპუსის ცენტრიდანული ვენტილატორი","typeEn":"Acoustic-box centrifugal fan",
- "descKa":"სამზარეულოს გამწოვი ვენტილატორი 16300 მ³/სთ-მდე - ცხიმიან და ცხელ ჰაერზე გათვლილი კვანძით.",
- "descEn":"A kitchen extract fan up to 16300 m³/h, with an assembly rated for grease-laden and hot air."},
+ "descKa":"სამზარეულოს გამწოვი ვენტილატორი 16300 მ³/სთ-მდე - ცხიმიან და ცხელ ჰაერზე გათვლილი კვანძით. KC EVO ახალი თაობაა: ჰერმეტული კორპუსი, მაღალი ეფექტურობა, დაბალი ხმაური და 120 °C-მდე ტემპერატურის ჰაერი.",
+ "descEn":"A kitchen extract fan up to 16300 m³/h, with an assembly rated for grease-laden and hot air. KC EVO is the new generation: a watertight box, very high efficiency, low noise and air up to 120 °C."},
 
 {"slug":"vortice-cms","match":"^(CMS|C ?\\d)","imgdirs":["CMS_"],
  "nameKa":"CMS / C ცენტრიდანული ვენტილატორი","nameEn":"CMS / C centrifugal fan",
@@ -188,5 +202,17 @@
  "tagKa":"ერთი ოთახისთვის · 40-60 მ³/სთ","tagEn":"Single room · 40-60 m³/h",
  "typeKa":"ერთი ოთახის რეკუპერატორი","typeEn":"Single-room heat recovery unit",
  "descKa":"ერთი ოთახის რეკუპერატორი კერამიკული თბოცვლელით - სითბოს 90%-მდე უბრუნებს, EC ძრავა ხუთი სიჩქარით და ტენიანობის სენსორი (HCS). Wi-Fi ვერსიები რამდენიმე მოწყობილობას ერთ ქსელში აერთიანებს.",
- "descEn":"A single-room heat recovery unit with a ceramic heat exchanger - recovers up to 90% of the heat, with a five-speed EC motor and a humidity sensor (HCS). The Wi-Fi versions link several units in one mesh network."}
+ "descEn":"A single-room heat recovery unit with a ceramic heat exchanger - recovers up to 90% of the heat, with a five-speed EC motor and a humidity sensor (HCS). The Wi-Fi versions link several units in one mesh network."},
+
+{"slug":"vortice-accessories","accessory":true,"match":"^(CR5N|QE-B M|SF 90-100)$","imgdirs":["აქსესუარები","QE_"],"imgfilter":"_(12941|11561|22162)_",
+ "nameKa":"აქსესუარები Vortice-ის ვენტილატორებისთვის","nameEn":"Accessories for Vortice fans",
+ "tagKa":"რეგულატორი · სამონტაჟო კორპუსი · ჭერის კომპლექტი","tagEn":"Controller · mounting box · ceiling kit",
+ "typeKa":"აქსესუარი","typeEn":"Accessory",
+ "descKa":"ვენტილატორის მართვისა და მონტაჟის აქსესუარები: CR5N - ხუთსიჩქარიანი რეგულატორი, QE-B M - QE სერიის ზედაპირზე სამონტაჟო კორპუსი, SF 90-100 - ჭერზე სამონტაჟო კომპლექტი 90-100 მმ ვენტილატორებისთვის.",
+ "descEn":"Accessories for controlling and fitting the fans: the CR5N five-speed controller, the QE-B M surface-mounting housing for QE fans, and the SF 90-100 ceiling kit for 90-100 mm fans.",
+ "notes":{
+   "12941":{"ka":"ხუთსიჩქარიანი რევერსიული რეგულატორი ვენტილატორისთვის - მაქსიმალური დატვირთვა 100 ვტ, 220-240 V, 50/60 Hz.","en":"A reversible five-speed fan controller - maximum load 100 W, 220-240 V, 50/60 Hz."},
+   "11561":{"ka":"ABS კორპუსი QE სერიის ვენტილატორის კედლის ან ჭერის ზედაპირზე დასამონტაჟებლად - 80 მმ მიმყვანით და უკუსარქველით (DIN 18017-3).","en":"An ABS housing for mounting a QE fan on the surface of a wall or ceiling - with an 80 mm spigot and a backdraught shutter (DIN 18017-3)."},
+   "22162":{"ka":"ჭერზე სამონტაჟო კომპლექტი 90-100 მმ დიამეტრის ვენტილატორებისთვის.","en":"A ceiling mounting kit for 90-100 mm fans."}
+ }}
 ]

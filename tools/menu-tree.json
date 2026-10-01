@@ -40,7 +40,9 @@
   {"ka":"არხული","en":"In-line","page":"ventilation","cat":"duct","kids":[
     {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"duct","brand":"vortice"}]},
   {"ka":"საყოფაცხოვრებო","en":"Residential","page":"ventilation","cat":"home","kids":[
-    {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"home","brand":"vortice"}]}
+    {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"home","brand":"vortice"}]},
+  {"ka":"აქსესუარები","en":"Accessories","page":"ventilation","cat":"acc","kids":[
+    {"ka":"Vortice","en":"Vortice","page":"ventilation","cat":"acc","brand":"vortice"}]}
 ]},
 
 {"ka":"ჰაერსატარი და მაკომპლექტებელი","en":"Ducting & fittings","icon":"ducting","page":"ducting-fittings","items":[

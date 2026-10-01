@@ -66,11 +66,17 @@ $CAT = @{
   'vortice-qbk'=@{g='ind';t='centrifugal'};  'vortice-qbk-sal'=@{g='ind';t='centrifugal'}
   'vortice-cms'=@{g='ind';t='centrifugal'};  'vortice-roof'=@{g='ind';t='roof'}
   'vortice-hri'=@{g='hrv';t='ceiling'}
+  # 2026-10-01, from the stock list: the rectangular CA IL ranges sit with the
+  # other duct fans, the ANGOL K / AXIAL K kitchen-cabinet fans with the
+  # residential ones, and the accessories get a category of their own (no
+  # type, no airflow - see $air below)
+  'vortice-ca-il-rect'=@{g='duct';t='duct'}; 'vortice-k'=@{g='home';t='duct'}
+  'vortice-accessories'=@{g='acc';t=''}
 }
 $L = @{
   ka = @{ file='.html'; hubTpl='mitsubishi-electric.html'; catTpl='vrf-vrv.html'
     home='მთავარი'; products='პროდუქტი'; vent='ვენტილაცია'
-    tabAll='ყველა'; tabHome='საყოფაცხოვრებო'; tabDuct='არხული'; tabInd='სამრეწველო'; tabHrv='რეკუპერაცია'
+    tabAll='ყველა'; tabHome='საყოფაცხოვრებო'; tabDuct='არხული'; tabInd='სამრეწველო'; tabHrv='რეკუპერაცია'; tabAcc='აქსესუარები'
     search='ძებნა...'; filter='ფილტრი'; clear='გასუფთავება'
     fType='ტიპი'; fAir='ჰაერის ხარჯი'; fCat='კატეგორია'
     tWall='კედლის'; tCeil='ჭერის'; tDuct='არხული'; tWin='ფანჯრის'; tRoof='სახურავის'; tCent='ცენტრიდანული'
@@ -83,7 +89,7 @@ $L = @{
     catTitle='ვენტილაცია - ბიომი'; catDesc='სავენტილაციო სისტემები და ტექნიკა - აირჩიეთ ბრენდი პროდუქტების სანახავად.' }
   en = @{ file='-en.html'; hubTpl='mitsubishi-electric-en.html'; catTpl='vrf-vrv-en.html'
     home='Home'; products='Products'; vent='Ventilation'
-    tabAll='All'; tabHome='Residential'; tabDuct='In-line'; tabInd='Commercial'; tabHrv='Heat recovery'
+    tabAll='All'; tabHome='Residential'; tabDuct='In-line'; tabInd='Commercial'; tabHrv='Heat recovery'; tabAcc='Accessories'
     search='Search...'; filter='Filter'; clear='Clear'
     fType='Type'; fAir='Airflow'; fCat='Category'
     tWall='Wall'; tCeil='Ceiling'; tDuct='In-duct'; tWin='Window'; tRoof='Roof'; tCent='Centrifugal'
@@ -143,6 +149,8 @@ foreach ($lang in 'ka','en') {
     $g = @($mods | Where-Object { $_.slug -eq $f.slug })
     $max = ($g | ForEach-Object { [double]$_.airflow } | Measure-Object -Maximum).Maximum
     $air = if ($max -le 500) { 'low' } elseif ($max -le 2000) { 'mid' } else { 'high' }
+    # an accessory moves no air: no airflow bucket, so no airflow filter lists it
+    if ($f.accessory) { $air = '' }
     # data-name feeds the hub's own search box, so every model code and name goes in
     $terms = ($name + ' ' + (($g | ForEach-Object { $_.model + ' ' + $_.code }) -join ' '))
     $cards += @"
@@ -184,6 +192,7 @@ foreach ($lang in 'ka','en') {
               <button type="button" data-cat="duct">$($t.tabDuct)</button>
               <button type="button" data-cat="ind">$($t.tabInd)</button>
               <button type="button" data-cat="hrv">$($t.tabHrv)</button>
+              <button type="button" data-cat="acc">$($t.tabAcc)</button>
             </div>
           </div>
         </div>

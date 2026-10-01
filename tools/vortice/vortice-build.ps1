@@ -13,23 +13,25 @@
 $root = $LIBRARY
 $sp   = $PSScriptRoot
 $models = (Get-Content (Join-Path $sp 'vortice-models.json') -Raw | ConvertFrom-Json) | Where-Object { $_.airflow }
-# Models carried but not in the price list yet (the HRW heat recovery units),
-# in the same fields -- see vortice-extra.json. The note row has no airflow and
-# drops out with the same filter.
+# Models carried but not in the price list yet (the HRW heat recovery units,
+# and since 2026-10-01 the rest of the stock list), in the same fields -- see
+# vortice-extra.json. Kept by code rather than by airflow: the accessories
+# (CR5N, QE-B M, SF 90-100) move no air, and the note row has no code.
 $extra = Join-Path $sp 'vortice-extra.json'
 if (Test-Path $extra) {
   # Parenthesised before the pipe: ConvertFrom-Json hands the whole JSON array
   # down the pipeline as one object, so without them the seven rows arrived as a
   # single "model" whose fields were arrays.
-  $models = @($models) + @((Get-Content $extra -Raw -Encoding UTF8 | ConvertFrom-Json) | Where-Object { $_.airflow })
+  $models = @($models) + @((Get-Content $extra -Raw -Encoding UTF8 | ConvertFrom-Json) | Where-Object { $_.code })
 }
 
 # Matched loosely, not by exact name: the off-limits folder has been renamed
 # once already ("... DO NOT TOUCH CLAUDE"), and an exact-match skip silently
-# stops skipping when that happens.
+# stops skipping when that happens. "აქსესუარები" was skipped too until
+# 2026-10-01, when the accessories got a page (vortice-accessories).
 $fams = Get-ChildItem $root -Directory | Where-Object {
   $n = $_.Name
-  -not ($n -like '*DO NOT TOUCH*' -or $n -like 'კატალოგები*' -or $n -like 'აქსესუარები*')
+  -not ($n -like '*DO NOT TOUCH*' -or $n -like 'კატალოგები*')
 }
 
 # code -> family folder, via the model subfolders

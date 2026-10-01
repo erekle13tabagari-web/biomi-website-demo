@@ -2691,7 +2691,7 @@
         "class":  "datasheet",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-qe"
+                      "vortice-accessories"
                   ]
     },
     {
@@ -2702,7 +2702,7 @@
         "class":  "booklet",
         "cat":  "vortice",
         "slugs":  [
-                      "vortice-qe"
+                      "vortice-accessories"
                   ]
     },
     {
@@ -3385,6 +3385,39 @@
         "cat":  "vortice",
         "slugs":  [
                       "vortice-qbk"
+                  ]
+    },
+    {
+        "hash":  "CC2A494576CA080600D7A647C11C839D",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\აქსესუარები\\12941 CR5N ვენტილიატორის პულტი VORTICE\\საბუთები\\70_EN_12941_Libretti_Istruzioni_5371084616_22_07_2009_23615.pdf",
+        "name":  "70_EN_12941_Libretti_Istruzioni_5371084616_22_07_2009_23615.pdf",
+        "mb":  1.22,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-accessories"
+                  ]
+    },
+    {
+        "hash":  "B54F165C937480822807908F366AAE48",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\აქსესუარები\\12941 CR5N ვენტილიატორის პულტი VORTICE\\საბუთები\\70_EN_12941_Libretti_Istruzioni_5671084086__21-03-2022_176161.pdf",
+        "name":  "70_EN_12941_Libretti_Istruzioni_5671084086__21-03-2022_176161.pdf",
+        "mb":  2.11,
+        "class":  "booklet",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-accessories"
+                  ]
+    },
+    {
+        "hash":  "4655C70C37CBAC3A2CFC5E82278491E0",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\ვენტილაცია\\Vortice\\აქსესუარები\\12941 CR5N ვენტილიატორის პულტი VORTICE\\საბუთები\\70_EN_12941_Schemi_collegamento_E960033D_186443.pdf",
+        "name":  "70_EN_12941_Schemi_collegamento_E960033D_186443.pdf",
+        "mb":  0.17,
+        "class":  "wiring",
+        "cat":  "vortice",
+        "slugs":  [
+                      "vortice-accessories"
                   ]
     },
     {

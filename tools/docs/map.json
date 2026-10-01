@@ -35,7 +35,8 @@
     { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_Vort_QBK_SAL-KC_EVO", "slugs": ["vortice-qbk-sal"] },
     { "dir": "Vortice\\კატალოგები\\Doc_Pubblicita_VORTICENT_CMS_RANGE", "slugs": ["vortice-cms"] },
     { "dir": "Vortice\\LINEO_Q",                                        "slugs": ["vortice-lineo-quiet"] },
-    { "dir": "Vortice\\MFO_",                                           "slugs": ["vortice-mfo"] }
+    { "dir": "Vortice\\MFO_",                                           "slugs": ["vortice-mfo"] },
+    { "dir": "Vortice\\QE_",                                            "slugs": ["vortice-qe"] }
   ],
   "_skipped": [
     "Doc_Pubblicita_Residential_Ventilation2024 and Doc_Pubblicita_Commercial_Ventilation are",
