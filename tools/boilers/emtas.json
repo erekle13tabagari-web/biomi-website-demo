@@ -16,6 +16,16 @@
     "auto20": { "ka": "მყარი საწვავი - წვრილი ქვანახშირი, პელეტი, თხილის ნაჭუჭი (20 მმ-მდე)", "en": "Solid fuel - nut coal, pellets, hazelnut shells (up to 20 mm)" },
     "burner": { "ka": "ბუნებრივი აირი ან დიზელი - ცალკე სანთურით", "en": "Natural gas or light oil - with a separate burner" }
   },
+  "_fuelIcons": "The fuels as small pictograms beside the output range (2026-10-01), per fuel key above; the pictures are drawn in 3-pages.ps1 ($FUELSVG). Each label is the pictogram's tooltip and its name for screen readers.",
+  "fuelIcons": {
+    "manual": [ { "icon": "coal", "ka": "ქვანახშირი", "en": "Coal" },
+                { "icon": "wood", "ka": "შეშა", "en": "Firewood" } ],
+    "auto":   [ { "icon": "coal", "ka": "წვრილი ქვანახშირი", "en": "Nut coal" },
+                { "icon": "pellets", "ka": "პელეტი", "en": "Pellets" } ],
+    "auto20": [ { "icon": "coal", "ka": "წვრილი ქვანახშირი", "en": "Nut coal" },
+                { "icon": "pellets", "ka": "პელეტი", "en": "Pellets" },
+                { "icon": "shells", "ka": "თხილის ნაჭუჭი", "en": "Hazelnut shells" } ]
+  },
   "feed": {
     "manual": { "ka": "ხელით", "en": "Manual" },
     "auto":   { "ka": "ავტომატური - შნეკი და ბუნკერი", "en": "Automatic - auger and hopper" }

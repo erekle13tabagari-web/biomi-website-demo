@@ -49,5 +49,10 @@ function Get-EmtasData {
   # family slug -> { ka = [...]; en = [...] }, listed beside the datasheet
   $features = @{}
   foreach ($p in $j.features.PSObject.Properties) { if ($p.Name -ne '_note') { $features[$p.Name] = $p.Value } }
-  return @{ models = $models; specs = $specs; features = $features }
+  # family slug -> its fuels as pictograms ({ icon, ka, en }), beside the kW range
+  $fuelIcons = @{}
+  foreach ($r in $j.ranges) {
+    if ($r.family -and $j.fuelIcons.($r.fuel)) { $fuelIcons[[string]$r.family] = @($j.fuelIcons.($r.fuel)) }
+  }
+  return @{ models = $models; specs = $specs; features = $features; fuelIcons = $fuelIcons }
 }

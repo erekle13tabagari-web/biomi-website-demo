@@ -135,6 +135,43 @@ function SpecPads([int]$n) {
   }
   return $padOut
 }
+# Fuel pictograms beside the output range (Emtaş, emtas.json "fuelIcons";
+# 2026-10-01). Drawn on a 24-unit grid in the text colour; the lighter faces
+# are white at low opacity, and the log rings are cut out (evenodd), so the
+# chip behind shows through in either theme.
+$FUELSVG = @{
+  coal    = '<path d="M2 20l1.8-4.8 4.4-1.6L11 16l-.8 4zM12 20l.9-4.2 3.7-2.8 4 1.5L22 20zM7.2 12.4 8.8 8l4-1.6L16 9l-1 3-3.4 2.6z"/>' +
+            '<path fill="#fff" fill-opacity=".3" d="M3.8 15.2l4.4-1.6L7 17.4zM12.9 15.8 16.6 13l.6 3.8zM8.8 8l4-1.6L12 11z"/>'
+  # three stacked log ends: bark, the lighter cut face, a growth ring, a split
+  wood    = (@(@(7, 16), @(17, 16), @(12, 7.8)) | ForEach-Object {
+              $lx = $_[0]; $ly = $_[1]
+              '<circle cx="' + $lx + '" cy="' + $ly + '" r="4.6"/>' +
+              '<circle cx="' + $lx + '" cy="' + $ly + '" r="3.5" fill="#fff" fill-opacity=".35"/>' +
+              '<circle cx="' + $lx + '" cy="' + $ly + '" r="1.8" fill="none" stroke="currentColor" stroke-width=".9"/>' +
+              '<path d="M' + $lx + ' ' + $ly + 'l2.5-2.4" stroke="currentColor" stroke-width=".9" stroke-linecap="round"/>' }) -join ''
+  pellets = '<rect x="2.5" y="13.2" width="8.6" height="4" rx="2" transform="rotate(-18 6.8 15.2)"/>' +
+            '<rect x="12.6" y="15.4" width="8.6" height="4" rx="2" transform="rotate(14 16.9 17.4)"/>' +
+            '<rect x="7.6" y="5.6" width="8.6" height="4" rx="2" transform="rotate(32 11.9 7.6)"/>' +
+            '<rect x="14.4" y="7.4" width="7.4" height="4" rx="2" transform="rotate(-40 18.1 9.4)"/>'
+  # two hazelnuts, each with its short tip and the pale scar across its base -
+  # one nut on its own read as a water drop
+  shells  = (@(@('7.2 14.6', -16), @('16.8 10.8', 18)) | ForEach-Object {
+              '<g transform="translate(' + $_[0] + ') rotate(' + $_[1] + ')">' +
+              '<path d="M0-5.6C-.5-5.6-.9-5.1-1.3-4.6-3.5-3.8-5-1.8-5 .8-5 3.6-2.8 5.6 0 5.6S5 3.6 5 .8C5-1.8 3.5-3.8 1.3-4.6.9-5.1.5-5.6 0-5.6z"/>' +
+              '<path fill="#fff" fill-opacity=".42" d="M-4.6 2C-3.2 3-1.7 3.4 0 3.4S3.2 3 4.6 2C4 4.2 2.2 5.6 0 5.6S-4 4.2-4.6 2z"/></g>' }) -join ''
+}
+function FuelIcons($list, $lang) {
+  if (-not $list) { return '' }
+  $out = ''
+  foreach ($fi in $list) {
+    $svg = $FUELSVG[[string]$fi.icon]
+    if (-not $svg) { continue }
+    $lbl = HtmlEnc ([string]$fi.$lang)
+    $out += '<span class="fuel-ic" role="img" title="' + $lbl + '" aria-label="' + $lbl + '">' +
+            '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + $svg + '</svg></span>'
+  }
+  return $out
+}
 # "Emtaş" -> "emtas": the logo file and data attributes want plain letters.
 function BrandSlug($s) {
   $n = ([string]$s).Normalize([Text.NormalizationForm]::FormD)
@@ -239,6 +276,8 @@ foreach ($lang in 'ka','en') {
     # space the 640px table used to leave empty (Emtaş, from emtas.json).
     $featSrc = $EMTAS.features[$f.slug]
     $feat = if ($featSrc) { @($featSrc.$lang) } else { @() }
+    # the fuels as pictograms beside the kW range, where emtas.json lists them
+    $fuelTag = FuelIcons $EMTAS.fuelIcons[$f.slug] $lang
     $kws = @($g | ForEach-Object { KwTop $_ } | Where-Object { $_ } | Sort-Object)
     $range = if ($g.Count -eq 1 -and $first.kw) { "$($first.kw) $($t.kw)" }
              elseif ($kws.Count -gt 1) { "$($kws[0])-$($kws[-1]) $($t.kw)" } elseif ($kws.Count) { "$($kws[0]) $($t.kw)" } else { '-' }
@@ -263,7 +302,10 @@ foreach ($lang in 'ka','en') {
       # the designer's call): the chips and the title already name the model,
       # the logo the brand, the model range and kcal/h the output, the flag
       # the origin.
+      # The fuel left the grid as well: it is shown as pictograms beside the
+      # kW range ($fuelTag) and written out in the features list.
       $gridSkip = @($t.thModel, $t.thBrand, $t.thKw, $t.thCountry)
+      if ($fuelTag) { $gridSkip += $t.thFuel }
       $cells = ''; $runLen = 0
       foreach ($m in [regex]::Matches($allRows, '<tr><th>(.*?)</th><td([^>]*)>(.*?)</td></tr>')) {
         if ($gridSkip -contains $m.Groups[1].Value) { continue }
@@ -344,7 +386,7 @@ $thumbs
         <div class="pbuy__ident">
           <div>
             <div class="pbuy__brand" style="--m:url('../img/partners/$(BrandSlug $f.brand).svg')"><img src="../assets/img/partners/$(BrandSlug $f.brand).svg" alt="$($f.brand)"></div>
-            <div class="pbuy__kw">$range</div>
+$(if ($fuelTag) { '            <div class="pbuy__kwrow"><div class="pbuy__kw">' + $range + '</div><span class="pbuy__fuel">' + $fuelTag + '</span></div>' } else { '            <div class="pbuy__kw">' + $range + '</div>' })
           </div>
 $flagTag
         </div>

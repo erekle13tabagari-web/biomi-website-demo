@@ -2346,6 +2346,15 @@ a.pbuy__brand:hover::after,a.pbuy__brand:focus-visible::after{background:var(--g
 /* the output is the headline figure on this panel, so it takes the accent and
    a size to match; --gold-600 resolves per theme and reads on both surfaces */
 .pbuy__kw{font-size:22px;font-weight:700;line-height:1;color:var(--gold-600);margin-bottom:4px}
+/* The fuels as small pictograms on the output line (the Emtaş solid-fuel
+   boilers: coal and firewood, or nut coal, pellets and hazelnut shells),
+   in the accent on a faint chip of it; each names itself in a tooltip. */
+.pbuy__kwrow{display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px;margin-bottom:4px}
+.pbuy__kwrow .pbuy__kw{margin-bottom:0}
+.pbuy__fuel{display:flex;gap:6px}
+.fuel-ic{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;
+  color:var(--gold-600);background:color-mix(in srgb,var(--gold-600) 14%,transparent)}
+.fuel-ic svg{width:22px;height:22px;display:block}
 .pbuy__label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:26px 0 10px}
 .chipset{display:flex;flex-wrap:wrap;gap:9px}
 .chip{padding:9px 15px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-weight:500;background:var(--surface);cursor:pointer;transition:.15s}
@@ -2508,6 +2517,9 @@ a.pbuy__brand:hover::after,a.pbuy__brand:focus-visible::after{background:var(--g
   .pbuy__brand img{height:19px}
   .pbuy__brand img[src*="emtas"]{height:28px}
   .pbuy__kw{font-size:19px;margin-bottom:3px}
+  .pbuy__kwrow{gap:6px 12px;margin-bottom:3px}
+  .fuel-ic{width:28px;height:28px;border-radius:8px}
+  .fuel-ic svg{width:19px;height:19px}
   .pbuy__label{font-size:10px;margin:20px 0 8px}
   .chipset{gap:7px}
   .chip{padding:8px 12px;font-size:13.5px}
