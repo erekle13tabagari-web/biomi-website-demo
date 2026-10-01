@@ -36,8 +36,10 @@ function J($s)   { if ($null -eq $s) { return '' }; ($s -replace '\\','\\' -repl
 # what people type and link, so it is the one search engines are told about.
 function PageUrl($rel) { if ($rel -eq 'index.html') { return "$BASE/" }; return "$BASE/$rel" }
 
+# The folders are matched below the repo, not on the full path: a git worktree
+# lives in .claude\worktrees\, and there that excluded every page.
 $files = Get-ChildItem $repo -Filter '*.html' -Recurse -File |
-         Where-Object { $_.Name -ne 'Launch Biomi Website.html' -and $_.FullName -notmatch '\\(backup|_files|\.git|\.claude|tools|admin)' } |
+         Where-Object { $_.Name -ne 'Launch Biomi Website.html' -and $_.FullName.Substring($repo.Length) -notmatch '\\(backup|_files|\.git|\.claude|tools|admin)' } |
          Sort-Object FullName
 
 # ---------------------------------------------------------------- OG images
@@ -248,11 +250,33 @@ foreach ($f in $files) {
   # without it rewrote all 176 pages for nothing every time this ran.
   # sitemap.xml and robots.txt below stay BOM-less, which is correct for them.
   [IO.File]::WriteAllText($f.FullName, $txt, (New-Object Text.UTF8Encoding($true)))
-  if (-not $isHidden) { [void]$urls.Add(@{ loc = $canon; ka = (PageUrl $kaRel); en = (PageUrl $enRel); pair = $hasPair }) }
+  if (-not $isHidden) { [void]$urls.Add(@{ loc = $canon; ka = (PageUrl $kaRel); en = (PageUrl $enRel); pair = $hasPair; file = $rel }) }
 }
 
 # ----------------------------------------------------------------- sitemap
-$today = (Get-Item (Join-Path $repo 'index.html')).LastWriteTime.ToString('yyyy-MM-dd')
+# Each URL's <lastmod> is the day its page last changed in git. It used to be
+# the build day for every URL: this script rewrites every page each run, so the
+# CMS build committed all ~200 dates anew after every editor save (a 416-line
+# sitemap diff), and the dates told search engines nothing.
+# - One git log, newest first, gives every page's date.
+# - -I leaves out the ?v= cache tag that bump-cache-version.ps1 stamps on every
+#   page whenever style.css or main.js changes: a page whose only change is
+#   that tag has not changed, and counting it put all ~200 pages on one date.
+# - A page changed and not committed yet, or new, gets today. Once it is
+#   committed the date stays the same, so a rebuild changes nothing.
+# - Without git, or its history, every page falls back to today, as before.
+$today = (Get-Date).ToString('yyyy-MM-dd')
+$STAMP = '[?]v=[0-9]+'
+$lastmod = @{}
+$day = $null
+foreach ($line in (git -C $repo -c core.quotepath=off log --format=%cs --name-only -I $STAMP -- '*.html' 2>$null)) {
+  if ($line -match '^\d{4}-\d\d-\d\d$') { $day = $line }
+  elseif ($line -and -not $lastmod.ContainsKey($line)) { $lastmod[$line] = $day }
+}
+if (-not $lastmod.Count) { Write-Warning 'No git history found: every sitemap <lastmod> is today' }
+$pending = @(git -C $repo -c core.quotepath=off diff --name-only -I $STAMP HEAD -- '*.html' 2>$null) +
+           @(git -C $repo -c core.quotepath=off ls-files --others --exclude-standard -- '*.html' 2>$null)
+foreach ($pendingFile in $pending) { $lastmod[$pendingFile] = $today }
 $sm = New-Object System.Text.StringBuilder
 [void]$sm.AppendLine('<?xml version="1.0" encoding="UTF-8"?>')
 [void]$sm.AppendLine('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">')
@@ -263,7 +287,8 @@ foreach ($u in $urls) {
     [void]$sm.AppendLine('    <xhtml:link rel="alternate" hreflang="ka" href="' + $u.ka + '"/>')
     [void]$sm.AppendLine('    <xhtml:link rel="alternate" hreflang="en" href="' + $u.en + '"/>')
   }
-  [void]$sm.AppendLine('    <lastmod>' + $today + '</lastmod>')
+  $pageDay = if ($lastmod.ContainsKey($u.file)) { $lastmod[$u.file] } else { $today }
+  [void]$sm.AppendLine('    <lastmod>' + $pageDay + '</lastmod>')
   [void]$sm.AppendLine('  </url>')
 }
 [void]$sm.AppendLine('</urlset>')

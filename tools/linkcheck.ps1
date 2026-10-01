@@ -5,8 +5,10 @@ $repo = Split-Path $PSScriptRoot -Parent
 # tools/ holds the page templates the generators clone. They are never served,
 # so their ../ links resolve against the wrong folder and every one reads as
 # broken -- 222 of them the first time a template landed there.
+# Matched below the repo, not on the full path: in a git worktree, which lives
+# in .claude\worktrees\, that skipped every page and reported nothing broken.
 $files = Get-ChildItem $repo -Filter '*.html' -Recurse -File |
-         Where-Object { $_.Name -ne 'Launch Biomi Website.html' -and $_.FullName -notmatch '\\(backup|_files|\.git|\.claude|tools|admin)' }
+         Where-Object { $_.Name -ne 'Launch Biomi Website.html' -and $_.FullName.Substring($repo.Length) -notmatch '\\(backup|_files|\.git|\.claude|tools|admin)' }
 
 $bad = New-Object System.Collections.ArrayList
 foreach ($f in $files) {
