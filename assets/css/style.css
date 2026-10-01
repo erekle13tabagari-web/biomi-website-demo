@@ -1770,7 +1770,9 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    tab empty; as a grid of cells, label over value, it takes three columns
    beside the features. Cell borders are drawn top and left and the outer
    edge is clipped, so a row that ends early just stops, with no stray lines. */
-.spec-split{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:28px;align-items:start}
+/* Both columns take the taller one's height, so their bottom edges line up;
+   the grid's rows share the extra height and its lines run to the bottom. */
+.spec-split{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:28px;align-items:stretch}
 .spec-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--bg-soft);
   border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 :root[data-theme="dark"] .spec-grid{background:var(--surface)}
@@ -2346,15 +2348,29 @@ a.pbuy__brand:hover::after,a.pbuy__brand:focus-visible::after{background:var(--g
 /* the output is the headline figure on this panel, so it takes the accent and
    a size to match; --gold-600 resolves per theme and reads on both surfaces */
 .pbuy__kw{font-size:22px;font-weight:700;line-height:1;color:var(--gold-600);margin-bottom:4px}
-/* The fuels as small pictograms on the output line (the Emtaş solid-fuel
+/* The fuels as pictograms under the output line (the Emtaş solid-fuel
    boilers: coal and firewood, or nut coal, pellets and hazelnut shells),
-   in the accent on a faint chip of it; each names itself in a tooltip. */
-.pbuy__kwrow{display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px;margin-bottom:4px}
-.pbuy__kwrow .pbuy__kw{margin-bottom:0}
-.pbuy__fuel{display:flex;gap:6px}
-.fuel-ic{display:grid;place-items:center;width:32px;height:32px;border-radius:9px;
-  color:var(--gold-600);background:color-mix(in srgb,var(--gold-600) 14%,transparent)}
-.fuel-ic svg{width:22px;height:22px;display:block}
+   in the accent on a faint chip of it. Each names itself in a tooltip of the
+   site's own - a bubble in the button colour (--gold: white reads on it in both
+   themes, unlike the pale dark-theme accent), in the site font - on hover, and on
+   tap or keyboard focus (tabindex). It opens below, so it never covers the kW
+   figure, left-aligned to the chip so the first one cannot run off the left
+   edge of a phone screen. */
+.pbuy__fuel{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
+.fuel-ic{position:relative;display:grid;place-items:center;width:42px;height:42px;border-radius:11px;
+  color:var(--gold-600);background:color-mix(in srgb,var(--gold-600) 14%,transparent);
+  cursor:default;outline:none;transition:background-color .2s}
+.fuel-ic svg{width:30px;height:30px;display:block}
+.fuel-ic:hover,.fuel-ic:focus{background:color-mix(in srgb,var(--gold-600) 24%,transparent)}
+.fuel-ic:focus-visible{box-shadow:0 0 0 2px var(--gold-600)}
+.fuel-ic::after,.fuel-ic::before{position:absolute;top:calc(100% + 9px);opacity:0;pointer-events:none;
+  transform:translateY(-4px);transition:opacity .18s,transform .18s;z-index:5}
+.fuel-ic::after{content:attr(data-tip);left:0;padding:8px 12px;border-radius:9px;white-space:nowrap;
+  font-size:13px;font-weight:600;line-height:1.2;color:#fff;background:var(--gold);
+  box-shadow:0 6px 18px rgba(20,16,40,.28)}
+.fuel-ic::before{content:'';left:15px;width:12px;height:12px;margin-top:-5px;border-radius:2px;
+  background:var(--gold);rotate:45deg}
+.fuel-ic:hover::after,.fuel-ic:hover::before,.fuel-ic:focus::after,.fuel-ic:focus::before{opacity:1;transform:none}
 .pbuy__label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:26px 0 10px}
 .chipset{display:flex;flex-wrap:wrap;gap:9px}
 .chip{padding:9px 15px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-weight:500;background:var(--surface);cursor:pointer;transition:.15s}
@@ -2517,9 +2533,10 @@ a.pbuy__brand:hover::after,a.pbuy__brand:focus-visible::after{background:var(--g
   .pbuy__brand img{height:19px}
   .pbuy__brand img[src*="emtas"]{height:28px}
   .pbuy__kw{font-size:19px;margin-bottom:3px}
-  .pbuy__kwrow{gap:6px 12px;margin-bottom:3px}
-  .fuel-ic{width:28px;height:28px;border-radius:8px}
-  .fuel-ic svg{width:19px;height:19px}
+  .pbuy__fuel{gap:7px;margin-top:11px}
+  .fuel-ic{width:38px;height:38px;border-radius:10px}
+  .fuel-ic svg{width:27px;height:27px}
+  .fuel-ic::before{left:13px}
   .pbuy__label{font-size:10px;margin:20px 0 8px}
   .chipset{gap:7px}
   .chip{padding:8px 12px;font-size:13.5px}

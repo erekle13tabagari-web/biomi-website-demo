@@ -167,7 +167,9 @@ function FuelIcons($list, $lang) {
     $svg = $FUELSVG[[string]$fi.icon]
     if (-not $svg) { continue }
     $lbl = HtmlEnc ([string]$fi.$lang)
-    $out += '<span class="fuel-ic" role="img" title="' + $lbl + '" aria-label="' + $lbl + '">' +
+    # data-tip feeds the styled tooltip (style.css); tabindex lets a tap or the
+    # keyboard open it too. No title: the browser's own tooltip would double it.
+    $out += '<span class="fuel-ic" role="img" tabindex="0" aria-label="' + $lbl + '" data-tip="' + $lbl + '">' +
             '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + $svg + '</svg></span>'
   }
   return $out
@@ -386,7 +388,7 @@ $thumbs
         <div class="pbuy__ident">
           <div>
             <div class="pbuy__brand" style="--m:url('../img/partners/$(BrandSlug $f.brand).svg')"><img src="../assets/img/partners/$(BrandSlug $f.brand).svg" alt="$($f.brand)"></div>
-$(if ($fuelTag) { '            <div class="pbuy__kwrow"><div class="pbuy__kw">' + $range + '</div><span class="pbuy__fuel">' + $fuelTag + '</span></div>' } else { '            <div class="pbuy__kw">' + $range + '</div>' })
+            <div class="pbuy__kw">$range</div>$(if ($fuelTag) { "`r`n            <div class=`"pbuy__fuel`">" + $fuelTag + '</div>' })
           </div>
 $flagTag
         </div>
