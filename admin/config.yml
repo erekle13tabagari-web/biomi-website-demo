@@ -114,8 +114,7 @@ collections:
             modes: [rich_text, raw]
             buttons: [bold, italic, link, heading-two, heading-three, quote, bulleted-list, numbered-list]
             editor_components: []
-            hint: 'ციტატა - ღილაკით ციტატა (ან სტრიქონის თავში >), ბოლო სტრიქონი ტირით - ვინ თქვა. ვიდეო - ცალკე აბზაცად VIDEO და YouTube-ის ბმული.'
-            hint: 'ფოტოს ჩასასმელად ცალკე აბზაცად დაწერეთ FIGURE.'
+            hint: 'ფოტოს ჩასასმელად ცალკე აბზაცად დაწერეთ FIGURE. ციტატა - ღილაკით ციტატა (ან სტრიქონის თავში >), ბოლო სტრიქონი ტირით - ვინ თქვა. ვიდეო - ცალკე აბზაცად VIDEO და YouTube-ის ბმული.'
           - { label: 'მთავარი ფოტოს აღწერა (უსინათლო მკითხველისთვის)', name: alt, widget: string }
           - { label: 'მთავარი ფოტოს წარწერა', name: cap, widget: string, required: false }
           - { label: 'ბრაუზერის სათაური', name: title, widget: string, required: false, hint: 'ცარიელი = სათაური + " - ბიომი"' }
@@ -136,8 +135,7 @@ collections:
             modes: [rich_text, raw]
             buttons: [bold, italic, link, heading-two, heading-three, quote, bulleted-list, numbered-list]
             editor_components: []
-            hint: 'ციტატა - ღილაკით ციტატა (ან სტრიქონის თავში >), ბოლო სტრიქონი ტირით - ვინ თქვა. ვიდეო - ცალკე აბზაცად VIDEO და YouTube-ის ბმული.'
-            hint: 'Write FIGURE as a paragraph of its own where a captioned photo goes.'
+            hint: 'Write FIGURE as a paragraph of its own where a captioned photo goes. A quote: the quote button (or > at the start of a line); a last line starting with a dash names who said it. A video: VIDEO and the YouTube link as a paragraph of their own.'
           - { label: 'Hero photo description (for screen readers)', name: alt, widget: string }
           - { label: 'Hero photo caption', name: cap, widget: string, required: false }
           - { label: 'Browser title', name: title, widget: string, required: false, hint: 'Empty = headline + " - Biomi"' }

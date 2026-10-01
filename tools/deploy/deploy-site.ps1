@@ -176,7 +176,9 @@ function New-Htaccess {
     $h.Add('  </If>')
   } else {
     $h.Add('  Header set X-Robots-Tag "noindex, nofollow"')
-    $h.Add('  <FilesMatch "\.(html|css|js|json)$">')
+    # yml: the content editor's form (admin/config.yml), which a browser would
+    # otherwise keep using after a change
+    $h.Add('  <FilesMatch "\.(html|css|js|json|yml)$">')
     $h.Add('    Header set Cache-Control "no-cache"')
     $h.Add('  </FilesMatch>')
   }
