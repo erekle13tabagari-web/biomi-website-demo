@@ -259,8 +259,14 @@ foreach ($lang in 'ka','en') {
       # full set of grid lines; a short last row had none past its last cell.
       # The grid shows 3 or 2 columns depending on the screen, so the pads are
       # marked for either (pad3 / pad2) and the CSS shows the right ones.
+      # Model, brand, output and origin are left out of the grid (2026-10-01,
+      # the designer's call): the chips and the title already name the model,
+      # the logo the brand, the model range and kcal/h the output, the flag
+      # the origin.
+      $gridSkip = @($t.thModel, $t.thBrand, $t.thKw, $t.thCountry)
       $cells = ''; $runLen = 0
       foreach ($m in [regex]::Matches($allRows, '<tr><th>(.*?)</th><td([^>]*)>(.*?)</td></tr>')) {
+        if ($gridSkip -contains $m.Groups[1].Value) { continue }
         $isWide = $m.Groups[2].Value -match 'data-spec="fuel"'
         if ($isWide) { $cells += (SpecPads $runLen); $runLen = 0 } else { $runLen++ }
         $cellCls = if ($isWide) { 'spec-cell spec-cell--wide' } else { 'spec-cell' }
