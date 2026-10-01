@@ -1,178 +1,204 @@
-﻿# Project pages, cloned from projects/terminal.html for chrome.
+﻿# Project pages, the homepage's project cards and the projects page, from
+# content/projects/<slug>.json (load-projects.ps1).
 #
-# terminal.html is the newest project page, so it already carries the current
-# layout: no stat tiles, the h1 descriptor as a subtitle, and the video moved
-# down to just above the "all projects" footer. Cloning it keeps every relative
-# path valid, since the new files land in the same folder.
+# Since 2026-10-01 every project page is built here, ORO, PASHA and Terminal
+# included, so the editor at /admin can change any of them. The page around the
+# article - head, header, drawer, footer, the breadcrumb's first two steps and
+# the closing row - is taken from an existing project page (Terminal's, or any
+# other if that one is gone), so it moves on whenever the rest of the site does.
+# The article itself is written out whole from the project's file: blocks a
+# project lacks (logo, gallery, video) are simply not written, and nothing
+# depends on the donor page having them.
 #
-# Galleries are dropped rather than filled with grey boxes -- the photos are not
-# organised yet, and a row of placeholders reads as a broken page. Dropping the
-# block in the markup makes adding the real one later a straight paste, exactly
-# as it was for PASHA Bank.
+# Then the homepage rail (index.html / index-en.html) gets one card per project
+# in "order", and build-index.ps1 copies those cards onto projects.html.
+# A page with no project file any more is deleted.
 $sp   = $PSScriptRoot
 $repo = Split-Path (Split-Path $sp -Parent) -Parent
-$DATA = Get-Content (Join-Path $sp 'projects.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+. (Join-Path $sp 'load-projects.ps1')
+$DATA = Get-ProjectItems
+if (-not $DATA.Count) { throw 'no project files in content\projects' }
 $UTF8 = New-Object Text.UTF8Encoding($true)
 $CRLF = [string][char]13 + [char]10
 $wrote = 0
 
-# Replace everything between two markers, failing loudly rather than silently
-# writing a page with a Terminal Towers heading still in it.
-function Swap($s, $a, $b, $new, $what) {
-  $i = $s.IndexOf($a)
-  if ($i -lt 0) { throw "template marker not found: $what" }
-  $j = $s.IndexOf($b, $i + $a.Length)
-  if ($j -lt 0) { throw "template marker not closed: $what" }
-  return $s.Substring(0, $i) + $new + $s.Substring($j + $b.Length)
+$LBL = @{
+  ka = @{ gallery = 'პროექტის გალერეა'; shot = ' - პროექტის ფოტო '; video = ' - პროექტის ვიდეო' }
+  en = @{ gallery = 'Project gallery'; shot = ' - project photo '; video = ' - project video' }
 }
+
+# text for an element, and for an attribute
+function TxtEsc([string]$s) { return $s.Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;') }
+function AttEsc([string]$s) { return (TxtEsc $s).Replace('"', '&quot;') }
 
 # The hero as the full-size AVIF twin 2-images.ps1 writes beside the JPEG (a
 # third of the size; the lightbox opens the same file), or the JPEG if there
-# is no twin yet.
+# is no twin yet. The cards take the 1400px AVIF copy.
 function PageImg($f) {
   $a = $f -replace '\.jpe?g$', '.avif'
   if ($a -ne $f -and (Test-Path (Join-Path $repo ('assets\img\' + $a)))) { return $a }
   return $f
 }
-
-function SwapGallery($s, $proj, $t, $lang, $repo) {
-  # Gallery. The count is not stored anywhere -- the folder is the source of
-  # truth, so dropping more images in and re-running is all it takes. A project
-  # with no folder yet loses the block entirely rather than showing empty
-  # frames, and gains it the moment the photos arrive.
-  $gdir = Join-Path $repo ('assets\img\' + $proj.slug + '-gallery')
-  $shots = @()
-  if (Test-Path $gdir) {
-    $shots = @(Get-ChildItem $gdir -Filter '*.avif' -File |
-               Sort-Object { [int]($_.BaseName -replace '^.*-', '') })
-  }
-  $g = $s.IndexOf('<div class="gallery"')
-  if ($g -ge 0) {
-    $e = $s.IndexOf('</div>', $g) + 6
-    if ($shots.Count) {
-      $label = if ($lang -eq 'ka') { 'პროექტის გალერეა' } else { 'Project gallery' }
-      $shot  = if ($lang -eq 'ka') { ' - პროექტის ფოტო ' } else { ' - project photo ' }
-      $gal = '<div class="gallery" aria-label="' + $label + '">' + "`r`n"
-      for ($k = 0; $k -lt $shots.Count; $k++) {
-        $gal += '        <img src="../assets/img/' + $proj.slug + '-gallery/' + $shots[$k].Name +
-                '" alt="' + $t.alt + $shot + ($k + 1) + '" loading="lazy" data-lightbox>' + "`r`n"
-      }
-      $gal += '      </div>'
-      $s = $s.Substring(0, $g) + $gal + $s.Substring($e)
-    } else {
-      $s = $s.Substring(0, $g).TrimEnd(" ", [char]13, [char]10) + "`r`n`r`n      " +
-           $s.Substring($e).TrimStart(" ", [char]13, [char]10)
-    }
-  }
-  return $s
+function CardImg($f) {
+  $c = $f -replace '\.jpe?g$', '-card.avif'
+  if ($c -ne $f -and (Test-Path (Join-Path $repo ('assets\img\' + $c)))) { return $c }
+  return $f
+}
+# the client logo chip, on the page ("../") and on the cards ("")
+function LogoChip($p, $t, [string]$up) {
+  if (-not $p.logo) { return '' }
+  $cls = if ($p.lockup) { 'proj__logo proj__logo--lockup' } else { 'proj__logo' }
+  $st  = if ($p.logoHeight) { ' style="--logo-h:' + $p.logoHeight + 'px"' } else { '' }
+  return '<span class="' + $cls + '"><img src="' + $up + 'assets/img/' + $p.logo + '" alt="' + (AttEsc $t.card) + '"' + $st + '></span>'
 }
 
-foreach ($proj in $DATA) {
-  # Pages written by hand. ORO, PASHA and Terminal predate this generator and
-  # carry copy that was never in projects.json, so rebuilding them from the
-  # template would throw that copy away. They are listed here only so their
-  # gallery tracks the photo folder like everyone else's; nothing else on the
-  # page is touched.
-  if ($proj.PSObject.Properties['generated'] -and -not $proj.generated) {
-    foreach ($lang in 'ka', 'en') {
-      $sfx = if ($lang -eq 'en') { '-en.html' } else { '.html' }
-      $out = Join-Path $repo ('projects\' + $proj.slug + $sfx)
-      if (-not (Test-Path $out)) { Write-Host ('  ! no page at projects\' + $proj.slug + $sfx); continue }
-      $s = [IO.File]::ReadAllText($out)
-      $was = $s
-      $s = SwapGallery $s $proj ($proj.$lang) $lang $repo
-      if ($s -ne $was) {
-        [IO.File]::WriteAllText($out, $s, $UTF8)
-        Write-Host ('  refreshed the gallery in projects\' + $proj.slug + $sfx)
-      } else {
-        Write-Host ('  gallery already current in projects\' + $proj.slug + $sfx)
-      }
-    }
-    continue
+# ---- the page around the article, from a donor page, read before anything is written
+$DONOR = @{}
+foreach ($lang in 'ka', 'en') {
+  $sfx = if ($lang -eq 'en') { '-en.html' } else { '.html' }
+  $cand = @((Join-Path $repo ('projects\terminal' + $sfx))) +
+          @(Get-ChildItem (Join-Path $repo 'projects') -Filter ('*' + $sfx) -File |
+            Where-Object { $lang -eq 'en' -or $_.Name -notlike '*-en.html' } | ForEach-Object { $_.FullName })
+  $file = $cand | Where-Object { Test-Path $_ } | Select-Object -First 1
+  if (-not $file) { throw ('no project page left to take the page layout from (' + $lang + ')') }
+  $s = [IO.File]::ReadAllText($file)
+  $a = $s.IndexOf('<section class="page-hero">')
+  $z = $s.IndexOf('</section>', $a)
+  $crumbs = [regex]::Match($s, '(?s)<nav class="crumbs".*?</nav>')
+  $foot = [regex]::Match($s, '(?s)<div class="article__foot">.*?</div>(?=\s*</article>)')
+  if ($a -lt 0 -or $z -lt 0 -or -not $crumbs.Success -or -not $foot.Success) { throw ('layout markers missing in ' + $file) }
+  $DONOR[$lang] = @{
+    head = $s.Substring(0, $a); tail = $s.Substring($z + '</section>'.Length)
+    crumbs = $crumbs.Value; foot = $foot.Value
   }
+}
+
+foreach ($p in $DATA) {
   foreach ($lang in 'ka', 'en') {
     $sfx = if ($lang -eq 'en') { '-en.html' } else { '.html' }
-    $t   = $proj.$lang
-    $s   = [IO.File]::ReadAllText((Join-Path $repo ('projects\terminal' + $sfx)))
+    $t = $p.$lang; $d = $DONOR[$lang]; $l = $LBL[$lang]
 
-    $s = [regex]::Replace($s, '(?s)<title>.*?</title>', ('<title>' + $t.title + '</title>'))
-    $s = [regex]::Replace($s, '<meta name="description" content="[^"]*"',
-                          ('<meta name="description" content="' + $t.desc + '"'))
-    # build-meta.ps1 regenerates the canonical/og block; drop the stale one
-    $s = [regex]::Replace($s, '(?s)\s*<!-- meta:start.*?<!-- meta:end[^>]*-->', '')
+    $head = $d.head
+    $head = [regex]::Replace($head, '(?s)<title>.*?</title>', ('<title>' + (TxtEsc $t.title) + '</title>'))
+    $head = [regex]::Replace($head, '<meta name="description" content="[^"]*"', ('<meta name="description" content="' + (AttEsc $t.desc) + '"'))
+    # build-meta.ps1 writes the canonical/og block for this page; drop the donor's
+    $head = [regex]::Replace($head, '(?s)\s*<!-- meta:start.*?<!-- meta:end[^>]*-->', '')
 
-    $s = Swap $s '<b>' '</b>' ('<b>' + $t.crumb + '</b>') 'breadcrumb'
-    $s = Swap $s '<span class="news__cat">' '</span>' `
-               ('<span class="news__cat">' + $t.cat + '</span>') 'category badge'
-    $s = Swap $s '<h1>' '</h1>' `
-               ('<h1>' + $t.h1 + '<span class="article__sub">' + $t.sub + '</span></h1>') 'h1'
-    $s = Swap $s '<p class="article__lead">' '</p>' `
-               ('<p class="article__lead">' + $t.lead + '</p>') 'lead'
-    # the marker leaves the extension open: terminal.html's own hero is AVIF now
-    $s = Swap $s '<img src="../assets/img/proj-terminal.' '>' `
-               ('<img src="../assets/img/' + (PageImg $proj.hero) + '" alt="' + $t.alt + '" data-lightbox>') 'hero image'
-    $s = Swap $s '<figcaption>' '</figcaption>' `
-               ('<figcaption>' + $t.cap + '</figcaption>') 'hero caption'
+    $o = New-Object System.Collections.Generic.List[string]
+    $o.Add('<section class="page-hero">')
+    $o.Add('  <div class="container">')
+    $o.Add('    <article class="article">')
+    $o.Add('      ' + [regex]::Replace($d.crumbs, '<b>[^<]*</b>', ('<b>' + (TxtEsc $t.crumb) + '</b>')))
+    $o.Add('')
+    $o.Add('      <div class="article__topmeta">')
+    $o.Add('        <span class="news__cat">' + (TxtEsc $t.cat) + '</span>')
+    $chip = LogoChip $p $t '../'
+    if ($chip) { $o.Add('        ' + $chip) }
+    $o.Add('      </div>')
+    $sub = if ($t.sub) { '<span class="article__sub">' + (TxtEsc $t.sub) + '</span>' } else { '' }
+    $o.Add('      <h1>' + (TxtEsc $t.h1) + $sub + '</h1>')
+    $o.Add('      <p class="article__lead">' + (TxtEsc $t.lead) + '</p>')
+    $o.Add('')
+    $o.Add('      <figure class="article__img">')
+    $o.Add('        <img src="../assets/img/' + (PageImg $p.hero) + '" alt="' + (AttEsc $t.alt) + '" data-lightbox>')
+    if ($t.cap) { $o.Add('        <figcaption>' + (TxtEsc $t.cap) + '</figcaption>') }
+    $o.Add('      </figure>')
 
-    $s = SwapGallery $s $proj $t $lang $repo
-
-    # client logo chip -- removed outright where no logo exists yet
-    if ($proj.logo) {
-      # A stacked lockup (mark over text) collapses to a smudge at the chip's
-      # default height, so it gets the taller box. Wide wordmarks do not.
-      if ($proj.lockup) {
-        $s = $s.Replace('<span class="proj__logo">', '<span class="proj__logo proj__logo--lockup">')
+    # Gallery. The count is not stored anywhere -- the folder is the source of
+    # truth (2-images.ps1 fills it from the editor's uploads or the office
+    # photo folder). No folder, no block, rather than a row of empty frames.
+    $gdir = Join-Path $repo ('assets\img\' + $p.slug + '-gallery')
+    $shots = @()
+    if (Test-Path $gdir) {
+      $shots = @(Get-ChildItem $gdir -Filter '*.avif' -File | Sort-Object { [int]($_.BaseName -replace '^.*-', '') })
+    }
+    if ($shots.Count) {
+      $o.Add('')
+      $o.Add('      <div class="gallery" aria-label="' + $l.gallery + '">')
+      for ($k = 0; $k -lt $shots.Count; $k++) {
+        $o.Add('        <img src="../assets/img/' + $p.slug + '-gallery/' + $shots[$k].Name + '" alt="' +
+               (AttEsc ($t.alt + $l.shot + ($k + 1))) + '" loading="lazy" data-lightbox>')
       }
-      $s = $s.Replace('clients/terminal.svg" alt="Terminal Towers"',
-                      'clients/' + $proj.logo + '" alt="' + $t.alt + '"')
-    } else {
-      $l = $s.IndexOf('<span class="proj__logo"')
-      if ($l -ge 0) {
-        $e = $s.IndexOf('</span>', $s.IndexOf('<img', $l)) + 7
-        $s = $s.Substring(0, $l).TrimEnd(" ", [char]13, [char]10) + $s.Substring($e)
-      }
+      $o.Add('      </div>')
     }
 
-    # End at the video block, not the footer: the video sits between the body
-    # and the footer, so searching back from the footer lands on the video's
-    # own closing tag and swallows the iframe.
-    $open  = $s.IndexOf('<div class="article__body">')
-    $vid   = $s.IndexOf('<div class="article__video">', $open)
-    $close = $s.LastIndexOf('</div>', $vid)
-    $body  = ($t.body | ForEach-Object { if ($_) { '        ' + $_ } else { '' } }) -join "`r`n"
-    $s = $s.Substring(0, $open) + '<div class="article__body">' + "`r`n" + $body + "`r`n      " +
-         $s.Substring($close)
-
-    # No video yet: drop the block rather than leaving an iframe pointing at
-    # youtube-nocookie.com/embed/ with no id, which renders as a black error panel.
-    if ($proj.video) {
-      $s = $s.Replace('Fux3suuntOE', $proj.video)
-      $vt = if ($lang -eq 'ka') { $t.h1 + ' - პროექტის ვიდეო' } else { $t.h1 + ' - project video' }
-      $s = [regex]::Replace($s, 'title="Terminal Towers[^"]*"', ('title="' + $vt + '"'))
-    } else {
-      $v = $s.IndexOf('<div class="article__video">')
-      if ($v -ge 0) {
-        $e = $s.IndexOf('</div>', $s.IndexOf('</iframe>', $v)) + 6
-        $s = $s.Substring(0, $v).TrimEnd(' ', [char]13, [char]10) + $CRLF + $CRLF + '      ' +
-             $s.Substring($e).TrimStart(' ', [char]13, [char]10)
-      }
+    $o.Add('')
+    $o.Add('      <div class="article__body">')
+    foreach ($line in $t.body) {
+      if ($line -eq 'FIGURE' -or $line -like 'VIDEO:*') { continue }   # news markers; a project's video has its own place below
+      $o.Add('        ' + $line)
     }
+    $o.Add('      </div>')
 
-    # Language switch. The template's own slug is whatever page it was last
-    # cloned from -- it read oro.html once and reads terminal.html now -- so
-    # rewrite whatever slug the GEO/ENG links carry rather than naming one.
-    # Both the header and the mobile drawer carry a copy, hence the global
-    # replace. Which of the two is marked is-active comes from the template and
-    # is already right for each language.
-    $s = [regex]::Replace($s, 'href="[a-z0-9-]+\.html">GEO',
-                          ('href="' + $proj.slug + '.html">GEO'))
-    $s = [regex]::Replace($s, 'href="[a-z0-9-]+\.html">ENG',
-                          ('href="' + $proj.slug + '-en.html">ENG'))
+    # the video sits between the text and the closing row
+    if ($p.video) {
+      $o.Add('')
+      $o.Add('      <div class="article__video">')
+      $o.Add('        <iframe src="https://www.youtube-nocookie.com/embed/' + $p.video + '?rel=0" title="' + (AttEsc ($t.h1 + $l.video)) + '"')
+      $o.Add('          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen')
+      $o.Add('          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>')
+      $o.Add('      </div>')
+    }
+    $o.Add('')
+    $o.Add('      ' + $d.foot)
+    $o.Add('    </article>')
+    $o.Add('  </div>')
+    $o.Add('</section>')
 
-    $out = Join-Path $repo ('projects\' + $proj.slug + $sfx)
+    $s = $head + ($o -join $CRLF) + $d.tail
+    # Language switch: the donor's links point at the donor. Both the header and
+    # the mobile drawer carry a copy, hence the global replace.
+    $s = [regex]::Replace($s, 'href="[a-z0-9-]+\.html">GEO', ('href="' + $p.slug + '.html">GEO'))
+    $s = [regex]::Replace($s, 'href="[a-z0-9-]+\.html">ENG', ('href="' + $p.slug + '-en.html">ENG'))
+    $s = [regex]::Replace($s, "`r`n|`n", $CRLF)
+
+    $out = Join-Path $repo ('projects\' + $p.slug + $sfx)
     [IO.File]::WriteAllText($out, $s, $UTF8)
     $wrote++
-    Write-Host ('  wrote projects\' + $proj.slug + $sfx)
   }
 }
-Write-Host ('pages written: ' + $wrote)
+Write-Host ('  project pages written: ' + $wrote)
+
+# ---- the homepage rail: one card per project, in order. The first card is the
+#      tall one in the rail's bento layout (style.css, .proj:first-child). The
+#      card photo is set by main.js from data-bg once the rail comes near, so
+#      the eight photos are not fetched with the top of the homepage.
+foreach ($lang in 'ka', 'en') {
+  $sfx  = if ($lang -eq 'en') { '-en.html' } else { '.html' }
+  $file = if ($lang -eq 'en') { 'index-en.html' } else { 'index.html' }
+  $fp = Join-Path $repo $file
+  $s  = [IO.File]::ReadAllText($fp)
+  $gs = $s.IndexOf('<div class="proj-grid">')
+  $nx = $s.IndexOf('<button class="rail__arrow rail__next"', $gs)
+  if ($gs -lt 0 -or $nx -lt 0) { throw ('no project rail in ' + $file) }
+  $ge = $s.LastIndexOf('</div>', $nx)
+  $cards = @()
+  foreach ($p in $DATA) {
+    $t = $p.$lang
+    $c = @('        <a class="proj reveal" href="projects/' + $p.slug + $sfx + '">')
+    $c += '          <span class="proj__img" data-bg="assets/img/' + (CardImg $p.hero) + '"></span>'
+    $chip = LogoChip $p $t ''
+    if ($chip) { $c += '          ' + $chip }
+    $c += '          <span class="proj__info">'
+    $c += '            <span class="proj__meta"><span>' + (TxtEsc $t.cat) + '</span><h3>' + (TxtEsc $t.card) + '</h3></span>'
+    $c += '          </span>'
+    $c += '        </a>'
+    $cards += ($c -join $CRLF)
+  }
+  $s = $s.Substring(0, $gs) + '<div class="proj-grid">' + $CRLF + ($cards -join $CRLF) + $CRLF + '      ' + $s.Substring($ge)
+  [IO.File]::WriteAllText($fp, $s, $UTF8)
+  Write-Host ('  rebuilt the project rail in ' + $file + ' : ' + $cards.Count + ' cards')
+}
+
+# A project deleted in the editor takes its two pages with it. Every page in
+# projects/ is written by this script, so one without a project file is stale.
+$keep = @{}; foreach ($p in $DATA) { $keep[$p.slug] = 1 }
+foreach ($old in Get-ChildItem (Join-Path $repo 'projects') -Filter '*.html' -File) {
+  if (-not $keep.ContainsKey(($old.BaseName -replace '-en$', ''))) {
+    Remove-Item -LiteralPath $old.FullName
+    Write-Host ('  removed projects\' + $old.Name + ' (no project file)')
+  }
+}
+
+# projects.html / projects-en.html copy the rail's cards
+& (Join-Path $sp 'build-index.ps1')

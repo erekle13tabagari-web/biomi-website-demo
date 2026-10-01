@@ -1,10 +1,9 @@
 ﻿# The projects gallery page: every project as a card, four across.
 #
-# The cards are lifted straight out of the homepage rail rather than rebuilt
-# from projects.json. The rail is the canonical list -- it carries all eight,
-# including ORO, PASHA and Terminal, whose pages predate projects.json -- and
-# lifting means the two can never show a different set, a different photo or a
-# different category. Reorder the rail and this page follows.
+# The cards are lifted straight out of the homepage rail, which
+# build-projects.ps1 builds from content/projects (and runs this afterwards),
+# so the two can never show a different set, a different photo or a
+# different category. Reorder the projects and this page follows.
 #
 # The gallery sits outside .article, which is capped at 800px for a readable
 # measure; four columns need the full container.

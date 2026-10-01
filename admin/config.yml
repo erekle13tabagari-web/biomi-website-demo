@@ -142,3 +142,103 @@ collections:
           - { label: 'Google description', name: desc, widget: text, required: false, hint: 'Empty = the lead' }
           - { label: 'Title in the breadcrumb', name: crumb, widget: string, required: false, hint: 'Empty = the headline' }
           - { label: 'Date as text', name: dateText, widget: string, required: false, hint: 'Empty = from the date, e.g. 15 March 2025' }
+
+  # Projects (2026-10-01): content/projects/<slug>.json, read by
+  # tools/projects/load-projects.ps1. Each one is a page in projects/, a card on
+  # the homepage and on projects.html, in "order".
+  - name: projects
+    label: პროექტები
+    label_singular: პროექტი
+    description: >-
+      პროექტი ჩნდება test.biomi.ge-ზე შენახვიდან რამდენიმე წუთში - მისი გვერდი და
+      ბარათი მთავარ გვერდზე და პროექტების გვერდზე. biomi.ge-ზე გამოქვეყნდება მას
+      შემდეგ, რაც საიტის ადმინისტრატორი დაადასტურებს.
+    folder: content/projects
+    extension: json
+    format: json
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    identifier_field: slug
+    summary: "{{order}}. {{ka.h1}}"
+    sortable_fields: [order, slug]
+    preview_path: "projects/{{slug}}.html"
+    fields:
+      - label: მისამართი (ლათინურად)
+        name: slug
+        widget: string
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'მხოლოდ ლათინური პატარა ასოები, ციფრები და ტირე, მაგ. new-office']
+        hint: 'გვერდის მისამართი იქნება biomi.ge/projects/ეს-სიტყვა.html. შენახვის შემდეგ აღარ შეცვალოთ.'
+      - label: რიგითი ნომერი
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: 'რომელი იყოს მთავარ გვერდზე: 1 - პირველი (დიდი ბარათი), 2 - მეორე და ა.შ. ერთნაირი ნომრები ანბანის მიხედვით ლაგდება.'
+      - label: მთავარი ფოტო
+        name: hero
+        widget: image
+        choose_url: false
+        hint: 'ჰორიზონტალური ფოტო, სასურველია 1600×900 ან უფრო დიდი. ავტომატურად მოიჭრება 16:9-ზე. ის არის ბარათის ფონიც.'
+      - label: კლიენტის ლოგო
+        name: logo
+        widget: image
+        required: false
+        choose_url: false
+        hint: 'არასავალდებულო. სასურველია SVG ან გამჭვირვალე PNG.'
+      - { label: 'ლოგო მაღალია (ნიშანი ტექსტის ზემოთ)', name: lockup, widget: boolean, required: false, default: false, hint: 'ჩართეთ, თუ ლოგო თითქმის კვადრატულია - მიიღებს უფრო მაღალ ადგილს.' }
+      - { label: 'ლოგოს სიმაღლე (px)', name: logoHeight, widget: number, value_type: int, required: false, min: 14, max: 60, hint: 'არასავალდებულო. ცარიელი = 22 (ფართო ლოგო) ან 42 (მაღალი).' }
+      - { label: 'ვიდეო (YouTube-ის ბმული)', name: video, widget: string, required: false, hint: 'ჩნდება ტექსტის ქვემოთ.' }
+      - label: ფოტოგალერეა
+        name: gallery
+        widget: list
+        required: false
+        collapsed: true
+        hint: 'არასავალდებულო. ფოტოები გამოჩნდება მთავარი ფოტოს ქვემოთ, ამავე რიგით. ატვირთული გალერეა ცვლის არსებულს.'
+        field: { label: ფოტო, name: image, widget: image, choose_url: false }
+      - { label: წყარო, name: src, widget: hidden, required: false }
+
+      - label: ქართული
+        name: ka
+        widget: object
+        fields:
+          - { label: 'სათაური (ობიექტის სახელი)', name: h1, widget: string }
+          - { label: ქვესათაური, name: sub, widget: string, required: false, hint: 'მაგ. საინჟინრო პროექტი თანამედროვე სარესტორნო სივრცისთვის' }
+          - { label: 'კატეგორია (მაგ. კომერციული)', name: cat, widget: string }
+          - { label: 'შესავალი (1-2 წინადადება)', name: lead, widget: text }
+          - label: ტექსტი
+            name: body
+            widget: markdown
+            modes: [rich_text, raw]
+            buttons: [bold, italic, link, heading-two, heading-three, quote, bulleted-list, numbered-list]
+            editor_components: []
+            hint: 'ციტატა - ღილაკით ციტატა (ან სტრიქონის თავში >), ბოლო სტრიქონი ტირით - ვინ თქვა.'
+          - { label: 'მთავარი ფოტოს აღწერა (უსინათლო მკითხველისთვის)', name: alt, widget: string, required: false, hint: 'ცარიელი = სათაური' }
+          - { label: 'მთავარი ფოტოს წარწერა', name: cap, widget: string, required: false, hint: 'მაგ. ობიექტი: ORO, სტრადას რესტორნების ქსელი - თბილისი' }
+          - { label: 'სახელი ნავიგაციაში', name: crumb, widget: string, required: false, hint: 'ცარიელი = სათაური' }
+          - { label: 'სახელი ბარათზე', name: card, widget: string, required: false, hint: 'მოკლე სახელი მთავარი გვერდის ბარათზე. ცარიელი = სახელი ნავიგაციაში' }
+          - { label: 'ბრაუზერის სათაური', name: title, widget: string, required: false, hint: 'ცარიელი = სათაური + " - ბიომი"' }
+          - { label: 'Google-ის აღწერა', name: desc, widget: text, required: false, hint: 'ცარიელი = შესავალი' }
+
+      - label: English
+        name: en
+        widget: object
+        fields:
+          - { label: 'Headline (the facility''s name)', name: h1, widget: string }
+          - { label: Subtitle, name: sub, widget: string, required: false, hint: 'e.g. an engineering project for a modern restaurant space' }
+          - { label: 'Category (e.g. Commercial)', name: cat, widget: string }
+          - { label: 'Lead (1-2 sentences)', name: lead, widget: text }
+          - label: Text
+            name: body
+            widget: markdown
+            modes: [rich_text, raw]
+            buttons: [bold, italic, link, heading-two, heading-three, quote, bulleted-list, numbered-list]
+            editor_components: []
+            hint: 'A quote: the quote button (or > at the start of a line); a last line starting with a dash names who said it.'
+          - { label: 'Main photo description (for screen readers)', name: alt, widget: string, required: false, hint: 'Empty = the headline' }
+          - { label: 'Main photo caption', name: cap, widget: string, required: false, hint: 'e.g. Facility: ORO, Strada restaurant group - Tbilisi' }
+          - { label: 'Name in the breadcrumb', name: crumb, widget: string, required: false, hint: 'Empty = the headline' }
+          - { label: 'Name on the card', name: card, widget: string, required: false, hint: 'A short name for the homepage card. Empty = the breadcrumb name' }
+          - { label: 'Browser title', name: title, widget: string, required: false, hint: 'Empty = headline + " - Biomi"' }
+          - { label: 'Google description', name: desc, widget: text, required: false, hint: 'Empty = the lead' }

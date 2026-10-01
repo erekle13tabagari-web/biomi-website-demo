@@ -916,16 +916,10 @@ a.news__img img{transition:transform .5s var(--ease)}
 .article__topmeta .proj__logo--lockup img{--logo-h:42px}
 .proj .proj__logo--lockup img{--logo-h:42px}
 /* Per-logo heights, because two tiers cannot hold ratios running from
-   0.95:1 (Agrarian) to 6.4:1 (SDSU). At the wordmark height Terminal and
-   Kartlisi read small; at the lockup height ORO outweighs every chip beside
-   it. Keying on the filename keeps the sizing in one place, and a renamed
-   logo falls back to its tier rather than breaking. */
-.proj .proj__logo img[src$="terminal.svg"],
-.article__topmeta .proj__logo img[src$="terminal.svg"]{--logo-h:28px}
-.proj .proj__logo img[src$="kartlisi.png"],
-.article__topmeta .proj__logo img[src$="kartlisi.png"]{--logo-h:30px}
-.proj .proj__logo img[src$="oro.svg"],
-.article__topmeta .proj__logo img[src$="oro.svg"]{--logo-h:34px}
+   0.95:1 (Agrarian) to 6.4:1 (SDSU): at the wordmark height Terminal and
+   Kartlisi read small, at the lockup height ORO outweighs every chip beside
+   it. They are set in the project's file ("logoHeight") and written onto the
+   logo as style="--logo-h:..px", which wins over both tiers above. */
 
 /* =========================================================================
    CONTACT strip
@@ -1324,19 +1318,12 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .prod--duct .prod__img{background-image:url('../img/prod-duct.jpg')}
 .prod--water .prod__img{background-image:url('../img/prod-water.jpg')}
 /* Card-size AVIF copies (tools/projects/2-images.ps1 makes them; the full JPEGs
-   stay on the project pages, where the lightbox opens them), and only once
-   main.js marks the grid .is-near. A background in a stylesheet downloads with
-   the page however far below the fold it sits, and these eight were 1.7 MB of
-   the homepage's 3.3 MB before anyone had scrolled. */
+   stay on the project pages, where the lightbox opens them). Each card names
+   its photo in data-bg and main.js sets it only once the grid is near: these
+   eight were 1.7 MB of the homepage's 3.3 MB before anyone had scrolled. Since
+   2026-10-01 the cards are built from content/projects, so a project added in
+   the editor brings its photo without a rule here. */
 .proj__img{background-size:cover;background-position:center;background-color:var(--bg-soft)}
-.is-near .proj--1 .proj__img{background-image:url('../img/proj-terminal-card.avif')}
-.is-near .proj--2 .proj__img{background-image:url('../img/proj-kartlisi-card.avif')}
-.is-near .proj--3 .proj__img{background-image:url('../img/proj-oro-card.avif')}
-.is-near .proj--4 .proj__img{background-image:url('../img/proj-pasha-card.avif')}
-.is-near .proj--5 .proj__img{background-image:url('../img/proj-chateau-card.avif')}
-.is-near .proj--6 .proj__img{background-image:url('../img/proj-culinary-card.avif')}
-.is-near .proj--7 .proj__img{background-image:url('../img/proj-agrarian-card.avif')}
-.is-near .proj--8 .proj__img{background-image:url('../img/proj-sdsu-card.avif')}
 
 /* Projects gallery page: the same cards as the homepage rail, four across.
    A plain grid, not the rail's bento -- every card is equal here, so nothing

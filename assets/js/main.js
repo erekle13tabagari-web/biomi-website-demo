@@ -2223,20 +2223,27 @@
   });
 
   /* ---- Project card photos, loaded as their grid comes near ----
-     The CSS gives .proj__img its background only under .is-near. The whole grid
-     is marked at once, not card by card: on phones it is a sideways-scrolling
-     rail, and cards clipped off to the right would otherwise come up blank as
-     they are swiped in. */
+     Each card names its photo in data-bg (tools/projects/build-projects.ps1
+     writes it from the project's file); it becomes the background only once
+     the grid is near. The whole grid is done at once, not card by card: on
+     phones it is a sideways-scrolling rail, and cards clipped off to the right
+     would otherwise come up blank as they are swiped in. */
   var projGrids = document.querySelectorAll('.proj-grid, .proj-gallery');
+  function projNear(el) {
+    el.classList.add('is-near');
+    el.querySelectorAll('.proj__img[data-bg]').forEach(function (img) {
+      img.style.backgroundImage = 'url("' + img.getAttribute('data-bg') + '")';
+    });
+  }
   if ('IntersectionObserver' in window) {
     var nearIo = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) { entry.target.classList.add('is-near'); nearIo.unobserve(entry.target); }
+        if (entry.isIntersecting) { projNear(entry.target); nearIo.unobserve(entry.target); }
       });
     }, { rootMargin: '600px 0px' });
     projGrids.forEach(function (el) { nearIo.observe(el); });
   } else {
-    projGrids.forEach(function (el) { el.classList.add('is-near'); });
+    projGrids.forEach(projNear);
   }
 
   /* ---- Reveal on scroll ---- */

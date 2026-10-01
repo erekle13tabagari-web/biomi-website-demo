@@ -1,0 +1,37 @@
+{
+  "slug": "kartlisi",
+  "order": 2,
+  "hero": "/assets/img/proj-kartlisi.jpg",
+  "logo": "/assets/img/clients/kartlisi.png",
+  "lockup": false,
+  "logoHeight": 30,
+  "video": "",
+  "gallery": [],
+  "src": "კარტლისი",
+  "ka": {
+    "h1": "კარტლისი",
+    "sub": "ხილული ინჟინერია, როგორც ინტერიერის ნაწილი",
+    "cat": "კომერციული",
+    "crumb": "",
+    "card": "",
+    "lead": "„კარტლისის“ სივრცისთვის საინჟინრო სისტემები ერთიანი არქიტექტურული ხედვის შესაბამისად დავაპროექტეთ და განვახორციელეთ.",
+    "body": "პროექტზე Alter Design-სა და ინტერიერის დიზაინერ ციცი ბოხუასთან თანამშრომლობით ვიმუშავეთ. ჩვენი ამოცანა იყო გათბობის, გაგრილებისა და ვენტილაციის სისტემების ისე მოწყობა, რომ საინჟინრო ეფექტიანობასთან ერთად სივრცის გამორჩეული ვიზუალური ხასიათიც შეგვენარჩუნებინა.\n\n## პროექტის სპეციფიკა\n\nღია ჭერის პირობებში საინჟინრო კომუნიკაციები სრულად ხილულია, ამიტომ თითოეული ტრაექტორია, კვანძი და სამონტაჟო დეტალი განსაკუთრებული სიზუსტით დამუშავდა. პროექტის ერთ-ერთ მთავარ აქცენტად იქცა ჰაერსატარების იშვიათი მწვანე ფერით გადაწყვეტა - ტექნიკური ელემენტი, რომელმაც ინტერიერის ინდივიდუალურ ხასიათს გაუსვა ხაზი.\n\n## საინჟინრო გადაწყვეტა\n\nსისტემების განლაგება ინტერიერის კომპოზიციასთან სრულ კოორდინაციაში დაიგეგმა. საინჟინრო ინფრასტრუქტურამ უზრუნველყო სივრცის ფუნქციური გამართულობა და ამავე დროს, მისი ვიზუალური იდენტობის ჩამოყალიბებაში მნიშვნელოვანი როლი შეასრულა.\n\nშედეგად, ტექნიკურად რთული გადაწყვეტა ინტერიერის ორგანულ და გამორჩეულ ნაწილად იქცა - მკაფიო დასტური იმისა, რომ ზუსტი ინჟინერია ფუნქციურობასა და ესთეტიკას თანაბრად ემსახურება.",
+    "alt": "",
+    "cap": "ობიექტი: კარტლისი",
+    "title": "",
+    "desc": "„კარტლისის“ სივრცისთვის „ბიომი ჰოლდინგმა“ გათბობის, გაგრილებისა და ვენტილაციის სისტემები ერთიანი არქიტექტურული ხედვის შესაბამისად დააპროექტა და განახორციელა."
+  },
+  "en": {
+    "h1": "Kartlisi",
+    "sub": "visible engineering as part of the interior",
+    "cat": "Commercial",
+    "crumb": "",
+    "card": "",
+    "lead": "For the Kartlisi space we designed and installed the engineering systems in keeping with a single architectural vision.",
+    "body": "We worked on the project together with Alter Design and interior designer Tsitsi Bokhua. Our task was to lay out the heating, cooling and ventilation systems so that engineering efficiency arrived without any loss of the distinctive visual character of the space.\n\n## Project specifics\n\nWith an open ceiling the engineering services are fully visible, so every run, junction and mounting detail was worked out to an unusual precision. One of the project's main accents became the ductwork in a rare green - a technical element that underlined the individual character of the interior.\n\n## The engineering solution\n\nThe layout of the systems was planned in full coordination with the composition of the interior. The engineering infrastructure secured the functional soundness of the space and, at the same time, played a significant part in shaping its visual identity.\n\nThe result is a technically demanding solution that became an organic and distinctive part of the interior - clear evidence that precise engineering serves function and aesthetics equally.",
+    "alt": "",
+    "cap": "Facility: Kartlisi",
+    "title": "",
+    "desc": "For the Kartlisi space, Biomi Holding designed and installed the heating, cooling and ventilation systems in keeping with a single architectural vision."
+  }
+}

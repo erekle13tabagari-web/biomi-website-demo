@@ -30,8 +30,9 @@ build and `Update Website.bat` both run anyway.
 ```
 
 - `body` is simple Markdown: paragraphs, `##` / `###` headings, bold, italic,
-  links, bullet and numbered lists. `tools/news/load-news.ps1` turns it into
-  the page's HTML. That is the whole list, and it matches the editor's buttons.
+  links, bullet and numbered lists. `tools/markdown.ps1` (shared with the
+  project pages since 2026-10-01) turns it into the page's HTML. That is the
+  whole list, and it matches the editor's buttons.
 - A paragraph that is exactly `FIGURE` becomes the next entry from `figures`,
   in order, with that language's `alt` and `cap`. A `FIGURE` with no figure
   left is dropped.

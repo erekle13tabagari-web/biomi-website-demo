@@ -1,0 +1,37 @@
+{
+  "slug": "oro",
+  "order": 3,
+  "hero": "/assets/img/proj-oro.jpg",
+  "logo": "/assets/img/clients/oro.svg",
+  "lockup": true,
+  "logoHeight": 34,
+  "video": "https://www.youtube.com/watch?v=QGkiopnp6cQ",
+  "gallery": [],
+  "src": "Oro",
+  "ka": {
+    "h1": "ORO",
+    "sub": "საინჟინრო პროექტი თანამედროვე სარესტორნო სივრცისთვის",
+    "cat": "სტუმართმასპინძლობა",
+    "crumb": "",
+    "card": "",
+    "lead": "რესტორნის გამოცდილება მხოლოდ კონცეფციით, სამზარეულოთი და ინტერიერით არ იქმნება - მის მნიშვნელოვან ნაწილს წარმოადგენს საინჟინრო გარემო, რომელიც სტუმრის კომფორტსა და სივრცის გამართულ ფუნქციონირებას უზრუნველყოფს.",
+    "body": "სტრადას რესტორნების ქსელ ORO-ს 400 მ² ფართობის ობიექტზე „ბიომი ჰოლდინგმა“ გათბობის, გაგრილებისა და ვენტილაციის სისტემების სრული საინჟინრო და სამონტაჟო სამუშაოები განახორციელა.\n\n## პროექტის სპეციფიკა\n\nHoReCa სექტორისთვის HVAC სისტემების დაგეგმვა განსაკუთრებით კომპლექსურია. პროფესიული სამზარეულო, სტუმრების სივრცეები და სხვადასხვა ფუნქციური ზონა განსხვავებულ თერმულ დატვირთვასა და ჰაერცვლის მოთხოვნებს ქმნის. შესაბამისად, ეფექტური საინჟინრო გადაწყვეტა თითოეული სივრცის ფუნქციის გააზრებასა და სისტემების ერთმანეთთან სწორ ინტეგრაციას მოითხოვს.\n\n## გადაწყვეტა\n\n„ოროს“ პროექტზე მუშაობისას „ბიომი ჰოლდინგის“ საინჟინრო გადაწყვეტა სწორედ ობიექტის სპეციფიკისა და რეალური დატვირთვების გათვალისწინებით შემუშავდა. გათბობის, გაგრილებისა და ვენტილაციის სისტემები დაიგეგმა როგორც ერთიანი HVAC ინფრასტრუქტურა, სადაც თითოეული კომპონენტი კონკრეტულ ფუნქციურ მოთხოვნას პასუხობს.\n\nპროექტში გათბობის მიმართულებით გამოყენებულია [Warmhaus-ის კონდენსაციური ტიპის ქვაბები](../products/boilers.html?brand=warmhaus), ხოლო გაგრილებისა და ვენტილაციის სისტემები შერჩეული და ინტეგრირებულია ობიექტის სპეციფიკის შესაბამისად.\n\n> ORO-ს პროექტი ასახავს „ბიომი ჰოლდინგის“ მიდგომას HoReCa სექტორის მიმართ - საინჟინრო გადაწყვეტა იქმნება სივრცის ფუნქციიდან გამომდინარე და არა სივრცე არსებული სისტემის შესაძლებლობების მიხედვით.\n> - „ბიომი ჰოლდინგი“\n\n„ბიომი ჰოლდინგი“ - პროექტირებიდან და სისტემების შერჩევიდან მონტაჟამდე და შემდგომ ტექნიკური მხარდაჭერით.",
+    "alt": "ORO კომერციული კომპლექსი",
+    "cap": "ობიექტი: ORO, სტრადას რესტორნების ქსელი - თბილისი",
+    "title": "ORO - საინჟინრო პროექტი სარესტორნო სივრცისთვის - ბიომი",
+    "desc": "სტრადას რესტორნების ქსელ ORO-ს 400 მ² ობიექტზე „ბიომი ჰოლდინგმა“ გათბობის, გაგრილებისა და ვენტილაციის სრული საინჟინრო და სამონტაჟო სამუშაოები განახორციელა."
+  },
+  "en": {
+    "h1": "ORO",
+    "sub": "an engineering project for a modern restaurant space",
+    "cat": "Hospitality",
+    "crumb": "",
+    "card": "",
+    "lead": "A restaurant experience is not made by concept, kitchen and interior alone - a significant part of it is the engineering environment that keeps guests comfortable and the space working properly.",
+    "body": "At ORO, a 400 m² venue in the Strada restaurant group, Biomi Holding carried out the complete engineering and installation of the heating, cooling and ventilation systems.\n\n## Project specifics\n\nPlanning HVAC for the HoReCa sector is particularly complex. A professional kitchen, guest areas and the various functional zones each create different thermal loads and air-change requirements. An effective engineering solution therefore demands an understanding of what each space is for, and the correct integration of the systems with one another.\n\n## The solution\n\nOn the ORO project, Biomi Holding's engineering solution was developed around the specifics of the venue and its real loads. Heating, cooling and ventilation were planned as a single HVAC infrastructure in which every component answers a specific functional requirement.\n\nHeating is provided by [Warmhaus condensing boilers](../products/boilers-en.html?brand=warmhaus), while the cooling and ventilation systems were selected and integrated to suit the specifics of the venue.\n\n> The ORO project reflects Biomi Holding's approach to the HoReCa sector - the engineering solution is created from the function of the space, not the space from the capabilities of an existing system.\n> - Biomi Holding\n\nBiomi Holding - from design and system selection through installation and ongoing technical support.",
+    "alt": "ORO commercial complex",
+    "cap": "Facility: ORO, Strada restaurant group - Tbilisi",
+    "title": "ORO - an engineering project for a restaurant space - Biomi",
+    "desc": "At ORO, a 400 m² venue in the Strada restaurant group, Biomi Holding delivered the complete engineering and installation of the heating, cooling and ventilation systems."
+  }
+}

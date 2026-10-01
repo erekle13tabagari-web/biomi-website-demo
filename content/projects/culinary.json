@@ -1,0 +1,36 @@
+{
+  "slug": "culinary",
+  "order": 6,
+  "hero": "/assets/img/proj-culinary.jpg",
+  "logo": "/assets/img/clients/culinary.png",
+  "lockup": true,
+  "video": "https://www.youtube.com/watch?v=zxFJznhweEk",
+  "gallery": [],
+  "src": "საქართველოს კულინარიის აკადემია",
+  "ka": {
+    "h1": "საქართველოს კულინარიის აკადემია",
+    "sub": "ინჟინერია პროფესიული სამზარეულოს მიღმა",
+    "cat": "საგანმანათლებლო",
+    "crumb": "კულინარიის აკადემია",
+    "card": "",
+    "lead": "პროფესიულ სამზარეულოში კლიმატის მართვა გაცილებით მეტია, ვიდრე სასურველი ტემპერატურის შენარჩუნება.",
+    "body": "მაღალი თერმული დატვირთვა, ორთქლი, სუნი, ინტენსიური სამუშაო პროცესი და სივრცეში ადამიანების მუდმივი მოძრაობა ქმნის გარემოს, სადაც გათბობა, გაგრილება და ვენტილაცია ერთიან, ზუსტად გათვლილ სისტემად უნდა მუშაობდეს.\n\n## გადაწყვეტა\n\nსაქართველოს კულინარიის აკადემიისთვის „ბიომი ჰოლდინგმა“ განახორციელა გათბობის, გაგრილებისა და ვენტილაციის სისტემების პროექტირება - სივრცის ფუნქციის, დატვირთვისა და ყოველდღიური სამუშაო პროცესის გათვალისწინებით.\n\nსაინჟინრო გადაწყვეტის მიზანი იყო პროფესიული სასწავლო გარემოსთვის შესაბამისი მიკროკლიმატის შექმნა, ჰაერის ეფექტური ცვლის უზრუნველყოფა და სისტემების გამართული მუშაობა განსხვავებული დანიშნულების სივრცეებში.\n\n> ეს არის „ბიომი ჰოლდინგის“ მიდგომა თითოეული პროექტის მიმართ - არა სტანდარტული გადაწყვეტის მორგება სივრცეზე, არამედ სივრცის საჭიროებებიდან გამომდინარე საინჟინრო სისტემის შექმნა.\n> - „ბიომი ჰოლდინგი“",
+    "alt": "",
+    "cap": "ობიექტი: საქართველოს კულინარიის აკადემია - თბილისი",
+    "title": "",
+    "desc": "საქართველოს კულინარიის აკადემიისთვის „ბიომი ჰოლდინგმა“ გათბობის, გაგრილებისა და ვენტილაციის სისტემების პროექტირება განახორციელა - პროფესიული სამზარეულოს დატვირთვის გათვალისწინებით."
+  },
+  "en": {
+    "h1": "Georgian Culinary Academy",
+    "sub": "the engineering behind a professional kitchen",
+    "cat": "Educational",
+    "crumb": "Culinary Academy",
+    "card": "",
+    "lead": "Climate control in a professional kitchen is a great deal more than holding a target temperature.",
+    "body": "High thermal loads, steam, odour, an intense working process and people moving through the space constantly create an environment in which heating, cooling and ventilation have to work as one precisely calculated system.\n\n## The solution\n\nFor the Georgian Culinary Academy, Biomi Holding designed the heating, cooling and ventilation systems around the function of the space, its loads and the daily working process.\n\nThe aim was a microclimate appropriate to a professional teaching environment, effective air exchange, and systems that work properly across spaces of differing purpose.\n\n> This is Biomi Holding's approach to every project - not fitting a standard solution to a space, but building the engineering out of what the space needs.\n> - Biomi Holding",
+    "alt": "",
+    "cap": "Facility: Georgian Culinary Academy - Tbilisi",
+    "title": "",
+    "desc": "For the Georgian Culinary Academy, Biomi Holding designed the heating, cooling and ventilation systems around the loads of a professional kitchen."
+  }
+}

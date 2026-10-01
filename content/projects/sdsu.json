@@ -1,0 +1,36 @@
+{
+  "slug": "sdsu",
+  "order": 8,
+  "hero": "/assets/img/proj-sdsu.jpg",
+  "logo": "/assets/img/clients/sdsu.svg",
+  "lockup": false,
+  "video": "https://www.youtube.com/watch?v=ASBECyTZz0c",
+  "gallery": [],
+  "src": "სან დიეგოს უნივერსიტეტი",
+  "ka": {
+    "h1": "San Diego State University Georgia",
+    "sub": "საინჟინრო სამუშაოები სასწავლო კამპუსისთვის",
+    "cat": "საგანმანათლებლო",
+    "crumb": "SDSU Georgia",
+    "card": "SDSU",
+    "lead": "თანამედროვე სასწავლო კამპუსი განსხვავებული ფუნქციის სივრცეებს - სასწავლო კაბინეტებსა და ლაბორატორიებს - აერთიანებს, რომელთაც გათბობის, გაგრილებისა და ვენტილაციის მიმართ განსხვავებული ტექნიკური მოთხოვნები აქვს.",
+    "body": "San Diego State University Georgia-სთვის „ბიომი ჰოლდინგმა“ გათბობის, გაგრილების, ვენტილაციისა და წყალმომარაგების სისტემების პროექტირება განახორციელა. გაგრილების მიმართულებით პროექტში გათვალისწინებულია ÜNTES-ის ჩილერ-ფანკოილის სისტემა, ხოლო სივრცეებს რეკუპერირებული ჰაერი მიეწოდება.\n\n## ლაბორატორიები და კაბინეტები\n\nვენტილაციის პროექტირებისას ცალკე გათვალისწინებულია სასწავლო ლაბორატორიების სპეციფიკა და მათთვის განსაზღვრული განსხვავებული მოთხოვნები. საინჟინრო სისტემები ასევე მორგებულია სასწავლო კაბინეტების ფუნქციასა და დატვირთვაზე.\n\n## არქიტექტურა\n\nობიექტის არქიტექტურული გადაწყვეტა აერთიანებს ღია, ლოფტის სტილისა და დახურული ჭერის მქონე სივრცეებს - შესაბამისად, საინჟინრო სისტემების ინტეგრირებაც კომბინირებული მიდგომით განხორციელდა.\n\n„ბიომი ჰოლდინგის“ საინჟინრო გადაწყვეტა სხვადასხვა ფუნქციური და ტექნიკური მოთხოვნის მქონე სივრცეებს ერთიან სისტემაში აერთიანებს - კონკრეტული სასწავლო გარემოს სპეციფიკის გათვალისწინებით.",
+    "alt": "",
+    "cap": "ობიექტი: San Diego State University Georgia - თბილისი",
+    "title": "",
+    "desc": "San Diego State University Georgia-სთვის „ბიომი ჰოლდინგმა“ გათბობის, გაგრილების, ვენტილაციისა და წყალმომარაგების სისტემების პროექტირება განახორციელა."
+  },
+  "en": {
+    "h1": "San Diego State University Georgia",
+    "sub": "engineering works for a teaching campus",
+    "cat": "Educational",
+    "crumb": "SDSU Georgia",
+    "card": "SDSU",
+    "lead": "A modern teaching campus brings together spaces of very different function - classrooms and laboratories - each with its own technical demands on heating, cooling and ventilation.",
+    "body": "For San Diego State University Georgia, Biomi Holding designed the heating, cooling, ventilation and water-supply systems. Cooling is provided by an ÜNTES chiller and fan-coil system, and the spaces are supplied with heat-recovered air.\n\n## Laboratories and classrooms\n\nThe ventilation design treats the teaching laboratories separately, against the particular requirements set for them. The systems are equally fitted to the function and the load of the classrooms.\n\n## Architecture\n\nThe building combines open, loft-style areas with zones that have closed ceilings, so integrating the systems called for a combined approach.\n\nBiomi Holding's solution brings spaces with different functional and technical requirements into one system - shaped around the specifics of this particular teaching environment.",
+    "alt": "",
+    "cap": "Facility: San Diego State University Georgia - Tbilisi",
+    "title": "",
+    "desc": "For San Diego State University Georgia, Biomi Holding designed the heating, cooling, ventilation and water-supply systems."
+  }
+}

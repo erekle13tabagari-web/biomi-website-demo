@@ -1,50 +1,83 @@
-# Project pages
+# Projects
 
-`projects.json` holds the copy, `build-projects.ps1` renders it into
-`projects/<slug>.html` and `projects/<slug>-en.html`.
+Each project is one file: `content/projects/<slug>.json`. Since 2026-10-01 they
+are written through the editor at `https://test.biomi.ge/admin` (Decap CMS, see
+`admin/`) like the news, and GitHub builds the pages and puts them on the test
+site. Nothing reaches biomi.ge until the designer publishes as usual.
 
-    powershell -NoProfile -ExecutionPolicy Bypass -File tools/projects/build-projects.ps1
+```powershell
+powershell -File tools\projects\2-images.ps1        # pictures (-UploadsOnly: editor uploads only)
+powershell -File tools\projects\build-projects.ps1  # the pages, the homepage cards, projects.html
+```
 
-Chrome (header, footer, drawer, breadcrumbs, video block) is cloned from
-`projects/terminal.html`, which is the newest page and therefore carries the
-current layout. If the layout changes, change it on the Terminal page first and
-re-run this — the generator will pick it up. The output lands in the same folder
-as the template, so every relative path stays valid.
+Then `tools\build-meta.ps1` and `build-search-index.ps1`, which the GitHub
+build and `Update Website.bat` both run anyway.
 
-After a run, re-run these two from the repo root so the new pages are tagged and
-findable:
+## The project file
 
-    powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-meta.ps1
-    powershell -NoProfile -ExecutionPolicy Bypass -File build-search-index.ps1
+```json
+{
+  "slug": "oro",                               // the address: projects/oro.html
+  "order": 3,                                  // place on the homepage; 1 is the big first card
+  "hero": "/assets/img/proj-oro.jpg",          // or an upload in /assets/img/uploads/
+  "logo": "/assets/img/clients/oro.svg",       // optional
+  "lockup": true,                              // a near-square logo: the taller chip
+  "logoHeight": 34,                            // optional, px; otherwise 22 (wide) / 42 (lockup)
+  "video": "https://www.youtube.com/watch?v=…",// optional, shown below the text
+  "gallery": ["/assets/img/uploads/a.jpg"],    // optional; uploads replace the folder gallery
+  "src": "Oro",                                // the photo folder under "Projects files"
+  "ka": { "h1": "", "sub": "", "cat": "", "lead": "", "body": "Markdown",
+          "alt": "", "cap": "", "crumb": "", "card": "", "title": "", "desc": "" },
+  "en": { … }
+}
+```
 
-`build-projects.ps1` strips the `meta:start … meta:end` block it inherits from
-the template (it would otherwise carry Terminal Towers' canonical URLs), so
-`build-meta.ps1` has to run afterwards to write a correct one.
+- `body` is the news Markdown (`tools/markdown.ps1`): paragraphs, `##` / `###`
+  headings, bold, italic, links, lists, and quotes. A quote's last line
+  starting with a dash names who said it, printed as `- name` as the project
+  pages always have.
+- Left empty: `crumb` = the headline, `card` (the name on the homepage card) =
+  `crumb`, `alt` = the headline, `title` = headline + " - ბიომი", `desc` = the lead.
+- `order` sorts the homepage rail and `projects.html`; equal numbers go by slug.
+- Delete the file and the next build deletes the project's two pages and card.
 
-## Fields
+## How the pages are built
 
-| field    | meaning |
-| -------- | ------- |
-| `slug`   | file name, and the `?brand=`-free page URL |
-| `hero`   | file in `assets/img/`, also the homepage card background via `.proj--N` in style.css |
-| `logo`   | file in `assets/img/clients/`. Leave empty and the logo chip is dropped rather than left broken |
-| `logosq` | `true` for a near-square mark, which needs `.proj__logo--sq` to avoid rendering as a 20px dot |
-| `video`  | YouTube id |
-| `ka`/`en`| per-language `cat`, `crumb`, `title`, `desc`, `h1`, `sub`, `alt`, `cap`, `lead`, `body` |
+`build-projects.ps1` writes the whole article from the file. The page around
+it (head, header, drawer, footer, the breadcrumb's first steps and the closing
+row) is taken from an existing project page - Terminal's, or any other if that
+one is gone - so it follows the rest of the site's layout. Blocks a project
+does not have (logo, gallery, video, caption) are not written at all.
 
-`body` is an array of lines, joined verbatim — an empty string is a blank line.
-It is raw HTML, so links and `<blockquote>` work as written.
+The homepage cards (`index.html`, `index-en.html`) are rebuilt from the same
+files, and `build-index.ps1` copies them onto `projects.html`. A card names its
+photo in `data-bg`; `main.js` sets it once the rail is near the screen.
 
-## Galleries
+Until 2026-10-01 five projects lived in `tools/projects/projects.json` and
+ORO, PASHA and Terminal were pages written by hand; all eight were moved into
+`content/projects/` with their texts unchanged. The per-logo heights that used
+to sit in style.css by file name are `logoHeight` now.
 
-The generator drops the template's `.gallery` block. Photos for four of the
-projects are not sorted yet, and a strip of grey placeholders reads as a broken
-page. To add a real gallery, paste the block back between the hero `<figure>` and
-`.article__body` — copy the shape from `terminal.html`, which the lightbox and
-the edge-fade script both pick up automatically.
+## Pictures
+
+Uploaded in the editor, a picture lands in `assets/img/uploads/` and
+`2-images.ps1` converts it into the project's own names:
+- the hero becomes `proj-<slug>.jpg` (16:9, 1600×900), with a full-size AVIF
+  twin for the page and a 1400px `-card.avif` for the cards;
+- the logo becomes `clients/<slug>.svg` (an SVG as it is) or `clients/<slug>.png`;
+- the gallery becomes `assets/img/<slug>-gallery/<slug>-<n>.avif`. Removing
+  every uploaded gallery photo removes the gallery.
+
+`assets/img/uploads/_processed.json` (shared with the news) records what was
+made from what, so a picture is converted again only when it is replaced.
+
+On the office computer the project folders under `Projects files/` still
+work: `thumbnail.*` is the hero and `Main gallery/` the gallery, made again only
+when a source photo is newer than what it made. `DO NOT USE/` is never read.
+Editor uploads win over the folder.
 
 ## Assets still missing
 
-- **culinary** — no photograph and no client logo. `assets/img/proj-culinary.jpg`
-  is a generated brand plate standing in for the hero; replace the file and the
-  page and the homepage card both update. Set `logo` once a mark exists.
+- **culinary** — no photograph. `assets/img/proj-culinary.jpg` is a generated
+  brand plate standing in for the hero; upload a photo in the editor and the
+  page and both cards update.

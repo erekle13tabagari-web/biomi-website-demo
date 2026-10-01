@@ -1,0 +1,37 @@
+{
+  "slug": "terminal",
+  "order": 1,
+  "hero": "/assets/img/proj-terminal.jpg",
+  "logo": "/assets/img/clients/terminal.svg",
+  "lockup": false,
+  "logoHeight": 28,
+  "video": "https://www.youtube.com/watch?v=Fux3suuntOE",
+  "gallery": [],
+  "src": "",
+  "ka": {
+    "h1": "Terminal Towers",
+    "sub": "საინჟინრო სამუშაოები საზიარო სამუშაო სივრცეში",
+    "cat": "კომერციული",
+    "crumb": "",
+    "card": "",
+    "lead": "Axis Towers-ში მდებარე Terminal Towers თანამედროვე საზიარო სამუშაო სივრცეა, რომელიც აერთიანებს ღია სამუშაო ზონებს, კერძო ოფისებს, შეხვედრებისა და საკონფერენციო სივრცეებს.",
+    "body": "ობიექტზე „ბიომი ჰოლდინგმა“ გათბობა-გაგრილებისა და ვენტილაციის სისტემების ფარგლებში შესაბამისი საინჟინრო სამუშაოები შეასრულა.\n\n## პროექტის სპეციფიკა\n\nსამუშაოები მოიცავდა როგორც ღია, ლოფტის სტილის სივრცეებში ხილული ჰაერსატარების მოწყობას, ისე დახურული ჭერის მქონე ზონებში სისტემების ინტეგრირებას. განსხვავებული არქიტექტურული გადაწყვეტისა და ფუნქციის მქონე სივრცეები შესრულებისადმი შესაბამის მიდგომას მოითხოვდა.\n\n## გადაწყვეტა\n\nღია სამუშაო ზონები, კერძო ოფისები და საკონფერენციო სივრცეები განსხვავებულ დატვირთვასა და ჰაერის განაწილების მოთხოვნებს ქმნის. „ბიომი ჰოლდინგის“ საინჟინრო შესრულება სწორედ ამ ფუნქციურ, ტექნიკურ და არქიტექტურულ სპეციფიკას მოერგო.\n\n„ბიომი ჰოლდინგი“ - თქვენი საიმედო პარტნიორი.",
+    "alt": "",
+    "cap": "ობიექტი: Terminal Towers, Axis Towers - თბილისი",
+    "title": "",
+    "desc": "Axis Towers-ში მდებარე Terminal Towers-ის საზიარო სამუშაო სივრცეში „ბიომი ჰოლდინგმა“ ჰაერსატარების მოწყობისა და საინჟინრო სამუშაოები შეასრულა."
+  },
+  "en": {
+    "h1": "Terminal Towers",
+    "sub": "engineering works in a shared workspace",
+    "cat": "Commercial",
+    "crumb": "",
+    "card": "",
+    "lead": "Terminal Towers, in the Axis Towers complex, is a modern shared workspace combining open-plan work areas, private offices, and meeting and conference rooms.",
+    "body": "Biomi Holding carried out the relevant engineering works for the heating, cooling and ventilation systems.\n\n## Project specifics\n\nThe work covered both exposed ductwork in the open, loft-style areas and integrating the systems into zones with closed ceilings. Spaces with different architectural treatments and different functions each demanded their own approach.\n\n## The solution\n\nOpen work areas, private offices and conference rooms create different loads and air-distribution requirements. Biomi Holding's execution was fitted to exactly those functional, technical and architectural specifics.\n\nBiomi Holding - your reliable partner.",
+    "alt": "",
+    "cap": "Facility: Terminal Towers, Axis Towers - Tbilisi",
+    "title": "",
+    "desc": "At Terminal Towers, a shared workspace in the Axis Towers complex, Biomi Holding delivered the ductwork and the associated engineering works."
+  }
+}

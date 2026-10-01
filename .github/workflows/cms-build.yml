@@ -1,6 +1,7 @@
-# An article saved in the content editor (https://test.biomi.ge/admin, Decap
-# CMS) arrives as a commit to content/ or assets/img/uploads/. This converts its
-# pictures, rebuilds the news pages, the homepage rail, the meta tags and the
+# An article or project saved in the content editor (https://test.biomi.ge/admin,
+# Decap CMS) arrives as a commit to content/ or assets/img/uploads/. This
+# converts its pictures, rebuilds the news and project pages, the homepage
+# rails, projects.html, the meta tags and the
 # search index with the same scripts used by hand, commits the result, and
 # uploads the changed files to test.biomi.ge. biomi.ge is still published by
 # hand ("Upload Live Site"), after a look at the test site.
@@ -49,7 +50,10 @@ jobs:
             if ($LASTEXITCODE) { throw ($script + ' failed') }
           }
           Run 'tools\news\1-images.ps1' @('-UploadsOnly')
+          Run 'tools\projects\2-images.ps1' @('-UploadsOnly')
           Run 'tools\news\build-news.ps1' @()
+          # the project pages, the homepage's project cards and projects.html
+          Run 'tools\projects\build-projects.ps1' @()
           Run 'tools\build-meta.ps1' @()
           Run 'build-search-index.ps1' @()
           Run 'check-meta.ps1' @()

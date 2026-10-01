@@ -1,0 +1,36 @@
+{
+  "slug": "chateau",
+  "order": 5,
+  "hero": "/assets/img/proj-chateau.jpg",
+  "logo": "/assets/img/clients/chateau.svg",
+  "lockup": true,
+  "video": "https://www.youtube.com/watch?v=68BXqG8BG2Y",
+  "gallery": [],
+  "src": "შატო მეფის ქალაქი",
+  "ka": {
+    "h1": "შატო მეფის ქალაქი",
+    "sub": "HVAC სასტუმროს ტიპის ობიექტისთვის",
+    "cat": "სტუმართმასპინძლობა",
+    "crumb": "",
+    "card": "",
+    "lead": "კასპის რეგიონში, ვენახებითა და მთის ხედებით გარშემორტყმული „შატო მეფის ქალაქი“ ტრადიციულ ქართულ არქიტექტურას თანამედროვე სტუმარმასპინძლობის კონცეფციასთან აერთიანებს.",
+    "body": "ასეთ სივრცეში კომფორტი მხოლოდ არქიტექტურითა და ინტერიერით არ იქმნება - მის მნიშვნელოვან საფუძველს სწორად დაგეგმილი საინჟინრო სისტემები წარმოადგენს. „შატო მეფის ქალაქისთვის“ „ბიომი ჰოლდინგმა“ გათბობის, გაგრილებისა და ვენტილაციის სისტემების პროექტირება განახორციელა.\n\n## პროექტის სპეციფიკა\n\nსასტუმროს ტიპის ობიექტი HVAC სისტემებისგან განსხვავებული სივრცეების ერთიან მართვას მოითხოვს. სასტუმრო ნომრები, საერთო და სარელაქსაციო სივრცეები თუ სხვა ფუნქციური ზონები განსხვავებულ რეჟიმებში მუშაობს, თუმცა საბოლოოდ ერთიან საინჟინრო გარემოს უნდა ქმნიდეს.\n\n## გადაწყვეტა\n\nპროექტირებისას „ბიომი ჰოლდინგის“ საინჟინრო გუნდის ამოცანა სწორედ ამ განსხვავებული მოთხოვნების ერთ სისტემაში გაერთიანება და ობიექტის სპეციფიკაზე მორგებული HVAC გადაწყვეტის შექმნა იყო. პროექტში გამოყენებულია [Vortice](../products/ventilation.html?brand=vortice)-ისა და ÜNTES-ის ტექნოლოგიები, რომლებიც გათბობის, გაგრილებისა და ვენტილაციის ერთიანი საინჟინრო კონცეფციის ნაწილად განისაზღვრა.\n\n> „შატო მეფის ქალაქის“ პროექტი ასახავს „ბიომი ჰოლდინგის“ მიდგომას სტუმარმასპინძლობის სექტორის საინჟინრო ინფრასტრუქტურის მიმართ - ტექნიკური გადაწყვეტა უნდა პასუხობდეს არა მხოლოდ შენობის პარამეტრებს, არამედ სივრცის ფუნქციას, მისი გამოყენების სცენარსა და კონკრეტულ მოთხოვნებს.\n> - „ბიომი ჰოლდინგი“\n\n„ბიომი ჰოლდინგი“ - იდეიდან ფუნქციონირებად სისტემამდე.",
+    "alt": "",
+    "cap": "ობიექტი: შატო მეფის ქალაქი - კასპი",
+    "title": "",
+    "desc": "კასპის რეგიონში მდებარე „შატო მეფის ქალაქისთვის“ „ბიომი ჰოლდინგმა“ გათბობის, გაგრილებისა და ვენტილაციის სისტემების პროექტირება განახორციელა."
+  },
+  "en": {
+    "h1": "Chateau Mephis Kalaki",
+    "sub": "HVAC for a hospitality building",
+    "cat": "Hospitality",
+    "crumb": "",
+    "card": "",
+    "lead": "Set among vineyards and mountain views in the Kaspi region, Chateau Mephis Kalaki joins traditional Georgian architecture to a modern idea of hospitality.",
+    "body": "In a building like this, comfort is not made by architecture and interiors alone - a significant part of its foundation is engineering that has been properly planned. For Chateau Mephis Kalaki, Biomi Holding designed the heating, cooling and ventilation systems.\n\n## Project specifics\n\nA hospitality building asks HVAC to manage spaces that behave quite differently. Guest rooms, communal and relaxation areas and other functional zones all run in their own regimes, yet together they have to produce one coherent environment.\n\n## The solution\n\nThe engineering team's task was exactly that: to bring those differing requirements into a single system and build an HVAC solution fitted to the building. The project uses [Vortice](../products/ventilation-en.html?brand=vortice) and ÜNTES technology, specified as part of one combined heating, cooling and ventilation concept.\n\n> The Chateau Mephis Kalaki project reflects Biomi Holding's approach to engineering infrastructure in the hospitality sector - a technical solution has to answer not only the building's parameters but the function of the space, how it will be used, and its specific requirements.\n> - Biomi Holding\n\nBiomi Holding - from an idea to a working system.",
+    "alt": "",
+    "cap": "Facility: Chateau Mephis Kalaki - Kaspi",
+    "title": "",
+    "desc": "For Chateau Mephis Kalaki in the Kaspi region, Biomi Holding designed the heating, cooling and ventilation systems."
+  }
+}

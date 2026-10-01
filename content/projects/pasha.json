@@ -1,0 +1,36 @@
+{
+  "slug": "pasha",
+  "order": 4,
+  "hero": "/assets/img/proj-pasha.jpg",
+  "logo": "/assets/img/clients/pasha.svg",
+  "lockup": true,
+  "video": "https://www.youtube.com/watch?v=mIqxVbl-ZDI",
+  "gallery": [],
+  "src": "",
+  "ka": {
+    "h1": "PASHA Bank-ის სათაო ოფისი",
+    "sub": "საინჟინრო სამუშაოები Axis Towers-ში",
+    "cat": "საბანკო",
+    "crumb": "PASHA Bank",
+    "card": "",
+    "lead": "Axis Towers-ის A კლასის ბიზნეს ცენტრში განთავსებული PASHA Bank-ის სათაო ოფისი 1 747 მ² ფართობს მოიცავს.",
+    "body": "ობიექტზე „ბიომი ჰოლდინგმა“ გათბობა-გაგრილებისა და ვენტილაციის სისტემების ფარგლებში შესაბამისი საინჟინრო სამუშაოები შეასრულა.\n\n## პროექტის სპეციფიკა\n\nპროექტის ერთ-ერთი გამორჩეული ელემენტი ღია, ინდუსტრიული ჭერია, სადაც საინჟინრო კომუნიკაციები ინტერიერის ხილული ნაწილია. შესაბამისად, ჰაერსატარების მოწყობა ტექნიკურ სიზუსტესთან ერთად სივრცის ვიზუალური კონცეფციის გათვალისწინებასაც მოითხოვდა.\n\n## გადაწყვეტა\n\nღია ჭერის პირობებში ჰაერსატარების ქსელი მოეწყო სივრცის ფუნქციური ზონებისა და ტექნიკური მოთხოვნების შესაბამისად. განსაკუთრებული ყურადღება დაეთმო საინჟინრო კომუნიკაციების ზუსტ განლაგებასა და მონტაჟის ხარისხს.",
+    "alt": "",
+    "cap": "ობიექტი: PASHA Bank-ის სათაო ოფისი, Axis Towers - თბილისი",
+    "title": "",
+    "desc": "Axis Towers-ის A კლასის ბიზნეს ცენტრში, PASHA Bank-ის 1 747 მ² სათაო ოფისზე „ბიომი ჰოლდინგმა“ ჰაერსატარების მოწყობისა და საინჟინრო სამუშაოები შეასრულა."
+  },
+  "en": {
+    "h1": "PASHA Bank head office",
+    "sub": "engineering works at Axis Towers",
+    "cat": "Banking",
+    "crumb": "PASHA Bank",
+    "card": "",
+    "lead": "PASHA Bank's head office, in the class A Axis Towers business centre, covers 1,747 m².",
+    "body": "Biomi Holding carried out the relevant engineering works for the heating, cooling and ventilation systems.\n\n## Project specifics\n\nOne of the defining elements of the project is the open, industrial ceiling, where the engineering services are a visible part of the interior. Installing the ductwork therefore called for judgement about the visual concept of the space as much as for technical precision.\n\n## The solution\n\nWith the ceiling left open, the ductwork was laid out to suit both the functional zones of the space and the technical requirements. Particular attention went to the exact routing of the engineering services and to the quality of the installation.",
+    "alt": "",
+    "cap": "Facility: PASHA Bank head office, Axis Towers - Tbilisi",
+    "title": "",
+    "desc": "At PASHA Bank's 1,747 m² head office in the class A Axis Towers business centre, Biomi Holding delivered the ductwork and the associated engineering works."
+  }
+}

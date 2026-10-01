@@ -1,0 +1,36 @@
+{
+  "slug": "agrarian",
+  "order": 7,
+  "hero": "/assets/img/proj-agrarian.jpg",
+  "logo": "/assets/img/clients/agrarian.png",
+  "lockup": true,
+  "video": "https://www.youtube.com/watch?v=nTd14BW4ecA",
+  "gallery": [],
+  "src": "აგრარული უნივერსიტეტი",
+  "ka": {
+    "h1": "საქართველოს აგრარული უნივერსიტეტი",
+    "sub": "საინჟინრო პარტნიორობა 2008 წლიდან",
+    "cat": "საგანმანათლებლო",
+    "crumb": "აგრარული უნივერსიტეტი",
+    "card": "",
+    "lead": "2008 წლიდან „ბიომი ჰოლდინგი“ საქართველოს აგრარული უნივერსიტეტის საინჟინრო პარტნიორია. მრავალწლიანი თანამშრომლობის ფარგლებში კომპანიამ უნივერსიტეტის სხვადასხვა დანიშნულების სივრცეებისთვის HVAC სისტემების პროექტირება და მოწყობა განახორციელა.",
+    "body": "## პროექტის სპეციფიკა\n\nსამუშაოები მოიცავდა უნივერსიტეტის აუდიტორიებს, კვლევით ლაბორატორიებს, ვეტერინარულ კლინიკას, კულინარიის აკადემიას, ასევე სასწავლო და საგამოცდო სივრცეებს. თითოეული მათგანის დანიშნულება და ფუნქციური დატვირთვა HVAC სისტემებისადმი სპეციფიკურ მოთხოვნებს განსაზღვრავდა.\n\nპროექტები სხვადასხვა პერიოდში ხორციელდებოდა, ამიტომ თითოეულ ეტაპზე საჭირო იყო კონკრეტული სივრცის მოთხოვნების უნივერსიტეტის არსებულ საინჟინრო ინფრასტრუქტურასთან შეჯერება.\n\n## გადაწყვეტა\n\n„ბიომი ჰოლდინგმა“ გათბობის, გაგრილებისა და ვენტილაციის სისტემები თითოეული სივრცის ფუნქციის, ტექნიკური პარამეტრებისა და დატვირთვის შესაბამისად დააპროექტა და მოაწყო. გათბობის სისტემაში გამოყენებულია იტალიური პრემიუმ ბრენდის - RIELLO-ს RTQ 2S სერიის ფოლადის წნევიანი ქვაბები, რომლებიც ამავე ბრენდის RS სერიის პროგრესული, ორსაფეხურიანი გაზის სანთურებითაა დაკომპლექტებული. საინჟინრო გადაწყვეტები ინდივიდუალურად განისაზღვრა და უნივერსიტეტის არსებულ ინფრასტრუქტურასთან შესაბამისობაში განხორციელდა.\n\n2008 წელს დაწყებული პარტნიორობის კიდევ ერთი ეტაპი უნივერსიტეტის ბიბლიოთეკის გათბობა-გაგრილების სისტემების რეკონსტრუქციით გაგრძელდა. პროექტი არსებული საინჟინრო ინფრასტრუქტურის განახლებასა და სივრცის საჭიროებებთან შესაბამისობაში მოყვანას ითვალისწინებდა.",
+    "alt": "",
+    "cap": "ობიექტი: საქართველოს აგრარული უნივერსიტეტი - თბილისი",
+    "title": "",
+    "desc": "2008 წლიდან „ბიომი ჰოლდინგი“ საქართველოს აგრარული უნივერსიტეტის საინჟინრო პარტნიორია - აუდიტორიები, ლაბორატორიები, ვეტერინარული კლინიკა და სასწავლო სივრცეები."
+  },
+  "en": {
+    "h1": "Agricultural University of Georgia",
+    "sub": "an engineering partnership since 2008",
+    "cat": "Educational",
+    "crumb": "Agricultural University",
+    "card": "",
+    "lead": "Biomi Holding has been the Agricultural University of Georgia's engineering partner since 2008. Over many years of collaboration the company has designed and installed HVAC systems for spaces across the university serving very different purposes.",
+    "body": "## Project specifics\n\nThe work covered the university's lecture halls, research laboratories, veterinary clinic and culinary academy, as well as its teaching and examination spaces. The purpose and function of each one set its own specific requirements for the HVAC systems.\n\nThe projects were carried out at different times, so each stage meant reconciling the needs of a particular space with the university's existing engineering infrastructure.\n\n## The solution\n\nBiomi Holding designed and installed the heating, cooling and ventilation systems to suit each space's function, technical parameters and loads. The heating system uses RTQ 2S series steel pressure boilers from the Italian premium brand RIELLO, fitted with the same brand's RS series two-stage progressive gas burners. The engineering solutions were defined individually and carried out in line with the university's existing infrastructure.\n\nAnother stage of the partnership that began in 2008 was the reconstruction of the heating and cooling systems in the university library, which involved renewing the existing engineering infrastructure and bringing it into line with the needs of the space.",
+    "alt": "",
+    "cap": "Facility: Agricultural University of Georgia - Tbilisi",
+    "title": "",
+    "desc": "Biomi Holding has been the Agricultural University of Georgia's engineering partner since 2008 - lecture halls, laboratories, a veterinary clinic and teaching spaces."
+  }
+}
