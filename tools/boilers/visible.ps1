@@ -39,7 +39,9 @@ $BOILER_KWMIN = 45
 # test site only (and removes them from biomi.ge). Matched against slugs:
 # 'emtas' covers the hub emtas.html and every emtas-* page, image and logo.
 # To publish: empty the list, then rebuild as in README.md and upload.
-$PREVIEW = @('emtas')
+# Emtaş was published on 2026-10-02 (EK3G and EK3G/S); the list is empty until
+# the next brand that needs a test-site run first.
+$PREVIEW = @()
 function IsPreviewSlug([string]$slug) {
   foreach ($p in $PREVIEW) { if ($slug -eq $p -or $slug -like "$p-*") { return $true } }
   return $false
