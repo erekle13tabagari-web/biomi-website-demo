@@ -115,8 +115,14 @@ foreach ($p in $DATA) {
     if ($shots.Count) {
       $o.Add('')
       $o.Add('      <div class="gallery" aria-label="' + $l.gallery + '">')
+      # Where 2-images.ps1 made a small copy in thumb/ (since 2026-10-05), the
+      # strip shows that and the lightbox opens the full photo (data-full), so
+      # the page does not fetch nine large files for 132px thumbnails.
       for ($k = 0; $k -lt $shots.Count; $k++) {
-        $o.Add('        <img src="../assets/img/' + $p.slug + '-gallery/' + $shots[$k].Name + '" alt="' +
+        $gpath = '../assets/img/' + $p.slug + '-gallery/'
+        $hasThumb = Test-Path (Join-Path $gdir ('thumb\' + $shots[$k].Name))
+        $srcAttr = if ($hasThumb) { $gpath + 'thumb/' + $shots[$k].Name + '" data-full="' + $gpath + $shots[$k].Name } else { $gpath + $shots[$k].Name }
+        $o.Add('        <img src="' + $srcAttr + '" alt="' +
                (AttEsc ($t.alt + $l.shot + ($k + 1))) + '" loading="lazy" data-lightbox>')
       }
       $o.Add('      </div>')

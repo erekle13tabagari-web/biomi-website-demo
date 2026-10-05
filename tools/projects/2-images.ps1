@@ -31,7 +31,15 @@ $MAGICK = 'magick'
 
 # The hero matches the other project heroes at 1600x900; the gallery the
 # Terminal and PASHA sets at 1600px wide, which lands each shot around 45 KB.
-$HERO_W = 1600; $HERO_H = 900; $GAL_W = 1600; $GAL_H = 1200; $GAL_Q = 48
+#
+# Since 2026-10-05 (the Tsre photos looked visibly smoothed at that setting):
+# a gallery photo is 2400px at quality 75 - next to the original at 100% it
+# keeps the concrete texture and the grilles' edges - and opens only in the
+# lightbox (data-full); the strip under the hero shows a ~600px copy from
+# <slug>-gallery/thumb/ (see build-projects.ps1). The hero's AVIF is made from
+# the source at quality 72 instead of re-encoding the JPEG at 55.
+$HERO_W = 1600; $HERO_H = 900; $HERO_Q = 72
+$GAL_W = 2400; $GAL_H = 1800; $GAL_Q = 75; $THUMB_H = 280; $THUMB_Q = 60
 
 $DATA = Get-ProjectItems
 
@@ -56,13 +64,14 @@ function MakeHero([string]$source, [string]$name) {
   $w  = [int](& $MAGICK identify -format '%w' ($source + '[0]'))
   $tw = [Math]::Min($w, $HERO_W)
   $th = [int][Math]::Round($tw * $HERO_H / $HERO_W)
-  & $MAGICK ($source + '[0]') -auto-orient -resize ($tw.ToString() + 'x' + $th + '^') `
-            -gravity center -extent ($tw.ToString() + 'x' + $th) -quality 82 $dst
+  $crop = @('-auto-orient', '-resize', ($tw.ToString() + 'x' + $th + '^'), '-gravity', 'center', '-extent', ($tw.ToString() + 'x' + $th))
+  & $MAGICK ($source + '[0]') @crop -quality 82 $dst
   # The homepage and projects.html show the hero as a card background: an AVIF
   # copy at 1400px, about a third of the JPEG. The JPEG stays for the lightbox.
-  & $MAGICK $dst -resize '1400x>' -quality 55 ($dst -replace '\.jpg$', '-card.avif')
-  # full-size AVIF twin for the project page's own hero (build-projects.ps1)
-  & $MAGICK $dst -quality 55 ($dst -replace '\.jpg$', '.avif')
+  & $MAGICK ($source + '[0]') @crop -resize '1400x>' -quality 55 ($dst -replace '\.jpg$', '-card.avif')
+  # full-size AVIF twin for the project page's own hero (build-projects.ps1),
+  # made from the source rather than from the JPEG, so it is compressed once
+  & $MAGICK ($source + '[0]') @crop -quality $HERO_Q ($dst -replace '\.jpg$', '.avif')
   return ('' + $tw + 'x' + $th)
 }
 function MakeLogo([string]$source, [string]$name) {
@@ -77,13 +86,18 @@ function MakeGallery([string]$slug, [string[]]$sources) {
   # Clear every image, not just the .avif this writes, so a photo taken out of
   # the set leaves the site rather than lingering as an orphan.
   Get-ChildItem $gdir -File | Where-Object { $_.Extension -match '^\.(avif|webp|png|jpe?g)$' } | Remove-Item -Force
+  $tdir = Join-Path $gdir 'thumb'
+  if (Test-Path $tdir) { Remove-Item -LiteralPath $tdir -Recurse -Force }
+  New-Item -ItemType Directory -Force $tdir | Out-Null
   $n = 0
   foreach ($s in $sources) {
     $n++
-    # Fit inside 1600x1200 rather than capping the width alone, so a portrait
+    $full = Join-Path $gdir ($slug + '-' + $n + '.avif')
+    # Fit inside 2400x1800 rather than capping the width alone, so a portrait
     # is not given three times a landscape shot's pixels. '>' only shrinks.
-    & $MAGICK ($s + '[0]') -auto-orient -resize ($GAL_W.ToString() + 'x' + $GAL_H + '>') -quality $GAL_Q `
-              (Join-Path $gdir ($slug + '-' + $n + '.avif'))
+    & $MAGICK ($s + '[0]') -auto-orient -resize ($GAL_W.ToString() + 'x' + $GAL_H + '>') -quality $GAL_Q $full
+    # the strip's copy: it shows 132x88 (cropped), so 280px tall covers 3x screens
+    & $MAGICK ($s + '[0]') -auto-orient -resize ('x' + $THUMB_H + '>') -quality $THUMB_Q (Join-Path $tdir ($slug + '-' + $n + '.avif'))
   }
   return $n
 }

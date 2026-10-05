@@ -68,6 +68,13 @@ Uploaded in the editor, a picture lands in `assets/img/uploads/` and
 - the gallery becomes `assets/img/<slug>-gallery/<slug>-<n>.avif`. Removing
   every uploaded gallery photo removes the gallery.
 
+Since 2026-10-05 a gallery photo is made at 2400px, quality 75 (it was 1600px
+at 48, which visibly smoothed detailed photos), plus a 280px-tall copy in
+`<slug>-gallery/thumb/`. The page's strip shows the copy and the lightbox
+opens the full photo (`data-full`). The hero's AVIF is quality 72, made from
+the source. Galleries made before then (all but Tsre) keep their old files
+until their photos are made again.
+
 `assets/img/uploads/_processed.json` (shared with the news) records what was
 made from what, so a picture is converted again only when it is replaced.
 
