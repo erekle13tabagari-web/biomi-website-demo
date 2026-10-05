@@ -1331,6 +1331,10 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
    apply. The cards keep their .proj--N classes only to carry their photo. */
 .proj-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
 .proj-gallery .proj{min-height:300px}
+/* Every title keeps room for two lines, so the category labels of a row line
+   up: a one-line name (SDSU, PASHA Bank) beside a two-line one (შატო მეფის
+   ქალაქი) sat a line lower (2026-10-05). 2.36em is the fallback for 2lh. */
+.proj-gallery .proj__meta h3{min-height:2.36em;min-height:2lh}
 /* Four columns need about 260px each to keep the title on two lines and the
    logo chip clear of it; below that, drop a column at a time. */
 @media (max-width:1180px){.proj-gallery{grid-template-columns:repeat(3,1fr)}}
