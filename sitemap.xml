@@ -28,13 +28,13 @@
     <loc>https://biomi.ge/</loc>
     <xhtml:link rel="alternate" hreflang="ka" href="https://biomi.ge/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/index-en.html"/>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://biomi.ge/index-en.html</loc>
     <xhtml:link rel="alternate" hreflang="ka" href="https://biomi.ge/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/index-en.html"/>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://biomi.ge/marketing.html</loc>
@@ -1216,7 +1216,7 @@
     <loc>https://biomi.ge/projects.html</loc>
     <xhtml:link rel="alternate" hreflang="ka" href="https://biomi.ge/projects.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/projects-en.html"/>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://biomi.ge/projects/agrarian.html</loc>
@@ -1315,9 +1315,21 @@
     <lastmod>2026-10-02</lastmod>
   </url>
   <url>
+    <loc>https://biomi.ge/projects/tsre.html</loc>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://biomi.ge/projects/tsre.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/projects/tsre-en.html"/>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://biomi.ge/projects/tsre-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ka" href="https://biomi.ge/projects/tsre.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/projects/tsre-en.html"/>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
     <loc>https://biomi.ge/projects-en.html</loc>
     <xhtml:link rel="alternate" hreflang="ka" href="https://biomi.ge/projects.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://biomi.ge/projects-en.html"/>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
 </urlset>

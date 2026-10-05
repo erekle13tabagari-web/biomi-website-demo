@@ -1,0 +1,36 @@
+{
+  "slug": "tsre",
+  "order": 1,
+  "hero": "/assets/img/proj-tsre.jpg",
+  "logo": "/assets/img/clients/tsre.png",
+  "lockup": true,
+  "video": "",
+  "gallery": [],
+  "src": "ფიტნესკლუბი წრე",
+  "ka": {
+    "h1": "წრე",
+    "sub": "საინჟინრო გადაწყვეტები მრავალფუნქციური ფიტნესსივრცისთვის",
+    "cat": "სპორტული",
+    "crumb": "",
+    "card": "",
+    "lead": "„წრე“ ორდონიანი ფიტნესკლუბია, რომელიც აერთიანებს ძალოვანი და მსუბუქი ვარჯიშების, იოგას, ბოქსისა და სხვა ფიტნესაქტივობებისთვის განკუთვნილ სივრცეებს.",
+    "body": "ობიექტზე „ბიომი ჰოლდინგმა“ გათბობის, გაგრილების, ვენტილაციისა და წყალმომარაგების სისტემები სრულად მოაწყო.\n\n## პროექტის სპეციფიკა\n\nსხვადასხვა ინტენსივობის სავარჯიშო ზონები ჰაერცვლისა და ტემპერატურული რეჟიმის ინდივიდუალურად განსაზღვრას მოითხოვდა. განსაკუთრებული ყურადღება დაეთმო მომხმარებელთა რაოდენობის შესაბამისი სუფთა ჰაერის მიწოდებას, ჭარბი სითბოსა და ტენიანობის მოცილებას, ასევე საშხაპეებისა და გასახდელების გამწოვი ვენტილაციის მოწყობას.\n\n## გადაწყვეტა\n\nსივრცეებში არხული ტიპის კონდიცირებისა და ვენტილაციის სისტემები მოვაწყვეთ. გათბობისთვის იტალიური ბრენდის - [„Beretta-ს“ კონდენსაციური ქვაბები](../products/boilers.html?brand=beretta) დავამონტაჟეთ, ხოლო ცხელი წყლით მომარაგებისთვის - [„Omega-ს“ ბოილერები](../products/water-heaters.html?brand=omega).\n\nღია ჰაერსატარები ლოფტის არქიტექტურულ კონცეფციას მოვარგეთ და ელექტროსტატიკური მეთოდით დატანილი ფხვნილოვანი საღებავით დავფარეთ, რითიც ზედაპირმა ექსპლუატაციისთვის საჭირო მექანიკური და კოროზიული მდგრადობა შეიძინა.\n\nსაინჟინრო სამუშაოები დამკვეთთან კოორდინაციით შევასრულეთ და თითოეული ზონის ფუნქციურ და ტექნიკურ მოთხოვნებს მოვარგეთ.\n\n„ბიომი ჰოლდინგი“ - თქვენი საიმედო HVAC პარტნიორი.",
+    "alt": "ფიტნესკლუბი „წრე“",
+    "cap": "ობიექტი: ფიტნესკლუბი „წრე“ - თბილისი",
+    "title": "„წრე“ - საინჟინრო გადაწყვეტები ფიტნესსივრცისთვის - ბიომი",
+    "desc": "ფიტნესკლუბ „წრეში“ „ბიომი ჰოლდინგმა“ გათბობის, გაგრილების, ვენტილაციისა და წყალმომარაგების სისტემები სრულად მოაწყო - არხული კონდიცირება და ვენტილაცია, Beretta-ს კონდენსაციური ქვაბები და Omega-ს ბოილერები."
+  },
+  "en": {
+    "h1": "Tsre",
+    "sub": "engineering solutions for a multi-purpose fitness space",
+    "cat": "Sports & fitness",
+    "crumb": "",
+    "card": "",
+    "lead": "Tsre is a two-level fitness club that brings together spaces for strength and light training, yoga, boxing and other fitness activities.",
+    "body": "At the club, Biomi Holding fitted out the complete heating, cooling, ventilation and water-supply systems.\n\n## Project specifics\n\nTraining zones of different intensity each called for their own air-exchange rate and temperature. Particular attention went to supplying fresh air in line with the number of visitors, removing excess heat and humidity, and the extract ventilation for the showers and changing rooms.\n\n## Solution\n\nWe fitted ducted air-conditioning and ventilation systems throughout. For heating we installed [condensing boilers from the Italian brand Beretta](../products/boilers-en.html?brand=beretta), and for hot water, [Omega water heaters](../products/water-heaters-en.html?brand=omega).\n\nThe exposed ductwork was matched to the loft architecture and finished in electrostatically applied powder coating, which gives the surface the mechanical and corrosion resistance it needs in daily use.\n\nThe engineering work was carried out in coordination with the client and tailored to the functional and technical needs of each zone.\n\nBiomi Holding - your reliable HVAC partner.",
+    "alt": "Tsre fitness club",
+    "cap": "Facility: Tsre fitness club - Tbilisi",
+    "title": "Tsre - engineering solutions for a fitness space - Biomi",
+    "desc": "At the Tsre fitness club, Biomi Holding fitted out the complete heating, cooling, ventilation and water-supply systems - ducted air conditioning and ventilation, Beretta condensing boilers and Omega water heaters."
+  }
+}
