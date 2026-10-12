@@ -9,6 +9,8 @@
 #
 #   slug, order, hero, heroUpload, logo, logoUpload, lockup, logoHeight, video,
 #   gallery[] (uploaded source files), src (the photo folder under "Projects files"),
+#   shots[] (the folder gallery's files in order, when "Main gallery" sorted by
+#   number is not the set - Chateau, ORO and Terminal),
 #   ka/en { card, crumb, title, desc, h1, sub, cat, alt, cap, lead, body[] }
 #
 # - body is the same simple Markdown as the news (tools/markdown.ps1). A quote's
@@ -69,6 +71,9 @@ function Get-ProjectItems {
       video      = (YouTubeId ([string]$j.video))
       gallery    = @(@($j.gallery) | Where-Object { $_ } | ForEach-Object { ([string]$_).TrimStart('/') })
       src        = [string]$j.src
+      # the folder gallery's photos in page order, as paths inside src - for a
+      # set that is not simply "Main gallery" in number order
+      shots      = @(@($j.shots) | Where-Object { $_ } | ForEach-Object { [string]$_ })
     }
     if (-not $it.hero) { throw ('no main photo in ' + $f.Name) }
     foreach ($lang in 'ka', 'en') {

@@ -20,8 +20,17 @@
 #    project's pictures are left as they are.
 #
 # -UploadsOnly converts the editor's uploads and leaves the folders alone (the
-# GitHub build uses it).
-param([switch]$UploadsOnly)
+# GitHub build uses it). -Remake <slug>[,<slug>] makes those projects' folder
+# hero and gallery again whatever the dates say - for when older photos are put
+# back, or to bring old pictures up to the current quality.
+#
+# "shots" in a project file lists the gallery's photos (paths inside the
+# folder) in page order, for a set that is not "Main gallery" in number order:
+# Chateau's runs 101, 99, 22 ..., Terminal's fourth photo sits outside
+# "main gallery", and ORO's photos are loose in its folder.
+param([switch]$UploadsOnly, [string[]]$Remake = @())
+# "powershell -File ... -Remake a,b" hands over the one string "a,b"
+$Remake = @($Remake | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
 $sp   = $PSScriptRoot
 $repo = Split-Path (Split-Path $sp -Parent) -Parent
 $SRC  = Join-Path $repo 'Projects files'
@@ -154,14 +163,22 @@ foreach ($p in $DATA) {
       if (-not $p.heroUpload) {
         $thumb = Get-ChildItem -LiteralPath $folder -File | Where-Object { $_.BaseName -eq 'thumbnail' } | Select-Object -First 1
         if ($thumb -and $p.hero -eq ('proj-' + $p.slug + '.jpg')) {
-          if (Fresh $thumb.FullName $p.hero) { $heroNote = 'folder (current)' }
+          if ((Fresh $thumb.FullName $p.hero) -and $Remake -notcontains $p.slug) { $heroNote = 'folder (current)' }
           else { $heroNote = 'folder ' + (MakeHero $thumb.FullName $p.hero) }
         }
       }
       $main = Join-Path $folder 'Main gallery'
-      if (-not @($p.gallery).Count -and (Test-Path -LiteralPath $main)) {
-        $shots = @(Get-ChildItem -LiteralPath $main -File |
-                   Where-Object { $_.Extension -match '^\.(png|jpg|jpeg|webp)$' } | Sort-Object { NaturalKey $_.Name })
+      if (-not @($p.gallery).Count -and (@($p.shots).Count -or (Test-Path -LiteralPath $main))) {
+        if (@($p.shots).Count) {
+          # "shots" in the project file names the photos and their order
+          $shots = @($p.shots | ForEach-Object {
+            $f = Join-Path $folder $_
+            if (-not (Test-Path -LiteralPath $f)) { throw ('"' + $_ + '" (shots, ' + $p.slug + ') is not in ' + $folder) }
+            Get-Item -LiteralPath $f })
+        } else {
+          $shots = @(Get-ChildItem -LiteralPath $main -File |
+                     Where-Object { $_.Extension -match '^\.(png|jpg|jpeg|webp)$' } | Sort-Object { NaturalKey $_.Name })
+        }
         $gdir = Join-Path $IMG ($p.slug + '-gallery')
         $made = @(Get-ChildItem $gdir -Filter '*.avif' -File -ErrorAction SilentlyContinue)
         $newestSrc = ($shots | Measure-Object LastWriteTime -Maximum).Maximum
@@ -170,7 +187,7 @@ foreach ($p in $DATA) {
         # not when the counts differ: Chateau's folder holds 10 photos and its
         # page has shown 7 since it was made (2026-09-03), which may well be a
         # choice - counting would quietly have added the other 3.
-        if ($made.Count -and $oldestOut -ge $newestSrc) { $galNote = 'folder (current)' }
+        if ($made.Count -and $oldestOut -ge $newestSrc -and $Remake -notcontains $p.slug) { $galNote = 'folder (current)' }
         else { $galNote = '' + (MakeGallery $p.slug @($shots | ForEach-Object { $_.FullName })) + ' folder images' }
       }
     } else { Write-Host ('  ! no folder for ' + $p.slug) }

@@ -198,6 +198,7 @@ collections:
         hint: 'არასავალდებულო. ფოტოები გამოჩნდება მთავარი ფოტოს ქვემოთ, ამავე რიგით. ატვირთული გალერეა ცვლის არსებულს.'
         field: { label: ფოტო, name: image, widget: image, choose_url: false }
       - { label: წყარო, name: src, widget: hidden, required: false }
+      - { label: ფოტოების რიგი, name: shots, widget: hidden, required: false }
 
       - label: ქართული
         name: ka

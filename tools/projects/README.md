@@ -6,7 +6,8 @@ are written through the editor at `https://test.biomi.ge/admin` (Decap CMS, see
 site. Nothing reaches biomi.ge until the designer publishes as usual.
 
 ```powershell
-powershell -File tools\projects\2-images.ps1        # pictures (-UploadsOnly: editor uploads only)
+powershell -File tools\projects\2-images.ps1        # pictures (-UploadsOnly: editor uploads only;
+                                                    #  -Remake tsre,kartlisi: make those galleries again)
 powershell -File tools\projects\build-projects.ps1  # the pages, the homepage cards, projects.html
 ```
 

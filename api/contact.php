@@ -264,7 +264,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET') {
       'company' => 'შპს მაგალითი', 'brief' => "საოფისე შენობა, 1200 მ².\nგვჭირდება VRF გაგრილება და ვენტილაცია, პროექტი ესკიზის ეტაპზეა.",
       'files' => [['name' => 'ნახაზი-1.pdf', 'size' => 348000], ['name' => 'spec.pdf', 'size' => 91000]],
       'marketing' => !isset($_GET['nomarketing']), 'page' => 'https://test.biomi.ge/', 'lang' => 'ka',
-      'site' => 'test.biomi.ge', 'test' => true, 'when' => date('Y-m-d H:i'),
+      'site' => 'test.biomi.ge', 'test' => true, 'when' => date('d.m.Y H:i'),
     ]);
     header('Content-Type: text/html; charset=utf-8');
     echo str_replace('cid:biomi-logo@biomi.ge', 'email-logo.png', $m['html']);
@@ -412,7 +412,7 @@ $from = (string)($cfg['mail_from'] ?? $to);
 $mail = mailParts([
   'id' => $requestId, 'fullname' => $fullname, 'email' => $email, 'phone' => $phone, 'company' => $company,
   'brief' => $brief, 'files' => $files, 'marketing' => $marketing, 'page' => $page, 'lang' => $lang,
-  'site' => $site, 'test' => $isTest, 'when' => date('Y-m-d H:i'),
+  'site' => $site, 'test' => $isTest, 'when' => date('d.m.Y H:i'),
 ]);
 
 /* MIME: text + HTML as alternatives; the logo rides with the HTML (related);

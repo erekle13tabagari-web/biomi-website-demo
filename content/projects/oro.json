@@ -8,6 +8,7 @@
   "video": "https://www.youtube.com/watch?v=QGkiopnp6cQ",
   "gallery": [],
   "src": "Oro",
+  "shots": ["11.jpg", "22.jpg", "33.jpg", "44.jpg", "55.jpg", "66.jpg", "88.jpg", "99.jpg", "101.jpg"],
   "ka": {
     "h1": "ORO",
     "sub": "საინჟინრო პროექტი თანამედროვე სარესტორნო სივრცისთვის",
