@@ -67,18 +67,31 @@ function OgStale([string]$key, [string]$src, [string]$out) {
 foreach ($f in $files) {
   $txt = [IO.File]::ReadAllText($f.FullName)
   $m = [regex]::Match($txt, '(?s)<div class="pgal__main">.*?<img src="([^"]+)"')
+  # News articles and projects (2026-10-12): the photo under the headline. Until
+  # then they had no picture of their own, so every shared article or project
+  # link showed the About photo (default.jpg).
+  $photo = -not $m.Success
+  if ($photo) { $m = [regex]::Match($txt, '<figure class="article__img">\s*<img src="([^"]+)"') }
   if (-not $m.Success) { $ogFor[$f.FullName] = 'default'; continue }
   $rel = $m.Groups[1].Value -replace '^\.\./',''
   $src = Join-Path $repo ($rel -replace '/','\')
+  # the page shows an AVIF; its JPEG twin is the fuller copy where there is one
+  if ($photo) { $jpg = [IO.Path]::ChangeExtension($src, '.jpg'); if (Test-Path -LiteralPath $jpg) { $src = $jpg } }
   if (-not (Test-Path -LiteralPath $src)) { $ogFor[$f.FullName] = 'default'; continue }
-  $key = (Split-Path (Split-Path $src -Parent) -Leaf) + '-' + [IO.Path]::GetFileNameWithoutExtension($src)
+  $key = if ($photo) { [IO.Path]::GetFileNameWithoutExtension($src) }
+         else { (Split-Path (Split-Path $src -Parent) -Leaf) + '-' + [IO.Path]::GetFileNameWithoutExtension($src) }
   $ogFor[$f.FullName] = $key
   if (-not $made.ContainsKey($key)) {
     $made[$key] = $true
     $ogOut = Join-Path $OGDIR ($key + '.jpg')
     if (OgStale $key $src $ogOut) {
-      & magick $src -resize 1000x520 -background white -alpha remove -alpha off `
-               -gravity center -extent 1200x630 -quality 82 $ogOut
+      if ($photo) {
+        # a photograph fills the card; a product cut-out (below) sits on white
+        & magick ($src + '[0]') -auto-orient -resize '1200x630^' -gravity center -extent 1200x630 -quality 82 $ogOut
+      } else {
+        & magick $src -resize 1000x520 -background white -alpha remove -alpha off `
+                 -gravity center -extent 1200x630 -quality 82 $ogOut
+      }
     }
   }
 }
