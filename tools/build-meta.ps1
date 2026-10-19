@@ -58,12 +58,86 @@ $ogIdx = @{}
 if (Test-Path $ogIdxPath) {
   (Get-Content $ogIdxPath -Raw -Encoding UTF8 | ConvertFrom-Json).PSObject.Properties | ForEach-Object { $ogIdx[$_.Name] = $_.Value }
 }
-function OgStale([string]$key, [string]$src, [string]$out) {
-  $h = (Get-FileHash -LiteralPath $src -Algorithm MD5).Hash
+function OgStale([string]$key, [string[]]$src, [string]$out) {
+  # a card made of several pictures is stale when any one of them changes
+  $h = @($src | ForEach-Object { (Get-FileHash -LiteralPath $_ -Algorithm MD5).Hash }) -join '+'
   $stale = -not (Test-Path -LiteralPath $out) -or ($ogIdx.ContainsKey($key) -and $ogIdx[$key] -ne $h)
   $script:ogIdx[$key] = $h
   return $stale
 }
+
+# Category, chapter and brand pages and the two listings (2026-10-19). They have
+# no photo of their own either, so they kept sharing the About photo - a link to
+# products/ducting.html sent in Messenger showed the hard hat. Each now gets a
+# card made from what the site already shows for it:
+#  - a category or chapter: its catalogue card from products.html (the navy
+#    backdrop with the product cut-out), or the category's own photo where there
+#    is one, assets/img/cat-photo/<chapter>-<page>.jpg
+#  - a brand page: the brand's logo beside its first product, on white
+#  - products.html: three products from different chapters on one backdrop
+#  - projects.html: the first project's photo
+# The homepage, the policies and the hidden pages keep default.jpg.
+function RepoPath([string]$rel) { return (Join-Path $repo ($rel -replace '/', '\')) }
+function FullCut([string]$cut) { $big = $cut -replace '/sm/', '/'; if (Test-Path -LiteralPath (RepoPath $big)) { return $big } else { return $cut } }
+$PAGEOG = @{}
+$catTxt = [IO.File]::ReadAllText((RepoPath 'products.html'))
+foreach ($ch in [regex]::Matches($catTxt, '(?s)<section class="catalog__chapter[^"]*" data-ch="([^"]+)">(.*?)</section>')) {
+  $chName = $ch.Groups[1].Value; $first = $null
+  foreach ($k in [regex]::Matches($ch.Groups[2].Value, '(?s)<a class="catalog__card[^"]*" href="([^"#?]+)[^"]*">\s*<span class="catalog__pic[^"]*"(?: style="background-image:url\(([^)]*)\)")?>\s*<img src="([^"]+)"')) {
+    # not $base: that is $BASE, the site's address (names ignore case)
+    $page = $k.Groups[1].Value; $pageBase = [IO.Path]::GetFileNameWithoutExtension($page)
+    $own = 'assets/img/cat-photo/' + $chName + '-' + $pageBase + '.jpg'
+    $r = if (Test-Path -LiteralPath (RepoPath $own)) { @{ kind = 'photo'; src = @($own) } }
+         elseif ($k.Groups[3].Value -like '*/cat-photo/*') { @{ kind = 'photo'; src = @($k.Groups[3].Value) } }
+         else { @{ kind = 'card'; src = @($k.Groups[2].Value, (FullCut $k.Groups[3].Value)) } }
+    if (-not $PAGEOG.ContainsKey($page)) { $r.key = 'page-' + $pageBase; $PAGEOG[$page] = $r }
+    if (-not $first) { $first = $PAGEOG[$page] }
+  }
+  # the chapter's own page: its cut-out when it has one (ducting.png), else the
+  # first card's picture
+  $all = [regex]::Match($ch.Groups[2].Value, '<a class="catalog__all" href="([^"#?]+)')
+  if ($all.Success -and $first -and -not $PAGEOG.ContainsKey($all.Groups[1].Value)) {
+    $cut = 'assets/img/cutouts/' + $chName + '.png'; $bg = 'assets/img/cat-bg/' + $chName + '.jpg'
+    $PAGEOG[$all.Groups[1].Value] = if ((Test-Path -LiteralPath (RepoPath $cut)) -and (Test-Path -LiteralPath (RepoPath $bg))) {
+      @{ kind = 'card'; key = 'page-' + [IO.Path]::GetFileNameWithoutExtension($all.Groups[1].Value); src = @($bg, $cut) } } else { $first }
+  }
+}
+$PAGEOG['products.html'] = @{ kind = 'trio'; key = 'page-products'
+  src = @('assets/img/cat-bg/cooling.jpg', 'assets/img/cutouts/heating-boilers.png', 'assets/img/cutouts/cooling-outdoor.png', 'assets/img/cutouts/ventilation-hrv.png') }
+function PageOg([string]$pageKa, [string]$txt) {
+  if ($PAGEOG.ContainsKey($pageKa)) { return $PAGEOG[$pageKa] }
+  if ($pageKa -eq 'projects.html') {
+    $pc = [regex]::Match($txt, 'data-bg="(?:\.\./)?(assets/img/(proj-[a-z0-9-]+?))-card\.avif"')
+    if ($pc.Success) { return @{ kind = 'photo'; key = $pc.Groups[2].Value; src = @($pc.Groups[1].Value + '.jpg') } }
+  }
+  if ($pageKa -like 'products/*') {
+    $logo = [regex]::Match($txt, 'src="\.\./(assets/img/partners/[^"]+\.svg)"')
+    $prod = [regex]::Match($txt, 'src="\.\./(assets/img/products/[^"]+)"')
+    if ($logo.Success -and $prod.Success) {
+      return @{ kind = 'brand'; key = 'brand-' + [IO.Path]::GetFileNameWithoutExtension($pageKa); src = @($logo.Groups[1].Value, $prod.Groups[1].Value) }
+    }
+  }
+  return $null
+}
+# a cut-out with a soft shadow under it, as on the catalogue cards
+function CutArgs([string]$path, [string]$fit, [string]$at) {
+  return @('(', $path, '-resize', $fit, '(', '+clone', '-background', 'black', '-shadow', '55x16+0+16', ')',
+           '+swap', '-background', 'none', '-layers', 'merge', '+repage', ')', '-gravity', 'center', '-geometry', $at, '-composite')
+}
+function MakePageOg($r, [string]$out) {
+  $s = @($r.src | ForEach-Object { RepoPath $_ })
+  $bg = @(($s[0] + '[0]'), '-resize', '1200x630^', '-gravity', 'center', '-extent', '1200x630')
+  $a = switch ($r.kind) {
+    'photo' { @(($s[0] + '[0]'), '-auto-orient', '-resize', '1200x630^', '-gravity', 'center', '-extent', '1200x630') }
+    'card'  { $bg + (CutArgs $s[1] '780x480' '+0+8') }
+    'trio'  { $bg + (CutArgs $s[1] '230x360' '-375+8') + (CutArgs $s[2] '370x290' '+0+14') + (CutArgs $s[3] '280x350' '+375+8') }
+    'brand' { @('-size', '1200x630', 'xc:white', '(', '-background', 'none', '-density', '600', $s[0], '-resize', '420x190', ')',
+                '-gravity', 'west', '-geometry', '+90+0', '-composite', '(', ($s[1] + '[0]'), '-resize', '540x520', ')',
+                '-gravity', 'east', '-geometry', '+70+0', '-composite') }
+  }
+  & magick @a -quality 82 $out
+}
+
 foreach ($f in $files) {
   $txt = [IO.File]::ReadAllText($f.FullName)
   $m = [regex]::Match($txt, '(?s)<div class="pgal__main">.*?<img src="([^"]+)"')
@@ -72,7 +146,18 @@ foreach ($f in $files) {
   # link showed the About photo (default.jpg).
   $photo = -not $m.Success
   if ($photo) { $m = [regex]::Match($txt, '<figure class="article__img">\s*<img src="([^"]+)"') }
-  if (-not $m.Success) { $ogFor[$f.FullName] = 'default'; continue }
+  if (-not $m.Success) {
+    $pageKa = ($f.FullName.Substring($repo.Length + 1) -replace '\\', '/') -replace '-en\.html$', '.html'
+    $r = PageOg $pageKa $txt
+    if (-not $r -or @($r.src | Where-Object { -not (Test-Path -LiteralPath (RepoPath $_)) }).Count) { $ogFor[$f.FullName] = 'default'; continue }
+    $ogFor[$f.FullName] = $r.key
+    if (-not $made.ContainsKey($r.key)) {
+      $made[$r.key] = $true
+      $ogOut = Join-Path $OGDIR ($r.key + '.jpg')
+      if (OgStale $r.key @($r.src | ForEach-Object { RepoPath $_ }) $ogOut) { MakePageOg $r $ogOut }
+    }
+    continue
+  }
   $rel = $m.Groups[1].Value -replace '^\.\./',''
   $src = Join-Path $repo ($rel -replace '/','\')
   # the page shows an AVIF; its JPEG twin is the fuller copy where there is one
