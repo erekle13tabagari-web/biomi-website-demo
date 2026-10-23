@@ -61,7 +61,8 @@ if (!isset($_GET['code'])) {
   setcookie('decap_state', $state, [
     'expires' => time() + 600, 'path' => '/api/', 'secure' => true, 'httponly' => true, 'samesite' => 'Lax',
   ]);
-  // The repository is private, so the editor needs "repo"; nothing wider is ever asked for.
+  // admin/config.yml asks for "public_repo" (the repository is public); only
+  // these two scopes are ever passed on, nothing wider.
   $scope = (($_GET['scope'] ?? '') === 'public_repo') ? 'public_repo' : 'repo';
   header('Location: https://github.com/login/oauth/authorize?' . http_build_query([
     'client_id' => $id, 'redirect_uri' => $self, 'scope' => $scope, 'state' => $state,

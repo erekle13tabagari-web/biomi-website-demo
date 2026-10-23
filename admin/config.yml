@@ -14,6 +14,10 @@ backend:
   branch: main
   base_url: https://test.biomi.ge
   auth_endpoint: api/decap-auth.php
+  # The repository is public, so the sign-in asks GitHub for public
+  # repositories only - "repo" would hand the editor every private repository
+  # of whoever signs in too. Back to "repo" if this repository is made private.
+  auth_scope: public_repo
   commit_messages:
     create: 'CMS: add {{collection}} "{{slug}}"'
     update: 'CMS: update {{collection}} "{{slug}}"'

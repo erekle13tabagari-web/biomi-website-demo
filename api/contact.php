@@ -272,18 +272,25 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET') {
   }
   if (!isset($_GET['check'])) fail('method', 405);
   $pdo = db($cfg);
+  $testHost = str_starts_with(strtolower((string)($_SERVER['HTTP_HOST'] ?? '')), 'test.');
+  // No PHP version (security review, 2026-10-22): it only tells someone
+  // looking for a way in which known flaws to try. The upload limits show on
+  // the test site, to confirm api/.user.ini (deploy-site.ps1) took effect.
   $out = [
-    'php'         => PHP_VERSION,
-    'config'      => $cfg !== null,
-    'database'    => $pdo !== null,
-    'mail'        => function_exists('mail'),
-    'upload_max'  => ini_get('upload_max_filesize'),
-    'post_max'    => ini_get('post_max_size'),
-    'max_uploads' => ini_get('max_file_uploads'),
+    'config'   => $cfg !== null,
+    'database' => $pdo !== null,
+    'mail'     => function_exists('mail'),
   ];
+  if ($testHost) {
+    $out += [
+      'upload_max'  => ini_get('upload_max_filesize'),
+      'post_max'    => ini_get('post_max_size'),
+      'max_uploads' => ini_get('max_file_uploads'),
+    ];
+  }
   // On the test site only: how the last few sends went - times and results,
   // nothing a visitor typed.
-  if ($pdo && str_starts_with(strtolower((string)($_SERVER['HTTP_HOST'] ?? '')), 'test.')) {
+  if ($pdo && $testHost) {
     try {
       $out['recent'] = $pdo->query('SELECT id, created_at, mail_sent, mail_error, files <> \'\' AS had_files
                                     FROM form_requests ORDER BY id DESC LIMIT 3')->fetchAll(PDO::FETCH_ASSOC);
@@ -321,6 +328,9 @@ $email    = line('email', 190);
 $phone    = line('phone', 40);
 $company  = line('company', 150);
 $page     = line('page', 300);
+// The page the form was sent from becomes a link in the office email, so only
+// an address on the site itself is kept (security review, 2026-10-22).
+if (!preg_match('#^https://(www\.|test\.)?biomi\.ge(/|$)#i', $page)) $page = '';
 $lang     = ($_POST['lang'] ?? '') === 'en' ? 'en' : 'ka';
 $brief    = trim(str_replace("\r\n", "\n", (string)($_POST['brief'] ?? '')));
 $brief    = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/u', '', $brief) ?? '';

@@ -9,9 +9,17 @@
      api/decap-auth.php and saves each article to the repository as
      content/news/<slug>.json; GitHub then builds the pages and puts them on
      test.biomi.ge (.github/workflows/cms-build.yml). The form is config.yml
-     beside this file. Uploaded to the test site only - see deploy-site.ps1. -->
+     beside this file. Uploaded to the test site only - see deploy-site.ps1.
+
+     The script is pinned to one release and checked against its fingerprint
+     (integrity): this page holds the GitHub sign-in, so a changed copy on the
+     CDN must fail to load rather than run (security review, 2026-10-22). To
+     update: put the new version number in the address and its sha256 from
+     https://data.jsdelivr.com/v1/packages/npm/decap-cms@<version>?structure=flat
+     (the "hash" of /dist/decap-cms.js) in integrity. -->
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/decap-cms@3.17.1/dist/decap-cms.js"
+        integrity="sha256-leIWrS7IXUiZPgAOO4ds6VrQGxYaT0ZS2eshtGZOk9w=" crossorigin="anonymous"></script>
 </body>
 </html>
