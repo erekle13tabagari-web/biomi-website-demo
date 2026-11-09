@@ -119,9 +119,9 @@
   })();
   georgianCaps(document);
 
-  /* ---- Analytics: Google Analytics 4, behind a consent bar ----
-     Nothing from Google loads until the visitor says yes: privacy.html promises
-     consent before cookies, and GA sets cookies and sends data to Google. The
+  /* ---- Analytics: Google Analytics 4 and the Meta Pixel, behind a consent bar ----
+     Nothing from Google or Meta loads until the visitor says yes: privacy.html
+     promises consent before cookies, and both set cookies and send data out. The
      answer is remembered in this browser for a year (localStorage - keeping a
      "no" is the one thing that must be stored without asking), and a "Cookie
      settings" link added to every footer brings the bar back to change it.
@@ -135,7 +135,9 @@
      track(name, params) records an event; before consent it does nothing. */
   var ANALYTICS = {
     GA_ID:   'G-F0J6WZ8NRQ',   // Biomi's GA4 property "biomi.ge" (created 2026-09-18)
-    VERSION: 1,      // raise to ask everyone again, e.g. when a new tracker is added
+    META_PIXEL: '1277414200831283',   // Meta Pixel (2026-11-09); empty means off
+    VERSION: 2,      // raise to ask everyone again, e.g. when a new tracker is added
+                     // (2: the Meta Pixel - a "yes" given before it did not cover it)
     DAYS:    365
   };
   var track = (function () {
@@ -165,14 +167,44 @@
       try { localStorage.setItem(KEY, JSON.stringify({ v: ANALYTICS.VERSION, analytics: yes, at: Date.now() })); } catch (e) {}
     }
 
+    /* Meta's snippet, here rather than pasted into every page so that it waits
+       for "Accept" too. Its <noscript> image is left out: that would count a
+       visit with nobody asked.
+
+       autoConfig off, before init: the pixel's settings in Events Manager have
+       Automatic Advanced Matching on, which reads names, emails and phone
+       numbers out of forms and sends them with the next event. With autoConfig
+       off the pixel sends the page view and no later events, so what is typed
+       into the contact form stays out of it, as consent.html and marketing.html
+       promise. An event added here later (a Lead on sending the form, say) would
+       carry that data: turn matching off in Events Manager first. */
+    var pixelLoaded = false;
+    function loadPixel() {
+      if (!ANALYTICS.META_PIXEL) return;
+      if (pixelLoaded) { window.fbq('consent', 'grant'); return; }
+      pixelLoaded = true;
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      window.fbq('set', 'autoConfig', false, ANALYTICS.META_PIXEL);
+      window.fbq('init', ANALYTICS.META_PIXEL);
+      window.fbq('track', 'PageView');
+    }
+
     function load() {
       if (!canSend) return;
       window['ga-disable-' + ANALYTICS.GA_ID] = false;
+      loadPixel();
       if (loaded) return;
       loaded = true;
       window.dataLayer = window.dataLayer || [];
       window.gtag = function () { window.dataLayer.push(arguments); };
-      // analytics only: nothing about ads is ever switched on
+      // Google: analytics only, nothing about ads is ever switched on
       window.gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied',
                                           ad_user_data: 'denied', ad_personalization: 'denied' });
       window.gtag('js', new Date());
@@ -182,13 +214,14 @@
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ANALYTICS.GA_ID);
       document.head.appendChild(s);
     }
-    // A "no" after a "yes": GA stops sending at once and its cookies are cleared.
+    // A "no" after a "yes": both stop sending at once and their cookies are cleared.
     function unload() {
       if (ANALYTICS.GA_ID) window['ga-disable-' + ANALYTICS.GA_ID] = true;
+      if (pixelLoaded) window.fbq('consent', 'revoke');
       var base = host.split('.').slice(-2).join('.');
       document.cookie.split(';').forEach(function (c) {
         var name = c.split('=')[0].trim();
-        if (!/^_ga/.test(name)) return;
+        if (!/^(_ga|_fbp|_fbc)/.test(name)) return;
         ['', host, '.' + base].forEach(function (d) {
           document.cookie = name + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : '');
         });
@@ -256,7 +289,7 @@
           '<div class="cookiebar__text">' +
             '<h3 id="cookiebarTitle">' + T.title + '</h3>' +
             // no explanation line (the user asked for it gone, 2026-09-15): the
-            // policy link is where a visitor reads what Google Analytics does
+            // policy link is where a visitor reads what GA and the Meta Pixel do
             '<p><a href="' + root + T.href + '">' + T.policy + '</a></p>' +
           '</div>' +
           '<div class="cookiebar__actions">' +
