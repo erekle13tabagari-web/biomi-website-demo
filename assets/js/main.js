@@ -171,13 +171,15 @@
        for "Accept" too. Its <noscript> image is left out: that would count a
        visit with nobody asked.
 
-       autoConfig off, before init: the pixel's settings in Events Manager have
+       autoConfig off, before init: the pixel's settings in Events Manager had
        Automatic Advanced Matching on, which reads names, emails and phone
        numbers out of forms and sends them with the next event. With autoConfig
-       off the pixel sends the page view and no later events, so what is typed
-       into the contact form stays out of it, as consent.html and marketing.html
-       promise. An event added here later (a Lead on sending the form, say) would
-       carry that data: turn matching off in Events Manager first. */
+       off the pixel sends no events of its own, so what is typed into the
+       contact form stays out of it, as consent.html and marketing.html promise.
+       Matching was switched off in Events Manager on 2026-11-10 (its config,
+       connect.facebook.net/signals/config/<id>, no longer lists match keys), and
+       only then did the Lead event in track() below go in. Check that config
+       again before adding any other event. */
     var pixelLoaded = false;
     function loadPixel() {
       if (!ANALYTICS.META_PIXEL) return;
@@ -228,8 +230,14 @@
       });
     }
 
+    // The two enquiries - the contact form sent, a call-back booked - are also
+    // the pixel's "Lead", for judging which ads bring enquiries. It carries
+    // which form it was and nothing the visitor typed. After a "Decline" the
+    // pixel is revoked (unload), so this sends nothing.
+    var LEADS = { generate_lead: 'contact_form', callback_request: 'callback' };
     function track(name, params) {
       if (loaded && window.gtag && !window['ga-disable-' + ANALYTICS.GA_ID]) window.gtag('event', name, params || {});
+      if (LEADS[name] && pixelLoaded && window.fbq) window.fbq('track', 'Lead', { content_name: LEADS[name] });
     }
 
     /* Every Accept or Decline is also written to the consent log on our server
