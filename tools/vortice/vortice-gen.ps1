@@ -374,9 +374,10 @@ $cmpRows
       # ordinary letters - the stylesheet caps them, and georgianCaps draws the
       # Georgian capitals, as for every heading.
       # Then (2026-11-13): artist - "title", the title in bold and quotes, a
-      # plain hyphen between - Georgian quotes on the Georgian page.
+      # plain hyphen between. Both quotes raised, “…”, in both languages - the
+      # user asked for "მეთევზე" over the Georgian „…“.
       $printCaps = @()
-      $capQ = if ($lang -eq 'en') { @([char]0x201C, [char]0x201D) } else { @([char]0x201E, [char]0x201C) }
+      $capQ = @([char]0x201C, [char]0x201D)
       foreach ($ppEx in @($pp.examples)) {
         $exName = HtmlEnc $ppEx.$lang
         $printThumbs += '          <img class="dfp__thumb" src="' + $pimg + $ppEx.img + '-unit.avif" data-print="' + $pimg + $ppEx.img + '.avif" alt="' + $exName + '" title="' + $exName + '">'
