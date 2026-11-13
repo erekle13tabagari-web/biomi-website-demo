@@ -197,7 +197,7 @@
  "descKa":"დეცენტრალიზებული ორნაკადიანი ვენტილაცია ენთალპიური თბოცვლელით - კედელზე (W), ნახევრად ჩაშენებული (SR) ან ჩაშენებული (R) ვერსიებში. მართვა HMI პანელით ან Vortice HRU აპლიკაციით, ჩაშენებული Wi-Fi-ით.",
  "descEn":"Decentralised double-flow ventilation with an enthalpy heat exchanger - wall-mounted (W), semi-recessed (SR) or recessed (R). Controlled from the HMI panel or the Vortice HRU app, with built-in Wi-Fi.",
  "printpanel":{"frame":"print-panel/frame.webp","quad":"29.244,8.678 84.078,12.729 84.774,86.202 29.172,87.038","ratio":0.625,"place":"22.915,-3.262,51.548,93.158","crop":"24.727,0,45.636,100",
-  "examples":[{"img":"print-panel/pirosmani","ka":"ნიკო ფიროსმანი - მეთევზე წითელ პერანგში","en":"Niko Pirosmani - Fisherman in a Red Shirt"},
+  "examples":[{"img":"print-panel/pirosmani","ka":"ნიკო ფიროსმანი - მეთევზე","en":"Niko Pirosmani - The Fisherman"},
               {"img":"print-panel/mona-lisa","ka":"ლეონარდო და ვინჩი - მონა ლიზა","en":"Leonardo da Vinci - Mona Lisa"},
               {"img":"print-panel/sunflowers","ka":"ვინსენტ ვან გოგი - მზესუმზირები","en":"Vincent van Gogh - Sunflowers"}],
   "ka":{"label":"წინა პანელი თქვენი სურათით","original":"სტანდარტული თეთრი პანელი","upload":"ატვირთვა",
