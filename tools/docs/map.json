@@ -52,6 +52,8 @@
     { "dir": "Mitsubishi\\MSZ-AY25VGK",        "slugs": ["mitsubishi-msz-ay"] },
     { "dir": "Mitsubishi\\MSZ-EF25VGKB-ER1",   "slugs": ["mitsubishi-msz-ef", "mitsubishi-muz-ef"] },
     { "dir": "Mitsubishi\\MSZ-LN",             "slugs": ["mitsubishi-msz-ln"] },
+    { "dir": "Mitsubishi\\MXZ",                "slugs": ["mitsubishi-mxz"] },
+    { "dir": "Mitsubishi\\PUMY",               "slugs": ["mitsubishi-pumy"] },
     { "dir": "Mitsubishi\\PLFY-WL VFM-E",      "slugs": ["mitsubishi-plfy-wl"] },
     { "dir": "Mitsubishi\\SEZ-M25DA",          "slugs": ["mitsubishi-sez-m"] },
     { "dir": "Mitsubishi\\SLZ-M25-60FA",       "slugs": ["mitsubishi-slz-m"] },

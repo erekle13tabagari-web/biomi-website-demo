@@ -352,6 +352,59 @@ $cmpRows
 "@
     }
 
+    # ---- printed front panel ("printpanel" in vortice-families.json, 2026-11-10)
+    # The HRW-ALL DF's front can be printed with any picture. A row in the
+    # product panel, under the airflow, offers the plain white panel, a few
+    # examples and an upload; the choice shows on the unit in the gallery's main
+    # box (main.js, [data-dfp], which builds that layer). The family holds the
+    # texts, the examples, the frame photo and the panel's corners in it
+    # ("quad", % of the photo: top-left, top-right, bottom-right, bottom-left).
+    # Inside the panel at the user's request - a separate section came first -
+    # with the white panel and the examples as thumbnails in the gallery strip,
+    # beside the product photo: the unit drawn with each picture on it
+    # (print-panel/<name>-unit.avif); data-print names the picture itself,
+    # empty for the plain white panel.
+    $printPick = ''
+    if ($f.printpanel) {
+      $pp = $f.printpanel; $pt = $pp.$lang; $pimg = '../assets/img/'
+      $printThumbs = @('          <img class="dfp__thumb" src="' + $pimg + 'print-panel/blank-unit.avif" data-print="" alt="' + (HtmlEnc $pt.original) + '" title="' + (HtmlEnc $pt.original) + '">')
+      # The painting's artist and title under the unit while it shows (the user,
+      # 2026-11-13: "artists and titles of paintings, uppercase"): one hidden
+      # line per example, which main.js moves into the gallery's box. Written in
+      # ordinary letters - the stylesheet caps them, and georgianCaps draws the
+      # Georgian capitals, as for every heading.
+      # Then (2026-11-13): artist - "title", the title in bold and quotes, a
+      # plain hyphen between - Georgian quotes on the Georgian page.
+      $printCaps = @()
+      $capQ = if ($lang -eq 'en') { @([char]0x201C, [char]0x201D) } else { @([char]0x201E, [char]0x201C) }
+      foreach ($ppEx in @($pp.examples)) {
+        $exName = HtmlEnc $ppEx.$lang
+        $printThumbs += '          <img class="dfp__thumb" src="' + $pimg + $ppEx.img + '-unit.avif" data-print="' + $pimg + $ppEx.img + '.avif" alt="' + $exName + '" title="' + $exName + '">'
+        $exParts = $ppEx.$lang -split ' - ', 2
+        $printCaps += '          <p class="dfp__cap" data-for="' + $pimg + $ppEx.img + '.avif" hidden><span class="dfp__artist">' + (HtmlEnc $exParts[0]) + '</span> - <span class="dfp__title">' + $capQ[0] + (HtmlEnc $exParts[1]) + $capQ[1] + '</span></p>'
+      }
+      $thumbs = $thumbs + "`r`n" + ($printThumbs -join "`r`n")
+      $printPick = @"
+
+        <div class="dfp" data-dfp data-frame="$pimg$($pp.frame)" data-quad="$($pp.quad)" data-ratio="$($pp.ratio)" data-place="$($pp.place)" data-crop="$($pp.crop)" data-alt="$(HtmlEnc $pt.alt)" data-drop="$(HtmlEnc $pt.drop)" data-send="../api/design.php" data-product="$($f.slug)" data-sending="$(HtmlEnc $pt.sending)" data-sent="$(HtmlEnc $pt.sent)" data-send-err="$(HtmlEnc $pt.sendErr)">
+          <div class="pbuy__label">$(HtmlEnc $pt.label)</div>
+          <div class="dfp__row">
+            <label class="dfp__up" title="$(HtmlEnc $pt.upload)"><input type="file" accept="image/*"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M7 9l5-5 5 5M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg><span>$(HtmlEnc $pt.upload)</span></label>
+            <button class="dfp__send" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg><span>$(HtmlEnc $pt.send)</span></button>
+          </div>
+          <p class="dfp__status" role="status" hidden></p>
+          <div class="dfp__adj" hidden>
+            <label class="dfp__size"><span>$(HtmlEnc $pt.size)</span><input type="range" min="0" max="1000" step="1" value="500"></label>
+            <button class="dfp__reset" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>$(HtmlEnc $pt.reset)</button>
+            <p class="dfp__hint">$(HtmlEnc $pt.hint)</p>
+          </div>
+          <p class="dfp__err" role="alert" hidden>$(HtmlEnc $pt.err)</p>
+          <p class="dfp__note">$(HtmlEnc $pt.note)</p>
+$($printCaps -join "`r`n")
+        </div>
+"@
+    }
+
     # ---- assemble
     $body = @"
 <!-- ===================== PRODUCT DETAIL ===================== -->
@@ -383,7 +436,7 @@ $thumbs
             <div class="pbuy__kw">$range</div>
           </div>
           <div class="pbuy__origin" title="$($t.madeIn)"><img src="../assets/img/flags/it.webp" alt="$($t.madeIn)" loading="lazy"></div>
-        </div>
+        </div>$printPick
         <div class="pbuy__label">$($t.lblModel)</div>
         <div class="chipset" data-modelswitch$(if ($gal) { ' data-imgbase="../assets/img/products/' + $f.slug + '/"' })>
 $($chips -join "`r`n")

@@ -346,6 +346,11 @@
     if (!choice) setTimeout(openBar, 900);
     return track;
   })();
+  // The second half of this file (its own closure, from the gallery on) cannot
+  // see track; it sends the event's name this way, as it does biomi:lightbox.
+  document.addEventListener('biomi:track', function (e) {
+    if (e.detail && e.detail.name) track(e.detail.name, e.detail.params);
+  });
 
   /* ---- Floating buttons: group socials into one capsule; order below it:
          messenger, phone (call CTA), back-to-top ---- */
@@ -2530,7 +2535,9 @@
     var i = 0;
     /* Read the thumbs live rather than caching them: the capacity chips on some
        product pages swap the whole set when you pick a different model. */
-    function thumbs() { return Array.prototype.slice.call(wrap.querySelectorAll('img')); }
+    // not the printed-panel previews ([data-print], VORT HRW-ALL 100 DF): those
+    // are no photos, and the block at the end of this file handles them
+    function thumbs() { return Array.prototype.slice.call(wrap.querySelectorAll('img:not([data-print])')); }
     function show(n) {
       var t = thumbs();
       if (!t.length) return;
@@ -2542,7 +2549,7 @@
     // delegated, so rebuilt thumbnails stay clickable without re-binding
     wrap.addEventListener('click', function (e) {
       var img = e.target && e.target.closest ? e.target.closest('img') : null;
-      if (!img || !wrap.contains(img)) return;
+      if (!img || !wrap.contains(img) || img.hasAttribute('data-print')) return;
       show(thumbs().indexOf(img));
     });
     gal.__showSlide = show;   // used by the model switcher after it swaps the set
@@ -2659,14 +2666,50 @@
         if (cell && v) cell.textContent = v;
       });
 
-      // keep the port-count chips in step with the chosen model
-      var ports = c.getAttribute('data-ports');
-      var portSet = document.querySelector('[data-portset]');
-      if (ports && portSet) {
-        portSet.querySelectorAll('.chip').forEach(function (pc) {
-          pc.classList.toggle('active', pc.textContent.trim() === ports);
+      syncPorts(c);
+    }
+
+    /* Indoor-unit count <-> model (the user, 2026-11-13: "when i select a
+       model it should show how many are compatible and vice versa"). A
+       multi-split model with N ports runs 2 to N indoor units, so the counts
+       above N dim. Picking a count dims the models that cannot take that
+       many and, if the chosen one cannot, moves to the smallest that can.
+       Dimmed chips still work: picking one simply re-chooses. */
+    var portSet = isSwitch && detail.querySelector('[data-portset]');
+    var portChips = portSet ? Array.prototype.slice.call(portSet.querySelectorAll('.chip')) : [];
+    var wanted = 0;   // the count the visitor asked for, 0 = none yet
+    function portsOf(x) { return parseInt(x.getAttribute('data-ports'), 10) || 0; }
+    function syncPorts(c) {
+      var ports = portsOf(c);
+      if (!ports || !portChips.length) return;
+      if (wanted > ports) wanted = 0;
+      var show = wanted || ports;
+      portChips.forEach(function (pc) {
+        var n = parseInt(pc.textContent, 10);
+        pc.classList.toggle('active', n === show);
+        pc.classList.toggle('is-off', n > ports);
+      });
+      chips.forEach(function (x) { x.classList.toggle('is-off', wanted > 0 && portsOf(x) < wanted); });
+    }
+    if (portChips.length && chips.some(function (x) { return portsOf(x); })) {
+      portChips.forEach(function (pc) {
+        pc.addEventListener('click', function () {
+          wanted = parseInt(pc.textContent, 10) || 0;
+          var cur = set.querySelector('.chip.active');
+          var fits = function (x) { return portsOf(x) >= wanted; };
+          var next = cur && fits(cur) ? cur : chips.filter(fits)[0];
+          if (!next) return;
+          if (next !== cur) {
+            chips.forEach(function (x) { x.classList.remove('active'); });
+            next.classList.add('active');
+            applyModel(next);
+          } else {
+            syncPorts(next);
+          }
         });
-      }
+      });
+      var first = set.querySelector('.chip.active');
+      if (first) syncPorts(first);
     }
 
     chips.forEach(function (c) {
@@ -2707,4 +2750,403 @@
     });
     sync(models.querySelector('.chip.active'));
   });
+
+  /* ---- Printed front panel: a visitor's picture on the unit ----
+     The VORT HRW-ALL 100 DF's front can be printed with any picture
+     ("printpanel" in tools/vortice/vortice-families.json, written into the page
+     by vortice-gen.ps1). The choices sit in the product panel ([data-dfp]);
+     the picked one shows on the unit in the gallery's main box, in a layer
+     built here (.dfp__stage). The white panel and the examples are thumbnails
+     in the gallery strip ([data-print]: the picture, empty for plain white),
+     and an uploaded picture gets one there too; the product photo's own
+     thumbnail brings the photos back, and the arrows step through them all.
+
+     The picture is the background of .dfp__img, a box in the panel's own
+     proportions (data-ratio, width / height), bent onto the panel's four
+     corners in the photo (data-quad, % of the photo: top-left, top-right,
+     bottom-right, bottom-left) by a perspective matrix. The photo lies on top
+     with mix-blend-mode:multiply, so its white panel shows the picture and its
+     black frame hides the edges. A file the visitor picks is opened in the
+     browser (an object URL) and sent nowhere. */
+  (function () {
+    var box = document.querySelector('[data-dfp]');
+    var main = document.querySelector('.pgal__main');
+    if (!box || !main) return;
+    var gal = main.closest('.pgal'),
+        strip = gal && gal.querySelector('.pgal__thumbs');
+    if (!strip) return;
+    var stage = document.createElement('div');
+    stage.className = 'dfp__stage';
+    stage.innerHTML = '<div class="dfp__art"><div class="dfp__img"></div></div>' +
+                      '<img class="dfp__frame" alt="" width="664" height="900">';
+    var drop = document.createElement('div');
+    drop.className = 'dfp__drop';
+    drop.setAttribute('aria-hidden', 'true');
+    drop.textContent = box.getAttribute('data-drop') || '';
+    main.appendChild(stage);
+    main.appendChild(drop);
+    // an example's artist and title, under the unit while it shows (written
+    // into the panel by vortice-gen.ps1, already in capitals by now)
+    var caps = [].slice.call(box.querySelectorAll('.dfp__cap'));
+    caps.forEach(function (c) { main.appendChild(c); });
+    function caption(src) {
+      caps.forEach(function (c) { c.hidden = !src || c.getAttribute('data-for') !== src; });
+    }
+    var frame = stage.querySelector('.dfp__frame'),
+        clip = stage.querySelector('.dfp__art'),
+        pic = stage.querySelector('.dfp__img'),
+        input = box.querySelector('.dfp__up input'),
+        err = box.querySelector('.dfp__err');
+    frame.alt = box.getAttribute('data-alt') || '';
+    var hint = box.querySelector('.dfp__hint');
+    if (hint) stage.setAttribute('aria-label', hint.textContent);
+    var q = box.getAttribute('data-quad').trim().split(/\s+/).map(function (p) { return p.split(',').map(Number); });
+    var ratio = parseFloat(box.getAttribute('data-ratio')) || 0.625;
+    // 1.5% past the white panel, under the frame, so no white edge shows
+    var mx = 0, my = 0;
+    q.forEach(function (p) { mx += p[0] / 4; my += p[1] / 4; });
+    q = q.map(function (p) { return [mx + (p[0] - mx) * 1.015, my + (p[1] - my) * 1.015]; });
+    clip.style.clipPath = 'polygon(' + q.map(function (p) { return p[0] + '% ' + p[1] + '%'; }).join(',') + ')';
+    var W = 500, H = Math.round(W / ratio);
+    pic.style.width = W + 'px';
+    pic.style.height = H + 'px';
+
+    /* The unit is drawn exactly over the one in the product photo, so changing
+       thumbnails changes only the panel: data-place is where the frame photo
+       sits in it (x, y, width, height, % of the product photo - the same render
+       at 1.708x, matched on the panel's top and right edges, 2026-11-10). The
+       photo stays laid out (only hidden) while a preview shows, so its box is
+       there to measure. */
+    var photo = main.querySelector(':scope > img'),
+        spot = (box.getAttribute('data-place') || '').split(',').map(Number);
+
+    /* The unit was too small (the user, 2026-11-10): the product photo is a
+       wide canvas, mostly white either side of the unit. It is shown zoomed to
+       its content instead - data-crop, % of the photo: the unit and the zoom
+       circle below it - as large as the box allows, 10px from its edges (the
+       box's own padding is white on white). The previews follow, as they are
+       placed by the photo. Only for the photo the crop was measured on. */
+    var crop = (box.getAttribute('data-crop') || '').split(',').map(Number),
+        cropSrc = photo && photo.getAttribute('src');
+    function fitPhoto() {
+      if (!photo) return;
+      var on = crop.length === 4 && photo.naturalWidth && photo.getAttribute('src') === cropSrc;
+      if (!on) { ['position', 'width', 'height', 'left', 'top', 'max-width', 'max-height'].forEach(function (p) { photo.style.removeProperty(p); }); return; }
+      var nw = photo.naturalWidth, nh = photo.naturalHeight,
+          cw = crop[2] / 100 * nw, ch = crop[3] / 100 * nh,
+          k = Math.min((main.clientWidth - 20) / cw, (main.clientHeight - 20) / ch);
+      photo.style.position = 'absolute';
+      photo.style.maxWidth = 'none';
+      photo.style.maxHeight = 'none';
+      photo.style.width = nw * k + 'px';
+      photo.style.height = nh * k + 'px';
+      photo.style.left = (main.clientWidth - cw * k) / 2 - crop[0] / 100 * nw * k + 'px';
+      photo.style.top = (main.clientHeight - ch * k) / 2 - crop[1] / 100 * nh * k + 'px';
+    }
+    if (crop.length === 4) gal.classList.add('pgal--print');   // the thumbnails zoom too (style.css)
+
+    function fitStage() {
+      var bw = photo && photo.offsetWidth, bh = photo && photo.offsetHeight,
+          nw = photo && photo.naturalWidth, nh = photo && photo.naturalHeight;
+      if (spot.length === 4 && bw && bh && nw && nh) {
+        // the picture inside the photo's box (object-fit:contain)
+        var k = Math.min(bw / nw, bh / nh), rw = nw * k, rh = nh * k,
+            rx = photo.offsetLeft + (bw - rw) / 2, ry = photo.offsetTop + (bh - rh) / 2;
+        stage.style.left = rx + spot[0] / 100 * rw + 'px';
+        stage.style.top = ry + spot[1] / 100 * rh + 'px';
+        stage.style.width = spot[2] / 100 * rw + 'px';
+        stage.style.height = spot[3] / 100 * rh + 'px';
+      } else {
+        // no product photo to follow: centred, 90% of the box's height
+        var mh = main.clientHeight * 0.9, mw = mh * 664 / 900;
+        stage.style.left = (main.clientWidth - mw) / 2 + 'px';
+        stage.style.top = main.clientHeight * 0.05 + 'px';
+        stage.style.width = mw + 'px';
+        stage.style.height = mh + 'px';
+      }
+    }
+    // The W x H box onto the four corners: Heckbert's square-to-quad mapping,
+    // scaled to the box, as a CSS matrix3d (column by column).
+    function place() {
+      fitPhoto();
+      fitStage();
+      var sw = stage.clientWidth, sh = stage.clientHeight;
+      if (!sw || !sh) return;
+      var p = q.map(function (c) { return [c[0] / 100 * sw, c[1] / 100 * sh]; });
+      var x0 = p[0][0], y0 = p[0][1], x1 = p[1][0], y1 = p[1][1],
+          x2 = p[2][0], y2 = p[2][1], x3 = p[3][0], y3 = p[3][1];
+      var dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3,
+          dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3,
+          det = dx1 * dy2 - dx2 * dy1,
+          g = (dx3 * dy2 - dx2 * dy3) / det,
+          h = (dx1 * dy3 - dx3 * dy1) / det,
+          a = x1 - x0 + g * x1, b = x3 - x0 + h * x3,
+          d = y1 - y0 + g * y1, e = y3 - y0 + h * y3;
+      pic.style.transform = 'matrix3d(' + [a / W, d / W, 0, g / W, b / H, e / H, 0, h / H, 0, 0, 1, 0, x0, y0, 0, 1].join(',') + ')';
+      // the caption just below the unit, kept inside the box
+      var below = Math.min(stage.offsetTop + sh + 10, main.clientHeight - 48);
+      caps.forEach(function (c) { c.style.top = below + 'px'; });
+    }
+    place();
+    if (photo) photo.addEventListener('load', place);
+    if (window.ResizeObserver) new ResizeObserver(place).observe(main);
+    else window.addEventListener('resize', place);
+
+    /* Size and position, set by the visitor (2026-11-10: a logo filled to the
+       panel's shape lost its edges). z is the size against "fills the panel"
+       (1); x, y move the picture's centre, in the box's own pixels. The size
+       slider runs from 30% of "the whole picture fits" up to three times the
+       fill, on a log scale so each step feels alike. */
+    var adj = box.querySelector('.dfp__adj'),
+        size = box.querySelector('.dfp__size input'),
+        cur = { iw: 1, ih: 1, z: 1, x: 0, y: 0, lo: 0.3, hi: 3 };
+
+    /* "Send it to us" (the user, 2026-11-12: "without making the whole form"):
+       the visitor's own picture, as it sits on the panel, goes to the office by
+       email through api/design.php - no name, no contact details, and only on
+       this button. The panel's W x H box is drawn anew on a canvas at twice its
+       size, white behind, the picture where the visitor put it - which also
+       leaves the file's own details (camera, place taken) behind. */
+    var send = box.querySelector('.dfp__send'),
+        status = box.querySelector('.dfp__status'),
+        sendLabel = send.querySelector('span'),
+        sendText = sendLabel.textContent,
+        sendState = '';   // '', 'busy' or 'done'
+    function sendReady() {
+      if (sendState !== 'done') return;
+      sendState = '';
+      send.disabled = false;
+      sendLabel.textContent = sendText;
+      status.hidden = true;
+    }
+    function say(text, bad) {
+      status.textContent = text;
+      status.classList.toggle('is-bad', !!bad);
+      status.hidden = false;
+    }
+    function artwork(done) {
+      var im = new Image();
+      im.onload = function () {
+        try {
+          var s = 2, cv = document.createElement('canvas');
+          cv.width = W * s; cv.height = H * s;
+          var cx = cv.getContext('2d'),
+              c = Math.max(W / cur.iw, H / cur.ih) * cur.z, dw = cur.iw * c, dh = cur.ih * c;
+          cx.fillStyle = '#fff';
+          cx.fillRect(0, 0, cv.width, cv.height);
+          cx.imageSmoothingQuality = 'high';
+          cx.drawImage(im, ((W - dw) / 2 + cur.x) * s, ((H - dh) / 2 + cur.y) * s, dw * s, dh * s);
+          cv.toBlob(function (b) { done(b); }, 'image/jpeg', 0.88);
+        } catch (e) { done(null); }   // e.g. an SVG the browser will not let out
+      };
+      im.onerror = function () { done(null); };
+      im.src = own;
+    }
+    send.addEventListener('click', function () {
+      if (sendState || !own) return;
+      sendState = 'busy';
+      send.disabled = true;
+      sendLabel.textContent = box.getAttribute('data-sending') || sendText;
+      status.hidden = true;
+      function failed() {
+        sendState = '';
+        send.disabled = false;
+        sendLabel.textContent = sendText;
+        say(box.getAttribute('data-send-err') || '', true);
+      }
+      artwork(function (blob) {
+        if (!blob) { failed(); return; }
+        var fd = new FormData();
+        fd.append('design', blob, 'design.jpg');
+        fd.append('product', box.getAttribute('data-product') || '');
+        fd.append('lang', document.documentElement.lang === 'en' ? 'en' : 'ka');
+        fetch(new URL(box.getAttribute('data-send'), location.href), { method: 'POST', body: fd })
+          .then(function (r) { return r.json(); })
+          .then(function (res) {
+            if (!res || !res.ok) { failed(); return; }
+            sendState = 'done';
+            sendLabel.textContent = sendText;
+            say(box.getAttribute('data-sent') || '');
+            document.dispatchEvent(new CustomEvent('biomi:track', { detail: { name: 'print_design_sent' } }));
+          })
+          .catch(failed);
+      });
+    });
+    function paint() {
+      var c = Math.max(W / cur.iw, H / cur.ih) * cur.z,
+          dw = cur.iw * c, dh = cur.ih * c;
+      // keep a corner of the picture on the panel, however far it is dragged
+      var mxX = (W + dw) / 2 - 24, mxY = (H + dh) / 2 - 24;
+      cur.x = Math.max(-mxX, Math.min(mxX, cur.x));
+      cur.y = Math.max(-mxY, Math.min(mxY, cur.y));
+      pic.style.backgroundSize = dw + 'px ' + dh + 'px';
+      pic.style.backgroundPosition = ((W - dw) / 2 + cur.x) + 'px ' + ((H - dh) / 2 + cur.y) + 'px';
+      sendReady();   // moved or resized after sending: it can go again
+    }
+    function toSlider(z) { return Math.round(1000 * Math.log(z / cur.lo) / Math.log(cur.hi / cur.lo)); }
+    function fromSlider(v) { return cur.lo * Math.pow(cur.hi / cur.lo, v / 1000); }
+    function reset() {
+      cur.z = 1; cur.x = 0; cur.y = 0;
+      size.value = toSlider(1);
+      paint();
+    }
+    size.addEventListener('input', function () { cur.z = fromSlider(+size.value); paint(); });
+    box.querySelector('.dfp__reset').addEventListener('click', reset);
+
+    // drag the picture on the unit; screen pixels -> the box's, across the panel
+    function perPx() {
+      var sw = stage.clientWidth, sh = stage.clientHeight;
+      return [W / ((q[1][0] - q[0][0] + q[2][0] - q[3][0]) / 200 * sw),
+              H / ((q[3][1] - q[0][1] + q[2][1] - q[1][1]) / 200 * sh)];
+    }
+    var drag = null;
+    // only the visitor's own picture moves (.is-edit); the examples stay as made
+    stage.addEventListener('pointerdown', function (e) {
+      if (!main.classList.contains('is-edit') || e.button > 0) return;
+      drag = { px: e.clientX, py: e.clientY, x: cur.x, y: cur.y, k: perPx() };
+      stage.setPointerCapture(e.pointerId);
+      stage.classList.add('is-moving');
+      e.preventDefault();
+    });
+    stage.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      cur.x = drag.x + (e.clientX - drag.px) * drag.k[0];
+      cur.y = drag.y + (e.clientY - drag.py) * drag.k[1];
+      paint();
+    });
+    function stop() { drag = null; stage.classList.remove('is-moving'); }
+    stage.addEventListener('pointerup', stop);
+    stage.addEventListener('pointercancel', stop);
+    // and from the keyboard: arrows move, + and - resize
+    stage.addEventListener('keydown', function (e) {
+      if (!main.classList.contains('is-edit')) return;
+      var step = e.shiftKey ? 60 : 15, k = e.key;
+      if (k === 'ArrowLeft') cur.x -= step; else if (k === 'ArrowRight') cur.x += step;
+      else if (k === 'ArrowUp') cur.y -= step; else if (k === 'ArrowDown') cur.y += step;
+      else if (k === '+' || k === '=') { size.value = Math.min(1000, +size.value + 40); cur.z = fromSlider(+size.value); }
+      else if (k === '-' || k === '_') { size.value = Math.max(0, +size.value - 40); cur.z = fromSlider(+size.value); }
+      else return;
+      e.preventDefault();
+      paint();
+    });
+
+    // the chosen thumbnail - photos and previews share the strip's highlight
+    function mark(img) {
+      strip.querySelectorAll('img').forEach(function (o) { o.classList.toggle('active', o === img); });
+    }
+    // the product photos again (the gallery marks the photo's thumbnail itself)
+    function photos() {
+      main.classList.remove('is-print', 'is-edit');
+      stage.removeAttribute('tabindex');
+      adj.hidden = true;
+      err.hidden = true;
+      caption('');
+      strip.querySelectorAll('img[data-print]').forEach(function (o) { o.classList.remove('active'); });
+    }
+    // Editing is for the visitor's own picture only (the user, 2026-11-10: the
+    // examples are shown as made)
+    function edit(on) {
+      main.classList.toggle('is-edit', on);
+      adj.hidden = !on;
+      send.hidden = !on;
+      if (!on) status.hidden = true;
+      if (on) stage.setAttribute('tabindex', '0'); else stage.removeAttribute('tabindex');
+    }
+    function onUnit() {
+      if (!frame.getAttribute('src')) frame.src = box.getAttribute('data-frame');   // fetched on first use
+      err.hidden = true;
+      main.classList.add('is-print');
+      place();
+      // on a phone the gallery is above the panel, likely scrolled away
+      var r = main.getBoundingClientRect();
+      if (r.bottom < 80 || r.top > window.innerHeight - 80) main.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    // the plain white panel: the unit with nothing printed, nothing to adjust
+    function plain() {
+      pic.style.backgroundImage = 'none';
+      edit(false);
+      onUnit();
+    }
+    // show(src, done, editable): an example fills the panel as it was made; the
+    // visitor's picture starts the same way and can be resized and moved
+    function show(src, done, editable) {
+      var probe = new Image();
+      probe.onload = function () {
+        pic.style.backgroundImage = 'url("' + src + '")';
+        cur.iw = probe.naturalWidth || 1; cur.ih = probe.naturalHeight || 1;
+        var fill = Math.max(W / cur.iw, H / cur.ih), fit = Math.min(W / cur.iw, H / cur.ih);
+        cur.lo = 0.3 * fit / fill;
+        reset();
+        edit(!!editable);
+        onUnit();
+        if (done) done(true);
+      };
+      probe.onerror = function () { err.hidden = false; if (done) done(false); };
+      probe.src = src;
+    }
+    function pick(img) {
+      var src = img.getAttribute('data-print');
+      if (!src) { plain(); caption(''); mark(img); return; }
+      show(src, function (ok) { if (ok) { mark(img); caption(src); } });
+    }
+
+    // The visitor's own picture goes straight onto the unit, with no thumbnail
+    // of its own in the strip (the user, 2026-11-10). Picking an example after
+    // it replaces it; uploading again brings it back.
+    var own = null;   // its object URL, released when the next one replaces it
+    function useFile(file) {
+      if (!file) return;
+      var url = URL.createObjectURL(file);
+      show(url, function (ok) {
+        if (!ok) { URL.revokeObjectURL(url); return; }
+        if (own) URL.revokeObjectURL(own);
+        own = url;
+        sendReady();
+        caption('');
+        mark(null);
+        document.dispatchEvent(new CustomEvent('biomi:track', { detail: { name: 'print_preview_upload' } }));
+      }, true);
+    }
+    input.addEventListener('change', function () {
+      useFile(input.files && input.files[0]);
+      input.value = '';   // the same file again still counts as a change
+    });
+    strip.addEventListener('click', function (e) {
+      var img = e.target.closest('img');
+      if (!img) return;
+      if (img.hasAttribute('data-print')) pick(img); else photos();
+    });
+    // The arrows walk the whole strip, photos and previews alike. Caught on the
+    // way down (capture) so the gallery's own arrow handler, which knows only
+    // the photos, does not also run.
+    gal.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('.pgal__arrow');
+      if (!a) return;
+      var all = [].slice.call(strip.querySelectorAll('img'));
+      if (all.length < 2) return;
+      var at = 0;
+      all.forEach(function (o, k) { if (o.classList.contains('active')) at = k; });
+      e.stopPropagation();
+      all[(at + (a.classList.contains('pgal__prev') ? -1 : 1) + all.length) % all.length].click();
+    }, true);
+
+    // or a picture dropped onto the gallery
+    function hasFiles(e) { return e.dataTransfer && [].indexOf.call(e.dataTransfer.types || [], 'Files') >= 0; }
+    ['dragenter', 'dragover'].forEach(function (type) {
+      main.addEventListener(type, function (e) {
+        if (!hasFiles(e)) return;
+        e.preventDefault();
+        main.classList.add('is-drag');
+      });
+    });
+    main.addEventListener('dragleave', function (e) {
+      if (!main.contains(e.relatedTarget)) main.classList.remove('is-drag');
+    });
+    main.addEventListener('drop', function (e) {
+      if (!hasFiles(e)) return;
+      e.preventDefault();
+      main.classList.remove('is-drag');
+      useFile(e.dataTransfer.files[0]);
+    });
+  })();
 })();

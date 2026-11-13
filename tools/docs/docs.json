@@ -3798,28 +3798,6 @@
                   ]
     },
     {
-        "hash":  "097AC195EA163061A7303A0E9F61CD6D",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\კონდინციონერები\\Mitsubishi\\MSZ-LN\\კატალოგები\\Flyer_MXZ_Series-2021-05-web.pdf",
-        "name":  "Flyer_MXZ_Series-2021-05-web.pdf",
-        "mb":  2.91,
-        "class":  "brochure",
-        "cat":  "ac",
-        "slugs":  [
-                      "mitsubishi-msz-ln"
-                  ]
-    },
-    {
-        "hash":  "E312C0F69494F6866745DF6033222194",
-        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\კონდინციონერები\\Mitsubishi\\MSZ-LN\\კატალოგები\\Flyer_PUMY-Series-2023.pdf",
-        "name":  "Flyer_PUMY-Series-2023.pdf",
-        "mb":  0.62,
-        "class":  "brochure",
-        "cat":  "ac",
-        "slugs":  [
-                      "mitsubishi-msz-ln"
-                  ]
-    },
-    {
         "hash":  "2352D31E2FA0B3632FCD4C558866AFBB",
         "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\კონდინციონერები\\Mitsubishi\\MSZ-LN\\კატალოგები\\mitsubishi--msz-ln-brochure.pdf",
         "name":  "mitsubishi--msz-ln-brochure.pdf",
@@ -3886,6 +3864,17 @@
                   ]
     },
     {
+        "hash":  "097AC195EA163061A7303A0E9F61CD6D",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\კონდინციონერები\\Mitsubishi\\MXZ\\საბუთები\\Flyer_MXZ_Series-2021-05-web.pdf",
+        "name":  "Flyer_MXZ_Series-2021-05-web.pdf",
+        "mb":  2.91,
+        "class":  "brochure",
+        "cat":  "ac",
+        "slugs":  [
+                      "mitsubishi-mxz"
+                  ]
+    },
+    {
         "hash":  "16F4DFF9C99F6DDB00D48A6DFC53034E",
         "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\კონდინციონერები\\Mitsubishi\\PLFY-WL VFM-E\\ბროშურები\\EC_PLFY-WL25VFM-E.pdf",
         "name":  "EC_PLFY-WL25VFM-E.pdf",
@@ -3905,6 +3894,17 @@
         "cat":  "ac",
         "slugs":  [
                       "mitsubishi-plfy-wl"
+                  ]
+    },
+    {
+        "hash":  "E312C0F69494F6866745DF6033222194",
+        "src":  "C:\\Users\\Designer\\Desktop\\2026\\პროდუქტები\\კონდინციონერები\\Mitsubishi\\PUMY\\საბუთბი\\Flyer_PUMY-Series-2023.pdf",
+        "name":  "Flyer_PUMY-Series-2023.pdf",
+        "mb":  0.62,
+        "class":  "brochure",
+        "cat":  "ac",
+        "slugs":  [
+                      "mitsubishi-pumy"
                   ]
     },
     {

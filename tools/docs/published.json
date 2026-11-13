@@ -2399,34 +2399,6 @@
                   ]
     },
     {
-        "file":  "mitsubishi-msz-ln-brochure-3.pdf",
-        "class":  "brochure",
-        "cat":  "ac",
-        "model":  "",
-        "name":  "Flyer_MXZ_Series-2021-05-web.pdf",
-        "mb":  0.21,
-        "srcmb":  2.91,
-        "slugs":  [
-                      "mitsubishi-msz-ln",
-                      "mitsubishi-sez-m",
-                      "mitsubishi-slz-m"
-                  ]
-    },
-    {
-        "file":  "mitsubishi-msz-ln-brochure-4.pdf",
-        "class":  "brochure",
-        "cat":  "ac",
-        "model":  "",
-        "name":  "Flyer_PUMY-Series-2023.pdf",
-        "mb":  0.41,
-        "srcmb":  0.62,
-        "slugs":  [
-                      "mitsubishi-msz-ln",
-                      "mitsubishi-sez-m",
-                      "mitsubishi-slz-m"
-                  ]
-    },
-    {
         "file":  "mitsubishi-msz-ln-brochure.pdf",
         "class":  "brochure",
         "cat":  "ac",
@@ -2439,7 +2411,7 @@
                   ]
     },
     {
-        "file":  "mitsubishi-msz-ln-brochure-5.pdf",
+        "file":  "mitsubishi-msz-ln-brochure-3.pdf",
         "class":  "brochure",
         "cat":  "ac",
         "model":  "",
@@ -2476,6 +2448,20 @@
                   ]
     },
     {
+        "file":  "mitsubishi-mxz-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_MXZ_Series-2021-05-web.pdf",
+        "mb":  0.21,
+        "srcmb":  2.91,
+        "slugs":  [
+                      "mitsubishi-mxz",
+                      "mitsubishi-sez-m",
+                      "mitsubishi-slz-m"
+                  ]
+    },
+    {
         "file":  "mitsubishi-plfy-wl-other.pdf",
         "class":  "other",
         "cat":  "ac",
@@ -2497,6 +2483,20 @@
         "srcmb":  3.76,
         "slugs":  [
                       "mitsubishi-plfy-wl"
+                  ]
+    },
+    {
+        "file":  "mitsubishi-pumy-brochure.pdf",
+        "class":  "brochure",
+        "cat":  "ac",
+        "model":  "",
+        "name":  "Flyer_PUMY-Series-2023.pdf",
+        "mb":  0.41,
+        "srcmb":  0.62,
+        "slugs":  [
+                      "mitsubishi-pumy",
+                      "mitsubishi-sez-m",
+                      "mitsubishi-slz-m"
                   ]
     },
     {
