@@ -65,7 +65,7 @@ function Stamp([string[]]$files) {
   return ([BitConverter]::ToString($sha.ComputeHash($all.ToArray())) -replace '-', '').Substring(0, 16)
 }
 
-function MakeHero([string]$source, [string]$name) {
+function MakeHero([string]$source, [string]$name, [bool]$full = $false) {
   $dst = Join-Path $IMG $name
   # Every hero on the site is 16:9 - cropped to that at the source's own width
   # when it is smaller than the target, rather than upscaled: ORO's thumbnail
@@ -74,13 +74,18 @@ function MakeHero([string]$source, [string]$name) {
   $tw = [Math]::Min($w, $HERO_W)
   $th = [int][Math]::Round($tw * $HERO_H / $HERO_W)
   $crop = @('-auto-orient', '-resize', ($tw.ToString() + 'x' + $th + '^'), '-gravity', 'center', '-extent', ($tw.ToString() + 'x' + $th))
-  & $MAGICK ($source + '[0]') @crop -quality 82 $dst
+  # "heroFull": true keeps the whole photo on the project page and in its
+  # lightbox (GEPHA, the user 2026-11-16: "do not crop the cover image here");
+  # the cards keep the 16:9 crop, which their grid needs.
+  $page = if ($full) { @('-auto-orient', '-resize', ($tw.ToString() + 'x' + $tw + '>')) } else { $crop }
+  & $MAGICK ($source + '[0]') @page -quality 82 $dst
   # The homepage and projects.html show the hero as a card background: an AVIF
   # copy at 1400px, about a third of the JPEG. The JPEG stays for the lightbox.
   & $MAGICK ($source + '[0]') @crop -resize '1400x>' -quality 55 ($dst -replace '\.jpg$', '-card.avif')
   # full-size AVIF twin for the project page's own hero (build-projects.ps1),
   # made from the source rather than from the JPEG, so it is compressed once
-  & $MAGICK ($source + '[0]') @crop -quality $HERO_Q ($dst -replace '\.jpg$', '.avif')
+  & $MAGICK ($source + '[0]') @page -quality $HERO_Q ($dst -replace '\.jpg$', '.avif')
+  if ($full) { return ('' + $tw + ' wide, whole') }
   return ('' + $tw + 'x' + $th)
 }
 function MakeLogo([string]$source, [string]$name) {
@@ -132,7 +137,7 @@ foreach ($p in $DATA) {
   if ($p.heroUpload) {
     $st = Stamp @($p.heroUpload)
     if ($REC[$p.hero] -ne $st -or -not (Test-Path (Join-Path $IMG $p.hero))) {
-      $heroNote = 'upload ' + (MakeHero (Join-Path $repo $p.heroUpload) $p.hero)
+      $heroNote = 'upload ' + (MakeHero (Join-Path $repo $p.heroUpload) $p.hero $p.heroFull)
       $REC[$p.hero] = $st
     } else { $heroNote = 'upload (current)' }
   }
@@ -164,7 +169,7 @@ foreach ($p in $DATA) {
         $thumb = Get-ChildItem -LiteralPath $folder -File | Where-Object { $_.BaseName -eq 'thumbnail' } | Select-Object -First 1
         if ($thumb -and $p.hero -eq ('proj-' + $p.slug + '.jpg')) {
           if ((Fresh $thumb.FullName $p.hero) -and $Remake -notcontains $p.slug) { $heroNote = 'folder (current)' }
-          else { $heroNote = 'folder ' + (MakeHero $thumb.FullName $p.hero) }
+          else { $heroNote = 'folder ' + (MakeHero $thumb.FullName $p.hero $p.heroFull) }
         }
       }
       $main = Join-Path $folder 'Main gallery'

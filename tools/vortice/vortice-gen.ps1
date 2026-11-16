@@ -62,6 +62,7 @@ $MIXED = @('vortice-qbk','vortice-qbk-sal','vortice-cms','vortice-roof','vortice
 # instead of airflow, power, diameter and noise, and they have no comparison
 # table. Fan pages do not pick them as related ranges either.
 $FANS = @($fams | Where-Object { -not $_.accessory })
+. (Join-Path $PSScriptRoot 'vortice-cats.ps1')   # $CAT: each page's listing group
 
 function HtmlEnc($s) { $s -replace '&','&amp;' -replace '<','&lt;' -replace '>','&gt;' -replace '"','&quot;' }
 
@@ -266,11 +267,18 @@ foreach ($lang in 'ka','en') {
     $power = if ($MIXED -contains $f.slug) { $t.phMix } else { $t.ph1 }
 
     # ---- siblings for the related + comparison blocks: the next two fan
-    #      ranges after this page, never an accessory page
+    #      ranges after this page within its own listing group (vortice-cats.ps1:
+    #      home, duct, ind, hrv), never an accessory page. Plain "next two" let the
+    #      last recuperator wrap round to a bathroom fan (the user, 2026-11-16).
+    #      Every group holds at least three ranges; a page outside them all falls
+    #      back to the whole list.
     $sib = @()
-    $ix = [array]::IndexOf(@($FANS | ForEach-Object { $_.slug }), $f.slug)
-    if ($ix -lt 0) { $ix = @($FANS).Count - 1 }
-    for ($k = 1; $k -le 2; $k++) { $sib += $FANS[($ix + $k) % $FANS.Count] }
+    $grp = if ($CAT.ContainsKey($f.slug)) { $CAT[$f.slug].g } else { $null }
+    $pool = @($FANS | Where-Object { $grp -and $CAT.ContainsKey($_.slug) -and $CAT[$_.slug].g -eq $grp })
+    if ($pool.Count -lt 3) { $pool = @($FANS) }
+    $ix = [array]::IndexOf(@($pool | ForEach-Object { $_.slug }), $f.slug)
+    if ($ix -lt 0) { $ix = $pool.Count - 1 }
+    for ($k = 1; $k -le 2; $k++) { $sib += $pool[($ix + $k) % $pool.Count] }
     $relCards = ($sib | ForEach-Object {
       $sn = if ($lang -eq 'ka') { $_.nameKa } else { $_.nameEn }
       '      <a class="pcard" href="' + $_.slug + $t.file + '"><span class="pcard__img"><img src="../assets/img/products/' +
@@ -365,9 +373,12 @@ $cmpRows
     # (print-panel/<name>-unit.avif); data-print names the picture itself,
     # empty for the plain white panel.
     $printPick = ''
+    $mainCls = ''
     if ($f.printpanel) {
       $pp = $f.printpanel; $pt = $pp.$lang; $pimg = '../assets/img/'
-      $printThumbs = @('          <img class="dfp__thumb" src="' + $pimg + 'print-panel/blank-unit.avif" data-print="" alt="' + (HtmlEnc $pt.original) + '" title="' + (HtmlEnc $pt.original) + '">')
+      # the paintings first, the plain white panel last (the user, 2026-11-16)
+      $printThumbs = @()
+      $blankThumb = '          <img class="dfp__thumb" src="' + $pimg + 'print-panel/blank-unit.avif" data-print="" alt="' + (HtmlEnc $pt.original) + '" title="' + (HtmlEnc $pt.original) + '">'
       # The painting's artist and title under the unit while it shows (the user,
       # 2026-11-13: "artists and titles of paintings, uppercase"): one hidden
       # line per example, which main.js moves into the gallery's box. Written in
@@ -380,11 +391,18 @@ $cmpRows
       $capQ = @([char]0x201C, [char]0x201D)
       foreach ($ppEx in @($pp.examples)) {
         $exName = HtmlEnc $ppEx.$lang
-        $printThumbs += '          <img class="dfp__thumb" src="' + $pimg + $ppEx.img + '-unit.avif" data-print="' + $pimg + $ppEx.img + '.avif" alt="' + $exName + '" title="' + $exName + '">'
+        $isStart = $pp.start -and $ppEx.img -eq $pp.start
+        $printThumbs += '          <img class="dfp__thumb' + $(if ($isStart) { ' active" data-print-start="' } else { '' }) + '" src="' + $pimg + $ppEx.img + '-unit.avif" data-print="' + $pimg + $ppEx.img + '.avif" alt="' + $exName + '" title="' + $exName + '">'
         $exParts = $ppEx.$lang -split ' - ', 2
         $printCaps += '          <p class="dfp__cap" data-for="' + $pimg + $ppEx.img + '.avif" hidden><span class="dfp__artist">' + (HtmlEnc $exParts[0]) + '</span> - <span class="dfp__title">' + $capQ[0] + (HtmlEnc $exParts[1]) + $capQ[1] + '</span></p>'
       }
-      $thumbs = $thumbs + "`r`n" + ($printThumbs -join "`r`n")
+      $printThumbs += $blankThumb
+      # With a starting example ("start"), the page opens on it and the product
+      # photo leaves the strip (the user, 2026-11-16: "remove the first image and
+      # make [Pirosmani] the main one"). The photo itself stays in the main box,
+      # hidden from the first paint (is-print): the preview is placed by it.
+      if ($pp.start) { $thumbs = ($printThumbs -join "`r`n"); $mainCls = ' is-print' }
+      else { $thumbs = $thumbs + "`r`n" + ($printThumbs -join "`r`n") }
       $printPick = @"
 
         <div class="dfp" data-dfp data-frame="$pimg$($pp.frame)" data-quad="$($pp.quad)" data-ratio="$($pp.ratio)" data-place="$($pp.place)" data-crop="$($pp.crop)" data-alt="$(HtmlEnc $pt.alt)" data-drop="$(HtmlEnc $pt.drop)" data-send="../api/design.php" data-product="$($f.slug)" data-sending="$(HtmlEnc $pt.sending)" data-sent="$(HtmlEnc $pt.sent)" data-send-err="$(HtmlEnc $pt.sendErr)">
@@ -420,7 +438,7 @@ $($printCaps -join "`r`n")
     </nav>
     <div class="pdetail">
       <div class="pgal reveal">
-        <div class="pgal__main">
+        <div class="pgal__main$mainCls">
           <button class="pgal__arrow pgal__prev" type="button" aria-label="$(if($lang -eq 'ka'){'წინა'}else{'Previous'})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 6-6 6 6 6"/></svg></button>
           <img src="../assets/img/products/$($f.slug)/$($have[0])" alt="$(HtmlEnc $name)">
           <button class="pgal__arrow pgal__next" type="button" aria-label="$(if($lang -eq 'ka'){'შემდეგი'}else{'Next'})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></button>

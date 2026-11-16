@@ -58,7 +58,10 @@ $changed = 0
 Get-ChildItem -Path $PSScriptRoot -Recurse -Filter *.html |
   Where-Object { $_.FullName -notmatch '\\backup|_files|\\\.claude\\' } |
   ForEach-Object {
-    $text = Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8
+    $page = $_.FullName
+    $text = Get-Content -LiteralPath $page -Raw -Encoding UTF8
+    # an emptied page is reported, not processed (Replace would throw on it)
+    if ([string]::IsNullOrEmpty($text)) { Write-Warning "empty page, skipped - restore it: git checkout HEAD -- `"$page`""; return }
     # matches style.css, main.js or favicon.svg, with or without an existing ?v=
     $new = [regex]::Replace(
       $text,
@@ -66,8 +69,15 @@ Get-ChildItem -Path $PSScriptRoot -Recurse -Filter *.html |
       { param($m) $m.Groups[1].Value + '?v=' + $(if ($m.Groups[1].Value -like '*favicon*') { $iconVer } else { $ver }) + '"' }
     )
     if ($new -ne $text) {
-      Set-Content -LiteralPath $_.FullName -Value $new -NoNewline -Encoding UTF8
-      $changed++
+      # Written beside the page, then swapped in. If another program has the
+      # page open the swap fails and the page stays whole: Set-Content emptied
+      # projects/agrarian.html that way on 2026-11-16. Run again to finish.
+      $tmp = $page + '.tmp'
+      [IO.File]::WriteAllText($tmp, $new, (New-Object Text.UTF8Encoding($true)))
+      # [NullString]::Value, not $null: PowerShell hands $null to a .NET string
+      # parameter as "", and Replace refuses "" as the backup file's name
+      try { [IO.File]::Replace($tmp, $page, [NullString]::Value); $changed++ }
+      catch { Remove-Item -LiteralPath $tmp -ErrorAction SilentlyContinue; Write-Warning "in use, left as it was (run again): $page" }
     }
   }
 

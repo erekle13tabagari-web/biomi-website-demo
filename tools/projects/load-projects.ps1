@@ -67,6 +67,10 @@ function Get-ProjectItems {
       # a stacked logo (mark over text) needs the taller chip; logoHeight sets
       # the height in px when neither of the two standard ones suits the mark
       lockup     = [bool]$j.lockup
+      # work still under way: a pictogram beside the logo (build-projects.ps1, LiveChip)
+      ongoing    = [bool]$j.ongoing
+      # the whole cover on the project page and in its lightbox, not the 16:9 crop (2-images.ps1)
+      heroFull   = [bool]$j.heroFull
       logoHeight = $(if ($j.logoHeight) { [int]$j.logoHeight } else { 0 })
       video      = (YouTubeId ([string]$j.video))
       gallery    = @(@($j.gallery) | Where-Object { $_ } | ForEach-Object { ([string]$_).TrimStart('/') })

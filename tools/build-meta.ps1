@@ -140,7 +140,7 @@ function MakePageOg($r, [string]$out) {
 
 foreach ($f in $files) {
   $txt = [IO.File]::ReadAllText($f.FullName)
-  $m = [regex]::Match($txt, '(?s)<div class="pgal__main">.*?<img src="([^"]+)"')
+  $m = [regex]::Match($txt, '(?s)<div class="pgal__main(?: [^"]*)?">.*?<img src="([^"]+)"')
   # News articles and projects (2026-10-12): the photo under the headline. Until
   # then they had no picture of their own, so every shared article or project
   # link showed the About photo (default.jpg).
@@ -249,7 +249,7 @@ foreach ($f in $files) {
 
   # ---- structured data
   # a datasheet as a table, or as the grid of cells the Emtaş pages use
-  $isProduct = $txt -match 'class="(spec-table|spec-grid)' -and $txt -match 'class="pgal__main"'
+  $isProduct = $txt -match 'class="(spec-table|spec-grid)' -and $txt -match 'class="pgal__main[ "]'
   if ($isProduct) {
     # Every make the catalogue carries. Beretta, Riello, Warmhaus and Omega were
     # missing, so their 30-odd product pages told Google the maker was Biomi.

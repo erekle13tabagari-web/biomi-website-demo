@@ -299,7 +299,11 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    translation shows instead, and it keeps the element's uppercase. */
 .gk{position:relative}
 .gk::before{content:attr(data-c);content:attr(data-c) / "";text-transform:none}
-.gt{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* .gt lies invisibly over the drawn capitals rather than shrunk to a pixel
+   (the user, 2026-11-16: "I can't select and copy the names of products"):
+   the drawn copy is a pseudo-element, which no browser lets you select, so
+   selecting a heading now takes .gt - and copying gives ordinary Georgian. */
+.gt{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden}
 .gk.is-tr::before,.translated-ltr .gk::before,.translated-rtl .gk::before{content:none}
 .gk.is-tr .gt,.translated-ltr .gt,.translated-rtl .gt{position:static;width:auto;height:auto;
   overflow:visible;clip-path:none;white-space:inherit}
@@ -311,7 +315,10 @@ html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
    since its own rule above is what hides it. */
 .gk.gk{font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;opacity:1;
   display:inline;width:auto;height:auto;margin:0;padding:0;border:0;background:none}
-.gk.gk .gt{font:inherit;color:inherit;letter-spacing:inherit}
+.gk.gk.gk--solo{display:inline-block}   /* a lone run: .gt wraps with it (main.js, solo) */
+.gk.gk .gt{font:inherit;color:transparent;letter-spacing:inherit}
+/* translated: the translation is the text to read again */
+.gk.gk.is-tr .gt,.translated-ltr .gk.gk .gt,.translated-rtl .gk.gk .gt{color:inherit}
 
 /* ---- Layout helpers ---------------------------------------------------- */
 .container{width:100%;max-width:var(--container);margin-inline:auto;padding-inline:28px}
@@ -915,6 +922,31 @@ a.news__img img{transition:transform .5s var(--ease)}
 /* 42 + 7 + 7 is the 56px this chip used to hard-code, so it needs no rule. */
 .article__topmeta .proj__logo--lockup img{--logo-h:42px}
 .proj .proj__logo--lockup img{--logo-h:42px}
+/* An ongoing project's pictogram (build-projects.ps1, LiveChip): a square chip
+   in the logo chip's dress, as tall as the chip beside it. On a card the two
+   share one pinned row (.proj__chips), so the pictogram follows the logo's
+   width; on the page it simply sits next in .article__topmeta. */
+/* Ring pictogram plus the word ONGOING (the user, 2026-11-16: the 34px icon-only badge
+   was too small). align-self:stretch makes it exactly as tall as the logo chip
+   in the same row; min-height covers a project without a logo. The icon has a
+   fixed size: a % one has nothing to resolve against and falls back to SVG's
+   300x150 default. */
+.proj__live{flex:none;align-self:stretch;display:inline-flex;align-items:center;gap:8px;min-height:40px;
+  padding:0 14px 0 12px;border-radius:10px;background:rgba(255,255,255,.95);color:var(--gold);
+  font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1;white-space:nowrap;
+  box-shadow:0 6px 18px rgba(0,0,0,.28)}
+.proj__live svg{width:24px;height:24px;display:block;flex:none}
+/* a card is narrower: ᲛᲘᲛᲓᲘᲜᲐᲠᲔ at the page's size ran 7px past a 275px
+   homepage card on a phone, so the card chip is set a little tighter */
+.proj .proj__live{gap:6px;padding:0 11px 0 9px;font-size:12px;letter-spacing:.04em}
+.proj .proj__live svg{width:20px;height:20px}
+/* the ring turns slowly - work under way - and stands still for reduced motion */
+.proj__ring{transform-box:view-box;transform-origin:50% 50%;animation:proj-ring 9s linear infinite}
+@keyframes proj-ring{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.proj__ring{animation:none}}
+.proj .proj__chips{position:absolute;top:18px;left:18px;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:8px;max-width:calc(100% - 36px)}   /* on a 320px phone the chip drops under the logo */
+.proj .proj__chips .proj__logo{position:static;max-width:none}
+.article__topmeta .proj__logo + .proj__live{margin-left:-8px}   /* 8px from its logo, as on the cards */
 /* Per-logo heights, because two tiers cannot hold ratios running from
    0.95:1 (Agrarian) to 6.4:1 (SDSU): at the wordmark height Terminal and
    Kartlisi read small, at the lockup height ORO outweighs every chip beside
@@ -2289,6 +2321,12 @@ html[lang="ka"] .footer__made{letter-spacing:.04em}
 .pgal__main{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
   aspect-ratio:4/3;display:grid;place-items:center;padding:26px;overflow:hidden}
 .pgal__main img{max-width:100%;max-height:100%;object-fit:contain}
+/* A setting photo (named scene.avif) fills the box edge to edge instead of
+   sitting small on white (the user, 2026-11-16, MXZ and PUMY); by its name, so
+   it holds when the capacity chips rebuild the strip. Cropped square with the
+   unit centred, so the 4:3 box of a phone still shows all of it. */
+.pgal__main > img[src$="/scene.avif"]{position:absolute;inset:0;width:100%;height:100%;max-width:none;max-height:none;object-fit:cover}
+.pgal__thumbs img[src$="/scene.avif"]{object-fit:cover}
 .pgal__arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
   background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow-sm);transition:.2s}
 .pgal__arrow:hover{background:var(--bg-soft)}
@@ -2476,7 +2514,7 @@ a.pbuy__brand:hover::after,a.pbuy__brand:focus-visible::after{background:var(--g
 .compare table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px}
 .compare th,.compare td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
 .compare thead th{background:var(--bg-soft)}
-.compare thead img{height:70px;width:auto;object-fit:contain;display:block;margin-bottom:8px}
+.compare thead img{height:70px;width:auto;object-fit:contain;display:block;margin-bottom:8px;border-radius:var(--radius-sm)}   /* rounded: the user, 2026-11-16 */
 .compare tbody th{font-weight:500;color:var(--muted);width:24%}
 .compare tr:last-child td,.compare tr:last-child th{border-bottom:0}
 /* The left-hand column is the product everything else is being compared

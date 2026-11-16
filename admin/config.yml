@@ -192,6 +192,8 @@ collections:
         choose_url: false
         hint: 'არასავალდებულო. სასურველია SVG ან გამჭვირვალე PNG.'
       - { label: 'ლოგო მაღალია (ნიშანი ტექსტის ზემოთ)', name: lockup, widget: boolean, required: false, default: false, hint: 'ჩართეთ, თუ ლოგო თითქმის კვადრატულია - მიიღებს უფრო მაღალ ადგილს.' }
+      - { label: 'მთავარი ფოტო მთლიანად', name: heroFull, widget: boolean, required: false, default: false, hint: 'ჩართეთ, თუ პროექტის გვერდზე მთავარი ფოტო მოუჭრელად უნდა ჩანდეს. ბარათზე ის მაინც 16:9-ზე მოიჭრება.' }
+      - { label: 'მიმდინარე პროექტი', name: ongoing, widget: boolean, required: false, default: false, hint: 'ჩართეთ, სანამ სამუშაოები მიმდინარეობს - ლოგოს გვერდით გამოჩნდება ამწის პიქტოგრამა. დასრულების შემდეგ გამორთეთ.' }
       - { label: 'ლოგოს სიმაღლე (px)', name: logoHeight, widget: number, value_type: int, required: false, min: 14, max: 60, hint: 'არასავალდებულო. ცარიელი = 22 (ფართო ლოგო) ან 42 (მაღალი).' }
       - { label: 'ვიდეო (YouTube-ის ბმული)', name: video, widget: string, required: false, hint: 'ჩნდება ტექსტის ქვემოთ.' }
       - label: ფოტოგალერეა

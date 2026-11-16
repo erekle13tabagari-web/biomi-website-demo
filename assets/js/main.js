@@ -91,6 +91,16 @@
        go through the same conversion. Skip it and that markup renders exactly
        as CSS leaves it, which for Georgian means visibly un-capitalised while
        the English beside it is in caps. */
+    /* An element whose capitals are one run of text (nearly all: a product
+       name, a heading, a button) gets that run as a box of its own,
+       .gk--solo, so the invisible .gt over it wraps line for line with the
+       drawn capitals and a two-line name can be selected whole (the user,
+       2026-11-16). A run among others stays inline: as a box it could wrap
+       differently from the text around it. */
+    function solo(el) {
+      var gks = el.querySelectorAll('.gk');
+      if (gks.length === 1) gks[0].classList.add('gk--solo');
+    }
     function run(root) {
       (root || document).querySelectorAll('*').forEach(function (el) {
         if (!isUpper(el)) return;
@@ -99,12 +109,12 @@
         if (isUpper(el.parentElement)) return;
         if (el.dataset.caps) return;
         // Latin-only elements are left to CSS, so caps still work with JS disabled.
-        if (draw(el)) el.dataset.caps = '1';
+        if (draw(el)) { el.dataset.caps = '1'; solo(el); }
       });
     }
     run.text = function (el, text) {
       el.textContent = text;
-      if (el.dataset.caps || isUpper(el)) { if (draw(el)) el.dataset.caps = '1'; }
+      if (el.dataset.caps || isUpper(el)) { if (draw(el)) { el.dataset.caps = '1'; solo(el); } }
     };
     if (window.MutationObserver && window.WeakMap) {
       new MutationObserver(function (list) {
@@ -3065,6 +3075,7 @@
       if (!on) status.hidden = true;
       if (on) stage.setAttribute('tabindex', '0'); else stage.removeAttribute('tabindex');
     }
+    var quiet = false;   // the page opening on its starting example: no scrolling
     function onUnit() {
       if (!frame.getAttribute('src')) frame.src = box.getAttribute('data-frame');   // fetched on first use
       err.hidden = true;
@@ -3072,7 +3083,7 @@
       place();
       // on a phone the gallery is above the panel, likely scrolled away
       var r = main.getBoundingClientRect();
-      if (r.bottom < 80 || r.top > window.innerHeight - 80) main.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (!quiet && (r.bottom < 80 || r.top > window.innerHeight - 80)) main.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     // the plain white panel: the unit with nothing printed, nothing to adjust
     function plain() {
@@ -3156,6 +3167,18 @@
       useFile(input.files && input.files[0]);
       input.value = '';   // the same file again still counts as a change
     });
+    // The page can open on an example ([data-print-start], "start" in
+    // vortice-families.json - Pirosmani on the VORT HRW-ALL 100 DF, the user
+    // 2026-11-16), with the product photo out of the strip: the main box is
+    // already .is-print in the markup, so the photo never flashes first.
+    var startAt = strip.querySelector('img[data-print-start]');
+    if (startAt) {
+      quiet = true;
+      show(startAt.getAttribute('data-print'), function (ok) {
+        quiet = false;
+        if (ok) { mark(startAt); caption(startAt.getAttribute('data-print')); }
+      });
+    }
     strip.addEventListener('click', function (e) {
       var img = e.target.closest('img');
       if (!img) return;

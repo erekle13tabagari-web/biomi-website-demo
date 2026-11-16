@@ -23,8 +23,33 @@ $CRLF = [string][char]13 + [char]10
 $wrote = 0
 
 $LBL = @{
-  ka = @{ gallery = 'პროექტის გალერეა'; shot = ' - პროექტის ფოტო '; video = ' - პროექტის ვიდეო' }
-  en = @{ gallery = 'Project gallery'; shot = ' - project photo '; video = ' - project video' }
+  ka = @{ gallery = 'პროექტის გალერეა'; shot = ' - პროექტის ფოტო '; video = ' - პროექტის ვიდეო'; live = 'მიმდინარე პროექტი' }
+  en = @{ gallery = 'Project gallery'; shot = ' - project photo '; video = ' - project video'; live = 'Ongoing project' }
+}
+
+# "ongoing": true in a project file - work still under way (GEPHA, the user
+# 2026-11-16): a ring pictogram and ONGOING beside the logo chip, on the cards and the
+# page, named for screen readers and on hover. Take the line out of the file
+# when the project is finished and the pictogram goes with the next build.
+function LiveChip($p, [string]$lang) {
+  if (-not $p.ongoing) { return '' }
+  $n = AttEsc $LBL[$lang].live
+  # the word inside the chip (the user, 2026-11-16): ONGOING on the English
+  # page, მიმდინარე on the Georgian one - the chip is uppercase in CSS, so
+  # georgianCaps (main.js) draws it in Mtavruli; the full name stays on hover
+  $word = '<span>' + $(if ($lang -eq 'ka') { 'მიმდინარე' } else { 'Ongoing' }) + '</span>'
+  # a ring of four brand-colour arcs round a navy dot (the user's reference, "in
+  # our style"): Super Blue, Felamushi light, Felamushi, Super Blue light. Fixed
+  # colours, as the chip is white in both themes; the ring turns slowly (CSS).
+  $arcs = ''
+  $cols = '#0249f7', '#c49bd8', '#85519a', '#8ba4fb'
+  for ($i = 0; $i -lt 4; $i++) {
+    $arcs += '<circle cx="12" cy="12" r="9.5" pathLength="100" stroke="' + $cols[$i] + '" stroke-dasharray="17 83" stroke-dashoffset="' + (-25 * $i) + '"/>'
+  }
+  return '<span class="proj__live" title="' + $n + '">' +
+         '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+         '<g class="proj__ring" fill="none" stroke-width="2.6" stroke-linecap="round">' + $arcs + '</g>' +
+         '<circle cx="12" cy="12" r="5.2" fill="#1b1b33"/></svg>' + $word + '</span>'
 }
 
 # text for an element, and for an attribute
@@ -94,6 +119,8 @@ foreach ($p in $DATA) {
     $o.Add('        <span class="news__cat">' + (TxtEsc $t.cat) + '</span>')
     $chip = LogoChip $p $t '../'
     if ($chip) { $o.Add('        ' + $chip) }
+    $live = LiveChip $p $lang
+    if ($live) { $o.Add('        ' + $live) }
     $o.Add('      </div>')
     $sub = if ($t.sub) { '<span class="article__sub">' + (TxtEsc $t.sub) + '</span>' } else { '' }
     $o.Add('      <h1>' + (TxtEsc $t.h1) + $sub + '</h1>')
@@ -184,7 +211,11 @@ foreach ($lang in 'ka', 'en') {
     $c = @('        <a class="proj reveal" href="projects/' + $p.slug + $sfx + '">')
     $c += '          <span class="proj__img" data-bg="assets/img/' + (CardImg $p.hero) + '"></span>'
     $chip = LogoChip $p $t ''
-    if ($chip) { $c += '          ' + $chip }
+    $live = LiveChip $p $lang
+    # with the pictogram, logo and pictogram share one pinned row (.proj__chips)
+    if ($chip -and $live) { $c += '          <span class="proj__chips">' + $chip + $live + '</span>' }
+    elseif ($chip) { $c += '          ' + $chip }
+    elseif ($live) { $c += '          <span class="proj__chips">' + $live + '</span>' }
     $c += '          <span class="proj__info">'
     $c += '            <span class="proj__meta"><span>' + (TxtEsc $t.cat) + '</span><h3>' + (TxtEsc $t.card) + '</h3></span>'
     $c += '          </span>'
