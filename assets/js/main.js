@@ -166,6 +166,42 @@
     var canSend = FORMS.LIVE && !!ANALYTICS.GA_ID && (!isTest || debugOn),
         offered = FORMS.LIVE && (!!ANALYTICS.GA_ID || isTest);
 
+    /* The ad click, kept until consent (the user, 2026-11-16). A Meta ad opens
+       its page with utm_* tags and Meta's fbclid in the address, but GA and the
+       pixel load only after "Accept". A visitor who accepted on a later page
+       was counted as direct traffic: the tags were no longer in the address.
+       So they are kept in this tab (sessionStorage, gone when the tab closes;
+       nothing is sent anywhere before consent) and load() hands them over
+       once - to GA as the page address, to the pixel as its _fbc cookie. A new
+       ad click in the same tab replaces them. */
+    var CAMPAIGN = /^utm_(source|medium|campaign|content|term|id)$/;
+    try {
+      var adTags = [], fbclid = '';
+      new URLSearchParams(location.search).forEach(function (v, k) {
+        if (CAMPAIGN.test(k)) adTags.push([k, v]);
+        else if (k === 'fbclid' && v) fbclid = v;
+      });
+      if (adTags.length) sessionStorage.setItem('biomi-utm', JSON.stringify(adTags));
+      if (fbclid) sessionStorage.setItem('biomi-fbclid', JSON.stringify({ id: fbclid, at: Date.now() }));
+    } catch (e) {}
+    function takeKept(key) {
+      try {
+        var v = JSON.parse(sessionStorage.getItem(key) || 'null');
+        sessionStorage.removeItem(key);
+        return v;
+      } catch (e) { return null; }
+    }
+    // this page's address with the ad's tags added, when the visitor came from
+    // an ad earlier in this tab; '' when this page is the ad's own landing page
+    // (GA reads the tags from the address itself) or there was no ad
+    function campaignUrl() {
+      var tags = takeKept('biomi-utm');
+      if (!tags || !tags.length || /[?&]utm_/.test(location.search)) return '';
+      var u = new URL(location.href);
+      tags.forEach(function (t) { u.searchParams.set(t[0], t[1]); });
+      return u.href;
+    }
+
     function read() {
       try {
         var c = JSON.parse(localStorage.getItem(KEY) || 'null');
@@ -195,6 +231,15 @@
       if (!ANALYTICS.META_PIXEL) return;
       if (pixelLoaded) { window.fbq('consent', 'grant'); return; }
       pixelLoaded = true;
+      // the ad click's fbclid from the landing page (see CAMPAIGN above), in
+      // the _fbc cookie the pixel itself writes when fbclid is in the address
+      // (fb.1.<click time>.<fbclid>) - without it an enquiry made after accepting
+      // on a later page can't be tied to the ad
+      var click = takeKept('biomi-fbclid');
+      if (click && click.id && !/[?&]fbclid=/.test(location.search) && !/(^|;\s*)_fbc=/.test(document.cookie)) {
+        document.cookie = '_fbc=fb.1.' + click.at + '.' + click.id + '; max-age=7776000; path=/; SameSite=Lax' +
+                          (location.protocol === 'https:' ? '; Secure' : '');
+      }
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -220,7 +265,10 @@
       window.gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied',
                                           ad_user_data: 'denied', ad_personalization: 'denied' });
       window.gtag('js', new Date());
-      window.gtag('config', ANALYTICS.GA_ID, debugOn ? { debug_mode: true } : {});
+      var cfg = debugOn ? { debug_mode: true } : {};
+      var adUrl = campaignUrl();   // the ad's tags, when accepted on a later page
+      if (adUrl) cfg.page_location = adUrl;
+      window.gtag('config', ANALYTICS.GA_ID, cfg);
       var s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ANALYTICS.GA_ID);
