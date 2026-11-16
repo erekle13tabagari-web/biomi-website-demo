@@ -2972,15 +2972,28 @@
           .catch(failed);
       });
     });
-    function paint() {
+    /* Drawing waits for the next frame (the user, 2026-11-16: resizing and
+       dragging lagged on biomi.ge): a mouse sends many moves per frame and the
+       slider many inputs, and each restyle redrew the picture. Now the latest
+       values are drawn once per frame. paint(true) draws at once, for a new
+       picture, so it never shows a frame at the old size. */
+    var drawQueued = false;
+    function draw() {
+      drawQueued = false;
+      var c = Math.max(W / cur.iw, H / cur.ih) * cur.z,
+          dw = cur.iw * c, dh = cur.ih * c;
+      pic.style.backgroundSize = dw + 'px ' + dh + 'px';
+      pic.style.backgroundPosition = ((W - dw) / 2 + cur.x) + 'px ' + ((H - dh) / 2 + cur.y) + 'px';
+    }
+    function paint(now) {
       var c = Math.max(W / cur.iw, H / cur.ih) * cur.z,
           dw = cur.iw * c, dh = cur.ih * c;
       // keep a corner of the picture on the panel, however far it is dragged
       var mxX = (W + dw) / 2 - 24, mxY = (H + dh) / 2 - 24;
       cur.x = Math.max(-mxX, Math.min(mxX, cur.x));
       cur.y = Math.max(-mxY, Math.min(mxY, cur.y));
-      pic.style.backgroundSize = dw + 'px ' + dh + 'px';
-      pic.style.backgroundPosition = ((W - dw) / 2 + cur.x) + 'px ' + ((H - dh) / 2 + cur.y) + 'px';
+      if (now) draw();
+      else if (!drawQueued) { drawQueued = true; requestAnimationFrame(draw); }
       sendReady();   // moved or resized after sending: it can go again
     }
     function toSlider(z) { return Math.round(1000 * Math.log(z / cur.lo) / Math.log(cur.hi / cur.lo)); }
@@ -2988,7 +3001,7 @@
     function reset() {
       cur.z = 1; cur.x = 0; cur.y = 0;
       size.value = toSlider(1);
-      paint();
+      paint(true);
     }
     size.addEventListener('input', function () { cur.z = fromSlider(+size.value); paint(); });
     box.querySelector('.dfp__reset').addEventListener('click', reset);
@@ -3094,9 +3107,41 @@
     // of its own in the strip (the user, 2026-11-10). Picking an example after
     // it replaces it; uploading again brings it back.
     var own = null;   // its object URL, released when the next one replaces it
+
+    /* A big file is drawn down once, on arrival, to 2400 px on its long side
+       (the user, 2026-11-16: resizing and dragging lagged). The browser
+       otherwise redraws the full file - a phone photo or a print file can be
+       6000 px and more - on every change. 2400 px stays sharper than the
+       panel shows even at three times the size, and more than the 1000 x 1600
+       picture "send it to us" makes. WebP keeps a logo's transparency; a
+       browser that cannot write WebP gives PNG. Small files go as they are. */
+    var MAX_SIDE = 2400;
+    function shrink(file, done) {
+      var url = URL.createObjectURL(file), im = new Image();
+      im.onload = function () {
+        var w = im.naturalWidth, h = im.naturalHeight, s = MAX_SIDE / Math.max(w, h);
+        if (!(s < 1)) { done(url); return; }
+        try {
+          var cv = document.createElement('canvas');
+          cv.width = Math.round(w * s); cv.height = Math.round(h * s);
+          var cx = cv.getContext('2d');
+          cx.imageSmoothingQuality = 'high';
+          cx.drawImage(im, 0, 0, cv.width, cv.height);
+          cv.toBlob(function (b) {
+            if (!b) { done(url); return; }
+            URL.revokeObjectURL(url);
+            done(URL.createObjectURL(b));
+          }, 'image/webp', 0.92);
+        } catch (e) { done(url); }
+      };
+      im.onerror = function () { done(url); };   // show() then reports it
+      im.src = url;
+    }
     function useFile(file) {
       if (!file) return;
-      var url = URL.createObjectURL(file);
+      shrink(file, function (url) { useUrl(url); });
+    }
+    function useUrl(url) {
       show(url, function (ok) {
         if (!ok) { URL.revokeObjectURL(url); return; }
         if (own) URL.revokeObjectURL(own);
