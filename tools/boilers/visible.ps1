@@ -29,6 +29,9 @@
 # Lowered from 50 to 45 on 2026-09-24 for the Emtaş solid fuel boilers, whose
 # smallest size on sale is 47 kW. No Beretta, Riello or Warmhaus boiler lies
 # between 45 and 49 kW, so the wall-hung ranges stay held back as before.
+# Except one, since 2026-11-19: POWER EVO-X 50 is a 45 kW boiler (its real
+# output, $KW_BY_MODEL in 2-images.ps1), exactly on the floor - raise the floor
+# above 45 and it drops off the site.
 $BOILER_KWMIN = 45
 
 # Brands shown on test.biomi.ge only, as a preview (2026-09-25: Emtas, while
@@ -47,8 +50,10 @@ function IsPreviewSlug([string]$slug) {
   return $false
 }
 
-# The output is the number in the model name, the same reading the kW chips and
-# the filter bands already use: CITY 24 -> 24, VIWA S 150 -> 150. The six-digit
+# The output is the model's .kw where it has one (2-images.ps1 sets it for the
+# POWER MAX and POWER EVO-X, whose numbers are not their kW), otherwise the
+# number in the model name, the same reading the kW chips and the filter bands
+# already use: CITY 24 -> 24, VIWA S 150 -> 150. The six-digit
 # manufacturer codes that lead some names cannot match, since \b(\d{2,3})\b
 # needs a boundary on both sides.
 #

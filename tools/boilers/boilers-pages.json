@@ -261,7 +261,8 @@
         "country":  "იტალია",
         "dummy":  false,
         "kit":  false,
-        "slug":  "beretta-power-evo-x"
+        "slug":  "beretta-power-evo-x",
+        "kw":  "45"
     },
     {
         "brand":  "Warmhaus",
@@ -281,7 +282,8 @@
         "country":  "იტალია",
         "dummy":  false,
         "kit":  false,
-        "slug":  "beretta-power-evo-x"
+        "slug":  "beretta-power-evo-x",
+        "kw":  "55"
     },
     {
         "brand":  "Warmhaus",
@@ -301,7 +303,8 @@
         "country":  "იტალია",
         "dummy":  false,
         "kit":  false,
-        "slug":  "beretta-power-evo-x"
+        "slug":  "beretta-power-evo-x",
+        "kw":  "70"
     },
     {
         "brand":  "Warmhaus",
@@ -316,32 +319,35 @@
     {
         "brand":  "Beretta",
         "code":  "101024",
-        "name":  "20128433 CALDAIA POWER MAX 100 MTN გათბობის ქვაბი BERETTA",
+        "name":  "20128433 CALDAIA POWER MAX 100 გათბობის ქვაბი BERETTA",
         "mfr":  "20128433",
         "country":  "იტალია",
         "dummy":  false,
         "kit":  false,
-        "slug":  "beretta-power-max"
+        "slug":  "beretta-power-max",
+        "kw":  "90"
     },
     {
         "brand":  "Beretta",
         "code":  "101026",
-        "name":  "20128435 CALDAIA POWER MAX 130 MTN გათბობის ქვაბი BERETTA",
+        "name":  "20128435 CALDAIA POWER MAX 130 გათბობის ქვაბი BERETTA",
         "mfr":  "20128435",
         "country":  "იტალია",
         "dummy":  false,
         "kit":  false,
-        "slug":  "beretta-power-max"
+        "slug":  "beretta-power-max",
+        "kw":  "112"
     },
     {
         "brand":  "Beretta",
         "code":  "101028",
-        "name":  "20128436 CALDAIA POWER MAX 150 MTN გათბობის ქვაბი BERETTA",
+        "name":  "20128436 CALDAIA POWER MAX 150 გათბობის ქვაბი BERETTA",
         "mfr":  "20128436",
         "country":  "იტალია",
         "dummy":  false,
         "kit":  false,
-        "slug":  "beretta-power-max"
+        "slug":  "beretta-power-max",
+        "kw":  "131"
     },
     {
         "brand":  "Warmhaus",

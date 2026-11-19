@@ -2982,6 +2982,7 @@
       status.classList.toggle('is-bad', !!bad);
       status.hidden = false;
     }
+    // the panel as the visitor set it, as a canvas (1000 x 1600)
     function artwork(done) {
       var im = new Image();
       im.onload = function () {
@@ -2994,11 +2995,79 @@
           cx.fillRect(0, 0, cv.width, cv.height);
           cx.imageSmoothingQuality = 'high';
           cx.drawImage(im, ((W - dw) / 2 + cur.x) * s, ((H - dh) / 2 + cur.y) * s, dw * s, dh * s);
-          cv.toBlob(function (b) { done(b); }, 'image/jpeg', 0.88);
-        } catch (e) { done(null); }   // e.g. an SVG the browser will not let out
+          cv.getContext('2d').getImageData(0, 0, 1, 1);   // throws now if the browser will not let it out (an SVG)
+          done(cv);
+        } catch (e) { done(null); }
       };
       im.onerror = function () { done(null); };
       im.src = own;
+    }
+
+    /* And the unit with that panel on it, as the preview shows it (the user,
+       2026-11-16: the email should show the design on the product too - two
+       pictures). A canvas has no perspective transform, so the panel is laid
+       onto the frame photo's four corners pixel by pixel - place()'s mapping,
+       inverted - and the frame photo is multiplied on top, as in the page. */
+    function mockup(art, done) {
+      var fr = new Image();
+      fr.onload = function () {
+        try {
+          var S = 1.5, fw = Math.round(fr.naturalWidth * S), fh = Math.round(fr.naturalHeight * S),
+              cv = document.createElement('canvas');
+          cv.width = fw; cv.height = fh;
+          var cx = cv.getContext('2d'),
+              p = q.map(function (c) { return [c[0] / 100 * fw, c[1] / 100 * fh]; });
+          // the panel drawn down to about its size on the unit first, so the
+          // sampling below does not alias
+          var aw = Math.max(2, Math.round(Math.max(p[1][0] - p[0][0], p[2][0] - p[3][0]))),
+              ah = Math.max(2, Math.round(Math.max(p[3][1] - p[0][1], p[2][1] - p[1][1]))),
+              ac = document.createElement('canvas');
+          ac.width = aw; ac.height = ah;
+          var acx = ac.getContext('2d');
+          acx.imageSmoothingQuality = 'high';
+          acx.drawImage(art, 0, 0, aw, ah);
+          var src = acx.getImageData(0, 0, aw, ah).data;
+          // unit square -> the panel's corners (Heckbert, as in place()), and back
+          var x0 = p[0][0], y0 = p[0][1], x1 = p[1][0], y1 = p[1][1],
+              x2 = p[2][0], y2 = p[2][1], x3 = p[3][0], y3 = p[3][1];
+          var dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3,
+              dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3,
+              det = dx1 * dy2 - dx2 * dy1,
+              g = (dx3 * dy2 - dx2 * dy3) / det, h = (dx1 * dy3 - dx3 * dy1) / det,
+              a = x1 - x0 + g * x1, b = x3 - x0 + h * x3, c = x0,
+              d = y1 - y0 + g * y1, e = y3 - y0 + h * y3, f = y0;
+          var A = e - f * h, B = c * h - b, C = b * f - c * e,
+              D = f * g - d, E = a - c * g, F = c * d - a * f,
+              G = d * h - e * g, Hh = b * g - a * h, I = a * e - b * d;
+          var out = cx.createImageData(fw, fh), o = out.data;
+          for (var k = 0; k < o.length; k++) o[k] = 255;   // white
+          var bx0 = Math.max(0, Math.floor(Math.min(x0, x3))), bx1 = Math.min(fw, Math.ceil(Math.max(x1, x2))),
+              by0 = Math.max(0, Math.floor(Math.min(y0, y1))), by1 = Math.min(fh, Math.ceil(Math.max(y2, y3)));
+          for (var y = by0; y < by1; y++) {
+            for (var x = bx0; x < bx1; x++) {
+              var X = x + 0.5, Y = y + 0.5, w = G * X + Hh * Y + I,
+                  sx = (A * X + B * Y + C) / w, ty = (D * X + E * Y + F) / w;
+              if (sx < 0 || sx > 1 || ty < 0 || ty > 1) continue;
+              // bilinear
+              var u = Math.min(aw - 1, Math.max(0, sx * aw - 0.5)), v = Math.min(ah - 1, Math.max(0, ty * ah - 0.5)),
+                  ui = Math.floor(u), vi = Math.floor(v), fu = u - ui, fv = v - vi,
+                  u2 = Math.min(aw - 1, ui + 1), v2 = Math.min(ah - 1, vi + 1),
+                  i00 = (vi * aw + ui) * 4, i10 = (vi * aw + u2) * 4, i01 = (v2 * aw + ui) * 4, i11 = (v2 * aw + u2) * 4,
+                  oi = (y * fw + x) * 4;
+              for (var ch = 0; ch < 3; ch++) {
+                o[oi + ch] = (src[i00 + ch] * (1 - fu) + src[i10 + ch] * fu) * (1 - fv) +
+                             (src[i01 + ch] * (1 - fu) + src[i11 + ch] * fu) * fv;
+              }
+            }
+          }
+          cx.putImageData(out, 0, 0);
+          cx.globalCompositeOperation = 'multiply';
+          cx.drawImage(fr, 0, 0, fw, fh);
+          cv.toBlob(function (bl) { done(bl); }, 'image/jpeg', 0.88);
+        } catch (err2) { done(null); }
+      };
+      fr.onerror = function () { done(null); };
+      fr.src = frame.getAttribute('src') || box.getAttribute('data-frame');
     }
     send.addEventListener('click', function () {
       if (sendState || !own) return;
@@ -3012,22 +3081,29 @@
         sendLabel.textContent = sendText;
         say(box.getAttribute('data-send-err') || '', true);
       }
-      artwork(function (blob) {
-        if (!blob) { failed(); return; }
-        var fd = new FormData();
-        fd.append('design', blob, 'design.jpg');
-        fd.append('product', box.getAttribute('data-product') || '');
-        fd.append('lang', document.documentElement.lang === 'en' ? 'en' : 'ka');
-        fetch(new URL(box.getAttribute('data-send'), location.href), { method: 'POST', body: fd })
-          .then(function (r) { return r.json(); })
-          .then(function (res) {
-            if (!res || !res.ok) { failed(); return; }
-            sendState = 'done';
-            sendLabel.textContent = sendText;
-            say(box.getAttribute('data-sent') || '');
-            document.dispatchEvent(new CustomEvent('biomi:track', { detail: { name: 'print_design_sent' } }));
-          })
-          .catch(failed);
+      artwork(function (art) {
+        if (!art) { failed(); return; }
+        art.toBlob(function (blob) {
+          if (!blob) { failed(); return; }
+          // the unit picture is a bonus: if it cannot be drawn, the panel still goes
+          mockup(art, function (unit) {
+            var fd = new FormData();
+            fd.append('design', blob, 'design.jpg');
+            if (unit) fd.append('mockup', unit, 'design-unit.jpg');
+            fd.append('product', box.getAttribute('data-product') || '');
+            fd.append('lang', document.documentElement.lang === 'en' ? 'en' : 'ka');
+            fetch(new URL(box.getAttribute('data-send'), location.href), { method: 'POST', body: fd })
+              .then(function (r) { return r.json(); })
+              .then(function (res) {
+                if (!res || !res.ok) { failed(); return; }
+                sendState = 'done';
+                sendLabel.textContent = sendText;
+                say(box.getAttribute('data-sent') || '');
+                document.dispatchEvent(new CustomEvent('biomi:track', { detail: { name: 'print_design_sent' } }));
+              })
+              .catch(failed);
+          });
+        }, 'image/jpeg', 0.88);
       });
     });
     /* Drawing waits for the next frame (the user, 2026-11-16: resizing and

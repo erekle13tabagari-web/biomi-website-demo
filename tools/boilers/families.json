@@ -21,13 +21,13 @@
 
 {"slug":"beretta-power-evo-x","brand":"Beretta","fuel":"gas","match":"POWER EVO-X","imgdirs":["Beretta\\Power Evo-X"],
  "nameKa":"POWER EVO-X ქვაბი","nameEn":"POWER EVO-X boiler",
- "descKa":"Beretta-ს კომერციული სერია სამ სიმძლავრეში - 50, 65 და 80. კასკადურ სისტემაში მუშაობისთვის.",
- "descEn":"Beretta's commercial range in three outputs - 50, 65 and 80 - built to work in a cascade system."},
+ "descKa":"Beretta-ს კომერციული სერია სამ სიმძლავრეში - 45, 55 და 70 kW. კასკადურ სისტემაში მუშაობისთვის.",
+ "descEn":"Beretta's commercial range in three outputs - 45, 55 and 70 kW - built to work in a cascade system."},
 
 {"slug":"beretta-power-max","brand":"Beretta","fuel":"gas","match":"POWER MAX","imgdirs":["Beretta\\Power Max"],
  "nameKa":"POWER MAX ქვაბი","nameEn":"POWER MAX boiler",
- "descKa":"Beretta-ს კომერციული სერიის უმაღლესი სიმძლავრეები - 100, 130 და 150. კასკადურ სისტემაში მუშაობისთვის.",
- "descEn":"The top outputs of Beretta's commercial range - 100, 130 and 150 - built to work in a cascade system."},
+ "descKa":"Beretta-ს კომერციული სერიის უმაღლესი სიმძლავრეები - 90, 112 და 131 kW. კასკადურ სისტემაში მუშაობისთვის.",
+ "descEn":"The top outputs of Beretta's commercial range - 90, 112 and 131 kW - built to work in a cascade system."},
 
 {"slug":"riello-start-25","brand":"Riello","fuel":"gas","match":"START 25 KIS","imgdirs":["Riello\\Start 25"],
  "nameKa":"START 25 KIS კედლის ქვაბი","nameEn":"START 25 KIS wall-hung boiler",

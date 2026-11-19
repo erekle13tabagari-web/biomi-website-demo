@@ -1,8 +1,8 @@
 [
 {"slug":"beretta-idra-bv","brand":"Beretta","match":"^IDRA BV","imgdirs":["Beretta/Idra BV 200_300"],
  "nameKa":"IDRA BV ბოილერი","nameEn":"IDRA BV cylinder",
- "descKa":"Beretta-ს ირიბი გაცხელების ბოილერი ერთი თბომცვლელით, 200 და 300 ლიტრში.",
- "descEn":"Beretta's indirect cylinder with a single coil, in 200 and 300 litres."},
+ "descKa":"Beretta-ს ბოილერი ერთი თბომცვლელით, 200 და 300 ლიტრში.",
+ "descEn":"Beretta's hot water cylinder with a single coil, in 200 and 300 litres."},
 
 {"slug":"riello-7200v","brand":"Riello","match":"7200[.]200NV","imgdirs":["Riello/7200V 200NV"],
  "nameKa":"7200V 200NV ბოილერი","nameEn":"7200V 200NV cylinder",

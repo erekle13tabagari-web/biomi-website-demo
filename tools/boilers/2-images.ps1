@@ -49,7 +49,9 @@ foreach ($e in (Get-EmtasData).models) {
 # merged record keeps whichever row actually has them.
 $merged = @{}; $ordered = New-Object System.Collections.ArrayList
 foreach ($m in $mods) {
-  $key = ($m.name -replace '\(კომპლექტში\)','' -replace '\s+',' ').Trim()
+  # "MTN" is taken off the POWER MAX names (the user, 2026-11-19: "get rid of
+  # MTNs everywhere") - chips, spec table, search terms all come from this name
+  $key = ($m.name -replace '\(კომპლექტში\)','' -replace '\s+MTN\b','' -replace '\s+',' ').Trim()
   if ($merged.ContainsKey($key)) {
     $e = $merged[$key]
     if ($m.code -and $e.code -notmatch $m.code) { $e.code = ($e.code + ' / ' + $m.code) }
@@ -62,6 +64,15 @@ foreach ($m in $mods) {
 }
 $mods = $ordered
 
+# ---- outputs the model number does not give
+# Without a kw, the pages read the output off the name, and for these two
+# Beretta ranges the number is not the kW (the user, 2026-11-19): POWER MAX
+# 100/130/150 are 90/112/131 kW, POWER EVO-X 50/65/80 are 45/55/70 kW.
+$KW_BY_MODEL = [ordered]@{
+  'POWER MAX 100'  = '90';  'POWER MAX 130'  = '112'; 'POWER MAX 150'  = '131'
+  'POWER EVO-X 50' = '45';  'POWER EVO-X 65' = '55';  'POWER EVO-X 80' = '70'
+}
+
 # ---- assign each boiler to exactly one page
 $unassigned = @()
 foreach ($m in $mods) {
@@ -73,6 +84,10 @@ foreach ($m in $mods) {
   # output where the name carries none, and the category when it is not boilers.
   if ($hitFam.kw)  { $m | Add-Member -NotePropertyName kw  -NotePropertyValue ([string]$hitFam.kw)  -Force }
   if ($hitFam.cat) { $m | Add-Member -NotePropertyName cat -NotePropertyValue ([string]$hitFam.cat) -Force }
+  # and the output of a model whose number is not its kW
+  foreach ($k in $KW_BY_MODEL.Keys) {
+    if ($m.name -match ('\b' + [regex]::Escape($k) + '\b')) { $m | Add-Member -NotePropertyName kw -NotePropertyValue $KW_BY_MODEL[$k] -Force }
+  }
 }
 Write-Host ("boilers: " + $mods.Count + "   unassigned: " + $unassigned.Count)
 $unassigned | ForEach-Object { Write-Host ("   ! " + $_) }

@@ -4,7 +4,9 @@
    Called by the "send it to us" button beside the upload on the VORT HRW-ALL
    100 DF page (main.js, the printed front panel - the user, 2026-11-12:
    "without making the whole form"). The visitor's picture arrives as it sits
-   on the panel, a JPEG the browser drew, with no name or contact details.
+   on the panel, a JPEG the browser drew, with no name or contact details -
+   and with it the unit wearing that panel, as the page's preview showed it
+   (2026-11-16), so the email holds both.
    Answers JSON like contact.php: {"ok":true} or {"ok":false,"error":"<code>"}.
 
    Its settings are contact.php's: biomi-config.php beside public_html (where
@@ -103,17 +105,33 @@ if (!isset(PRODUCTS[$slug])) fail('invalid');
 $product = PRODUCTS[$slug];
 $lang = ($_POST['lang'] ?? '') === 'en' ? 'en' : 'ka';
 
-// One JPEG, checked by what it is, not by the name the browser gave it.
+// A JPEG, checked by what it is, not by the name the browser gave it.
+// Returns [bytes, width, height] or fails the request.
+function jpegUpload(array $f): array {
+  if (is_array($f['error'])) fail('file');
+  if ($f['error'] === UPLOAD_ERR_INI_SIZE || $f['error'] === UPLOAD_ERR_FORM_SIZE) fail('too_large', 413);
+  if ($f['error'] !== UPLOAD_ERR_OK || !is_uploaded_file($f['tmp_name'])) fail('file');
+  $n = (int)$f['size'];
+  if ($n <= 0 || $n > MAX_BYTES) fail('too_large', 413);
+  $info = @getimagesize($f['tmp_name']);
+  if (!$info || $info[2] !== IMAGETYPE_JPEG || $info[0] < 50 || $info[1] < 50 || $info[0] > MAX_SIDE || $info[1] > MAX_SIDE) fail('file');
+  $data = (string)file_get_contents($f['tmp_name']);
+  if (strncmp($data, "\xFF\xD8\xFF", 3) !== 0) fail('file');
+  return [$data, (int)$info[0], (int)$info[1]];
+}
+// The panel as the visitor set it ("design"), and - since 2026-11-16 (the
+// user: the email should show the design on the product too) - the unit with
+// that panel on it, as the page's preview showed it ("mockup", optional: a
+// page still cached from before sends only the panel).
 $f = $_FILES['design'] ?? null;
-if (!is_array($f) || is_array($f['error'])) fail('file');
-if ($f['error'] === UPLOAD_ERR_INI_SIZE || $f['error'] === UPLOAD_ERR_FORM_SIZE) fail('too_large', 413);
-if ($f['error'] !== UPLOAD_ERR_OK || !is_uploaded_file($f['tmp_name'])) fail('file');
-$bytes = (int)$f['size'];
-if ($bytes <= 0 || $bytes > MAX_BYTES) fail('too_large', 413);
-$info = @getimagesize($f['tmp_name']);
-if (!$info || $info[2] !== IMAGETYPE_JPEG || $info[0] < 50 || $info[1] < 50 || $info[0] > MAX_SIDE || $info[1] > MAX_SIDE) fail('file');
-$jpeg = (string)file_get_contents($f['tmp_name']);
-if (strncmp($jpeg, "\xFF\xD8\xFF", 3) !== 0) fail('file');
+if (!is_array($f)) fail('file');
+[$jpeg] = jpegUpload($f);
+$bytes = strlen($jpeg);
+$unit = null; $unitW = 0; $unitH = 0;
+if (isset($_FILES['mockup']) && is_array($_FILES['mockup'])) {
+  [$unit, $unitW, $unitH] = jpegUpload($_FILES['mockup']);
+  $bytes += strlen($unit);
+}
 
 $ip   = substr((string)($_SERVER['REMOTE_ADDR'] ?? ''), 0, 45);
 $site = preg_match('/^(www\.|test\.)?biomi\.ge$/', $host) ? $host : 'biomi.ge';
@@ -145,20 +163,52 @@ $when = date('d.m.Y H:i');
 $page = 'https://' . $site . '/products/' . $slug . ($lang === 'en' ? '-en' : '') . '.html';
 $langName = $lang === 'en' ? 'ინგლისური' : 'ქართული';
 $subject = ($isTest ? '[TEST] ' : '') . 'დიზაინი ვებ-გვერდიდან - ' . $product;
-$fileName = 'design-' . ($sendId ?: date('YmdHis')) . '.jpg';
+$base = 'design-' . ($sendId ?: date('YmdHis'));
+$fileName = $base . '.jpg';
+$unitName = $base . '-unit.jpg';
 $logo = __DIR__ . '/email-logo.png';
 if (!is_file($logo)) $logo = '';
 
-$text = implode("\r\n", [
+$text = implode("\r\n", array_merge([
   'ვებ-გვერდიდან გამოგზავნილი დიზაინი' . ($sendId ? ' #' . $sendId : ''),
   '',
   'პროდუქტი: ' . $product,
   'გვერდი:   ' . $page . ' (' . $langName . ')',
   'დრო:      ' . $when,
   '',
+], $unit !== null ? [
+  'მიმაგრებულია ორი სურათი:',
+  '- ' . $unitName . ' - პროდუქტზე, როგორც გვერდზე ჩანდა;',
+  '- ' . $fileName . ' - წინა პანელი, ისე, როგორც დასვა.',
+] : [
   'სურათი მიმაგრებულია (' . $fileName . ') - ისე, როგორც ის პანელზე დასვა.',
+], [
   'გამომგზავნს სახელი და კონტაქტი არ მოუწერია.',
-]) . "\r\n";
+])) . "\r\n";
+
+/* The pictures: side by side when both came, each 320px tall - the unit in
+   its own proportions, the panel 1000 x 1600 (5:8). */
+$capStyle = 'padding-top:8px;font-family:' . MAIL_FONT . ';font-size:13px;line-height:18px;color:#6c6f72;';
+if ($unit !== null) {
+  $uw = $unitH > 0 ? (int)round(320 * $unitW / $unitH) : 236;
+  $pictures = '<tr><td style="padding:24px 26px 6px;">'
+    . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>'
+    .   '<td width="50%" align="center" valign="top" style="padding:0 6px;">'
+    .     '<img src="cid:unit@biomi.ge" width="' . $uw . '" height="320" alt="პროდუქტზე" style="display:block;border:1px solid #e7e6ea;width:' . $uw . 'px;height:320px;">'
+    .     '<div style="' . $capStyle . '">პროდუქტზე - როგორც გვერდზე ჩანდა</div>'
+    .   '</td>'
+    .   '<td width="50%" align="center" valign="top" style="padding:0 6px;">'
+    .     '<img src="cid:design@biomi.ge" width="200" height="320" alt="წინა პანელი" style="display:block;border:1px solid #e7e6ea;width:200px;height:320px;">'
+    .     '<div style="' . $capStyle . '">წინა პანელი - ისე, როგორც დასვა</div>'
+    .   '</td>'
+    . '</tr></table></td></tr>'
+    . '<tr><td align="center" style="padding:10px 32px 0;font-family:' . MAIL_FONT . ';font-size:13px;line-height:19px;color:#6c6f72;">ორივე სურათი სრული ზომით მიმაგრებულია.</td></tr>';
+} else {
+  $pictures = '<tr><td align="center" style="padding:24px 32px 6px;">'
+    . '<img src="cid:design@biomi.ge" width="300" height="480" alt="დიზაინი" style="display:block;border:1px solid #e7e6ea;width:300px;height:480px;">'
+    . '</td></tr>'
+    . '<tr><td align="center" style="padding:4px 32px 0;font-family:' . MAIL_FONT . ';font-size:13px;line-height:19px;color:#6c6f72;">ისე, როგორც ის წინა პანელზე დასვა. სრული ზომით - მიმაგრებულ ფაილში.</td></tr>';
+}
 
 $cell = 'font-family:' . MAIL_FONT . ';';
 $logoHtml = $logo
@@ -181,10 +231,7 @@ $html = '<!doctype html><html lang="ka"><head><meta charset="utf-8"><meta name="
   . '<tr><td style="padding:28px 32px 0;' . $cell . 'font-size:13px;line-height:18px;font-weight:700;color:#0238be;">ახალი დიზაინი ვებ-გვერდიდან</td></tr>'
   . '<tr><td style="padding:6px 32px 0;' . $cell . 'font-size:24px;line-height:31px;font-weight:700;color:#1b1b33;">' . h($product) . '</td></tr>'
   . '<tr><td style="padding:4px 32px 0;' . $cell . 'font-size:14px;line-height:20px;color:#6c6f72;">' . h($when) . '</td></tr>'
-  . '<tr><td align="center" style="padding:24px 32px 6px;">'
-  .   '<img src="cid:design@biomi.ge" width="300" height="480" alt="დიზაინი" style="display:block;border:1px solid #e7e6ea;width:300px;height:480px;">'
-  . '</td></tr>'
-  . '<tr><td align="center" style="padding:4px 32px 0;' . $cell . 'font-size:13px;line-height:19px;color:#6c6f72;">ისე, როგორც ის წინა პანელზე დასვა. სრული ზომით - მიმაგრებულ ფაილში.</td></tr>'
+  . $pictures
   . '<tr><td style="padding:24px 32px 26px;' . $cell . 'font-size:12px;line-height:19px;color:#6c6f72;">'
   .   '<div style="border-top:1px solid #e7e6ea;padding-top:16px;">'
   .     'გვერდი: <a href="' . h($page) . '" style="color:#6c6f72;">' . h(preg_replace('#^https?://#', '', $page) ?? $page) . '</a> &middot; ' . h($langName) . ' ვერსია<br>'
@@ -194,8 +241,8 @@ $html = '<!doctype html><html lang="ka"><head><meta charset="utf-8"><meta name="
   . '</td></tr>'
   . '</table></td></tr></table></body></html>';
 
-/* MIME: text + HTML as alternatives; the logo and the design ride with the
-   HTML (related) - the design inline, with a file name so it can be saved. */
+/* MIME: text + HTML as alternatives; the logo and the pictures ride with the
+   HTML (related) - the pictures inline, with file names so they can be saved. */
 $alt = 'alt-' . bin2hex(random_bytes(10));
 $rel = 'rel-' . bin2hex(random_bytes(10));
 $body = "This is a multi-part message in MIME format.\r\n"
@@ -208,6 +255,11 @@ if ($logo) {
   $body .= "--$rel\r\nContent-Type: image/png; name=\"biomi-logo.png\"\r\nContent-Transfer-Encoding: base64\r\n"
          . "Content-ID: <biomi-logo@biomi.ge>\r\nContent-Disposition: inline; filename=\"biomi-logo.png\"\r\n\r\n"
          . chunk_split(base64_encode((string)file_get_contents($logo)));
+}
+if ($unit !== null) {
+  $body .= "--$rel\r\nContent-Type: image/jpeg; name=\"$unitName\"\r\nContent-Transfer-Encoding: base64\r\n"
+         . "Content-ID: <unit@biomi.ge>\r\nContent-Disposition: inline; filename=\"$unitName\"\r\n\r\n"
+         . chunk_split(base64_encode($unit));
 }
 $body .= "--$rel\r\nContent-Type: image/jpeg; name=\"$fileName\"\r\nContent-Transfer-Encoding: base64\r\n"
        . "Content-ID: <design@biomi.ge>\r\nContent-Disposition: inline; filename=\"$fileName\"\r\n\r\n"
